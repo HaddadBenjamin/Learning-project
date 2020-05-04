@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +17,28 @@ namespace Learning.Authentification.JwtTokenWithApi
     public class AuthentificationController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public AuthentificationController(UserManager<ApplicationUser> userManager) =>
+        public AuthentificationController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        {
             _userManager = userManager;
+            _signInManager = signInManager;
+        }
+
+        [HttpPost]
+        [Route("signin")]
+        public async Task<IActionResult> SignIn([FromBody] SignInModel model)
+        {
+            var user = new ApplicationUser {UserName = model.Username};
+            var result = await _userManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+                return BadRequest(string.Join(Environment.NewLine, result.Errors.Select(error => error.Description)));
+           
+            await _signInManager.SignInAsync(user, false);
+
+            return Ok();
+        }
 
         [HttpPost]
         [Route("login")]
@@ -26,7 +46,7 @@ namespace Learning.Authentification.JwtTokenWithApi
         {
             var user = await _userManager.FindByNameAsync(model.Username);
 
-            if (user != null)
+            if (user == null)
                 return Unauthorized();
             
             var passwordIsValid = await _userManager.CheckPasswordAsync(user, model.Password);
@@ -39,10 +59,10 @@ namespace Learning.Authentification.JwtTokenWithApi
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
-            var signinKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("YourSecureKey"));
+            var signinKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("thiskeyshouldbeatleastof16characters"));
             var token = new JwtSecurityToken(
-                issuer: "http://oec.com",
-                audience:"http://oec.com",
+                issuer: "https://diablo-2-enriched-documentation.netlify.app/",
+                audience: "https://diablo-2-enriched-documentation.netlify.app/",
                 expires: DateTime.UtcNow.AddHours(1),
                 claims : claims,
                 signingCredentials: new SigningCredentials(signinKey, SecurityAlgorithms.HmacSha256));
@@ -59,6 +79,13 @@ namespace Learning.Authentification.JwtTokenWithApi
     {
         [Required] public string Username { get; set; }
         
+        [Required] public string Password { get; set; }
+    }
+
+    public class SignInModel
+    {
+        [Required] public string Username { get; set; }
+
         [Required] public string Password { get; set; }
     }
 }

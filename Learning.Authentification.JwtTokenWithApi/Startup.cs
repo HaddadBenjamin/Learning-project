@@ -1,14 +1,12 @@
-using System;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Learning.Authentification.JwtTokenWithApi
@@ -17,6 +15,8 @@ namespace Learning.Authentification.JwtTokenWithApi
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
+
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=LearningAuthentification-2;Trusted_Connection=True;MultipleActiveResultSets=true"));
 
             services
@@ -39,9 +39,9 @@ namespace Learning.Authentification.JwtTokenWithApi
                     {
                         ValidateIssuer = true,
                         ValidateAudience = true,
-                        ValidAudience = "http://oec.com",
-                        ValidIssuer = "http://oec.com",
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("YourSecureKey"))
+                        ValidAudience = "https://diablo-2-enriched-documentation.netlify.app/",
+                        ValidIssuer = "https://diablo-2-enriched-documentation.netlify.app/",
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("thiskeyshouldbeatleastof16characters"))
                     };
                 });
 
@@ -52,17 +52,9 @@ namespace Learning.Authentification.JwtTokenWithApi
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
-            DatabaseSeeder.Seed(app);
-
             app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
-            });
+            app.UseEndpoints(builder => builder.MapControllers());
         }
     }
 }
