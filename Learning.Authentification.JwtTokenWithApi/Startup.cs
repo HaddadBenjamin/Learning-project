@@ -1,5 +1,4 @@
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -44,7 +43,6 @@ namespace Learning.Authentification.JwtTokenWithApi
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("thiskeyshouldbeatleastof16characters"))
                     };
                 });
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -54,7 +52,18 @@ namespace Learning.Authentification.JwtTokenWithApi
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(builder => builder.MapControllers());
+
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var dbContextDatabase = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+                dbContextDatabase.Database.EnsureDeleted();
+                dbContextDatabase.Database.EnsureCreated();
+            }
         }
     }
 }
