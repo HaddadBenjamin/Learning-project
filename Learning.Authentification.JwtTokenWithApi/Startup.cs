@@ -59,10 +59,10 @@ namespace Learning.Authentification.JwtTokenWithApi
 
             using (var scope = app.ApplicationServices.CreateScope())
             {
-                var dbContextDatabase = scope.ServiceProvider.GetService<ApplicationDbContext>();
+                var dbContext = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-                dbContextDatabase.Database.EnsureDeleted();
-                dbContextDatabase.Database.EnsureCreated();
+                dbContext.Database.EnsureDeleted();
+                dbContext.Database.EnsureCreated();
             }
         }
     }
