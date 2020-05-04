@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Learning.Authentification.JwtTokenWithApi
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -19,25 +20,28 @@ namespace Learning.Authentification.JwtTokenWithApi
 
     public static class DatabaseSeeder
     {
-        public static void Seed(IServiceProvider serviceProvider)
+        public static void Seed(IApplicationBuilder app)
         {
-            var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
-            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-
-            dbContext.Database.EnsureCreated();
-
-            if (!dbContext.Users.Any())
+            using (var serviceScope = app.ApplicationServices.CreateScope())
             {
-                var user = new ApplicationUser
+                var dbContext = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
+                var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+
+                dbContext.Database.EnsureCreated();
+
+                if (!dbContext.Users.Any())
                 {
-                    Email = "toto@gmail.com",
-                    SecurityStamp = Guid.NewGuid().ToString(),
-                    UserName = "toto",
-                };
+                    var user = new ApplicationUser
+                    {
+                        Email = "toto@gmail.com",
+                        SecurityStamp = Guid.NewGuid().ToString(),
+                        UserName = "toto",
+                    };
 
-                dbContext.Users.Add(user);
+                    dbContext.Users.Add(user);
 
-                userManager.CreateAsync(user, "PasswordFaked");
+                    userManager.CreateAsync(user, "PasswordFaked");
+                }
             }
         }
     }

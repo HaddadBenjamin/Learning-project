@@ -1,12 +1,15 @@
 using System;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Learning.Authentification.JwtTokenWithApi
 {
@@ -20,16 +23,36 @@ namespace Learning.Authentification.JwtTokenWithApi
                 .AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services
+                .AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.SaveToken = true;
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidAudience = "http://oec.com",
+                        ValidIssuer = "http://oec.com",
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("YourSecureKey"))
+                    };
+                });
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            var serviceProvider = app.ApplicationServices.GetRequiredService<IServiceProvider>();
-
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
-            DatabaseSeeder.Seed(serviceProvider);
+            DatabaseSeeder.Seed(app);
 
             app.UseRouting();
 
