@@ -1,8 +1,10 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,7 +16,13 @@ namespace Learning.Authentification.JwtTokenWithApi
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            });
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=LearningAuthentification-2;Trusted_Connection=True;MultipleActiveResultSets=true"));
 
@@ -38,8 +46,11 @@ namespace Learning.Authentification.JwtTokenWithApi
                     {
                         ValidateIssuer = true,
                         ValidateAudience = true,
+                        // La claim aud correspond à l'URL du serveur de resource qui va accepter le token (nous-même).
                         ValidAudience = "https://diablo-2-enriched-documentation.netlify.app/",
+                        // Le claim iss corresond à l'URL du serveur qui a émit ce token (nous-même).
                         ValidIssuer = "https://diablo-2-enriched-documentation.netlify.app/",
+                        // Clé pour valider la signature de vos tokens.
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("thiskeyshouldbeatleastof16characters"))
                     };
                 });
@@ -57,6 +68,11 @@ namespace Learning.Authentification.JwtTokenWithApi
 
             app.UseEndpoints(builder => builder.MapControllers());
 
+            ResetTheDatabase(app);
+        }
+
+        private void ResetTheDatabase(IApplicationBuilder app)
+        {
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetService<ApplicationDbContext>();

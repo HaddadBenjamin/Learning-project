@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,7 @@ namespace Learning.Authentification.JwtTokenWithApi
 
         [HttpPost]
         [Route("signin")]
+        [AllowAnonymous]
         public async Task<IActionResult> SignIn([FromBody] SignInModel model)
         {
             var user = new ApplicationUser {UserName = model.Username};
@@ -36,13 +38,14 @@ namespace Learning.Authentification.JwtTokenWithApi
             if (!result.Succeeded)
                 return BadRequest(string.Join(Environment.NewLine, result.Errors.Select(error => error.Description)));
 
-            await _signInManager.SignInAsync(user, false);
+            await _signInManager.SignInAsync(user, false, JwtBearerDefaults.AuthenticationScheme);
 
             return Ok();
         }
 
         [HttpPost]
         [Route("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var user = await _userManager.FindByNameAsync(model.Username);
@@ -75,10 +78,13 @@ namespace Learning.Authentification.JwtTokenWithApi
             };
 
             var token = new JwtSecurityToken(
+                // Le claim iss corresond à l'URL du serveur qui a émit ce token (nous-même).
                 issuer: "https://diablo-2-enriched-documentation.netlify.app/",
+                // La claim aud correspond à l'URL du serveur de resource qui va accepter le token (nous-même).
                 audience: "https://diablo-2-enriched-documentation.netlify.app/",
                 expires: DateTime.UtcNow.AddHours(1),
                 claims: claims,
+                // Clé pour valider la signature de vos tokens.
                 signingCredentials: credentials);
 
             var encodedToken = new JwtSecurityTokenHandler().WriteToken(token);
@@ -88,7 +94,6 @@ namespace Learning.Authentification.JwtTokenWithApi
 
         [HttpPost]
         [Route("logout")]
-        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
