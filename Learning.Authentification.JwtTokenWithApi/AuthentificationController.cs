@@ -68,7 +68,7 @@ namespace Learning.Authentification.JwtTokenWithApi
             if (!passwordIsValid)
                 return Unauthorized();
 
-            var encodedBearerToken = GenerateBearerToken(user);
+            var encodedBearerToken = GenerateEncodedBearerToken(user);
 
             return Ok(new
             {
@@ -76,18 +76,17 @@ namespace Learning.Authentification.JwtTokenWithApi
             });
         }
 
-
         [AllowAnonymous]
         [HttpPost("loginWithGoogle")]
         public async Task<IActionResult> LoginWithGoogle([FromBody]LoginWithGoogleModel model)
         {
-            GoogleJsonWebSignature.Payload payload = new GoogleJsonWebSignature.Payload();
+            GoogleJsonWebSignature.Payload googlePayload = new GoogleJsonWebSignature.Payload();
 
-            try { payload = GoogleJsonWebSignature.ValidateAsync(model.TokenId, new GoogleJsonWebSignature.ValidationSettings()).Result; }
+            try { googlePayload = await GoogleJsonWebSignature.ValidateAsync(model.TokenId, new GoogleJsonWebSignature.ValidationSettings()); }
             catch (Exception exception) { BadRequest(exception.Message); }
 
-            var user = CreateUserIfNotExists(payload);
-            var encodedBearerToken = GenerateBearerToken(user);
+            var user = CreateUserIfNotExists(googlePayload);
+            var encodedBearerToken = GenerateEncodedBearerToken(user);
 
             return Ok(new
             {
@@ -95,7 +94,7 @@ namespace Learning.Authentification.JwtTokenWithApi
             });
         }
 
-        private static string GenerateBearerToken(ApplicationUser user)
+        private static string GenerateEncodedBearerToken(ApplicationUser user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("thiskeyshouldbeatleastof16characters"));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
