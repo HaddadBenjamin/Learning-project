@@ -83,7 +83,7 @@ namespace Learning.Authentification.JwtTokenWithApi
             GoogleJsonWebSignature.Payload googlePayload = new GoogleJsonWebSignature.Payload();
 
             try { googlePayload = await GoogleJsonWebSignature.ValidateAsync(model.TokenId, new GoogleJsonWebSignature.ValidationSettings()); }
-            catch (Exception exception) { BadRequest(exception.Message); }
+            catch (Exception exception) { return BadRequest(exception.Message); }
 
             var user = CreateUserIfNotExists(googlePayload);
             var encodedBearerToken = GenerateEncodedBearerToken(user);
