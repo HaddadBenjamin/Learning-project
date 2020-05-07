@@ -16,6 +16,7 @@ namespace Learning.Authentification.JwtTokenWithApi
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            // Oblige l’authentification sur tous vos endpoints pour y avoir accès.
             services.AddMvc(config =>
             {
                 var policy = new AuthorizationPolicyBuilder()
