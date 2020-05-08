@@ -9,7 +9,6 @@ export interface IAuthentificationState
     isAuthentified : boolean,
     token? : string,
     username? : string,
-    email? : string,
     errorMessage? : string,
 }
 
