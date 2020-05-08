@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import {ToastContainer} from "react-toastify";
 import AuthentificationFirstPage from "./components/Authentification/AuthentificationPage";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (

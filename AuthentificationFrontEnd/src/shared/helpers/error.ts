@@ -2,7 +2,11 @@ class Errors
 {
     public getErrorMessage(error: any) : string
     {
-        return `${error.response.status} : ${error.response.statusText} - ${error.response.data.Message}.`;
+        const status = error.response.status || '';
+        const statusText = error.response.statusText || '';
+        const message = error.response.data || '';
+
+        return `${status} : ${statusText} - ${message}.`;
     }
 }
 
