@@ -25,6 +25,8 @@ namespace Learning.Authentification.JwtTokenWithApi
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
 
+            services.AddCors();
+
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=LearningAuthentification-2;Trusted_Connection=True;MultipleActiveResultSets=true"));
 
             services
@@ -61,6 +63,11 @@ namespace Learning.Authentification.JwtTokenWithApi
         {
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
+
+            app.UseCors(policyBuilder => policyBuilder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseRouting();
 

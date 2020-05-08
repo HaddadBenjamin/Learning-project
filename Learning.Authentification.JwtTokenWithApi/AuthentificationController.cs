@@ -68,12 +68,7 @@ namespace Learning.Authentification.JwtTokenWithApi
             if (!passwordIsValid)
                 return Unauthorized();
 
-            var encodedBearerToken = GenerateEncodedBearerToken(user);
-
-            return Ok(new
-            {
-                token = encodedBearerToken,
-            });
+            return GenerateTokenResponse(user);
         }
 
         [AllowAnonymous]
@@ -88,9 +83,17 @@ namespace Learning.Authentification.JwtTokenWithApi
             var user = CreateUserIfNotExists(googlePayload);
             var encodedBearerToken = GenerateEncodedBearerToken(user);
 
+            return GenerateTokenResponse(user);
+        }
+
+        private IActionResult GenerateTokenResponse(ApplicationUser user)
+        {
+            var encodedBearerToken = GenerateEncodedBearerToken(user);
+
             return Ok(new
             {
-                token = encodedBearerToken
+                Token = encodedBearerToken,
+                Username = user.UserName
             });
         }
 
