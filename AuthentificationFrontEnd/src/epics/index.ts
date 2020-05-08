@@ -3,12 +3,8 @@ import {
     createEpicMiddleware,
 } from 'redux-observable';
 import {IGlobalState} from "../reducers";
-import {
-    AuthentificationAction
-} from "../actions";
 import authentificationEpics from './authentification.epic'
-
-type ApplicationAction = AuthentificationAction;
+import {ApplicationAction} from "../actions";
 
 export const rootEpic = combineEpics(authentificationEpics);
 

@@ -2,8 +2,8 @@ import {
     combineEpics,
     Epic
 } from "redux-observable";
-import {AuthentificationAction} from "../actions";
 import {IGlobalState} from "../reducers";
+import {AuthentificationAction} from "../actions/authentification.action";
 
 type AuthentificationEpic = Epic<AuthentificationAction, AuthentificationAction, IGlobalState>;
 
