@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
@@ -15,6 +16,10 @@ namespace Learning.Authentification.JwtTokenWithApi
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+
+        public Startup(IConfiguration configuration) => _configuration = configuration;
+
         public void ConfigureServices(IServiceCollection services)
         {
             // Oblige l’authentification sur tous vos endpoints pour y avoir accès.
@@ -58,8 +63,14 @@ namespace Learning.Authentification.JwtTokenWithApi
                         // Le claim iss corresond à l'URL du serveur qui a émit ce token (nous-même).
                         ValidIssuer = "https://diablo-2-enriched-documentation.netlify.app/",
                         // Clé pour valider la signature de vos tokens.
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("thiskeyshouldbeatleastof16characters"))
+                        IssuerSigningKey =
+                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes("thiskeyshouldbeatleastof16characters"))
                     };
+                })
+                .AddGoogle(builder =>
+                {
+                    builder.ClientId = _configuration["authentification:google:clientid"];
+                    builder.ClientSecret = _configuration["authentification:google:clientsecret"];
                 });
         }
 
