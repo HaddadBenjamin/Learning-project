@@ -5,7 +5,7 @@ import rootReducer, { initialState } from '../reducers';
 
 // Ajoute l'onglet redux dans chrome.
 const composeEnhancer = composeWithDevTools({
-    name: 'React Clean Architecture'
+    name: 'Learning Authentification'
 });
 
 const store = createStore(

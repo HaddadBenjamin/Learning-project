@@ -12,7 +12,7 @@ import {
     signIn
 } from "../../actions/authentification.action";
 
-const NotificationFirstPage = () =>
+const AuthentificationFirstPage = () =>
 {
     const isAuthentified = useSelector<IGlobalState, boolean>(state => state.authentification.isAuthentified);
     const errorMessage = useSelector<IGlobalState, string | undefined>(state => state.authentification.errorMessage);
@@ -37,17 +37,17 @@ const NotificationFirstPage = () =>
         setPassword(event.target.value);
     }
 
-    function onLoginClick() : void
+    function onClickLogin() : void
     {
         login(username, password);
     }
 
-    function onSignInClick() : void
+    function onClickSignIn() : void
     {
         signIn(username, password);
     }
 
-    function onLogoutClick() : void
+    function onClickLogout() : void
     {
         logout();
     }
@@ -55,8 +55,8 @@ const NotificationFirstPage = () =>
     return (<>
             {isAuthentified ? (
                 <>
-                    <button onClick={onSignInClick}>Sign In</button>
-                    <button onClick={onLoginClick}>Log In</button>
+                    <button onClick={onClickSignIn}>Sign In</button>
+                    <button onClick={onClickLogin}>Log In</button>
                     <button disabled={true}>Log In with Google</button>
                     <button disabled={true}>Log In with Facebook</button>
                     <button disabled={true}>Log In with Microsoft</button>
@@ -68,9 +68,11 @@ const NotificationFirstPage = () =>
                 (
                     <>
                         Hi {{usernameFromGlobalState}} !
-                        <button onClick={onLogoutClick}>Log out</button>
+                        <button onClick={onClickLogout}>Log out</button>
                     </>
                 )}
         </>
     );
 }
+
+export default AuthentificationFirstPage
