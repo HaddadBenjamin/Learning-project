@@ -81,7 +81,6 @@ namespace Learning.Authentification.JwtTokenWithApi
             catch (Exception exception) { return BadRequest(exception.Message); }
 
             var user = CreateUserIfNotExists(googlePayload);
-            var encodedBearerToken = GenerateEncodedBearerToken(user);
 
             return GenerateTokenResponse(user);
         }
