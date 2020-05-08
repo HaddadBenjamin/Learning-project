@@ -63,7 +63,7 @@ const logoutAuthentificationEpic: AuthentificationEpic = (action$, state$) => ac
     filter(isOfType(AuthentificationActionTypes.LOGOUT)),
     switchMap(action =>
         from(api.post('authentification/logout', {
-        })).pipe(
+        }, state$.value.authentification.token)).pipe(
             map(() => loggedOut()),
             catchError((error) => of(loggingOutFailed(errors.getErrorMessage(error))))
         ))

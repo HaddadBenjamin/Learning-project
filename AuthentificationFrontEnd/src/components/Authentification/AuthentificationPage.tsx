@@ -14,13 +14,12 @@ import {
     logout,
     signIn
 } from "../../actions/authentification.action";
-import {IAuthentificationState} from "../../reducers/authentification.reducer";
 
 const AuthentificationFirstPage = () =>
 {
     const isAuthentified = useSelector<IGlobalState, boolean>(state => state.authentification.isAuthentified);
     const errorMessage = useSelector<IGlobalState, string | undefined>(state => state.authentification.errorMessage);
-    const usernameFromGlobalState = useSelector<IGlobalState, string>(state => state.authentification.username);
+    const usernameFromGlobalState = useSelector<IGlobalState, string | undefined>(state => state.authentification.username);
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const dispatch = useDispatch();

@@ -8,7 +8,7 @@ export interface IAuthentificationState
 {
     isAuthentified : boolean,
     token? : string,
-    username : string,
+    username? : string,
     errorMessage? : string,
 }
 
@@ -16,7 +16,7 @@ export const authentificationInitialState : IAuthentificationState =
 {
     isAuthentified : false,
     token : undefined,
-    username : '',
+    username : undefined,
     errorMessage : undefined
 };
 
