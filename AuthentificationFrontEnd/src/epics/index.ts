@@ -1,16 +1,15 @@
 import {
     combineEpics,
     createEpicMiddleware,
-    Epic,
 } from 'redux-observable';
 import {IGlobalState} from "../reducers";
-import {ApplicationAction} from "../actions";
+import {
+    AuthentificationAction
+} from "../actions";
+import authentificationEpics from './authentification.epic'
 
-type SuggestionEpic = Epic<ApplicationAction, ApplicationAction, IGlobalState>;
+type ApplicationAction = AuthentificationAction;
 
-const getAllSuggestionsEpic: SuggestionEpic = (action$, state$) => action$.pipe(
-);
-
-export const rootEpic = combineEpics(getAllSuggestionsEpic);
+export const rootEpic = combineEpics(authentificationEpics);
 
 export default createEpicMiddleware<ApplicationAction, ApplicationAction, IGlobalState>();
