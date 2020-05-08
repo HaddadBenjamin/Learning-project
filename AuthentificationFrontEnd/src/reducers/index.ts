@@ -1,5 +1,5 @@
 import {combineReducers} from "redux";
-import {
+import authentificationReducer, {
     authentificationInitialState,
     IAuthentificationState
 } from "./authentification.reducer";
@@ -15,4 +15,5 @@ export const initialState : IGlobalState =
 };
 
 export default combineReducers({
+    authentification: authentificationReducer
 });

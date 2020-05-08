@@ -4,7 +4,10 @@ import React, {
     useState
 } from "react";
 import {IGlobalState} from "../../reducers";
-import {useSelector} from "react-redux";
+import {
+    useDispatch,
+    useSelector
+} from "react-redux";
 import { toast } from 'react-toastify';
 import {
     login,
@@ -19,6 +22,7 @@ const AuthentificationFirstPage = () =>
     const usernameFromGlobalState = useSelector<IGlobalState, string | undefined>(state => state.authentification.username);
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const dispatch = useDispatch();
 
     useEffect(() =>
     {
@@ -39,21 +43,21 @@ const AuthentificationFirstPage = () =>
 
     function onClickLogin() : void
     {
-        login(username, password);
+        dispatch(login(username, password));
     }
 
     function onClickSignIn() : void
     {
-        signIn(username, password);
+        dispatch(signIn(username, password));
     }
 
     function onClickLogout() : void
     {
-        logout();
+        dispatch(logout());
     }
 
     return (<>
-            {isAuthentified ? (
+            {!isAuthentified ? (
                 <>
                     <button onClick={onClickSignIn}>Sign In</button>
                     <button onClick={onClickLogin}>Log In</button>
@@ -63,7 +67,7 @@ const AuthentificationFirstPage = () =>
 
                     <input value={username} onChange={onChangeUsername} type="text" placeholder="Enter your username"/>
                     <input value={password} onChange={onChangePassword} type="text" placeholder="Enter your password"/>
-+                </>
+                </>
                 ) :
                 (
                     <>
