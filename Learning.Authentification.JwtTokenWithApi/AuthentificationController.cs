@@ -127,9 +127,9 @@ namespace Learning.Authentification.JwtTokenWithApi
             var user = _dbContext.Users
                 .Where(user => user.Email == payload.Email)
                 .FirstOrDefault();
-            var userExists = user != null;
+            var userDontExists = user is null;
 
-            if (!userExists)
+            if (userDontExists)
             {
                 user = new ApplicationUser
                 {
@@ -165,8 +165,6 @@ namespace Learning.Authentification.JwtTokenWithApi
     public class LoginWithGoogleModel
     {
         [Required] public string TokenId { get; set; }
-      
-        [Required] public string Email { get; set; }
     }
 
     public class SignInModel

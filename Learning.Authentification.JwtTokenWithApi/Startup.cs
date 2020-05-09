@@ -66,12 +66,12 @@ namespace Learning.Authentification.JwtTokenWithApi
                         IssuerSigningKey =
                             new SymmetricSecurityKey(Encoding.UTF8.GetBytes("thiskeyshouldbeatleastof16characters"))
                     };
-                })
-                .AddGoogle(builder =>
-                {
-                    builder.ClientId = _configuration["authentification:google:clientid"];
-                    builder.ClientSecret = _configuration["authentification:google:clientsecret"];
                 });
+            //.AddGoogle(builder =>
+            //{
+            //    builder.ClientId = _configuration["authentification:google:clientid"];
+            //    builder.ClientSecret = _configuration["authentification:google:clientsecret"];
+            //});
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
