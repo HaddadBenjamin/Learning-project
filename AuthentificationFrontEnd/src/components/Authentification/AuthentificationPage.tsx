@@ -23,6 +23,13 @@ import {
 import config from '../../shared/helpers/config';
 import {LoggedWith} from "../../models/authentification.model";
 import FacebookLogin from 'react-facebook-login';
+import {
+    EmailShareButton,
+    FacebookShareButton,
+    LinkedinShareButton,
+    WhatsappShareButton
+} from "react-share";
+
 
 const AuthentificationFirstPage = () =>
 {
@@ -107,6 +114,7 @@ const AuthentificationFirstPage = () =>
                 return <>
                     <img alt="profile-image" src={profileImageUrl}/> <br/>
                     <button onClick={onClickFacebookLogout}>Log out with Facebook</button>
+
                 </>;
 
             default : return <></>
@@ -140,7 +148,19 @@ const AuthentificationFirstPage = () =>
                 callback={onClickFacebookLogin} />
 
             <input value={username} onChange={onChangeUsername} type="text" placeholder="Enter your username"/>
-            <input value={password} onChange={onChangePassword} type="text" placeholder="Enter your password"/>
+            <input value={password} onChange={onChangePassword} type="text" placeholder="Enter your password"/><br/>
+
+            <LinkedinShareButton url="https://diablo-2-enriched-documentation.netlify.app/"
+                                 children={<button>Share on Linkedin</button>}/>
+            <FacebookShareButton url="https://diablo-2-enriched-documentation.netlify.app/"
+                                 quote="Quote test"
+                                 children={<button>Share on Facebook</button>}/>
+            <EmailShareButton url="https://diablo-2-enriched-documentation.netlify.app/"
+                              subject="Share by Mail test"
+                              children={<button>Share by Mail</button>}/>
+            <WhatsappShareButton url="https://diablo-2-enriched-documentation.netlify.app/"
+                                 title="Share on WhatsApp test"
+                                 children={<button>Share on WhatsApp</button>}/>
         </>
     }
 
