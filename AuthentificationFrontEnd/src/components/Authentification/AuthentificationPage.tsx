@@ -32,6 +32,7 @@ const AuthentificationFirstPage = () =>
     const usernameFromGlobalState = useSelector<IGlobalState, string | undefined>(state => state.authentification.username);
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [profileImageUrl, setProfileImageUrl] = useState<string>('');
     const dispatch = useDispatch();
 
     useEffect(() =>
@@ -75,6 +76,7 @@ const AuthentificationFirstPage = () =>
     {
         dispatch(facebookLogin(response.name, response.email));
         console.log(response);
+        setProfileImageUrl(response.picture.data.url);
     }
 
     function onClickGoogleLogout()
@@ -103,7 +105,7 @@ const AuthentificationFirstPage = () =>
 
             case LoggedWith.Facebook:
                 return <>
-                    <img alt="profile-image" src={"https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10158085282127988&height=50&width=50&ext=1591626272&hash=AeSalFTJkIhL5DfA"}/><br/>
+                    <img alt="profile-image" src={profileImageUrl}/> <br/>
                     <button onClick={onClickFacebookLogout}>Log out with Facebook</button>
                 </>;
 
