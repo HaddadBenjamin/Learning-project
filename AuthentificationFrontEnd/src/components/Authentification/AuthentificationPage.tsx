@@ -10,6 +10,7 @@ import {
 } from "react-redux";
 import {toast} from 'react-toastify';
 import {
+    facebookLogin,
     googleLogin,
     login,
     logout,
@@ -21,6 +22,7 @@ import {
 } from 'react-google-login';
 import config from '../../shared/helpers/config';
 import {LoggedWith} from "../../models/authentification.model";
+import FacebookLogin from 'react-facebook-login';
 
 const AuthentificationFirstPage = () =>
 {
@@ -30,6 +32,7 @@ const AuthentificationFirstPage = () =>
     const usernameFromGlobalState = useSelector<IGlobalState, string | undefined>(state => state.authentification.username);
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [profileImageUrl, setProfileImageUrl] = useState<string>('');
     const dispatch = useDispatch();
 
     useEffect(() =>
@@ -66,10 +69,22 @@ const AuthentificationFirstPage = () =>
 
     function onClickGoogleLogin(response : any)
     {
-        dispatch(googleLogin(response.tokenId))
+        //dispatch(googleLogin(response.tokenId))
+    }
+
+    function onClickFacebookLogin(response : any)
+    {
+        dispatch(facebookLogin(response.name, response.email));
+        console.log(response);
+        setProfileImageUrl(response.picture.data.url);
     }
 
     function onClickGoogleLogout()
+    {
+        dispatch(logout())
+    }
+
+    function onClickFacebookLogout()
     {
         dispatch(logout())
     }
@@ -88,6 +103,12 @@ const AuthentificationFirstPage = () =>
                     onLogoutSuccess={onClickGoogleLogout}
                 />;
 
+            case LoggedWith.Facebook:
+                return <>
+                    <img alt="profile-image" src={profileImageUrl}/> <br/>
+                    <button onClick={onClickFacebookLogout}>Log out with Facebook</button>
+                </>;
+
             default : return <></>
         }
     }
@@ -96,9 +117,10 @@ const AuthentificationFirstPage = () =>
     {
         if (isAuthentified)
             return <>
-                Hi {usernameFromGlobalState} !
+                Hi {usernameFromGlobalState} !<br/>
+                You logged with {loggedWith}<br/>
                 {renderLogoutButton()}
-            </>
+            </>;
 
         return <>
             <button onClick={onClickSignIn}>Sign In</button>
@@ -109,8 +131,13 @@ const AuthentificationFirstPage = () =>
                 onSuccess={onClickGoogleLogin}
                 onFailure={onClickGoogleLogin}
             />
-            <button disabled={true}> Microsoft Login</button>
-            <button disabled={true}>Facebook Login</button>
+            <FacebookLogin
+                appId={config.facebookAppId}
+                autoLoad={false}
+                icon="fa-facebook"
+                fields="name,email,picture"
+                reAuthenticate={false}
+                callback={onClickFacebookLogin} />
 
             <input value={username} onChange={onChangeUsername} type="text" placeholder="Enter your username"/>
             <input value={password} onChange={onChangePassword} type="text" placeholder="Enter your password"/>

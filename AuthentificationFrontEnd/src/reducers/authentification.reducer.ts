@@ -32,6 +32,7 @@ export default function authentificationReducer(state : IAuthentificationState =
             case AuthentificationActionTypes.SIGNIN :
             case AuthentificationActionTypes.LOGIN :
             case AuthentificationActionTypes.GOOGLE_LOGIN :
+            case AuthentificationActionTypes.FACEBOOK_LOGIN :
             case AuthentificationActionTypes.LOGOUT :
                 draft.errorMessage = undefined;
                 break;
@@ -39,6 +40,7 @@ export default function authentificationReducer(state : IAuthentificationState =
             case AuthentificationActionTypes.SIGNED:
             case AuthentificationActionTypes.LOGGED:
             case AuthentificationActionTypes.GOOGLE_LOGGED:
+            case AuthentificationActionTypes.FACEBOOK_LOGGED:
                 draft.isAuthentified = true;
                 draft.username = action.payload.username;
                 draft.token = action.payload.token;
@@ -53,13 +55,18 @@ export default function authentificationReducer(state : IAuthentificationState =
                     case AuthentificationActionTypes.GOOGLE_LOGGED:
                         draft.loggedWith = LoggedWith.Google;
                         break;
+
+                    case AuthentificationActionTypes.FACEBOOK_LOGGED:
+                        draft.loggedWith = LoggedWith.Facebook;
+                        break;
                 }
                 break;
 
             case AuthentificationActionTypes.SIGNING_FAILED :
-            case AuthentificationActionTypes.LOGGING_OUT_FAILED:
-            case AuthentificationActionTypes.GOOGLE_LOGGING_FAILED:
             case AuthentificationActionTypes.LOGGING_FAILED:
+            case AuthentificationActionTypes.GOOGLE_LOGGING_FAILED:
+            case AuthentificationActionTypes.FACEBOOK_LOGGING_FAILED:
+            case AuthentificationActionTypes.LOGGING_OUT_FAILED:
                 draft.errorMessage = action.payload.errorMessage;
                 draft.isAuthentified = false;
                 draft.token = undefined;

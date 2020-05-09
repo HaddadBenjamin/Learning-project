@@ -71,8 +71,8 @@ namespace Learning.Authentification.JwtTokenWithApi
             return GenerateLoginResponse(user);
         }
 
-        [AllowAnonymous]
         [HttpPost("loginWithGoogle")]
+        [AllowAnonymous]
         public async Task<IActionResult> LoginWithGoogle([FromBody]LoginWithGoogleModel model)
         {
             GoogleJsonWebSignature.Payload googlePayload = new GoogleJsonWebSignature.Payload();
@@ -80,7 +80,16 @@ namespace Learning.Authentification.JwtTokenWithApi
             try { googlePayload = await GoogleJsonWebSignature.ValidateAsync(model.TokenId, new GoogleJsonWebSignature.ValidationSettings()); }
             catch (Exception exception) { return BadRequest(exception.Message); }
 
-            var user = CreateUserIfNotExists(googlePayload);
+            var user = CreateUserIfNotExists(googlePayload.Name, googlePayload.Email);
+
+            return GenerateLoginResponse(user);
+        }
+
+        [HttpPost("loginWithFacebook")]
+        [AllowAnonymous]
+        public async Task<IActionResult> LoginWithFacebook([FromBody] LoginWithFacebookModel model)
+        {
+            var user = CreateUserIfNotExists(model.Name, model.Email);
 
             return GenerateLoginResponse(user);
         }
@@ -122,10 +131,10 @@ namespace Learning.Authentification.JwtTokenWithApi
             return encodedToken;
         }
 
-        private ApplicationUser CreateUserIfNotExists(GoogleJsonWebSignature.Payload payload)
+        private ApplicationUser CreateUserIfNotExists(string username, string email)
         {
             var user = _dbContext.Users
-                .Where(user => user.Email == payload.Email)
+                .Where(user => user.Email == email)
                 .FirstOrDefault();
             var userDontExists = user is null;
 
@@ -134,8 +143,8 @@ namespace Learning.Authentification.JwtTokenWithApi
                 user = new ApplicationUser
                 {
                     Id = Guid.NewGuid().ToString(),
-                    UserName = payload.Name,
-                    Email = payload.Email
+                    UserName = username,
+                    Email = email
                 };
 
                 _dbContext.Users.Add(user);
@@ -165,6 +174,13 @@ namespace Learning.Authentification.JwtTokenWithApi
     public class LoginWithGoogleModel
     {
         [Required] public string TokenId { get; set; }
+    }
+
+    public class LoginWithFacebookModel
+    {
+        [Required] public string Name { get; set; }
+
+        [Required] public string Email { get; set; }
     }
 
     public class SignInModel
