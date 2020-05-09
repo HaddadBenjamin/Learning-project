@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -20,11 +21,16 @@ namespace Learning.Authentification.JwtTokenWithApi
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ApplicationDbContext _dbContext;
 
-        public AuthentificationController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AuthentificationController(
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            ApplicationDbContext dbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _dbContext = dbContext;
         }
 
         [HttpPost]
@@ -40,7 +46,11 @@ namespace Learning.Authentification.JwtTokenWithApi
 
             await _signInManager.SignInAsync(user, false, JwtBearerDefaults.AuthenticationScheme);
 
-            return Ok();
+            return await Login(new LoginModel
+            {
+                Password = model.Password,
+                Username = model.Username
+            });
         }
 
         [HttpPost]
@@ -58,22 +68,42 @@ namespace Learning.Authentification.JwtTokenWithApi
             if (!passwordIsValid)
                 return Unauthorized();
 
-            var encodedBearerToken = GenerateBearerToken(user);
+            return GenerateLoginResponse(user);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("loginWithGoogle")]
+        public async Task<IActionResult> LoginWithGoogle([FromBody]LoginWithGoogleModel model)
+        {
+            GoogleJsonWebSignature.Payload googlePayload = new GoogleJsonWebSignature.Payload();
+
+            try { googlePayload = await GoogleJsonWebSignature.ValidateAsync(model.TokenId, new GoogleJsonWebSignature.ValidationSettings()); }
+            catch (Exception exception) { return BadRequest(exception.Message); }
+
+            var user = CreateUserIfNotExists(googlePayload);
+
+            return GenerateLoginResponse(user);
+        }
+
+        private IActionResult GenerateLoginResponse(ApplicationUser user)
+        {
+            var encodedBearerToken = GenerateEncodedBearerToken(user);
 
             return Ok(new
             {
-                token = encodedBearerToken,
+                Token = encodedBearerToken,
+                Username = user.UserName
             });
         }
 
-        private static string GenerateBearerToken(ApplicationUser user)
+        private static string GenerateEncodedBearerToken(ApplicationUser user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("thiskeyshouldbeatleastof16characters"));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Email ?? user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
@@ -92,6 +122,29 @@ namespace Learning.Authentification.JwtTokenWithApi
             return encodedToken;
         }
 
+        private ApplicationUser CreateUserIfNotExists(GoogleJsonWebSignature.Payload payload)
+        {
+            var user = _dbContext.Users
+                .Where(user => user.Email == payload.Email)
+                .FirstOrDefault();
+            var userDontExists = user is null;
+
+            if (userDontExists)
+            {
+                user = new ApplicationUser
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    UserName = payload.Name,
+                    Email = payload.Email
+                };
+
+                _dbContext.Users.Add(user);
+                _dbContext.SaveChanges();
+            }
+
+            return user;
+        }
+
         [HttpPost]
         [Route("logout")]
         public async Task<IActionResult> Logout()
@@ -107,6 +160,11 @@ namespace Learning.Authentification.JwtTokenWithApi
         [Required] public string Username { get; set; }
         
         [Required] public string Password { get; set; }
+    }
+
+    public class LoginWithGoogleModel
+    {
+        [Required] public string TokenId { get; set; }
     }
 
     public class SignInModel
