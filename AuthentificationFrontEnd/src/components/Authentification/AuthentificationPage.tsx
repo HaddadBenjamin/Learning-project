@@ -135,7 +135,6 @@ const AuthentificationFirstPage = () =>
                 appId={config.facebookAppId}
                 autoLoad={false}
                 icon="fa-facebook"
-                scope="user_friends"
                 fields="name,email,picture"
                 reAuthenticate={false}
                 callback={onClickFacebookLogin} />
