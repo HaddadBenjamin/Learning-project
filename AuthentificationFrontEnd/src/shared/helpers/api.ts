@@ -6,17 +6,12 @@ import qs from "qs";
 
 class Api
 {
-    public getUrl(endpoint: string, queryParameters?: string, bearerToken? : string): string
-    {
-        return `${config.apiUrl}/${endpoint}${queryParameters ? '/?' + qs.stringify(queryParameters) : ''}`;
-    }
-
     public get(endpoint: string, queryParameters?: any, bearerToken? : string) : AxiosPromise
     {
         return axios({
-            method: 'get',
+            method: 'GET',
             url: api.getUrl(endpoint, queryParameters),
-            headers: this.getHeaders(bearerToken),
+            headers: api.getHeaders(bearerToken),
             data: {}
         });
     }
@@ -26,7 +21,7 @@ class Api
         return axios({
             method: 'POST',
             url: api.getUrl(endpoint),
-            headers: this.getHeaders(bearerToken),
+            headers: api.getHeaders(bearerToken),
             data: body
         });
     }
@@ -36,22 +31,27 @@ class Api
         return axios({
             method: 'PUT',
             url: api.getUrl(endpoint),
-            headers: this.getHeaders(bearerToken),
+            headers: api.getHeaders(bearerToken),
             data: body
         });
     }
 
-    public delete(endpoint: string, body?: any): AxiosPromise
+    public delete(endpoint: string, body?: any, bearerToken? : string): AxiosPromise
     {
         return axios({
             method: 'DELETE',
             url: api.getUrl(endpoint),
-            headers: {},
+            headers: api.getHeaders(bearerToken),
             data: body
         });
     }
 
-    private getHeaders(bearerToken? : string) : any
+    public getUrl(endpoint: string, queryParameters?: string, bearerToken? : string): string
+    {
+        return `${config.apiUrl}/${endpoint}${queryParameters ? '/?' + qs.stringify(queryParameters) : ''}`;
+    }
+
+    public getHeaders(bearerToken? : string) : any
     {
         return bearerToken === undefined ?
             {} :

@@ -18,6 +18,8 @@ import {IGlobalState} from "../reducers";
 import {
     AuthentificationAction,
     AuthentificationActionTypes,
+    googleLogged,
+    googleLoggingFailed,
     logged,
     loggedOut,
     loggingFailed,
@@ -30,7 +32,7 @@ import {
     LoginResponse,
     SigninResponse
 } from "../models/authentification.model";
-import {AxiosResponse} from 'axios'
+import axios, {AxiosResponse} from 'axios'
 import errors from "../shared/helpers/error";
 
 type AuthentificationEpic = Epic<AuthentificationAction, AuthentificationAction, IGlobalState>;
@@ -59,6 +61,17 @@ const loginAuthentificationEpic: AuthentificationEpic = (action$, state$) => act
         ))
 );
 
+const googleLoginAuthentificationEpic: AuthentificationEpic = (action$, state$) => action$.pipe(
+    filter(isOfType(AuthentificationActionTypes.GOOGLE_LOGIN)),
+    switchMap(action =>
+            from(api.post('authentification/loginwithgoogle', {
+                TokenId: action.payload.tokenId,
+            })).pipe(
+            map((response: AxiosResponse<LoginResponse>) => googleLogged(response.data.Token, response.data.Username)),
+            catchError((error) => of(googleLoggingFailed(errors.getErrorMessage(error))))
+        ))
+);
+
 const logoutAuthentificationEpic: AuthentificationEpic = (action$, state$) => action$.pipe(
     filter(isOfType(AuthentificationActionTypes.LOGOUT)),
     switchMap(action =>
@@ -71,5 +84,6 @@ const logoutAuthentificationEpic: AuthentificationEpic = (action$, state$) => ac
 
 export default combineEpics(
     loginAuthentificationEpic,
+    googleLoginAuthentificationEpic,
     signinAuthentificationEpic,
     logoutAuthentificationEpic);

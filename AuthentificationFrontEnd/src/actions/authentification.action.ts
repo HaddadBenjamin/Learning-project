@@ -77,6 +77,31 @@ export interface ILoggingFailedAuthentificationAction
     }
 }
 
+export interface IGoogleLoginAuthentificationAction
+{
+    type : AuthentificationActionTypes.GOOGLE_LOGIN,
+    payload : {
+        tokenId : string
+    }
+}
+
+export interface IGoogleLoggedAuthentificationAction
+{
+    type : AuthentificationActionTypes.GOOGLE_LOGGED,
+    payload : {
+        token : string
+        username : string,
+    }
+}
+
+export interface IGoogleLoggingFailedAuthentificationAction
+{
+    type : AuthentificationActionTypes.GOOGLE_LOGGING_FAILED,
+    payload : {
+        errorMessage : string
+    }
+}
+
 export interface ILogoutAuthentificationAction
 {
     type : AuthentificationActionTypes.LOGOUT
@@ -159,6 +184,37 @@ export function loggingFailed(errorMessage : string) : ILoggingFailedAuthentific
     }
 }
 
+export function googleLogin(tokenId : string) : IGoogleLoginAuthentificationAction
+{
+    return {
+        type : AuthentificationActionTypes.GOOGLE_LOGIN,
+        payload : {
+            tokenId : tokenId
+        }
+    }
+}
+
+export function googleLogged(token : string, username : string) : IGoogleLoggedAuthentificationAction
+{
+    return {
+        type : AuthentificationActionTypes.GOOGLE_LOGGED,
+        payload : {
+            token : token,
+            username : username
+        }
+    }
+}
+
+export function googleLoggingFailed(errorMessage : string) : IGoogleLoggingFailedAuthentificationAction
+{
+    return {
+        type : AuthentificationActionTypes.GOOGLE_LOGGING_FAILED,
+        payload : {
+            errorMessage : errorMessage
+        }
+    }
+}
+
 export function logout() : ILogoutAuthentificationAction
 {
     return {
@@ -191,6 +247,10 @@ export type AuthentificationAction =
     ILoginAuthentificationAction |
     ILoggedAuthentificationAction |
     ILoggingFailedAuthentificationAction |
+
+    IGoogleLoginAuthentificationAction |
+    IGoogleLoggedAuthentificationAction |
+    IGoogleLoggingFailedAuthentificationAction |
 
     ILogoutAuthentificationAction |
     ILoggedOutAuhtentificationAction |
