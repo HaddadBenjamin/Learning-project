@@ -18,6 +18,8 @@ import {IGlobalState} from "../reducers";
 import {
     AuthentificationAction,
     AuthentificationActionTypes,
+    facebookLogged,
+    facebookLoggingFailed,
     googleLogged,
     googleLoggingFailed,
     logged,
@@ -72,6 +74,18 @@ const googleLoginAuthentificationEpic: AuthentificationEpic = (action$, state$) 
         ))
 );
 
+const facebookLoginAuthentificationEpic: AuthentificationEpic = (action$, state$) => action$.pipe(
+    filter(isOfType(AuthentificationActionTypes.FACEBOOK_LOGIN)),
+    switchMap(action =>
+        from(api.post('authentification/loginwithfacebook', {
+            Name: action.payload.name,
+            Email: action.payload.email,
+        })).pipe(
+            map((response: AxiosResponse<LoginResponse>) => facebookLogged(response.data.Token, response.data.Username)),
+            catchError((error) => of(facebookLoggingFailed(errors.getErrorMessage(error))))
+        ))
+);
+
 const logoutAuthentificationEpic: AuthentificationEpic = (action$, state$) => action$.pipe(
     filter(isOfType(AuthentificationActionTypes.LOGOUT)),
     switchMap(action =>
@@ -83,7 +97,8 @@ const logoutAuthentificationEpic: AuthentificationEpic = (action$, state$) => ac
 );
 
 export default combineEpics(
+    signinAuthentificationEpic,
     loginAuthentificationEpic,
     googleLoginAuthentificationEpic,
-    signinAuthentificationEpic,
+    facebookLoginAuthentificationEpic,
     logoutAuthentificationEpic);

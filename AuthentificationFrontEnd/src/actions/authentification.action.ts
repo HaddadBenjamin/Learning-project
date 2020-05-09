@@ -12,10 +12,6 @@ export enum AuthentificationActionTypes
     GOOGLE_LOGGED = 'authentification/google_logged',
     GOOGLE_LOGGING_FAILED = 'authentification/google_logging_failed',
 
-    MICROSOFT_LOGIN = 'authentification/microsoft_login',
-    MICROSOFT_LOGGED = 'authentification/microsoft_logged',
-    MICROSOFT_LOGGING_FAILED = 'authentification/microsoft_logging_failed',
-
     FACEBOOK_LOGIN = 'authentification/facebook_login',
     FACEBOOK_LOGGED = 'authentification/facebook_logged',
     FACEBOOK_LOGGING_FAILED = 'authentification/facebook_logging_failed',
@@ -97,6 +93,32 @@ export interface IGoogleLoggedAuthentificationAction
 export interface IGoogleLoggingFailedAuthentificationAction
 {
     type : AuthentificationActionTypes.GOOGLE_LOGGING_FAILED,
+    payload : {
+        errorMessage : string
+    }
+}
+
+export interface IFacebookLoginAuthentificationAction
+{
+    type: AuthentificationActionTypes.FACEBOOK_LOGIN,
+    payload : {
+        name : string,
+        email : string
+    }
+}
+
+export interface IFacebookLoggedAuthentificationAction
+{
+    type: AuthentificationActionTypes.FACEBOOK_LOGGED,
+    payload : {
+        token : string
+        username : string,
+    }
+}
+
+export interface IFacebookLoggingFailedAuthentificationAction
+{
+    type: AuthentificationActionTypes.FACEBOOK_LOGGING_FAILED,
     payload : {
         errorMessage : string
     }
@@ -215,6 +237,38 @@ export function googleLoggingFailed(errorMessage : string) : IGoogleLoggingFaile
     }
 }
 
+export function facebookLogin(name : string, email : string) : IFacebookLoginAuthentificationAction
+{
+    return {
+        type : AuthentificationActionTypes.FACEBOOK_LOGIN,
+        payload : {
+            name : name,
+            email : email
+        }
+    }
+}
+
+export function facebookLogged(token : string, username : string) : IFacebookLoggedAuthentificationAction
+{
+    return {
+        type : AuthentificationActionTypes.FACEBOOK_LOGGED,
+        payload : {
+            token : token,
+            username : username
+        }
+    }
+}
+
+export function facebookLoggingFailed(errorMessage : string) : IFacebookLoggingFailedAuthentificationAction
+{
+    return {
+        type : AuthentificationActionTypes.FACEBOOK_LOGGING_FAILED,
+        payload : {
+            errorMessage : errorMessage
+        }
+    }
+}
+
 export function logout() : ILogoutAuthentificationAction
 {
     return {
@@ -251,6 +305,10 @@ export type AuthentificationAction =
     IGoogleLoginAuthentificationAction |
     IGoogleLoggedAuthentificationAction |
     IGoogleLoggingFailedAuthentificationAction |
+
+    IFacebookLoginAuthentificationAction |
+    IFacebookLoggedAuthentificationAction |
+    IFacebookLoggingFailedAuthentificationAction |
 
     ILogoutAuthentificationAction |
     ILoggedOutAuhtentificationAction |
