@@ -71,8 +71,8 @@ namespace Learning.Authentification.JwtTokenWithApi
             return GenerateLoginResponse(user);
         }
 
-        [AllowAnonymous]
         [HttpPost("loginWithGoogle")]
+        [AllowAnonymous]
         public async Task<IActionResult> LoginWithGoogle([FromBody]LoginWithGoogleModel model)
         {
             GoogleJsonWebSignature.Payload googlePayload = new GoogleJsonWebSignature.Payload();
@@ -85,8 +85,8 @@ namespace Learning.Authentification.JwtTokenWithApi
             return GenerateLoginResponse(user);
         }
 
-        [AllowAnonymous]
         [HttpPost("loginWithFacebook")]
+        [AllowAnonymous]
         public async Task<IActionResult> LoginWithFacebook([FromBody] LoginWithFacebookModel model)
         {
             var user = CreateUserIfNotExists(model.Name, model.Email);

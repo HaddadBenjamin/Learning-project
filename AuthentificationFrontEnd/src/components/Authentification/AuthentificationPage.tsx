@@ -74,6 +74,7 @@ const AuthentificationFirstPage = () =>
     function onClickFacebookLogin(response : any)
     {
         dispatch(facebookLogin(response.name, response.email));
+        console.log(response);
     }
 
     function onClickGoogleLogout()
@@ -101,7 +102,10 @@ const AuthentificationFirstPage = () =>
                 />;
 
             case LoggedWith.Facebook:
-                return <button onClick={onClickFacebookLogout}>Log out with Facebook</button>;
+                return <>
+                    <img alt="profile-image" src={"https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10158085282127988&height=50&width=50&ext=1591626272&hash=AeSalFTJkIhL5DfA"}/><br/>
+                    <button onClick={onClickFacebookLogout}>Log out with Facebook</button>
+                </>;
 
             default : return <></>
         }
@@ -111,7 +115,8 @@ const AuthentificationFirstPage = () =>
     {
         if (isAuthentified)
             return <>
-                Hi {usernameFromGlobalState} !
+                Hi {usernameFromGlobalState} !<br/>
+                You logged with {loggedWith}<br/>
                 {renderLogoutButton()}
             </>;
 
@@ -126,7 +131,11 @@ const AuthentificationFirstPage = () =>
             />
             <FacebookLogin
                 appId={config.facebookAppId}
+                autoLoad={false}
+                icon="fa-facebook"
+                scope="user_friends"
                 fields="name,email,picture"
+                reAuthenticate={false}
                 callback={onClickFacebookLogin} />
 
             <input value={username} onChange={onChangeUsername} type="text" placeholder="Enter your username"/>

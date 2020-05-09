@@ -12,8 +12,7 @@ export interface LoginResponse
 
 export enum LoggedWith
 {
-    TheApplication,
-    Google,
-    Microsoft,
-    Facebook
+    TheApplication = "the application",
+    Google = "Google",
+    Facebook = "Facebook"
 }
