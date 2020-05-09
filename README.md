@@ -3,9 +3,9 @@ C'est un projet que j'utilise pour réaliser des tests et apprendre de nouvelles
 Le rendu graphique n'est pas travaillé cette fois-ci car l'objectif se limite à tester et à tenter d'appréhender de nouvelles notions.
 
 Partage d'information sur les réseaux sociaux :
-![Image of Yaktocat](https://imgur.com/aPblGyU.png)
-![Image of Yaktocat](https://imgur.com/jp2gTCh.png)
-![Image of Yaktocat](https://imgur.com/MaVAZXH.png)
+![Image of Yaktocat](https://imgur.com/plkLtkQ.png)
+![Image of Yaktocat](https://imgur.com/XojP9sV.png)
+![Image of Yaktocat](https://imgur.com/oVUddTZ.png)
 ![Image of Yaktocat](https://imgur.com/8JNUv7U.png)
 
 Authentification :
