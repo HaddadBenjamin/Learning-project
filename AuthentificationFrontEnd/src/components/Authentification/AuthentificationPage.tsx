@@ -24,12 +24,16 @@ import config from '../../shared/helpers/config';
 import {LoggedWith} from "../../models/authentification.model";
 import FacebookLogin from 'react-facebook-login';
 import {
+    EmailIcon,
     EmailShareButton,
+    FacebookIcon,
     FacebookShareButton,
+    LinkedinIcon,
     LinkedinShareButton,
+    WhatsappIcon,
     WhatsappShareButton
 } from "react-share";
-
+import './AuthenficationPage.css';
 
 const AuthentificationFirstPage = () =>
 {
@@ -131,11 +135,12 @@ const AuthentificationFirstPage = () =>
             </>;
 
         return <>
-            <button onClick={onClickSignIn}>Sign In</button>
+            <button style={{marginTop: "30px"}} onClick={onClickSignIn}>Sign In</button>
             <button onClick={onClickLogin}>Login</button>
             <GoogleLogin
                 clientId={config.googleClientId}
-                buttonText="Login"
+                buttonText="Sign In"
+                disabled={false}
                 onSuccess={onClickGoogleLogin}
                 onFailure={onClickGoogleLogin}
             />
@@ -145,22 +150,26 @@ const AuthentificationFirstPage = () =>
                 icon="fa-facebook"
                 fields="name,email,picture"
                 reAuthenticate={false}
-                callback={onClickFacebookLogin} />
+                callback={onClickFacebookLogin}
+            />
 
-            <input value={username} onChange={onChangeUsername} type="text" placeholder="Enter your username"/>
-            <input value={password} onChange={onChangePassword} type="text" placeholder="Enter your password"/><br/>
+            <input value={username} onChange={onChangeUsername} type="text" placeholder="Username"/>
+            <input value={password} onChange={onChangePassword} type="text" placeholder="Password"/><br/>
 
             <LinkedinShareButton url="https://diablo-2-enriched-documentation.netlify.app/"
-                                 children={<button>Share on Linkedin</button>}/>
+                                 style={{marginTop: "10px"}}
+                                 children={<button><LinkedinIcon size={16} round={true} /> Share on Linkedin</button>}/>
             <FacebookShareButton url="https://diablo-2-enriched-documentation.netlify.app/"
                                  quote="Quote test"
-                                 children={<button>Share on Facebook</button>}/>
+                                 children={<button><FacebookIcon size={16} round={true} /> Share on Facebook</button>}/>
             <EmailShareButton url="https://diablo-2-enriched-documentation.netlify.app/"
                               subject="Share by Mail test"
-                              children={<button>Share by Mail</button>}/>
+                              children={<button><EmailIcon size={16} round={true} /> Share by Mail</button>}/>
             <WhatsappShareButton url="https://diablo-2-enriched-documentation.netlify.app/"
                                  title="Share on WhatsApp test"
-                                 children={<button>Share on WhatsApp</button>}/>
+                                 children={<button><WhatsappIcon size={16} round={true} /> Share on WhatsApp</button>}/>
+            <br/>
+            <div style={{marginTop: "10px"}}/>
         </>
     }
 
