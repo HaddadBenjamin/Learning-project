@@ -16,7 +16,7 @@
     width : 240px;
     height : 100%;
 
-    background-color : dodgerblue;
+    background-color : rgba(0,0,0,0.85);
     position : fixed;
 }
 
@@ -25,7 +25,7 @@
     margin-left : 240px;
     margin-top : 56px;
 
-    background-color : rgba(0, 0, 0, 0.8);
+    background-color : white;
 }
 .VideoContainer
 {
@@ -41,11 +41,63 @@
 
 .VideoElement
 {
-    /* c'est la taille de l'image pas de l'élément, faudra revoir cette partie */
+    margin-top : 10px;
+    margin-left : 20px;
+    width : 298px;
+    height : 265px;
+
+    /* background-color : #9b3cee; */
+}
+
+.VideoElement--img
+{
     width : 298px;
     height : 168px;
-    margin-top : 10px;
-    margin-left : 10px;
 
-    background-color : #9b3cee;
+    background-image: url("VideoElementImage.png");
+}
+
+.VideoElement--logo
+{
+    width : 36px;
+    height : 36px;
+
+    display : inline-block;
+    float : left;
+
+    background-image: url("VideoElementLogo.png");
+
+    border : solid;
+}
+
+@font-face
+{
+    font-family: Roboto;
+    src: url("Roboto-Black.ttf");
+}
+
+.VideoElement--title
+{
+    position : relative;
+    left : 12px;
+
+    font-family: Roboto, fantasy;
+    font-weight: 100;
+    font-size : 14px;
+}
+
+.VideoElement--channelTitle
+{
+    position : relative;
+    left : 12px;
+    top : 5px;
+
+    font-family: Roboto, fantasy;
+    font-size : 13px;
+    color : rgb(96, 96, 96);
+}
+
+.VideoElement--channelTitle__littleSpace
+{
+    margin-top : 2px;
 }
