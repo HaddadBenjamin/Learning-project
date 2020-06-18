@@ -5,35 +5,64 @@ const products = [
     {category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball"},
     {category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch"},
     {category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5"},
-    {category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7"},
-    {category: "xxx", price: "$199.99", stocked: true, name: "Nexus 7"}
+    {category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7"}
 ]
 
-class FilterableProductTable extends React.Component
+class FilterableProductTable extends React.PureComponent
 {
     constructor(props)
     {
         super(props)
 
         this.state = {
-            filteredProducts : products
+            filteredProducts : products,
+            inStockOnly : false,
+            filterText : ''
         }
+
+        this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
+        this.handleInStockOnlyChange = this.handleInStockOnlyChange.bind(this)
+    }
+
+    handleFilterTextChange(e)
+    {
+        this.setState({filterText : e.target.value})
+    }
+
+    handleInStockOnlyChange(e)
+    {
+        this.setState({inStockOnly : e.target.checked})
     }
 
     render()
     {
         return <div className="container col-4">
-            <ProductTableFilters/>
-            <ProductTable products={this.state.filteredProducts}/>
+            <ProductTableFilters
+                inStockOnly={this.state.inStockOnly}
+                filterText={this.state.filterText}
+                onFilterTextChange={this.handleFilterTextChange}
+                onStockOnlyChange={this.handleInStockOnlyChange}/>
+            <ProductTable
+                products={this.state.filteredProducts}
+                inStockOnly={this.state.inStockOnly}
+                filterText={this.state.filterText}/>
         </div>
     }
 }
 
-function ProductTableFilters()
+function ProductTableFilters({filterText, inStockOnly, onFilterTextChange, onStockOnlyChange})
 {
     return <form>
-        <Field name="SearchProduct" placeholder="Search..."/>
-        <Checkbox name="ProductOnStock" children=" Only show products in stock"/>
+        <Field 
+            name="SearchProduct"
+            placeholder="Search..."
+            onChange={onFilterTextChange}
+            value={filterText} />
+        <Checkbox 
+            name="ProductOnStock"
+            children="Produit en stock seulement"
+            onChange={onStockOnlyChange}
+            checked={inStockOnly}/>
     </form>
 }
 
@@ -55,13 +84,13 @@ const Checkbox = React.memo(function({name, checked = false, onChange = () => {}
 })
 
 
-const ProductTable = React.memo(function({products})
+const ProductTable = React.memo(function({products, filterText, inStockOnly})
 {
     let lastCategory = null
     const rows = []
-    
-    console.log(products)
-    products.forEach(p =>
+    const filteredProducts = products.filter(p => (!inStockOnly || p.stocked) && p.name.includes(filterText))
+        
+    filteredProducts.forEach(p =>
     {
         if (lastCategory != p.category)
         {
