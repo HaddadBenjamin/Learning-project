@@ -1,0 +1,1 @@
+Avec ce projet, je tente de challenger un petit peu ma façon de structurer mon code React.

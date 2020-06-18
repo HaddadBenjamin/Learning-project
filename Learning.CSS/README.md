@@ -1,0 +1,1 @@
+J'ai reproduis une partie de l'interface Youtube en utilisant les Flexbox de CSS et la notation BEM https://recordit.co/zHkKh4YIv2
