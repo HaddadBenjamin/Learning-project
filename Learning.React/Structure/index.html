@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Permet de créer des composants, l'attribut defer permet de charger vos JS après que la page HTML soit chargé. -->
+    <script crossorigin src=https://unpkg.com/react@16/umd/react.development.js defer></script>
+    <!-- Permet d'injecter vos composants dans le DOM -->
+    <script crossorigin src=https://unpkg.com/react-dom@16/umd/react-dom.development.js defer ></script>
+    <!-- Permet de traduire du JSX & Ecmascript en code JS compréhensible par vos navigateurs -->
+    <script src=https://unpkg.com/babel-standalone@6/babel.min.js defer></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous" defer></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous" defer></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" defer>
+    <!-- Il ne faudra pas faire ça en environnement de production, il faudra utiliser webpack. -->
+    <script src="app.js" defer type="text/babel"></script>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+</html>
