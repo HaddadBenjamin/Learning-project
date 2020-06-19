@@ -19,17 +19,17 @@ const ProductTableFilters = React.memo(({onFiltersChange} : Props) =>
         filterText : filterText
     }), [inStockOnly, filterText])
 
-    const onFilterTextChange = (filterText : string) =>
+    const onFilterTextChange = (filterText : string, id :string) =>
     {
         setFilterText(filterText)
     }
 
-    const onInStockOnlyChange = (stockOnly : boolean) =>
+    const onInStockOnlyChange = (stockOnly : boolean, id :string) =>
     {
         setInStockOnly(stockOnly)
     }
 
-    return <form>
+    return <div>
         <TextInput
             id="SearchProduct"
             placeholder="Search..."
@@ -40,7 +40,7 @@ const ProductTableFilters = React.memo(({onFiltersChange} : Props) =>
             label="Produit en stock seulement"
             onChange={onInStockOnlyChange}
             defaultChecked={inStockOnly}/>
-    </form>
+    </div>
 })
 
 export default ProductTableFilters

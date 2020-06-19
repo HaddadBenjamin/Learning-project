@@ -22,7 +22,7 @@ const ProductTable = ({products} : ProductTableProps) =>
                 lastCategory = p.category
                 rows.push(<ProductCategoryRow key={p.category} product={p}/>)
             }
-
+            
             rows.push(<ProductRow key={p.name} product={p}/>)
         })
 

@@ -3,17 +3,17 @@ import React from "react";
 interface Props
 {
     id : string,
-    onChange(isChecked : boolean) : void,
+    onChange(isChecked : boolean, id : string) : void,
     label? : string,
     defaultChecked? : boolean,
+    disabled? : boolean
 }
 
-const Checkbox = ({id, onChange, defaultChecked, label} : Props) =>
+const Checkbox = ({id, onChange, defaultChecked, label, disabled} : Props) =>
 {
     const onCheckedChange = (event : React.ChangeEvent<HTMLInputElement>) =>
     {
-        console.log(event.target.checked)
-        onChange(event.target.checked)
+        onChange(event.target.checked, id)
     }
 
     return <div className="form-check">
@@ -23,6 +23,7 @@ const Checkbox = ({id, onChange, defaultChecked, label} : Props) =>
             onChange={onCheckedChange}
             id={id}
             name={id}
+            disabled={disabled}
             className="form-check-label"/>
         <label
             htmlFor={id}
