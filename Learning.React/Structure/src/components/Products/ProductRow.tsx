@@ -6,13 +6,11 @@ interface Props
     product : Product
 }
 
-const ProductRow = React.memo(({product} : Props) =>
+const ProductRow = React.memo<Props>(({product}) =>
 {
     console.log('render')
-    const nameClasses = product.stocked ? '' : 'text-danger';
-
     return <tr>
-        <td className={nameClasses}>{product.name}</td>
+        <td className={product.stocked ? '' : 'text-danger'}>{product.name}</td>
         <td>{product.price}</td>
     </tr>
 })
