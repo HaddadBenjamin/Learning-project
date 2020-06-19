@@ -24,14 +24,14 @@ class FilterableProductTable extends React.PureComponent
         this.handleInStockOnlyChange = this.handleInStockOnlyChange.bind(this)
     }
 
-    handleFilterTextChange(e)
+    handleFilterTextChange(event)
     {
-        this.setState({filterText : e.target.value})
+        this.setState({filterText : event.target.value})
     }
 
-    handleInStockOnlyChange(e)
+    handleInStockOnlyChange(event)
     {
-        this.setState({inStockOnly : e.target.checked})
+        this.setState({inStockOnly : event.target.checked})
     }
 
     render()
@@ -74,7 +74,6 @@ const Field = React.memo(function({name, value = undefined, onChange = () => {},
     </div>
 })
 
-
 const Checkbox = React.memo(function({name, checked = false, onChange = () => {}, children = undefined})
 {
     return <div className="form-check">
@@ -82,7 +81,6 @@ const Checkbox = React.memo(function({name, checked = false, onChange = () => {}
         <label htmlFor={name} className="form-check-label ml-1">{children}</label>
     </div>
 })
-
 
 const ProductTable = React.memo(function({products, filterText, inStockOnly})
 {
