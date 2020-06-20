@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import Checkbox from "../Checkbox/Checkbox";
 
 interface Props
 {
     checkboxes : CheckboxData[],
-    onChange(checkedIds : string[]) : void,
+    onChange(checkboxes : CheckboxData[]) : void,
     // in line / display / etcc ? classnames : example
 }
 export interface CheckboxData
@@ -19,14 +19,12 @@ const CheckboxMultiple = ({checkboxes, onChange} : Props) =>
 {
     const onCheckboxChange = (isChecked : boolean, id : string) =>
     {
-        const checkedIds = checkboxes.filter(c => c.defaultChecked).map(c => c.id);
-        const containsId = checkedIds.includes(id);
-        const newCheckedIds =
-            containsId && !isChecked ? checkedIds.filter(c => c != id) :
-            !containsId && isChecked ? [...checkedIds, id] :
-            checkedIds;
+        const checkboxIndex = checkboxes.findIndex(c => c.id == id)
+        let newCheckboxes = [...checkboxes]
 
-        onChange(newCheckedIds)
+        newCheckboxes[checkboxIndex].defaultChecked = isChecked
+
+        onChange(newCheckboxes)
     }
 
     return <>
