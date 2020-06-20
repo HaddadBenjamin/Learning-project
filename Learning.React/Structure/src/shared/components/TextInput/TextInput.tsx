@@ -2,11 +2,11 @@ import React from "react";
 
 interface Props
 {
-    id : string,
-    onChange(value : string, id : string) : void,
-    defaultValue? : string,
-    label? : string,
-    placeholder? : string,
+    id : string
+    onChange(value : string, id : string) : void
+    defaultValue? : string
+    label? : string
+    placeholder? : string
     disabled? : boolean
 }
 

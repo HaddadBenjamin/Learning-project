@@ -3,25 +3,25 @@ import Checkbox from "../Checkbox/Checkbox";
 
 interface Props
 {
-    checkboxes : CheckboxData[],
-    onChange(checkboxes : CheckboxData[]) : void,
+    checkboxes : CheckboxData[]
+    onChange(checkboxes : CheckboxData[]) : void
     checkboxClassName? : string
-    // in line / display / etcc ? classnames : example
+    // Pour ne pouvoir sélectionner qu'un seul élément à la fois, regarder mon composant ToggleGroup
 }
 export interface CheckboxData
 {
-    id : string,
-    label? : string,
-    defaultChecked? : boolean,
-    checked? : boolean,
-    disabled? : boolean,
+    id : string
+    label? : string
+    defaultChecked? : boolean
+    checked? : boolean
+    disabled? : boolean
 }
 
 const CheckboxMultiple = ({checkboxes, onChange, checkboxClassName} : Props) =>
 {
     const onCheckboxChange = (isChecked : boolean, id : string) =>
     {
-        const checkboxIndex = checkboxes.findIndex(c => c.id == id)
+        const checkboxIndex = checkboxes.findIndex(c => c.id === id)
         let newCheckboxes = [...checkboxes]
 
         newCheckboxes[checkboxIndex].checked = isChecked
@@ -43,3 +43,16 @@ const CheckboxMultiple = ({checkboxes, onChange, checkboxClassName} : Props) =>
 }
 
 export default CheckboxMultiple
+
+export interface RadioData
+{
+    label : string,
+    value : string
+}
+
+export interface xProps
+{
+    radios : RadioData[]
+    onChange(option : string) : void
+}
+//const Toggle

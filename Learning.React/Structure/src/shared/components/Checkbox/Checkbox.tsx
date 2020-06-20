@@ -2,20 +2,20 @@ import React from "react";
 
 interface Props
 {
-    id : string,
-    onChange(isChecked : boolean, id : string) : void,
-    label? : string,
-    defaultChecked? : boolean,
-    checked? : boolean,
-    disabled? : boolean,
-    className? : string,
+    id : string
+    onChange(isChecked : boolean, id : string) : void
+    label? : string
+    defaultChecked? : boolean
+    checked? : boolean
+    disabled? : boolean
+    className? : string
 }
 
 const Checkbox = React.memo(({id, onChange, defaultChecked, label, disabled, checked, className} : Props) =>
 {
     const onCheckedChange = (event : React.ChangeEvent<HTMLInputElement>) =>
     {
-        onChange(checked == undefined ? event.target.checked : !checked, id)
+        onChange(checked === undefined ? event.target.checked : !checked, id)
     }
 
     return <div className={`form-check ${className}`}>

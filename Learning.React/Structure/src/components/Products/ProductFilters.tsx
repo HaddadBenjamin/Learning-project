@@ -1,5 +1,5 @@
 export interface ProductFilters
 {
-    inStockOnly: boolean,
+    inStockOnly: boolean
     filterText: string
 }
