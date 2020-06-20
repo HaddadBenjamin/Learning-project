@@ -7,7 +7,7 @@ interface Props
     onChange(checkedIds : string[]) : void,
     // in line / display / etcc ? classnames : example
 }
-interface CheckboxData
+export interface CheckboxData
 {
     id : string,
     label? : string,
@@ -19,14 +19,15 @@ const CheckboxMultiple = ({checkboxes, onChange} : Props) =>
 {
     const [checkedIds, setCheckedIds] = useState<string[]>(checkboxes.filter(c => c.defaultChecked).map(c => c.id))
 
-    useEffect(() => onChange(checkedIds), [checkedIds])
-
     const onCheckboxChange = (isChecked : boolean, id : string) =>
     {
         const containsId = checkedIds.includes(id);
+        const newCheckedIds =
+            containsId && !isChecked ? checkedIds.filter(c => c != id) :
+            !containsId && isChecked ? [...checkedIds, id] :
+            checkedIds;
 
-        if (containsId && !isChecked)       setCheckedIds(checkedIds.filter(c => c != id))
-        else if (!containsId && isChecked)  setCheckedIds([...checkedIds, id])
+        onChange(newCheckedIds)
     }
 
     return <>

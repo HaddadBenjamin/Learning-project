@@ -9,7 +9,7 @@ interface Props
     disabled? : boolean
 }
 
-const Checkbox = ({id, onChange, defaultChecked, label, disabled} : Props) =>
+const Checkbox = React.memo(({id, onChange, defaultChecked, label, disabled} : Props) =>
 {
     const onCheckedChange = (event : React.ChangeEvent<HTMLInputElement>) =>
     {
@@ -29,6 +29,6 @@ const Checkbox = ({id, onChange, defaultChecked, label, disabled} : Props) =>
             htmlFor={id}
             className="form-check-label ml-1">{label}</label>
     </div>
-}
+})
 
 export default Checkbox
