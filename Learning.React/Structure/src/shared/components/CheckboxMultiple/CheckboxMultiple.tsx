@@ -17,10 +17,9 @@ export interface CheckboxData
 
 const CheckboxMultiple = ({checkboxes, onChange} : Props) =>
 {
-    const [checkedIds, setCheckedIds] = useState<string[]>(checkboxes.filter(c => c.defaultChecked).map(c => c.id))
-
     const onCheckboxChange = (isChecked : boolean, id : string) =>
     {
+        const checkedIds = checkboxes.filter(c => c.defaultChecked).map(c => c.id);
         const containsId = checkedIds.includes(id);
         const newCheckedIds =
             containsId && !isChecked ? checkedIds.filter(c => c != id) :
