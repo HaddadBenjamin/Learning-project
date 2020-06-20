@@ -14,7 +14,7 @@ const ProductTableFilters = React.memo(({onFiltersChange} : Props) =>
     const [filterText, setFilterText] = useState<string>('')
 
     useEffect(() => onFiltersChange(
-{
+    {
         inStockOnly : inStockOnly,
         filterText : filterText
     }), [inStockOnly, filterText])

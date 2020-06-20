@@ -43,16 +43,3 @@ const CheckboxMultiple = ({checkboxes, onChange, checkboxClassName} : Props) =>
 }
 
 export default CheckboxMultiple
-
-export interface RadioData
-{
-    label : string,
-    value : string
-}
-
-export interface xProps
-{
-    radios : RadioData[]
-    onChange(option : string) : void
-}
-//const Toggle

@@ -8,7 +8,6 @@ interface Props
 
 const ProductRow = React.memo<Props>(({product}) =>
 {
-    console.log('render')
     return <tr>
         <td className={product.stocked ? '' : 'text-danger'}>{product.name}</td>
         <td>{product.price}</td>
