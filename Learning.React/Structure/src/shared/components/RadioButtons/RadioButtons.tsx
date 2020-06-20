@@ -1,3 +1,5 @@
+// Pourquoi je m'ennuis à recoder tout ça ? Cette librairie offre déjà tous ces composants et ils sont superbes : https://material-ui.com/components/radio-buttons/
+// Dans une vraie application, il serait encore plus intéressant de payer une lib front avec des composants React déjà présents.
 import React from "react";
 
 export interface RadioButtonData

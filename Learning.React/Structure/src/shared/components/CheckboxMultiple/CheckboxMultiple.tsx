@@ -6,7 +6,7 @@ interface Props
     checkboxes : CheckboxData[]
     onChange(checkboxes : CheckboxData[]) : void
     checkboxClassName? : string
-    // Pour ne pouvoir sélectionner qu'un seul élément à la fois, regarder mon composant ToggleGroup
+    // Si vous avez besoin d'utiliser qu'un seul composant à la fois, vous pouvez utiliser mon composant RadioButtons.
 }
 export interface CheckboxData
 {
