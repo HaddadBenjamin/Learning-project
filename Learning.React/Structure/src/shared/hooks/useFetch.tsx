@@ -1,10 +1,19 @@
 import React, {useEffect, useState} from "react"
 
+interface State<T>
+{
+    isLoading : boolean,
+    items : T[],
+    error : string
+}
 const useFetch = function<T>(url : string)
 {
-    const [isLoading, setIsLoading] = useState<boolean>(true)
-    const [items, setItems] = useState<T[]>([])
-    const [error, setError] = useState<string>('')
+    const [state, setState] = useState<State<T>>(
+        {
+            isLoading : true,
+            items : [],
+            error : ''
+        })
 
     useEffect(() =>
     {
@@ -14,17 +23,15 @@ const useFetch = function<T>(url : string)
                 .then(async (response) =>
                 {
                     if (!response.ok)
-                        throw new Error(`${response.status} : ${response.statusText}`)
+                        setState({...state, isLoading: false, error : `${response.status} : ${response.statusText}`})
                     else
-                        setItems(await response.json())
+                        setState({...state, isLoading: false, items : await response.json()})
                 })
-                .catch((error) => setError(error.message))
-
-            setIsLoading(false)
         }
         asyncUseEffect();
     }, [])
 
+    const { items, isLoading, error } = state;
     return [items, isLoading, error]
 }
 
