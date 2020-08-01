@@ -1,0 +1,7 @@
+<div class="list-group-item col-md-6 blue-gradient"  >
+<h3 style="display: inline-block;" [ngClass]="GetTextClass()" >{{ post.title }}</h3>
+  <span style="float : right;">{{ post.created_at | date: 'short'}}</span>
+<p [ngClass]="GetTextClass()">{{ post.content }}</p>
+  <button class="btn btn-success col-md-2" type="button" (click)="OnLike()">Like ({{post.loveIts}})</button>
+  <input class="btn btn-danger col-md-2 offset-md-8" type="button" (click)="OnDislike()" value="Dislike">
+</div>

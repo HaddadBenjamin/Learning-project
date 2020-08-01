@@ -1,0 +1,17 @@
+/node_modules
+/dist*/.sass-cache
+/.sass-cache
+/typings
+/e2e/*.js
+/e2e/*.map
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/workspace.xml
+.idea/Angular Training.iml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
