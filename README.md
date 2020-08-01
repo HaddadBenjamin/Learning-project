@@ -1,3 +1,3 @@
 # Learning-project
-**Date du développement du projet :** 2019-2020
+**Année de développement :** 2019-2020.</br>
 
