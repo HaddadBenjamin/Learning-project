@@ -1,3 +1,3 @@
 # Learning-project
-C'est un projet que j'utilise pour réaliser des tests et apprendre de nouvelles choses.
+**Date du développement du projet :** 2019-2020
 
