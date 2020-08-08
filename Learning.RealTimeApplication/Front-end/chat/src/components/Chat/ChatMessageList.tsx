@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     messagesList :
         {
             width: '100%',
-            backgroundColor: theme.palette.background.paper,
+            marginTop : '5px'
         }
 }));
 
@@ -50,8 +50,6 @@ const ChatMessageList = ({ hubConnection} : Props) =>
     });
 
     return (<>
-        <br/>
-        <br/>
         <List className={classes.messagesList}>
             {messages.map(m => { return (<ChatMessage message={m} key={m.message}/>); })}
         </List>
