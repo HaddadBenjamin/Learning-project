@@ -7,6 +7,7 @@ import {HubConnection, HubConnectionBuilder} from "@microsoft/signalr"
 import ChatSendMessageForm from "./ChatSendMessageForm";
 import ChatMessageList from "./ChatMessageList";
 import ChatTitle from "./ChatTitle";
+import ChatJoinGroupForm from "./ChatJoinGroupForm";
 
 const Chat = () =>
 {
@@ -17,6 +18,7 @@ const Chat = () =>
     useEffect(() => {
         hubConnection.start().then(() => console.log('connected to the hub')).catch((e) => alert(e))
     }, []);
+    function onSetGroupTitle(groupTitle : string) : void { setGroupTitle(groupTitle); }
 
     return (
         <div>
@@ -24,9 +26,9 @@ const Chat = () =>
                 <CssBaseline />
                 <Container fixed>
                     <ChatSendMessageForm hubConnection={hubConnection}/>
+                    <ChatJoinGroupForm hubConnection={hubConnection} onSetGroupTitle={onSetGroupTitle} onSetUserIsInGeneralChat={setUserIsInGeneralChat}/>
                     <ChatTitle userIsInGeneralChat={userIsInGeneralChat} groupTitle={groupTitle}/>
-                    {/* <ChatJoinGroupForm hubConnection={hubConnection} onSetGroupTitle={setGroupTitle()} onSetUserIsInGeneralChat={setUserIsInGeneralChat}/>
-                    */}<ChatMessageList hubConnection={hubConnection}/>
+                    <ChatMessageList hubConnection={hubConnection}/>
                 </Container>
             </React.Fragment>
         </div>

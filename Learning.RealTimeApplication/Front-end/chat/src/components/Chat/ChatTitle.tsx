@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 const ChatTitle = ({ userIsInGeneralChat, groupTitle } : Props) =>
 {
     const classes = useStyles();
-    const title = userIsInGeneralChat ? "General chatroom" : `You're in "${groupTitle}" group`;
+    const title = userIsInGeneralChat ? "General chat" : `"${groupTitle}" chat`;
 
     return (
         <h1 className={classes.chatTitle}>{title}</h1>

@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     },
     message : {
         width : '50%',
-        marginLeft : '5px'
+        marginLeft : '10px'
     },
     sendMessageButton : {
         height : '52px',
