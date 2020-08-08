@@ -22,6 +22,7 @@ const Chat = () =>
 
     function onSetGroupTitle(groupTitle : string) : void { setGroupTitle(groupTitle); }
     function onSetUsername(username : string) : void { setUsername(username)}
+    function getGroupTitle() : string { return groupTitle; }
 
     return (
         <div>
@@ -39,7 +40,7 @@ const Chat = () =>
                         onSetUserIsInGeneralChat={setUserIsInGeneralChat}
                         username={username}/>
                     <ChatTitle userIsInGeneralChat={userIsInGeneralChat} groupTitle={groupTitle}/>
-                    <ChatMessageList hubConnection={hubConnection} groupTitle={groupTitle} />
+                    <ChatMessageList hubConnection={hubConnection} getGroupTitle={getGroupTitle} />
                 </Container>
             </React.Fragment>
         </div>

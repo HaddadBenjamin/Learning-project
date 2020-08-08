@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
         }
 }));
 
-const initialMessages = [
+/*const initialMessages = [
     {
         username : 'Alex',
         message : ' I\'ll be in your neighborhood doing errands this…'
@@ -26,18 +26,18 @@ const initialMessages = [
         username : 'Casandra',
         message : 'Do you have Paris recommendations? Have you ever…'
     },
-];
+]; */
 
 interface Props
 {
     hubConnection : HubConnection,
-    groupTitle : string
+    getGroupTitle() : string
 }
 
-const ChatMessageList = ({ hubConnection, groupTitle } : Props) =>
+const ChatMessageList = ({ hubConnection, getGroupTitle } : Props) =>
 {
     const classes = useStyles();
-    const [messages, setMessages] = useState<IMessage[]>(initialMessages);
+    const [messages, setMessages] = useState<IMessage[]>([]);
 
     useEffect(() => {
         hubConnection.on('Broadcast', (username: string, message: string) => {
@@ -51,7 +51,7 @@ const ChatMessageList = ({ hubConnection, groupTitle } : Props) =>
 
         hubConnection.on('UserEnteredInGroup', (username : string, groupName : string) =>
         {
-               if (groupTitle === groupName)
+               if (getGroupTitle() === groupName)
                {
                    const newMessage: IMessage =
                    {
@@ -64,13 +64,24 @@ const ChatMessageList = ({ hubConnection, groupTitle } : Props) =>
 
         hubConnection.on('UserLeaveGroup', (username : string, groupName : string) =>
         {
-            if (groupTitle === groupName)
+            if (getGroupTitle() === groupName)
             {
                 const newMessage: IMessage =
                 {
                     username: username,
                     message: `User ${username} leaved ${groupName} group`
                 };
+                setMessages([...messages, newMessage]);
+            }
+        });
+
+        hubConnection.on('SendMessageToGroup', (username: string, groupName : string, message: string) => {
+            if (getGroupTitle() === groupName) {
+                const newMessage: IMessage =
+                    {
+                        username: username,
+                        message: message
+                    };
                 setMessages([...messages, newMessage]);
             }
         });
