@@ -31,17 +31,12 @@ const ChatMessageList = ({ hubConnection, getGroupTitle } : Props) =>
         });
 
         hubConnection.on('SendRoomMessage', (username: string, groupName : string, message: string) => {
-            sendMessageToGroup(username, groupName, message);
+            if (getGroupTitle() === groupName) {
+                const newMessage: IMessage = { username: username, message: message };
+                setMessages([...messages, newMessage]);
+            }
         });
     });
-
-    function sendMessageToGroup(username: string, groupName : string, message : string)
-    {
-        if (getGroupTitle() === groupName) {
-            const newMessage: IMessage = { username: username, message: message };
-            setMessages([...messages, newMessage]);
-        }
-    }
 
     return (<>
         <List className={classes.messagesList}>
