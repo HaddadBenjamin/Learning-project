@@ -1,3 +1,5 @@
+Réalisation d'une authentification par JWT token, connection sur les différents réseaux sociaux et partage d'informations.
+
 Partage d'information sur les réseaux sociaux :
 ![Image of Yaktocat](https://imgur.com/plkLtkQ.png)
 ![Image of Yaktocat](https://imgur.com/XojP9sV.png)
