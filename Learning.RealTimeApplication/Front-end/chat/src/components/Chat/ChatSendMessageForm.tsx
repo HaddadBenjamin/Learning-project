@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
     sendMessageButton : {
         height : '52px',
+        width : '25.3%',
         float : 'right'
     },
 }));
