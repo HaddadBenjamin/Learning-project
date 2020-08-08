@@ -13,7 +13,6 @@ const Chat = () =>
 
     useEffect(() => {
         hubConnection.start().then(() => console.log('connected to the hub')).catch((e) => alert(e))
-
     }, []);
 
     return (
