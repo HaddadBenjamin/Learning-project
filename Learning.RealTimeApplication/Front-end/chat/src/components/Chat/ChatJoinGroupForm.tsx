@@ -7,7 +7,8 @@ interface Props
 {
     hubConnection : HubConnection,
     onSetGroupTitle(groupTitle : string) : void,
-    onSetUserIsInGeneralChat(userIsInGeneralChat : boolean) : void
+    onSetUserIsInGeneralChat(userIsInGeneralChat : boolean) : void,
+    username : string
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -30,12 +31,29 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ChatJoinGroupForm = ({ hubConnection, onSetGroupTitle, onSetUserIsInGeneralChat } : Props) =>
+const ChatJoinGroupForm = ({ hubConnection, onSetGroupTitle, onSetUserIsInGeneralChat, username } : Props) =>
 {
     const classes = useStyles();
     const [groupTitle, setGroupTitle] = useState<string>('');
 
-    function onChangeGroupTitle(event : ChangeEvent<HTMLInputElement>) : void { setGroupTitle(event.target.value);    }
+    function onChangeGroupTitle(event : ChangeEvent<HTMLInputElement>) : void { setGroupTitle(event.target.value); }
+
+    function joinGroup()
+    {
+        hubConnection.invoke('UserEnteredInGroup', username, groupTitle);
+
+        onSetGroupTitle(groupTitle);
+        onSetUserIsInGeneralChat(false);
+    }
+
+    function joinGeneralChannel()
+    {
+        hubConnection.invoke('UserLeaveGroup', username, groupTitle);
+
+        onSetUserIsInGeneralChat(true);
+    }
+
+
     return (
             <div className={classes.groupForm}>
                 <TextField
@@ -47,12 +65,11 @@ const ChatJoinGroupForm = ({ hubConnection, onSetGroupTitle, onSetUserIsInGenera
                     onChange={onChangeGroupTitle}
                     className={classes.groupTitle}
                 />
-                {/* Join group behaviour / join general channel */}
-                <Button variant="contained" color="secondary" className={classes.joinGroupButton}>
+                <Button variant="contained" color="secondary" className={classes.joinGroupButton} onClick={joinGroup}>
                     Join group
                 </Button>
 
-                <Button variant="contained" color="secondary" className={classes.joinGeneralChannelButton}>
+                <Button variant="contained" color="secondary" className={classes.joinGeneralChannelButton} onClick={joinGeneralChannel}>
                     Join General
                 </Button>
         </div>

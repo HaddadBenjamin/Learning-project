@@ -20,10 +20,13 @@ const useStyles = makeStyles((theme) => ({
 
 interface Props
 {
-    hubConnection : HubConnection
+    hubConnection : HubConnection,
+    onSetUsername(username : string) : void,
+    groupTitle : string,
+    userIsInGeneralChat : boolean
 }
 
-const ChatSendMessageForm = ({hubConnection } : Props) =>
+const ChatSendMessageForm = ({hubConnection, onSetUsername, groupTitle, userIsInGeneralChat} : Props) =>
 {
     const classes = useStyles();
     const [message, setMessage] = useState<string>('');
@@ -32,7 +35,15 @@ const ChatSendMessageForm = ({hubConnection } : Props) =>
     function onChangeMessage(event : ChangeEvent<HTMLInputElement>) : void  { setMessage(event.target.value);  }
     function onChangeUsername(event : ChangeEvent<HTMLInputElement>) : void { setUsername(event.target.value); }
 
-    function sendMessage() { hubConnection.invoke('Broadcast', username, message); }
+    function sendMessage()
+    {
+        if (userIsInGeneralChat)
+            hubConnection.invoke('Broadcast', username, message);
+        else
+            hubConnection.invoke('SendMessageToGroup', username, groupTitle, message);
+
+        onSetUsername(username);
+    }
 
     return (<>
         <br/>

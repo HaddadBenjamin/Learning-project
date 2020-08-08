@@ -12,7 +12,7 @@ namespace Learning.RealTimeApplication.API
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
 
-            await Clients.Group(groupName).SendAsync("UserEnteredInGroup", username);
+            await Clients.Group(groupName).SendAsync("UserEnteredInGroup", username, groupName);
         }
 
         public async Task RemoveUserFromGroup(string username, string groupName)

@@ -30,10 +30,11 @@ const initialMessages = [
 
 interface Props
 {
-    hubConnection : HubConnection
+    hubConnection : HubConnection,
+    groupTitle : string
 }
 
-const ChatMessageList = ({ hubConnection} : Props) =>
+const ChatMessageList = ({ hubConnection, groupTitle } : Props) =>
 {
     const classes = useStyles();
     const [messages, setMessages] = useState<IMessage[]>(initialMessages);
@@ -46,7 +47,33 @@ const ChatMessageList = ({ hubConnection} : Props) =>
                     message: message
                 };
             setMessages([...messages, newMessage]);
-        })
+        });
+
+        hubConnection.on('UserEnteredInGroup', (username : string, groupName : string) =>
+        {
+               if (groupTitle === groupName)
+               {
+                   const newMessage: IMessage =
+                   {
+                       username: username,
+                       message: `User ${username} entered in ${groupName} group`
+                   };
+                   setMessages([...messages, newMessage]);
+               }
+        });
+
+        hubConnection.on('UserLeaveGroup', (username : string, groupName : string) =>
+        {
+            if (groupTitle === groupName)
+            {
+                const newMessage: IMessage =
+                {
+                    username: username,
+                    message: `User ${username} leaved ${groupName} group`
+                };
+                setMessages([...messages, newMessage]);
+            }
+        });
     });
 
     return (<>
