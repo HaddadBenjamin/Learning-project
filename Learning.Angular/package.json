@@ -21,6 +21,6 @@
   },
   "homepage": "https://github.com/HaddadBenjamin/Angular-Training#readme",
   "dependencies": {
-    "bootstrap": "^4.1.3"
+    "bootstrap": "^4.3.1"
   }
 }
