@@ -40,7 +40,7 @@ const ChatJoinGroupForm = ({ hubConnection, onSetGroupTitle, onSetUserIsInGenera
 
     function joinGroup()
     {
-        hubConnection.invoke('UserEnteredInGroup', username, groupTitle);
+        hubConnection.invoke('UserJoinRoom', username, groupTitle);
 
         onSetGroupTitle(groupTitle);
         onSetUserIsInGeneralChat(false);
@@ -48,7 +48,7 @@ const ChatJoinGroupForm = ({ hubConnection, onSetGroupTitle, onSetUserIsInGenera
 
     function joinGeneralChannel()
     {
-        hubConnection.invoke('UserLeaveGroup', username, groupTitle);
+        hubConnection.invoke('UseLeaveRoom', username, groupTitle);
 
         onSetUserIsInGeneralChat(true);
     }

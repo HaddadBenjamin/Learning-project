@@ -40,7 +40,7 @@ const ChatSendMessageForm = ({hubConnection, onSetUsername, groupTitle, userIsIn
         if (userIsInGeneralChat)
             hubConnection.invoke('Broadcast', username, message);
         else
-            hubConnection.invoke('SendMessageToGroup', username, groupTitle, message);
+            hubConnection.invoke('SendRoomMessage', username, groupTitle, message);
 
         onSetUsername(username);
     }

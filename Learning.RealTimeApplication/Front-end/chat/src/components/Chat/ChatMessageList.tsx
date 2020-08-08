@@ -7,26 +7,11 @@ import {HubConnection } from "@microsoft/signalr"
 
 const useStyles = makeStyles((theme) => ({
     messagesList :
-        {
-            width: '100%',
-            marginTop : '5px'
-        }
+    {
+        width: '100%',
+        marginTop : '5px'
+    }
 }));
-
-/*const initialMessages = [
-    {
-        username : 'Alex',
-        message : ' I\'ll be in your neighborhood doing errands this…'
-    },
-    {
-        username : 'Thomas',
-        message : ' Wish I could come, but I\'m out of town this…'
-    },
-    {
-        username : 'Casandra',
-        message : 'Do you have Paris recommendations? Have you ever…'
-    },
-]; */
 
 interface Props
 {
@@ -45,15 +30,7 @@ const ChatMessageList = ({ hubConnection, getGroupTitle } : Props) =>
             setMessages([...messages, newMessage]);
         });
 
-        hubConnection.on('UserEnteredInGroup', (username : string, groupName : string) => {
-            sendMessageToGroup(username, groupName, `"${username}" entered in "${groupName}" group`);
-        });
-
-        hubConnection.on('UserLeaveGroup', (username : string, groupName : string) => {
-            sendMessageToGroup(username, groupName, `"${username}" leaved "${groupName}" room`);
-        });
-
-        hubConnection.on('SendMessageToGroup', (username: string, groupName : string, message: string) => {
+        hubConnection.on('SendRoomMessage', (username: string, groupName : string, message: string) => {
             sendMessageToGroup(username, groupName, message);
         });
     });

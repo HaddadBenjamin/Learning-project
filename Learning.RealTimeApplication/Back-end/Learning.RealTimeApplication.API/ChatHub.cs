@@ -8,21 +8,23 @@ namespace Learning.RealTimeApplication.API
         public async Task Broadcast(string username, string message) =>
             await Clients.All.SendAsync("Broadcast", username, message);
 
-        public async Task UserEnteredInGroup(string username, string groupName)
+        public async Task UserJoinRoom(string username, string groupName)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
 
-            await Clients.Group(groupName).SendAsync("UserEnteredInGroup", username, groupName);
+            await Clients.Group(groupName).SendAsync("UserJoinRoom", username, groupName);
+            await SendRoomMessage(username, groupName, $"'{username}' joined {groupName} room");
         }
 
-        public async Task UserLeaveGroup(string username, string groupName)
+        public async Task UseLeaveRoom(string username, string groupName)
         {
+            await SendRoomMessage(username, groupName, $"'{username}' leaved {groupName} room");
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
 
-            await Clients.Group(groupName).SendAsync("UserLeaveGroup", username);
+            await Clients.Group(groupName).SendAsync("UseLeaveRoom", username);
         }
 
-        public async Task SendMessageToGroup(string username, string groupName, string message) =>
-            await Clients.Group(groupName).SendAsync("SendMessageToGroup", username, groupName, message);
+        public async Task SendRoomMessage(string username, string groupName, string message) =>
+            await Clients.Group(groupName).SendAsync("SendRoomMessage", username, groupName, message);
     }
 }
