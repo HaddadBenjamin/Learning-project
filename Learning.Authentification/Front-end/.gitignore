@@ -1,0 +1,25 @@
+# Build and Release Folders
+packages/
+bin-debug/
+bin-release/
+[Oo]bj/
+[Bb]in/
+
+# Other files and folders
+.settings/
+
+# Executables
+*.swf
+*.air
+*.ipa
+*.apk
+
+.idea
+.idea/workspace.xml
+
+*.feature.cs
+.vs/Learning.Authentification/config/applicationhost.config
+.vs/Learning.Authentification/DesignTimeBuild/.dtbcache.v2
+.vs/Learning.Authentification/v16/.suo
+
+node_modules/
