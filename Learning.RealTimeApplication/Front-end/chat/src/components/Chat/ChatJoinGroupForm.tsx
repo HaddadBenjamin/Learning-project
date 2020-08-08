@@ -58,15 +58,15 @@ const ChatJoinGroupForm = ({ hubConnection, onSetGroupTitle, onSetUserIsInGenera
             <div className={classes.groupForm}>
                 <TextField
                     id="outlined-textarea"
-                    label="Group name"
-                    placeholder="Group name"
+                    label="Room name"
+                    placeholder="Room name"
                     variant="outlined"
                     value={groupTitle}
                     onChange={onChangeGroupTitle}
                     className={classes.groupTitle}
                 />
                 <Button variant="contained" color="secondary" className={classes.joinGroupButton} onClick={joinGroup}>
-                    Join group
+                    Join room
                 </Button>
 
                 <Button variant="contained" color="secondary" className={classes.joinGeneralChannelButton} onClick={joinGeneralChannel}>

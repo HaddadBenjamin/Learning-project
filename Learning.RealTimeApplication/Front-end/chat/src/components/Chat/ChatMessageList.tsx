@@ -41,51 +41,30 @@ const ChatMessageList = ({ hubConnection, getGroupTitle } : Props) =>
 
     useEffect(() => {
         hubConnection.on('Broadcast', (username: string, message: string) => {
-            const newMessage: IMessage =
-                {
-                    username: username,
-                    message: message
-                };
+            const newMessage: IMessage = { username: username, message: message };
             setMessages([...messages, newMessage]);
         });
 
-        hubConnection.on('UserEnteredInGroup', (username : string, groupName : string) =>
-        {
-               if (getGroupTitle() === groupName)
-               {
-                   const newMessage: IMessage =
-                   {
-                       username: username,
-                       message: `User ${username} entered in ${groupName} group`
-                   };
-                   setMessages([...messages, newMessage]);
-               }
+        hubConnection.on('UserEnteredInGroup', (username : string, groupName : string) => {
+            sendMessageToGroup(username, groupName, `"${username}" entered in "${groupName}" group`);
         });
 
-        hubConnection.on('UserLeaveGroup', (username : string, groupName : string) =>
-        {
-            if (getGroupTitle() === groupName)
-            {
-                const newMessage: IMessage =
-                {
-                    username: username,
-                    message: `User ${username} leaved ${groupName} group`
-                };
-                setMessages([...messages, newMessage]);
-            }
+        hubConnection.on('UserLeaveGroup', (username : string, groupName : string) => {
+            sendMessageToGroup(username, groupName, `"${username}" leaved "${groupName}" room`);
         });
 
         hubConnection.on('SendMessageToGroup', (username: string, groupName : string, message: string) => {
-            if (getGroupTitle() === groupName) {
-                const newMessage: IMessage =
-                    {
-                        username: username,
-                        message: message
-                    };
-                setMessages([...messages, newMessage]);
-            }
+            sendMessageToGroup(username, groupName, message);
         });
     });
+
+    function sendMessageToGroup(username: string, groupName : string, message : string)
+    {
+        if (getGroupTitle() === groupName) {
+            const newMessage: IMessage = { username: username, message: message };
+            setMessages([...messages, newMessage]);
+        }
+    }
 
     return (<>
         <List className={classes.messagesList}>
