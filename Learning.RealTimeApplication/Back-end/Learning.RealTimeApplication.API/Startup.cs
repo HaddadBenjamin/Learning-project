@@ -10,7 +10,16 @@ namespace Learning.RealTimeApplication.API
 {
     public class Startup
     {
-        public void ConfigureServices(IServiceCollection services) => services.AddSignalR();
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddCors(options => options.AddPolicy("CorsPolicy", builder => builder
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .WithOrigins("http://localhost:3000")
+                .AllowCredentials()));
+
+            services.AddSignalR();
+        }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -19,7 +28,8 @@ namespace Learning.RealTimeApplication.API
 
             app.UseRouting();
 
-            app.UseSignalR(routes => routes.MapHub<ChatHub>("/"));
+            app.UseCors("CorsPolicy");
+            app.UseEndpoints(routes => routes.MapHub<ChatHub>("/chat"));
         }
     }
 

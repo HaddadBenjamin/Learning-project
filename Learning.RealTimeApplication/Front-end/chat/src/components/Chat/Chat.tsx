@@ -1,22 +1,7 @@
-import React, {
-    ChangeEvent,
-    useEffect,
-    useState
-} from "react";
-
-import {
-    TextField,
-    Container,
-    Typography,
-    CssBaseline,
-    Button,
-    ListItem,
-    List,
-    ListItemText,
-    Avatar,
-    ListItemAvatar, Divider
-} from "@material-ui/core"
+import React, { ChangeEvent, useState, useEffect } from "react";
+import { TextField, Container, Typography, CssBaseline, Button, ListItem, List, ListItemText, Avatar, ListItemAvatar, Divider } from "@material-ui/core"
 import {makeStyles} from "@material-ui/core/styles";
+import { HubConnectionBuilder, HubConnection } from "@microsoft/signalr"
 
 const useStyles = makeStyles((theme) => ({
     username : {
@@ -50,6 +35,11 @@ interface IMessage
 const Chat = () =>
 {
     const classes = useStyles();
+    const [hubConnection, setHubConnection] = useState<HubConnection>(new HubConnectionBuilder().withUrl("https://localhost:44391/chat").build());
+
+    useEffect(() => {
+        hubConnection.start().then(() => alert('connected to the hub')).catch(() => alert('error hub'))
+    });
 
     {/* Send a message broadcoast*/}
     const [message, setMessage] = useState<string>('');
@@ -73,32 +63,36 @@ const Chat = () =>
             message : 'Do you have Paris recommendations? Have you ever…'
         },
     ]);
-    const messagesComponent = messages.map(m => {
-        const imagePath = `/static/images/avatar/${Math.floor(Math.random() * Math.floor(3)) + 1}.jpg`
-        return (<>
-        <ListItem alignItems="flex-start">
-            <ListItemAvatar>
-                <Avatar alt="Remy Sharp" src={imagePath} />
-            </ListItemAvatar>
-            <ListItemText
-                primary={m.username}
-                secondary={
-                    <React.Fragment>
-                        <Typography
-                            component="span"
-                            variant="body2"
-                            className={classes.inline}
-                            color="textPrimary"
-                        >
-                        </Typography>
-                        {m.message}
-                    </React.Fragment>
-                }
-            />
-        </ListItem>
-        <Divider variant="inset" component="li" />
-        </>)
-    });
+
+    function getMessageComponent()
+    {
+        return messages.map(m => {
+            const imagePath = `/static/images/avatar/${Math.floor(Math.random() * Math.floor(3)) + 1}.jpg`
+            return (<div key={m.message}>
+                <ListItem alignItems="flex-start" >
+                    <ListItemAvatar>
+                        <Avatar alt="Remy Sharp" src={imagePath} />
+                    </ListItemAvatar>
+                    <ListItemText
+                        primary={m.username}
+                        secondary={
+                            <React.Fragment>
+                                <Typography
+                                    component="span"
+                                    variant="body2"
+                                    className={classes.inline}
+                                    color="textPrimary"
+                                >
+                                </Typography>
+                                {m.message}
+                            </React.Fragment>
+                        }
+                    />
+                </ListItem>
+                <Divider variant="inset" component="li"/>
+            </div>)
+        });
+    }
 
     return (
         <div>
@@ -134,7 +128,7 @@ const Chat = () =>
                     <br/>
                     <br/>
                     <List className={classes.messagesList}>
-                        {messagesComponent}
+                        {getMessageComponent()}
                     </List>
                 </Container>
             </React.Fragment>
