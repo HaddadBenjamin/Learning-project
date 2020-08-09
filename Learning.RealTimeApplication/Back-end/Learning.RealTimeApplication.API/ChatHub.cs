@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
@@ -6,11 +5,9 @@ namespace Learning.RealTimeApplication.API
 {
     public class ChatHub : Hub
     {
-        // Dans un scénario de production, ces informations devraient-être stockées dans une base de données.
-        private Hashtable _usernameToConnectionId = new Hashtable();
+        private readonly ConnectionIdResolver _connectionIdResolver;
 
-        private void UpdateConnectionIdToUsername(string username) =>
-            _usernameToConnectionId.Add(username, Context.ConnectionId);
+        public ChatHub(ConnectionIdResolver connectionIdResolver) => _connectionIdResolver = connectionIdResolver;
 
         public async Task UserJoinRoom(string username, string groupName)
         {
@@ -30,28 +27,25 @@ namespace Learning.RealTimeApplication.API
 
         public async Task SendMessageToAllUsers(string username, string message)
         {
-            UpdateConnectionIdToUsername(username);
+            _connectionIdResolver.UpdateConnectionIdMapping(username, Context.ConnectionId);
 
             await Clients.All.SendAsync("SendMessageToAllUsers", username, message);
         }
 
         public async Task SendRoomMessage(string username, string groupName, string message)
         {
-            UpdateConnectionIdToUsername(username);
+            _connectionIdResolver.UpdateConnectionIdMapping(username, Context.ConnectionId);
             
             await Clients.Group(groupName).SendAsync("SendRoomMessage", username, groupName, message);
         }
 
         public async Task SendPrivateMessage(string fromUsername, string toUsername, string message)
         {
-            UpdateConnectionIdToUsername(fromUsername);
+            _connectionIdResolver.UpdateConnectionIdMapping(fromUsername, Context.ConnectionId);
 
-            if (_usernameToConnectionId.ContainsKey(toUsername))
-            {
-                var toConnectionId = (string)_usernameToConnectionId[toUsername];
+            var toConnectionId = _connectionIdResolver.Resolve(toUsername);
 
-                await Clients.Client(toConnectionId).SendAsync("SendPrivateMessage", fromUsername, $"'{fromUsername}' sent you a private message '{message}'");
-            }
+            await Clients.Client(toConnectionId).SendAsync("SendPrivateMessage", fromUsername, $"'{fromUsername}' sent you a private message '{message}'");
         }
     }
 }

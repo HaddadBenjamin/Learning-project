@@ -16,6 +16,8 @@ namespace Learning.RealTimeApplication.API
                 .AllowCredentials()));
 
             services.AddSignalR();
+
+            services.AddSingleton(new ConnectionIdResolver());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
