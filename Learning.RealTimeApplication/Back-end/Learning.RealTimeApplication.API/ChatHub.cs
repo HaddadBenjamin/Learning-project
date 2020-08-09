@@ -45,7 +45,7 @@ namespace Learning.RealTimeApplication.API
 
             var toConnectionId = _connectionIdResolver.Resolve(toUsername);
 
-            await Clients.Client(toConnectionId).SendAsync("ReceivePrivateMessage", fromUsername, $"'{fromUsername}' sent you a private message '{message}'");
+            await Clients.Client(toConnectionId).SendAsync("SendPrivateMessage", fromUsername, $"'{fromUsername}' sent you a private message '{message}'");
         }
     }
 }
