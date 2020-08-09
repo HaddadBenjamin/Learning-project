@@ -1,9 +1,10 @@
 import {makeStyles} from "@material-ui/core/styles";
-import React, {useState, useEffect} from "react";
-import {IMessage} from "./IMessage";
+import React, {useEffect, useState} from "react";
+import {IMessage} from "./Models/IMessage";
 import {List} from "@material-ui/core";
 import ChatMessage from "./ChatMessage";
-import {HubConnection } from "@microsoft/signalr"
+import {HubConnection} from "@microsoft/signalr"
+import MessageDestination from "./Models/MessageDestination";
 
 const useStyles = makeStyles((theme) => ({
     messagesList :
@@ -25,16 +26,21 @@ const ChatMessageList = ({ hubConnection, getGroupTitle } : Props) =>
     const [messages, setMessages] = useState<IMessage[]>([]);
 
     useEffect(() => {
-        hubConnection.on('Broadcast', (username: string, message: string) => {
-            const newMessage: IMessage = { username: username, message: message };
+        hubConnection.on('SendMessageToAllUsers', (username: string, message: string) => {
+            const newMessage: IMessage = { username: username, message: message, destination : MessageDestination.General };
             setMessages([...messages, newMessage]);
         });
 
         hubConnection.on('SendRoomMessage', (username: string, groupName : string, message: string) => {
             if (getGroupTitle() === groupName) {
-                const newMessage: IMessage = { username: username, message: message };
+                const newMessage: IMessage = { username: username, message: message, destination : MessageDestination.Room };
                 setMessages([...messages, newMessage]);
             }
+        });
+
+        hubConnection.on('SendPrivateMessage', (username: string, message: string) => {
+            const newMessage: IMessage = { username: username, message: message, destination : MessageDestination.Private };
+            setMessages([...messages, newMessage]);
         });
     });
 

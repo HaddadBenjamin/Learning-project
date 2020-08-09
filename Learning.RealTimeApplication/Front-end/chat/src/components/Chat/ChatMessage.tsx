@@ -1,12 +1,22 @@
 import React from "react";
-import {IMessage} from "./IMessage";
+import {IMessage} from "./Models/IMessage";
 import {Avatar, Divider, ListItem, ListItemAvatar, ListItemText, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
+import MessageDestination from "./Models/MessageDestination";
 
 const useStyles = makeStyles((theme) => ({
-    inline: {
+    privateMessage : {
         display: 'inline',
+        color : '#f50057 !important'
     },
+    roomMessage : {
+        display: 'inline',
+        color : '#8c9eff !important'
+    },
+    generalMessage : {
+        display: 'inline',
+        color : 'rgba(0, 0, 0, 0.54) !important'
+    }
 }));
 
 
@@ -19,7 +29,13 @@ const ChatMessage = ({ message } : Props) =>
 {
     const classes = useStyles();
     const imagePath = `/static/images/avatar/${Math.floor(Math.random() * Math.floor(3)) + 1}.jpg`
+    const className =
+        message.destination === MessageDestination.General ? classes.generalMessage :
+        message.destination === MessageDestination.Room ? classes.roomMessage :
+        message.destination === MessageDestination.Private ? classes.privateMessage :
+        "";
 
+    console.log(className);
     return (
         <>
         <ListItem alignItems="flex-start" >
@@ -29,16 +45,9 @@ const ChatMessage = ({ message } : Props) =>
             <ListItemText
                 primary={message.username}
                 secondary={
-                    <React.Fragment>
-                        <Typography
-                            component="span"
-                            variant="body2"
-                            className={classes.inline}
-                            color="textPrimary"
-                        >
-                        </Typography>
+                    <p className={className}>
                         {message.message}
-                    </React.Fragment>
+                    </p>
                 }
             />
         </ListItem>
