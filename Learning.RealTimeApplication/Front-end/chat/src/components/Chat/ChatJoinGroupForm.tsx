@@ -48,7 +48,7 @@ const ChatJoinGroupForm = ({ hubConnection, onSetGroupTitle, onSetUserIsInGenera
 
     function joinGeneralChannel()
     {
-        hubConnection.invoke('UseLeaveRoom', username, groupTitle);
+        hubConnection.invoke('UserLeaveRoom', username, groupTitle);
 
         onSetUserIsInGeneralChat(true);
     }

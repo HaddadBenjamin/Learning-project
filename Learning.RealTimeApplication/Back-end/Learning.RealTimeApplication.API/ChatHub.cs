@@ -17,12 +17,12 @@ namespace Learning.RealTimeApplication.API
             await SendRoomMessage(username, groupName, $"'{username}' joined '{groupName}' room");
         }
 
-        public async Task UseLeaveRoom(string username, string groupName)
+        public async Task UserLeaveRoom(string username, string groupName)
         {
             await SendRoomMessage(username, groupName, $"'{username}' leaved '{groupName}' room");
 
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
-            await Clients.Group(groupName).SendAsync("UseLeaveRoom", username);
+            await Clients.Group(groupName).SendAsync("UserLeaveRoom", username);
         }
 
         public async Task SendMessageToAllUsers(string username, string message)

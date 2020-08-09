@@ -28,7 +28,11 @@ interface Props
 const ChatMessage = ({ message } : Props) =>
 {
     const classes = useStyles();
-    const imagePath = `/static/images/avatar/${Math.floor(Math.random() * Math.floor(3)) + 1}.jpg`
+    const imageNumber =
+        message.username == 'Ben' ? 2 :
+        message.username == 'Jess' ? 3 :
+        1;
+    const imagePath = `/static/images/avatar/${imageNumber}.jpg`
     const className =
         message.destination === MessageDestination.General ? classes.generalMessage :
         message.destination === MessageDestination.Room ? classes.roomMessage :

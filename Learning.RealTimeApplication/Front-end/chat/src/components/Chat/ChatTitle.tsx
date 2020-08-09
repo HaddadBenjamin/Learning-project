@@ -9,11 +9,11 @@ interface Props
 
 const useStyles = makeStyles((theme) => ({
     chatTitle :
-        {
-            textAlign : 'center',
-            marginTop : '40px',
-            marginBottom : '0px'
-        }
+    {
+        textAlign : 'center',
+        marginTop : '40px',
+        marginBottom : '0px'
+    }
 }));
 
 const ChatTitle = ({ userIsInGeneralChat, groupTitle } : Props) =>
