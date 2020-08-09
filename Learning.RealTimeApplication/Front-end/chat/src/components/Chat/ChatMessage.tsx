@@ -35,7 +35,6 @@ const ChatMessage = ({ message } : Props) =>
         message.destination === MessageDestination.Private ? classes.privateMessage :
         "";
 
-    console.log(className);
     return (
         <>
         <ListItem alignItems="flex-start" >

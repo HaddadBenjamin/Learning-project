@@ -68,7 +68,7 @@ const ChatSendMessageForm = ({hubConnection, onSetUsername, groupTitle, userIsIn
 
     function sendPrivateMessage()
     {
-        hubConnection.invoke('SendPrivateMessage', username, toUsername, message);
+        hubConnection.invoke('SendPrivateMessage', username, toUsername, privateMessage);
     }
 
     return (<>

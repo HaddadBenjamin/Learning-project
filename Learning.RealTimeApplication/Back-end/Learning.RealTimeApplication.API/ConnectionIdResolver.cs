@@ -11,6 +11,6 @@ namespace Learning.RealTimeApplication.API
             _usernameToConnectionId.ContainsKey(username) ? (string) _usernameToConnectionId[username] : null;
 
         public void UpdateConnectionIdMapping(string username, string connectionId) =>
-            _usernameToConnectionId.Add(username, connectionId);
+            _usernameToConnectionId[username] = connectionId;
     }
 }

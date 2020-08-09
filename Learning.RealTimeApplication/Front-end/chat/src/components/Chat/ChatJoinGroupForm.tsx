@@ -52,8 +52,6 @@ const ChatJoinGroupForm = ({ hubConnection, onSetGroupTitle, onSetUserIsInGenera
 
         onSetUserIsInGeneralChat(true);
     }
-
-
     return (
             <div className={classes.groupForm}>
                 <TextField
