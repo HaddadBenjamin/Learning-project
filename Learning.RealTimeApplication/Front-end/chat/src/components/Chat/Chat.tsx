@@ -8,6 +8,7 @@ import ChatSendMessageForm from "./ChatSendMessageForm";
 import ChatMessageList from "./ChatMessageList";
 import ChatTitle from "./ChatTitle";
 import ChatJoinGroupForm from "./ChatJoinGroupForm";
+import ChatUsersVideos from "./ChatUsersVideos";
 
 const Chat = () =>
 {
@@ -39,6 +40,7 @@ const Chat = () =>
                         onSetGroupTitle={onSetGroupTitle}
                         onSetUserIsInGeneralChat={setUserIsInGeneralChat}
                         username={username}/>
+                    <ChatUsersVideos/>
                     <ChatTitle userIsInGeneralChat={userIsInGeneralChat} groupTitle={groupTitle}/>
                     <ChatMessageList hubConnection={hubConnection} getGroupTitle={getGroupTitle} />
                 </Container>
