@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset = "UTF-8">
+      <title>Audio and Video</title>
+   </head>
+   <body style="background-color : black">
+		<video class="video-partner" autoplay width="250"></video>
+		<video class="video-me" autoplay width="250">></video>
+  
+		<script type = "text/javascript">
+			navigator.getUserMedia({video: true, audio: false }, (stream) =>
+			{
+				document.querySelector('.video-me').srcObject = stream;
+			}, (e) => console.log(e));
+		</script>
+	</body>
+</html>
