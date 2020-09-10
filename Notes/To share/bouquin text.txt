@@ -1,0 +1,17 @@
+me faire un planneur / 
+recherches : provisioning ?
+
+
+Bonjour à tous,
+
+J'espère que vous allez bien et aujourd'hui je vous partage mon résumé du livre "Software architecture with C#8 and .NET Core 3" qui survole pas mal de sujets sur lesquels on travail quotidiennement (DDD, tests, Docker & Kubernetes, Azure, CI & CD, outils d'analylse, monitoring, etc...).
+
+Ces dernières ne traite pas les sujets en profondeur, ont étaient complétés par des recherches personnelles et sont sujettes à ma propre interprétation, donc il est fort probable qu'elles contiennent quelques erreurs que vous pourrez me remonter mais soyez indulgent :)
+
+J'espère que ça vous intéressera et que vous prendrai autant de plaisir à me lire que j'ai eu de plaisir à lire ce livre.
+
+Par ailleurs, pour ceux qui sont intéressé je laisserais prochainement dans nos locaux ~8 livres traitant de .NET Core, ASP.NET, la stack Elastic, Angular & React que vous pourrez prendre et ramener chez vous.
+
+Je vous dit donc à très bientôt.
+Bien à vous,
+Monsieur Haddad.
