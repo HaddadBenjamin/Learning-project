@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+/* Mes formulaires devrait contenir que des champs contrôlés */
 const ChatJoinGroupForm = ({ hubConnection, onSetGroupTitle, onSetUserIsInGeneralChat, username } : Props) =>
 {
     const classes = useStyles();

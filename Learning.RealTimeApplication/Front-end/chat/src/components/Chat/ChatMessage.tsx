@@ -25,7 +25,7 @@ interface Props
     message : IMessage
 }
 
-const ChatMessage = ({ message } : Props) =>
+const ChatMessage = React.memo<Props>(({ message }) =>
 {
     const classes = useStyles();
     const imageNumber =
@@ -57,6 +57,6 @@ const ChatMessage = ({ message } : Props) =>
         <Divider variant="inset" component="li"/>
         </>
     )
-}
+})
 
 export default ChatMessage;

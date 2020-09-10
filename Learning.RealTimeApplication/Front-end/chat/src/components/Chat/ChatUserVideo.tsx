@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const ChatUserVideo = ({ username } : Props ) =>
+const ChatUserVideo = React.memo<Props>(({ username } : Props ) =>
 {
     const classes = useStyles();
     const videoRef = useRef(null);
@@ -47,5 +47,6 @@ const ChatUserVideo = ({ username } : Props ) =>
             </Box>
         </>
     );
-};
+})
+
 export default ChatUserVideo;

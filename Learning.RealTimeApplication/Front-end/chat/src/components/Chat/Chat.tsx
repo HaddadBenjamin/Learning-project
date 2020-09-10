@@ -12,10 +12,10 @@ import ChatUsersVideos from "./ChatUsersVideos";
 
 const Chat = () =>
 {
-    const [hubConnection] = useState<HubConnection>(new HubConnectionBuilder().withUrl("https://localhost:44391/chat").build());
-    const [userIsInGeneralChat, setUserIsInGeneralChat] = useState<boolean>(true);
-    const [groupTitle, setGroupTitle] = useState<string>('');
-    const [username, setUsername] = useState<string>('');
+    const [hubConnection] = useState<HubConnection>(new HubConnectionBuilder().withUrl("https://localhost:44391/chat").build()); // globlal state
+    const [userIsInGeneralChat, setUserIsInGeneralChat] = useState<boolean>(true); // globlal state
+    const [groupTitle, setGroupTitle] = useState<string>('');   // globlal state
+    const [username, setUsername] = useState<string>('');       // globlal state
 
     useEffect(() => {
         hubConnection.start().then(() => console.log('connected to the hub')).catch((e) => alert(e))
@@ -30,6 +30,7 @@ const Chat = () =>
             <React.Fragment>
                 <CssBaseline />
                 <Container fixed>
+                    {/* Tout ces composants ne devraient pas avoir de props et utilisé le global state */}
                     <ChatSendMessageForm
                         hubConnection={hubConnection}
                         onSetUsername={onSetUsername}

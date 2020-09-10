@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
@@ -47,5 +48,15 @@ namespace Learning.RealTimeApplication.API
 
             await Clients.Client(toConnectionId).SendAsync("SendPrivateMessage", fromUsername, $"'{fromUsername}' sent you a private message '{message}'");
         }
+
+        public async Task StreamVideoToAllClients(IAsyncEnumerable<string> stream)
+        {
+            await foreach (var item in stream)
+                await Clients.All.SendAsync("StreamVideoToAllClients", item);
+        }
+
+        // Clients.Caller : l'appelant.
+        // Clients.Others : autre personne que l'appellant.
+        // Clients.User(userId) : targetter un client grâce à son user id.
     }
 }

@@ -42,6 +42,7 @@ interface Props
     userIsInGeneralChat : boolean
 }
 
+/* Mes formulaires devrait contenir que des champs contrôlés */
 const ChatSendMessageForm = ({hubConnection, onSetUsername, groupTitle, userIsInGeneralChat} : Props) =>
 {
     const classes = useStyles();
@@ -51,6 +52,7 @@ const ChatSendMessageForm = ({hubConnection, onSetUsername, groupTitle, userIsIn
     const [privateMessage, setPrivateMessage] = useState<string>('');
     const [toUsername, setToUsername] = useState<string>('');
 
+    /* Ces 4 méthodes devraient être des usecallbacks */
     function onChangeMessage(event : ChangeEvent<HTMLInputElement>) : void  { setMessage(event.target.value);  }
     function onChangeUsername(event : ChangeEvent<HTMLInputElement>) : void { setUsername(event.target.value); }
     function onChangePrivateMessage(event : ChangeEvent<HTMLInputElement>) : void  { setPrivateMessage(event.target.value);  }

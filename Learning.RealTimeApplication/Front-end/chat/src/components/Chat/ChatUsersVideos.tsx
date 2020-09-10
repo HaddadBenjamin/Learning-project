@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+/* Devrait-être dans le global state */
 const ChatUsersVideos = () =>
 {
     const classes = useStyles();
