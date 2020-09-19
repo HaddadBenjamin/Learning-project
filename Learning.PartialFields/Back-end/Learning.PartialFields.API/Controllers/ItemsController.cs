@@ -46,6 +46,7 @@ namespace Learning.PartialFields.API.Controllers
     public class ItemDtoPartialGetMapper : PartialMapper<Item, ItemDto>
     {
         public ItemDtoPartialGetMapper(IPartialFields fieldsToMap) : base(fieldsToMap) =>
+            // Only add complex mappers, the other fields are mapped automatically.
             AddMappers(
                 ("name", ((source, destination) => destination.Name = $"{source.Name}-{source.Id}"))
             );
@@ -74,6 +75,7 @@ namespace Learning.PartialFields.API.Controllers
     public class ItemDtoPartialUpdateMapper : PartialMapper<UpdateItemDto, Item>
     {
         public ItemDtoPartialUpdateMapper(IPartialFields fieldsToMap) : base(fieldsToMap) =>
+            // Only add complex mappers, the other fields are mapped automatically.
             AddMappers(
                 ("name", ((source, destination) => destination.Name = $"{source.Name}-{source.Location.Act}-{source.Location.Zone}"))
             );

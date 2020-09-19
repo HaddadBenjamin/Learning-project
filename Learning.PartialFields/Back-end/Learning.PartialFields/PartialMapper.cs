@@ -5,7 +5,10 @@ using System.Linq;
 namespace Learning.PartialFields
 {
     /// <summary>
-    /// Une alternative au mapping serait de faire _fieldsToMaps.Contains(field) alors je vais chercher en mémoire ces données et les mapper.
+    /// Pour éviter d'aller récupérer des données non nécéssaires, on pourrait envoyer des paramètres à votre query sql pour déterminer ce qu'elle doit récupérer.
+    /// - GetAttributes = fieldsToMap.Contains("attributes")
+    /// - GetLocation = fieldsToMap.Contains("location")
+    /// - GetImage = fieldsToMap.Contains("image")
     /// </summary>
     public abstract class PartialMapper<TSource, TDestination>
         where TSource : class
@@ -46,7 +49,7 @@ namespace Learning.PartialFields
         }
 
         /// <summary>
-        /// Call this method if the mapping is complex, all simple mapping have been done automatically.
+        /// Use this method if the name and the type of field are different from the source and the destination or if your field need to be compute with several fields.
         /// </summary>
         protected void AddMappers(params (string field, Action<TSource, TDestination> action)[] mappers)
         {
