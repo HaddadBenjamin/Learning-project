@@ -1,0 +1,112 @@
+[
+  {
+    "address": {
+      "city": "Hudgins",
+      "country": "Lebanon",
+      "state": "Florida",
+      "street": "Route 64"
+    },
+    "email": "dream38@gmail.com",
+    "gender": "male",
+    "id": "gutsy-bush"
+  },
+  {
+    "address": {
+      "city": "St-Cesaire",
+      "country": "China",
+      "state": "North Dakota",
+      "street": "Oxford Road"
+    },
+    "email": "feet@hotmail.com",
+    "gender": "female",
+    "id": "bare.smoke.87"
+  },
+  {
+    "address": {
+      "city": "Rowena",
+      "country": "Senegal",
+      "state": "Maine",
+      "street": "3rd Avenue"
+    },
+    "email": "emmie@outlook.com",
+    "gender": "male",
+    "id": "misty-lake-4"
+  },
+  {
+    "address": {
+      "city": "Greentown",
+      "country": "Djibouti",
+      "state": "Ohio",
+      "street": "Church Road"
+    },
+    "email": "oleta@yahoo.com",
+    "gender": "female",
+    "id": "billowing-snow"
+  },
+  {
+    "address": {
+      "city": "Beattyville",
+      "country": "Niger",
+      "state": "Mississippi",
+      "street": "Woodland Road"
+    },
+    "email": "possimus_nicola@hotmail.com",
+    "gender": "female",
+    "id": "sir.morning"
+  },
+  {
+    "address": {
+      "city": "Dacono",
+      "country": "Norway",
+      "state": "Connecticut",
+      "street": "Route 44"
+    },
+    "email": "thick_estefania@yahoo.com",
+    "gender": "male",
+    "id": "lone.resonance"
+  },
+  {
+    "address": {
+      "city": "St. Lawrence",
+      "country": "Suriname",
+      "state": "Alaska",
+      "street": "Green Street"
+    },
+    "email": "term97@outlook.com",
+    "gender": "male",
+    "id": "lady.sea.72"
+  },
+  {
+    "address": {
+      "city": "Huntersville",
+      "country": "Finland",
+      "state": "Oregon",
+      "street": "Brook Lane"
+    },
+    "email": "depend@gmail.com",
+    "gender": "female",
+    "id": "knight.butterfly"
+  },
+  {
+    "address": {
+      "city": "Veribest",
+      "country": "China",
+      "state": "Vermont",
+      "street": "Woodland Avenue"
+    },
+    "email": "ebony@hotmail.com",
+    "gender": "male",
+    "id": "duke-voice-42"
+  },
+  {
+    "address": {
+      "city": "Glen Ellyn",
+      "country": "Nigeria",
+      "state": "Washington",
+      "street": "Evergreen Lane"
+    },
+    "email": "new@gmail.com",
+    "gender": "female",
+    "id": "sergeant.mountain"
+  }
+]
