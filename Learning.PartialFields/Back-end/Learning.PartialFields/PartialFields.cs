@@ -21,5 +21,11 @@ namespace Learning.PartialFields
             _fields = new HashSet<string>(fields, StringComparer.InvariantCultureIgnoreCase);
 
         public bool Contains(string field) => _fields.Contains(field);
+
+        public void OnContains(string field, Action action)
+        {
+            if (Contains(field))
+                action?.Invoke();
+        }
     }
 }

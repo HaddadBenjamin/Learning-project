@@ -41,8 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IPartialGet.cs" />
-    <Compile Include="IPartialUpdate.cs" />
+    <Compile Include="IPartialGetDto.cs" />
+    <Compile Include="IPartialUpdateDto.cs" />
     <Compile Include="PartialFields.cs" />
     <Compile Include="PartialMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

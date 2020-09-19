@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace Learning.PartialFields
 {
+    /// <summary>
+    /// Une alternative au mapping serait de faire _fieldsToMaps.Contains(field) alors je vais chercher en mémoire ces données et les mapper.
+    /// </summary>
     public abstract class PartialMapper<TSource, TDestination>
         where TSource : class 
         where TDestination : class

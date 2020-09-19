@@ -1,10 +1,10 @@
 ﻿namespace Learning.PartialFields
 {
-    public interface IPartialGet
+    public interface IPartialGetDto
     {
         /// <summary>
         /// Fields are separated by ',' and determine which fields must be retrieved.
         /// </summary>
-        string FieldsToRetrieve { get; }
+        string FieldsToRetrieve { get; set; }
     }
 }

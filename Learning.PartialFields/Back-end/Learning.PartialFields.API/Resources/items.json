@@ -1,158 +1,150 @@
 [
   {
-    "id": "b97c98f4-aeb2-42e2-9b1f-c232bfdcff13",
-    "name": "Blevins",
-    "attributes": [
+    "Id": "b97c98f4-aeb2-42e2-9b1f-c232bfdcff13",
+    "Name": "Terminator",
+    "Attributes": [
       {
-        "name": "dexterité",
-        "value": 15
-      },
-      {
-        "name": "intelligence",
-        "value": 15
-      },
-      {
-        "name": "intelligence",
-        "value": 19
+        "Name": "Vitesse d'attaque",
+        "Value": 38
       }
     ],
-    "image": {
-      "path": "http://placehold.it/force",
-      "area": "diablo"
+    "Image": {
+      "Path": "http://placehold.it/attackspeed",
+      "Area": "diablo"
     },
-    "location": {
-      "acte": 3,
-      "zone": "plaine gelee"
+    "Location": {
+      "Act": 6,
+      "Zone": "oulalala"
     }
   },
   {
-    "id": "22b7cec9-c145-4573-98f7-0489f2b11774",
-    "name": "Hess",
-    "attributes": [
+    "Id": "22b7cec9-c145-4573-98f7-0489f2b11774",
+    "Name": "Hess",
+    "Attributes": [
       {
-        "name": "dexterité",
-        "value": 5
+        "Name": "dexteritï¿½",
+        "Value": 5
       },
       {
-        "name": "force",
-        "value": 19
+        "Name": "force",
+        "Value": 19
       },
       {
-        "name": "intelligence",
-        "value": 6
+        "Name": "intelligence",
+        "Value": 6
       }
     ],
-    "image": {
-      "path": "http://placehold.it/dexterité",
-      "area": "draw"
+    "Image": {
+      "Path": "http://placehold.it/dexteritï¿½",
+      "Area": "draw"
     },
-    "location": {
-      "acte": 2,
-      "zone": "un trou perdu"
+    "Location": {
+      "Act": 0,
+      "Zone": "un trou perdu"
     }
   },
   {
-    "id": "def08e3b-ade8-476c-98dc-9ad005fd56ce",
-    "name": "Estella",
-    "attributes": [
+    "Id": "def08e3b-ade8-476c-98dc-9ad005fd56ce",
+    "Name": "Estella",
+    "Attributes": [
       {
-        "name": "dexterité",
-        "value": 11
+        "Name": "dexteritï¿½",
+        "Value": 11
       },
       {
-        "name": "intelligence",
-        "value": 7
+        "Name": "intelligence",
+        "Value": 7
       },
       {
-        "name": "force",
-        "value": 7
+        "Name": "force",
+        "Value": 7
       }
     ],
-    "image": {
-      "path": "http://placehold.it/dexterité",
-      "area": "diablo"
+    "Image": {
+      "Path": "http://placehold.it/dexteritï¿½",
+      "Area": "diablo"
     },
-    "location": {
-      "acte": 3,
-      "zone": "un trou perdu"
+    "Location": {
+      "Act": 0,
+      "Zone": "un trou perdu"
     }
   },
   {
-    "id": "3b004bd6-9713-41ac-84cd-aabffca9be1f",
-    "name": "Torres",
-    "attributes": [
+    "Id": "3b004bd6-9713-41ac-84cd-aabffca9be1f",
+    "Name": "Torres",
+    "Attributes": [
       {
-        "name": "force",
-        "value": 14
+        "Name": "force",
+        "Value": 14
       },
       {
-        "name": "dexterité",
-        "value": 20
+        "Name": "dexteritï¿½",
+        "Value": 20
       },
       {
-        "name": "intelligence",
-        "value": 19
+        "Name": "intelligence",
+        "Value": 19
       }
     ],
-    "image": {
-      "path": "http://placehold.it/intelligence",
-      "area": "documentation"
+    "Image": {
+      "Path": "http://placehold.it/intelligence",
+      "Area": "documentation"
     },
-    "location": {
-      "acte": 2,
-      "zone": "temple de nilhatak"
+    "Location": {
+      "Act": 0,
+      "Zone": "temple de nilhatak"
     }
   },
   {
-    "id": "affbc9ea-ff0e-49e5-bce3-276a8e092657",
-    "name": "Diane",
-    "attributes": [
+    "Id": "affbc9ea-ff0e-49e5-bce3-276a8e092657",
+    "Name": "Diane",
+    "Attributes": [
       {
-        "name": "intelligence",
-        "value": 9
+        "Name": "intelligence",
+        "Value": 9
       },
       {
-        "name": "intelligence",
-        "value": 5
+        "Name": "intelligence",
+        "Value": 5
       },
       {
-        "name": "force",
-        "value": 14
+        "Name": "force",
+        "Value": 14
       }
     ],
-    "image": {
-      "path": "http://placehold.it/force",
-      "area": "draw"
+    "Image": {
+      "Path": "http://placehold.it/force",
+      "Area": "draw"
     },
-    "location": {
-      "acte": 4,
-      "zone": "un trou perdu"
+    "Location": {
+      "Act": 0,
+      "Zone": "un trou perdu"
     }
   },
   {
-    "id": "08bb412d-3d3c-4de5-90d0-eac1edd4e7e5",
-    "name": "Tammie",
-    "attributes": [
+    "Id": "08bb412d-3d3c-4de5-90d0-eac1edd4e7e5",
+    "Name": "Tammie",
+    "Attributes": [
       {
-        "name": "force",
-        "value": 13
+        "Name": "force",
+        "Value": 13
       },
       {
-        "name": "dexterité",
-        "value": 12
+        "Name": "dexteritï¿½",
+        "Value": 12
       },
       {
-        "name": "force",
-        "value": 5
+        "Name": "force",
+        "Value": 5
       }
     ],
-    "image": {
-      "path": "http://placehold.it/force",
-      "area": "documentation"
+    "Image": {
+      "Path": "http://placehold.it/force",
+      "Area": "documentation"
     },
-    "location": {
-      "acte": 4,
-      "zone": "plaine gelee"
+    "Location": {
+      "Act": 0,
+      "Zone": "plaine gelee"
     }
   }
 ]
