@@ -12,12 +12,12 @@ namespace Learning.PartialFields
         where TDestination : class
     {
         private readonly IPartialFields _fieldsToMap;
-        private readonly Dictionary<string, Action<TSource, TDestination>> _mappers = new Dictionary<string, Action<TSource, TDestination>>();
+        private readonly Dictionary<string, Action<TSource, TDestination>> _mappers = new Dictionary<string, Action<TSource, TDestination>>(StringComparer.InvariantCultureIgnoreCase);
 
         public PartialMapper(IPartialFields fieldsToMap) => _fieldsToMap = fieldsToMap;
 
-        public TDestination Map(TSource source) => Map(source);
-        public TDestination Map(TSource source, TDestination destination = default)
+        public TDestination Map(TSource source) => Map(source, default);
+        public TDestination Map(TSource source, TDestination destination)
         {
             if (destination is null)
                 destination = Activator.CreateInstance(typeof(TDestination)) as TDestination;
