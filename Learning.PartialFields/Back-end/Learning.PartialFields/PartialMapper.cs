@@ -36,10 +36,9 @@ namespace Learning.PartialFields
                     _mappers[propertyName](source, destination);
                 else
                 {
-                    var destinationProperty = destinationProperties.FirstOrDefault(f => f.Name == propertyName);
+                    var destinationProperty = destinationProperties.FirstOrDefault(f => f.Name == propertyName && f.PropertyType == sourceProperty.PropertyType);
 
-                    if (destinationProperty.PropertyType == sourceProperty.PropertyType)
-                        destinationProperty.SetValue(destination, sourceProperty.GetValue(source));
+                    destinationProperty?.SetValue(destination, sourceProperty.GetValue(source));
                 }
             }
 
