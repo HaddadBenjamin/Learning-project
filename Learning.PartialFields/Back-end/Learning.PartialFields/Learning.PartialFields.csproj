@@ -41,7 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPartialGet.cs" />
+    <Compile Include="IPartialUpdate.cs" />
     <Compile Include="PartialFields.cs" />
+    <Compile Include="PartialMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

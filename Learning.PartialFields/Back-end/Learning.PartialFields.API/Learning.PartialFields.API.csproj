@@ -8,5 +8,9 @@
     <PackageReference Include="Newtonsoft.Json" Version="8.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Learning.PartialFields\Learning.PartialFields.csproj" />
+  </ItemGroup>
+
 
 </Project>

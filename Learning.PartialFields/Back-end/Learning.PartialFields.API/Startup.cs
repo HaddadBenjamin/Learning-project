@@ -7,7 +7,8 @@ namespace Learning.PartialFields.API
 {
     public class Startup
     {
-        public void ConfigureServices(IServiceCollection services) => services.AddControllers();
+        // hide null properties from JSON response.
+        public void ConfigureServices(IServiceCollection services) => services.AddMvc().AddJsonOptions(options => options.JsonSerializerOptions.IgnoreNullValues = true);
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
