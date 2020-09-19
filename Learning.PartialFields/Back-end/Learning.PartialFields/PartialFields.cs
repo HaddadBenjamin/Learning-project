@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Linq;
 
 namespace Learning.PartialFields
@@ -15,17 +14,12 @@ namespace Learning.PartialFields
         private readonly HashSet<string> _fields;
 
         public PartialFields(string fields, string mandatoryFields = default) :
-            this($"{fields},{mandatoryFields}".Split(',').Where(_ => !string.IsNullOrWhiteSpace(_))) { }
+            this($"{fields},{mandatoryFields}".Split(',').Where(_ => !string.IsNullOrWhiteSpace(_)))
+        { }
 
         public PartialFields(IEnumerable<string> fields) =>
             _fields = new HashSet<string>(fields, StringComparer.InvariantCultureIgnoreCase);
 
         public bool Contains(string field) => _fields.Contains(field);
-
-        public void OnContains(string field, Action action)
-        {
-            if (Contains(field))
-                action?.Invoke();
-        }
     }
 }

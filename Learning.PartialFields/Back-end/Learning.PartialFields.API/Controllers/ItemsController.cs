@@ -17,9 +17,9 @@ namespace Learning.PartialFields.API.Controllers
         public IEnumerable<ItemDto> Search(SearchItemDto dto)
         {
             var fieldsToMap = new PartialFields(dto.FieldsToRetrieve, "id,name");
-            var itemDtoMapper = new ItemDtoPartialGetMapper(fieldsToMap);
+            var mapper = new ItemDtoPartialGetMapper(fieldsToMap);
 
-            return Items.Select(itemDtoMapper.Map);
+            return Items.Select(mapper.Map);
         }
 
         [HttpPut]
@@ -28,14 +28,11 @@ namespace Learning.PartialFields.API.Controllers
         {
             var items = Items.ToList();
             var fieldsToUpdate = new PartialFields(dto.FieldsToUpdate);
+            var mapper = new ItemDtoPartialUpdateMapper(fieldsToUpdate);
             var item = items.First(_ => _.Id == itemId);
 
-            fieldsToUpdate.OnContains("name", () => item.Name = dto.Name);
-            fieldsToUpdate.OnContains("attributes", () => item.Attributes = dto.Attributes);
-            fieldsToUpdate.OnContains("image", () => item.Image = dto.Image);
-            fieldsToUpdate.OnContains("location", () => item.Location = dto.Location);
+            mapper.Map(dto, item);
 
-            // Utiliser mon mappeur perso. / split en get & udpdate.
             WriteAllText("Resources/items.json", JsonConvert.SerializeObject(items, Formatting.Indented));
         }
     }
@@ -50,17 +47,9 @@ namespace Learning.PartialFields.API.Controllers
     {
         public ItemDtoPartialGetMapper(IPartialFields fieldsToMap) : base(fieldsToMap) =>
             AddMappers(
-                ("location", ((source, destination) => destination.Name = $"{source.Name}-{source.Id}"))
+                ("name", ((source, destination) => destination.Name = $"{source.Name}-{source.Id}"))
             );
     }
-
-    //public class ItemDtoPartialUpdateMapper : PartialMapper<ItemDto, UpdateItemDto>
-    //{
-    //    public ItemDtoPartialUpdateMapper(IPartialFields fieldsToMap) : base(fieldsToMap) =>
-    //        AddMappers(
-    //            ("location", ((source, destination) => destination.Name = $"{source.Name}-{source.Id}"))
-    //        );
-    //}
 
     public class ItemDto
     {
@@ -73,7 +62,6 @@ namespace Learning.PartialFields.API.Controllers
     #endregion
 
     #region Partial Update
-
     public class UpdateItemDto : IPartialUpdateDto
     {
         public string FieldsToUpdate { get; set; }
@@ -81,6 +69,14 @@ namespace Learning.PartialFields.API.Controllers
         public IEnumerable<ItemAttribute> Attributes { get; set; }
         public ItemImage Image { get; set; }
         public ItemLocation Location { get; set; }
+    }
+
+    public class ItemDtoPartialUpdateMapper : PartialMapper<UpdateItemDto, Item>
+    {
+        public ItemDtoPartialUpdateMapper(IPartialFields fieldsToMap) : base(fieldsToMap) =>
+            AddMappers(
+                ("name", ((source, destination) => destination.Name = $"{source.Name}-{source.Location.Act}-{source.Location.Zone}"))
+            );
     }
     #endregion
 }

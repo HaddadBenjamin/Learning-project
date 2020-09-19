@@ -8,7 +8,7 @@ namespace Learning.PartialFields
     /// Une alternative au mapping serait de faire _fieldsToMaps.Contains(field) alors je vais chercher en mémoire ces données et les mapper.
     /// </summary>
     public abstract class PartialMapper<TSource, TDestination>
-        where TSource : class 
+        where TSource : class
         where TDestination : class
     {
         private readonly IPartialFields _fieldsToMap;
@@ -16,9 +16,12 @@ namespace Learning.PartialFields
 
         public PartialMapper(IPartialFields fieldsToMap) => _fieldsToMap = fieldsToMap;
 
-        public TDestination Map(TSource source)
+        public TDestination Map(TSource source) => Map(source);
+        public TDestination Map(TSource source, TDestination destination = default)
         {
-            var destination = Activator.CreateInstance(typeof(TDestination)) as TDestination;
+            if (destination is null)
+                destination = Activator.CreateInstance(typeof(TDestination)) as TDestination;
+
             var sourceProperties = typeof(TSource).GetProperties();
             var destinationProperties = typeof(TDestination).GetProperties();
 
@@ -28,7 +31,7 @@ namespace Learning.PartialFields
 
                 if (!_fieldsToMap.Contains(propertyName))
                     continue;
-                
+
                 if (_mappers.ContainsKey(propertyName))
                     _mappers[propertyName](source, destination);
                 else
