@@ -21,9 +21,9 @@ namespace Learning.Mediator
         #endregion
 
         #region Events
-        void Send<TResponse>(IEvent @event);
+        void Send(IEvent @event);
 
-        Task SendAsync<TResponse>(IEvent @event);
+        Task SendAsync(IEvent @event);
         #endregion
     }
 }

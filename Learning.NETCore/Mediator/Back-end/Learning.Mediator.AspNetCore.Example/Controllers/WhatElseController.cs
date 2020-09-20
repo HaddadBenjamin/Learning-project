@@ -24,6 +24,9 @@ namespace Learning.Mediator.AspNetCore.Example.Controllers
 
             result = _mediator.Send(new Query());
             result = await _mediator.SendAsync(new Query());
+
+           _mediator.Send(new Event());
+           await _mediator.SendAsync(new Event());
         }
     }
 

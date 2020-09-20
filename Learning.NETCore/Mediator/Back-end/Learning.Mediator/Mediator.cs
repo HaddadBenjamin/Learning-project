@@ -34,10 +34,10 @@ namespace Learning.Mediator
         #endregion
 
         #region Events
-        public void Send<TResponse>(IEvent @event) =>
+        public void Send(IEvent @event) =>
             ((IEventHandler<IEvent>)_serviceProvider.GetService(typeof(IEventHandler<IEvent>))).Handle(@event);
 
-        public Task SendAsync<TResponse>(IEvent @event) =>
+        public Task SendAsync(IEvent @event) =>
             ((IEventHandlerAsync<IEvent>)_serviceProvider.GetService(typeof(IEventHandlerAsync<IEvent>))).Handle(@event);
         #endregion
     }
