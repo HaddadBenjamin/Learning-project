@@ -29,7 +29,7 @@ namespace Learning.Mediator.DependencyInjection
                     .Where(type => type.IsClass)
                     .Select(type => new
                     {
-                        type = type,
+                        type,
                         interfaces = type.GetInterfaces().Select(i => i.Name).ToList()
                     })
                     .ToList();
