@@ -5,25 +5,25 @@ namespace Learning.Mediator
     public interface IMediator
     {
         #region Write
-        void Publish(ICommand command);
+        void Send(ICommand command);
 
-        TResponse Publish<TResponse>(ICommand<TResponse> command);
+        TResponse Send<TResponse>(ICommand<TResponse> command);
 
-        Task PublishAsync(ICommand command);
+        Task SendAsync(ICommand command);
        
-        Task<TResponse> PublishAsync<TResponse>(ICommand<TResponse> command);
+        Task<TResponse> SendAsync<TResponse>(ICommand<TResponse> command);
         #endregion
 
         #region Read
-        TResponse Publish<TResponse>(IQuery<TResponse> query);
+        TResponse Send<TResponse>(IQuery<TResponse> query);
      
-        Task<TResponse> PublishAsync<TResponse>(IQuery<TResponse> query);
+        Task<TResponse> SendAsync<TResponse>(IQuery<TResponse> query);
         #endregion
 
         #region Events
-        void Publish<TResponse>(IEvent @event);
+        void Send<TResponse>(IEvent @event);
 
-        Task PublishAsync<TResponse>(IEvent @event);
+        Task SendAsync<TResponse>(IEvent @event);
         #endregion
     }
 }
