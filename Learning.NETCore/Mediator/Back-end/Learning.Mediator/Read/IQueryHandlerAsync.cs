@@ -4,6 +4,6 @@ namespace Learning.Mediator
 {
     public interface IQueryHandlerAsync<in TQuery, TResponse> where TQuery : IQuery<TResponse>
     {
-        Task<TResponse> Handle(TQuery command);
+        Task<TResponse> Handle(TQuery query);
     }
 }

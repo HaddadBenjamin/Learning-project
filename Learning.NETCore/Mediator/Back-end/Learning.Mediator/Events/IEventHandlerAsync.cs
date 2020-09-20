@@ -4,6 +4,6 @@ namespace Learning.Mediator
 {
     public interface IEventHandlerAsync<in TEvent> where TEvent : IEvent
     {
-        Task Handle(TEvent command);
+        Task Handle(TEvent @event);
     }
 }

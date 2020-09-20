@@ -10,46 +10,34 @@ namespace Learning.Mediator
 
         public Mediator(IServiceProvider serviceProvider) => _serviceProvider = serviceProvider;
 
-        public void Publish(ICommand command) =>
+        #region Write
+        public void Send(ICommand command) =>
             ((ICommandHandler<ICommand>)_serviceProvider.GetService(typeof(ICommandHandler<ICommand>))).Handle(command);
 
-        public TResponse Publish<TResponse>(ICommand<TResponse> command)
-        {
-            var handler = (ICommandHandler<ICommand<TResponse>, TResponse>)_serviceProvider.GetService(typeof(ICommandHandler<ICommand<TResponse>, TResponse>));
+        public TResponse Send<TResponse>(ICommand<TResponse> command) =>
+            ((ICommandHandler<ICommand<TResponse>, TResponse>)_serviceProvider.GetService(typeof(ICommandHandler<ICommand<TResponse>, TResponse>))).Handle(command);
 
-            return handler.Handle(command);
-        }
-
-        public Task PublishAsync(ICommand command) =>
+        public Task SendAsync(ICommand command) =>
             ((ICommandHandlerAsync<ICommand>)_serviceProvider.GetService(typeof(ICommandHandlerAsync<ICommand>))).Handle(command);
 
+        public Task<TResponse> SendAsync<TResponse>(ICommand<TResponse> command) =>
+            ((ICommandHandlerAsync<ICommand<TResponse>, TResponse>)_serviceProvider.GetService(typeof(ICommandHandlerAsync<ICommand<TResponse>, TResponse>))).Handle(command);
+        #endregion
 
-        public Task<TResponse> PublishAsync<TResponse>(ICommand<TResponse> command)
-        {
-            var handler = (ICommandHandlerAsync<ICommand<TResponse>, TResponse>)_serviceProvider.GetService(typeof(ICommandHandlerAsync<ICommand<TResponse>, TResponse>));
+        #region Read
+        public TResponse Send<TResponse>(IQuery<TResponse> query) =>
+            ((IQueryHandler<IQuery<TResponse>, TResponse>)_serviceProvider.GetService(typeof(IQueryHandler<IQuery<TResponse>, TResponse>))).Handle(query);
 
-            return handler.Handle(command);
-        }
+        public Task<TResponse> SendAsync<TResponse>(IQuery<TResponse> query) =>
+            ((IQueryHandlerAsync<IQuery<TResponse>, TResponse>)_serviceProvider.GetService(typeof(IQueryHandlerAsync<IQuery<TResponse>, TResponse>))).Handle(query);
+        #endregion
 
-        public TResponse Publish<TResponse>(IQuery<TResponse> query)
-        {
-            var handler = (IQueryHandler<IQuery<TResponse>, TResponse>)_serviceProvider.GetService(typeof(IQueryHandler<IQuery<TResponse>, TResponse>));
-
-            return handler.Handle(query);
-        }
-
-        public Task<TResponse> PublishAsync<TResponse>(IQuery<TResponse> query)
-        {
-            var handler = (IQueryHandlerAsync<IQuery<TResponse>, TResponse>)_serviceProvider.GetService(typeof(IQueryHandlerAsync<IQuery<TResponse>, TResponse>));
-
-            return handler.Handle(query);
-        }
-
-        public void Publish<TResponse>(IEvent @event) =>
+        #region Events
+        public void Send<TResponse>(IEvent @event) =>
             ((IEventHandler<IEvent>)_serviceProvider.GetService(typeof(IEventHandler<IEvent>))).Handle(@event);
 
-        public Task PublishAsync<TResponse>(IEvent @event) =>
+        public Task SendAsync<TResponse>(IEvent @event) =>
             ((IEventHandlerAsync<IEvent>)_serviceProvider.GetService(typeof(IEventHandlerAsync<IEvent>))).Handle(@event);
-
+        #endregion
     }
 }
