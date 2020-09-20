@@ -25,3 +25,6 @@ Learning.NETCore/Authentification/.vs
 Learning.NETCore/RealTimeApplication/Back-end/.vs
 Learning.NETCore/Mediator/Back-end/Learning.Mediator/obj
 Learning.NETCore/Mediator/Back-end/.vs/Learning.Mediator/v16
+Learning.NETCore/Mediator/Back-end/Learning.Mediator.DependencyInjection/obj/Debug
+Learning.NETCore/Mediator/Back-end/Learning.Mediator.DependencyInjection/obj
+Learning.NETCore/Mediator/Back-end/Learning.Mediator.DependencyInjection/bin
