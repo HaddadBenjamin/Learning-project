@@ -7,6 +7,9 @@ namespace Learning.Mediator.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
+        public static IServiceCollection RegisterMediator(this IServiceCollection services, params Type[] types) =>
+            RegisterMediator(services, types.Select(t => t.Assembly).ToArray());
+
         public static IServiceCollection RegisterMediator(this IServiceCollection services, params Assembly[] assembliesToScan)
         {
             assembliesToScan = assembliesToScan.Distinct().ToArray();
@@ -34,8 +37,5 @@ namespace Learning.Mediator.DependencyInjection
 
             return services.AddSingleton<IMediator, Mediator>();
         }
-
-        public static IServiceCollection RegisterMediator(this IServiceCollection services, params Type[] types) =>
-            RegisterMediator(services, types.Select(t => t.Assembly).ToArray());
     }
 }
