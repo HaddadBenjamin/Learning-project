@@ -24,15 +24,22 @@ namespace Learning.Mediator.DependencyInjection
 
             foreach (var handlerInterface in handlerInterfaces)
             {
-                ServiceRegistar.ConnectImplementationsToTypesClosing(handlerInterface, services, assembliesToScan);
-                   
-                var concretions = assembliesToScan
+                var typeAndInterfaces = assembliesToScan
                     .SelectMany(a => a.DefinedTypes)
-                    .Where(type => type.FindInterfacesThatClose(handlerInterface).Any() && type.IsConcrete() && type.IsOpenGeneric())
+                    .Where(type => type.IsClass)
+                    .Select(type => new
+                    {
+                        type = type,
+                        interfaces = type.GetInterfaces().Select(i => i.Name).ToList()
+                    })
                     .ToList();
-
-                foreach (var type in concretions)
-                    services.AddTransient(handlerInterface, type);
+                
+                foreach (var typeAndInterface in typeAndInterfaces)
+                {
+                    foreach (var interfaceName in typeAndInterface.interfaces)
+                        if (interfaceName == handlerInterface.Name)
+                            services.AddTransient(handlerInterface, typeAndInterface.type);
+                }
             }
 
             return services.AddSingleton<IMediator, Mediator>();
