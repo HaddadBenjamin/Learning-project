@@ -16,12 +16,12 @@ namespace Learning.Mediator.AspNetCore.Example.Controllers
         {
             var result = string.Empty;
 
-            result = _mediator.Send(new CommandWithResponse());
-            result = await _mediator.SendAsync(new CommandWithResponse());
-           
             _mediator.Send(new Command());
             await _mediator.SendAsync(new Command());
 
+            result = _mediator.Send(new CommandWithResponse());
+            result = await _mediator.SendAsync(new CommandWithResponse());
+           
             result = _mediator.Send(new Query());
             result = await _mediator.SendAsync(new Query());
 

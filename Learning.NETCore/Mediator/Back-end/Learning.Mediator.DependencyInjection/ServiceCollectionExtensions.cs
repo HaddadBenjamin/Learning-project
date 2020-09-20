@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,8 +15,7 @@ namespace Learning.Mediator.DependencyInjection
         {
             assembliesToScan = assembliesToScan.Distinct().ToArray();
 
-            var handlerInterfaces = new[]
-            {
+            var handlerInterfaces = new[]            {
                 typeof(ICommandHandler<>),
                 typeof(ICommandHandler<,>),
                 typeof(IQueryHandler<,>),
@@ -23,26 +23,21 @@ namespace Learning.Mediator.DependencyInjection
             };
 
             foreach (var handlerInterface in handlerInterfaces)
-            {
-                var typeAndInterfaces = assembliesToScan
-                    .SelectMany(a => a.DefinedTypes)
-                    .Where(type => type.IsClass)
-                    .Select(type => new
-                    {
-                        type,
-                        interfaces = type.GetInterfaces().Select(i => i.Name).ToList()
-                    })
-                    .ToList();
-                
-                foreach (var typeAndInterface in typeAndInterfaces)
-                {
-                    foreach (var interfaceName in typeAndInterface.interfaces)
-                        if (interfaceName == handlerInterface.Name)
-                            services.AddTransient(handlerInterface, typeAndInterface.type);
-                }
-            }
-
+                services.AddClassesAsImplementedInterface(handlerInterface, assembliesToScan);
+            
             return services.AddSingleton<IMediator, Mediator>();
         }
+
+        private static void AddClassesAsImplementedInterface(this IServiceCollection services, Type compareType, params Assembly[] assembliesToScan)
+        {
+            assembliesToScan.SelectMany(assembly => assembly.GetTypesAssignableTo(compareType)).ToList().ForEach((type) =>
+            {
+                foreach (var implementedInterface in type.ImplementedInterfaces)
+                    services.AddTransient(implementedInterface, type);
+            });
+        }
+
+        private static IEnumerable<TypeInfo> GetTypesAssignableTo(this Assembly assembly, Type compareType) =>
+            assembly.DefinedTypes.Where(x => x.IsClass && !x.IsAbstract && x != compareType && x.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == compareType));
     }
 }
