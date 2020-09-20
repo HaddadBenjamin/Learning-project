@@ -1,0 +1,1 @@
+Mon médiateur pour faire du CQRS qui évite d'utiliser une lib qui complexifie l'écriture.
