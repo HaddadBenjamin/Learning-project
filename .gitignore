@@ -31,3 +31,6 @@ Learning.NETCore/Mediator/Back-end/Learning.Mediator.DependencyInjection/obj
 Learning.NETCore/Mediator/Back-end/Learning.Mediator.AspNetCore.Example/obj
 Learning.NETCore/Mediator/Back-end/Learning.Mediator/obj
 Learning.NETCore/Mediator/Back-end/Learning.Mediator.sln.DotSettings.user
+Learning.NETCore/AggregateRoot/.vs
+Learning.NETCore/AggregateRoot/Learning.AggregateRoot/bin
+Learning.NETCore/AggregateRoot/Learning.AggregateRoot/obj
