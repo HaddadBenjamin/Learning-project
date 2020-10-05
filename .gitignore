@@ -37,3 +37,6 @@ Learning.NETCore/AggregateRoot/Learning.AggregateRoot/obj
 Learning.NETCore/AggregateRoot/Learning.AggregateRoot.API/obj
 Learning.NETCore/AggregateRoot/Learning.AggregateRoot.Domain/obj
 Learning.NETCore/AggregateRoot/Learning.AggregateRoot.Infrastructure/obj
+Learning.NETCore/AggregateRoot/Learning.AggregateRoot.API/bin
+Learning.NETCore/AggregateRoot/Learning.AggregateRoot.Domain/bin
+Learning.NETCore/AggregateRoot/Learning.AggregateRoot.Infrastructure/bin

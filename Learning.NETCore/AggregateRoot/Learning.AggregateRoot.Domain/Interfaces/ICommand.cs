@@ -1,4 +1,6 @@
-﻿namespace Learning.AggregateRoot.Domain.Interfaces
+﻿using MediatR;
+
+namespace Learning.AggregateRoot.Domain.Interfaces
 {
-    public interface ICommand { }
+    public interface ICommand : IRequest { }
 }
