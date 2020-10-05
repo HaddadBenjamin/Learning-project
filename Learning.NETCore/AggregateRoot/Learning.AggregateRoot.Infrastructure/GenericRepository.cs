@@ -23,7 +23,7 @@ namespace Learning.AggregateRoot.Infrastructure
         {
             var queryableWithIncludes = includes.Aggregate(Queryable, (queryable, propertyToInclude) => queryable.Include(propertyToInclude));
 
-            return queryableWithIncludes.FirstOrDefault(aggregate => aggregate.Id == id);
+            return queryableWithIncludes.SingleOrDefault(aggregate => aggregate.Id == id);
         }
 
         public virtual IQueryable<TAggregate> Search<TProperty>(params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) =>

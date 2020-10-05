@@ -9,6 +9,9 @@ using Learning.AggregateRoot.Domain.Interfaces;
 
 namespace Learning.AggregateRoot.Infrastructure
 {
+    /// <summary>
+    /// Gère vos racines d'aggrégats trackées, on en a besoin lors du save changes pour qu'ils puissent récupérer tous les évènements des aggrégats modifiées.
+    /// </summary>
     public class Session<TAggregate, TRepository> : ISession<TAggregate, TRepository>
         where TAggregate : Domain.AggregateRoot
         where TRepository : IRepository<TAggregate>
@@ -45,7 +48,7 @@ namespace Learning.AggregateRoot.Infrastructure
 
         public TAggregate Get<TProperty>(Guid id, params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes)
         {
-            var aggregate = _trackedAggregates.OfType<TAggregate>().FirstOrDefault(t => t.Id == id);
+            var aggregate = _trackedAggregates.OfType<TAggregate>().SingleOrDefault(t => t.Id == id);
 
             if (aggregate != null)
                 return aggregate;
