@@ -1,4 +1,5 @@
 using Learning.AggregateRoot.API.Middlewares;
+using Learning.AggregateRoot.Domain.Example.Aggregate;
 using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 using Learning.AggregateRoot.Infrastructure;
@@ -26,6 +27,7 @@ namespace Learning.AggregateRoot.API
                 .AddSingleton<IRequestContext, RequestContext>()
                 .AddSingleton<IAuthentificationContextUserProvider, FakeAuthentificationContextUserProvider>()
                 .AddScoped(typeof(ISession<>), typeof(Session<>))
+                .AddScoped(typeof(ISession<Item>), typeof(Session<Item>))
                 .AddScoped(typeof(ISession<,>), typeof(Session<,>))
                 .AddScoped(typeof(IRepository<>), typeof(GenericRepository<>))
                 .AddScoped<IAuthentificationContext, AuthentificationContext>()
