@@ -27,7 +27,7 @@ namespace Learning.AggregateRoot.API.Middlewares
             _requestContext.ImpersonatedUserEmail = request.GetHeaderOrDefault("impersonatedUserEmail");
             _requestContext.ReadVersion = request.GetHeaderOrDefault("readVersion", "v1");
             _requestContext.WriteVersion = request.GetHeaderOrDefault("writeVersion", "v1");
-           
+
             await _nextMiddleware.Invoke(httpContext);
         }
     }

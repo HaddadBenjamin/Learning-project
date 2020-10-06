@@ -32,7 +32,7 @@ namespace Learning.AggregateRoot.Domain
             var events = _events.ToList();
 
             _events.Clear();
-            
+
             return events;
         }
 

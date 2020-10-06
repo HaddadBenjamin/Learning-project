@@ -13,6 +13,12 @@ namespace Learning.AggregateRoot.Infrastructure
     /// <summary>
     /// Gère vos racines d'aggrégats trackées, on en a besoin lors du save changes pour qu'ils puissent récupérer tous les évènements des aggrégats modifiées.
     /// </summary>
+    public class Session<TAggregate> : Session<TAggregate, IRepository<TAggregate>>
+        where TAggregate : Domain.AggregateRoot
+    {
+        public Session(IRepository<TAggregate> repository, IAuthentificationContext authentificationContext, IMediator mediator) : base(repository, authentificationContext, mediator)
+        { }
+    }
     public class Session<TAggregate, TRepository> : ISession<TAggregate, TRepository>
         where TAggregate : Domain.AggregateRoot
         where TRepository : IRepository<TAggregate>
@@ -55,7 +61,7 @@ namespace Learning.AggregateRoot.Infrastructure
                 return aggregate;
 
             aggregate = Repository.Get(id, includes);
-            
+
             if (aggregate is null)
                 throw new AggregateNotFoundException(id);
 
@@ -63,7 +69,7 @@ namespace Learning.AggregateRoot.Infrastructure
 
             return aggregate;
         }
-        
+
         public IQueryable<TAggregate> Search<TProperty>(params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) =>
             _repository.Search(includes);
 
@@ -74,7 +80,7 @@ namespace Learning.AggregateRoot.Infrastructure
 
             aggregate.MarkAsCreated(_authentificationContext);
             _repository.Add(aggregate);
-            
+
             Track(aggregate);
         }
 
@@ -82,7 +88,7 @@ namespace Learning.AggregateRoot.Infrastructure
         {
             if (aggregate is null)
                 throw new ArgumentNullException(nameof(aggregate));
-            
+
             if (!_trackedAggregates.ContainsKey(aggregate.Id))
                 throw new AggregateNotFoundException(aggregate.Id);
 
@@ -112,7 +118,7 @@ namespace Learning.AggregateRoot.Infrastructure
                 aggregate.MarkAsUpdated(_authentificationContext);
 
             await _repository.SaveChanges();
-           
+
             _trackedAggregates.Clear();
 
             var events = aggregates.SelectMany(a => a.FlushEvents()).ToList();
