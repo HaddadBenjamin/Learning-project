@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Learning.AggregateRoot.Infrastructure
+namespace Learning.AggregateRoot.Infrastructure.DbContext
 {
     public abstract class AggregateRootMap<TAggregate> where TAggregate : Domain.AggregateRoot
     {

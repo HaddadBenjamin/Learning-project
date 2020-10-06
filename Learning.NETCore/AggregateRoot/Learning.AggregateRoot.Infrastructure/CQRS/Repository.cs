@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 using Microsoft.EntityFrameworkCore;
 
-namespace Learning.AggregateRoot.Infrastructure
+namespace Learning.AggregateRoot.Infrastructure.CQRS
 {
     public abstract class Repository<TAggregate, TContext> : IRepository<TAggregate>
         where TAggregate : Domain.AggregateRoot
-        where TContext : DbContext
+        where TContext : Microsoft.EntityFrameworkCore.DbContext
     {
         protected TContext DbContext { get; }
 

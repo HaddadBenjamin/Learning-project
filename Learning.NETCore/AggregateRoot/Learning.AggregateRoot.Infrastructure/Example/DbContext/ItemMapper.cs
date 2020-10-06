@@ -1,7 +1,8 @@
 ﻿using Learning.AggregateRoot.Domain.Example.Aggregate;
+using Learning.AggregateRoot.Infrastructure.DbContext;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Learning.AggregateRoot.Infrastructure.Example
+namespace Learning.AggregateRoot.Infrastructure.Example.DbContext
 {
     public class ItemMapper : AggregateRootMap<Item>
     {

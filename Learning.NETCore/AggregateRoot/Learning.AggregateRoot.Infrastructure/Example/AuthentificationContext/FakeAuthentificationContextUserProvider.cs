@@ -2,7 +2,7 @@
 using System.Linq;
 using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
 
-namespace Learning.AggregateRoot.Infrastructure.Example
+namespace Learning.AggregateRoot.Infrastructure.Example.AuthentificationContext
 {
     public class FakeAuthentificationContextUserProvider : IAuthentificationContextUserProvider
     {

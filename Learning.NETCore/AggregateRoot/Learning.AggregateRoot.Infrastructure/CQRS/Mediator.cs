@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 
-namespace Learning.AggregateRoot.Infrastructure
+namespace Learning.AggregateRoot.Infrastructure.CQRS
 {
     public class Mediator : IMediator
     {

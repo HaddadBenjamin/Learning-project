@@ -8,12 +8,12 @@ using Learning.AggregateRoot.Domain.Exceptions;
 using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 
-namespace Learning.AggregateRoot.Infrastructure
+namespace Learning.AggregateRoot.Infrastructure.CQRS
 {
     /// <summary>
     /// Gère vos racines d'aggrégats trackées, on en a besoin lors du save changes pour qu'ils puissent récupérer tous les évènements des aggrégats modifiées.
     /// </summary>
-    public class Session<TAggregate> : Session<TAggregate, IRepository<TAggregate>>
+    public class Session<TAggregate> : Session<TAggregate, IRepository<TAggregate>>//, ISession<TAggregate, IRepository<TAggregate>>
         where TAggregate : Domain.AggregateRoot
     {
         public Session(IRepository<TAggregate> repository, IAuthentificationContext authentificationContext, IMediator mediator) : base(repository, authentificationContext, mediator)

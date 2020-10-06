@@ -1,10 +1,10 @@
 ﻿using System;
-using Learning.AggregateRoot.API.Example.Dtos;
+using Learning.AggregateRoot.Application.Example.Dtos;
 using Learning.AggregateRoot.Domain.Example.Commands;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Learning.AggregateRoot.API.Controllers
+namespace Learning.AggregateRoot.Application.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -15,15 +15,15 @@ namespace Learning.AggregateRoot.API.Controllers
         public ItemsController(IMediator mediator) => _mediator = mediator;
 
         [HttpPost]
-        public IActionResult Create(CreateItemDto dto)
+        public IActionResult Create(/*[FromBody]CreateItemDto dto*/)
         {
-            var command = new CreateItem
-            {
-                Name = dto.Name,
-                Locations = dto.Locations.Split(',')
-            };
+            //var command = new CreateItem
+            //{
+            //    Name = dto.Name,
+            //    Locations = dto.Locations.Split(',')
+            //};
 
-            _mediator.SendCommand(command);
+            //_mediator.SendCommand(command);
 
             return Ok();
         }
@@ -54,5 +54,11 @@ namespace Learning.AggregateRoot.API.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        public IActionResult Get() => Ok("welcome sir");
+        [HttpGet]
+        [Route("test")]
+        public IActionResult Get2() => Ok("welcome sir2");
     }
 }

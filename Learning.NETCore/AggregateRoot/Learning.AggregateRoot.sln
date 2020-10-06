@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learning.AggregateRoot.Infrastructure", "Learning.AggregateRoot.Infrastructure\Learning.AggregateRoot.Infrastructure.csproj", "{39BAD373-F6B9-46CA-A14D-2D3481BB2773}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Learning.AggregateRoot.Infrastructure", "Learning.AggregateRoot.Infrastructure\Learning.AggregateRoot.Infrastructure.csproj", "{39BAD373-F6B9-46CA-A14D-2D3481BB2773}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learning.AggregateRoot.Domain", "Learning.AggregateRoot.Domain\Learning.AggregateRoot.Domain.csproj", "{FCDE97B9-6408-4C57-BE8E-E666455AD815}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Learning.AggregateRoot.Domain", "Learning.AggregateRoot.Domain\Learning.AggregateRoot.Domain.csproj", "{FCDE97B9-6408-4C57-BE8E-E666455AD815}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learning.AggregateRoot.API", "Learning.AggregateRoot.API\Learning.AggregateRoot.API.csproj", "{BC4C0536-58CC-44F9-90B3-45DC52AF4C4E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learning.AggregateRoot.Application", "Learning.AggregateRoot.Application\Learning.AggregateRoot.Application.csproj", "{99EE7F78-3BA4-4386-A661-AA9DE7C4CD93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{FCDE97B9-6408-4C57-BE8E-E666455AD815}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCDE97B9-6408-4C57-BE8E-E666455AD815}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCDE97B9-6408-4C57-BE8E-E666455AD815}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BC4C0536-58CC-44F9-90B3-45DC52AF4C4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BC4C0536-58CC-44F9-90B3-45DC52AF4C4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BC4C0536-58CC-44F9-90B3-45DC52AF4C4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BC4C0536-58CC-44F9-90B3-45DC52AF4C4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99EE7F78-3BA4-4386-A661-AA9DE7C4CD93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99EE7F78-3BA4-4386-A661-AA9DE7C4CD93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99EE7F78-3BA4-4386-A661-AA9DE7C4CD93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99EE7F78-3BA4-4386-A661-AA9DE7C4CD93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,9 +1,9 @@
 ﻿using Learning.AggregateRoot.Domain.Example.Aggregate;
 using Microsoft.EntityFrameworkCore;
 
-namespace Learning.AggregateRoot.Infrastructure.Example
+namespace Learning.AggregateRoot.Infrastructure.Example.DbContext
 {
-    public class YourDbContext : DbContext
+    public class YourDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
         public DbSet<Item> Items { get; set; }
 
