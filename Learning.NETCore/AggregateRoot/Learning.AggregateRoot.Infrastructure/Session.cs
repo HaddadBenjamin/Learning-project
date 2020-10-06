@@ -5,7 +5,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Learning.AggregateRoot.Domain.Exceptions;
-using Learning.AggregateRoot.Domain.Interfaces;
+using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
+using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 
 namespace Learning.AggregateRoot.Infrastructure
 {

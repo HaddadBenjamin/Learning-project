@@ -1,4 +1,6 @@
-﻿namespace Learning.AggregateRoot.Infrastructure
+﻿using Learning.AggregateRoot.Infrastructure.Example;
+
+namespace Learning.AggregateRoot.Infrastructure
 {
     public class GenericRepository<TAggregate> : Repository<TAggregate, YourDbContext>
         where TAggregate : Domain.AggregateRoot

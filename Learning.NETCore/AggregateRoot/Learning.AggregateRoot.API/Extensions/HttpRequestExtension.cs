@@ -1,7 +1,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 
-namespace Learning.AggregateRoot.API
+namespace Learning.AggregateRoot.API.Extensions
 {
     public static class HttpRequestExtension
     {

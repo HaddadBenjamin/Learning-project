@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Learning.AggregateRoot.Domain.Interfaces
+namespace Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext
 {
     // Doit être setté par un middleware.
     public interface IAuthentificationContext

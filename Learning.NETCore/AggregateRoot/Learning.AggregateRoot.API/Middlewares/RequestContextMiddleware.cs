@@ -1,9 +1,10 @@
 using System;
 using System.Threading.Tasks;
-using Learning.AggregateRoot.Domain.Interfaces;
+using Learning.AggregateRoot.API.Extensions;
+using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
 using Microsoft.AspNetCore.Http;
 
-namespace Learning.AggregateRoot.API
+namespace Learning.AggregateRoot.API.Middlewares
 {
     public class RequestContextMiddleware
     {

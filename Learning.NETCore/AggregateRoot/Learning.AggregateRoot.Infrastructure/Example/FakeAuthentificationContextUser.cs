@@ -1,7 +1,7 @@
 ﻿using System;
-using Learning.AggregateRoot.Domain.Interfaces;
+using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
 
-namespace Learning.AggregateRoot.Infrastructure
+namespace Learning.AggregateRoot.Infrastructure.Example
 {
     public class FakeAuthentificationContextUser : IAuthentificationContextUser
     {

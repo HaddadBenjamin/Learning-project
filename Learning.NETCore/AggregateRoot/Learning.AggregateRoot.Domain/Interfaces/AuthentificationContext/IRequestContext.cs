@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Learning.AggregateRoot.Domain.Interfaces
+namespace Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext
 {
     public interface IRequestContext
     {

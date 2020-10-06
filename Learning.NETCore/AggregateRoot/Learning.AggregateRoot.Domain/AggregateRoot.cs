@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Learning.AggregateRoot.Domain.Exceptions;
-using Learning.AggregateRoot.Domain.Interfaces;
+using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
+using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 
 namespace Learning.AggregateRoot.Domain
 {

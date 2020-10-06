@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Learning.AggregateRoot.Domain.Interfaces;
+using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 
 namespace Learning.AggregateRoot.Infrastructure
 {
