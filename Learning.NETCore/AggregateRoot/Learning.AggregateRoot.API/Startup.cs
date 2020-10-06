@@ -1,3 +1,4 @@
+using Learning.AggregateRoot.Domain.Interfaces;
 using Learning.AggregateRoot.Infrastructure;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -16,15 +17,22 @@ namespace Learning.AggregateRoot.API
             services.AddControllers();
             services.AddMediatR(typeof(Mediator));
             services.AddSingleton<IMediator, Mediator>();
+            services.AddScoped(typeof(ISession<,>), typeof(Session<,>));
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IAuthentificationContext, AuthentificationContext>();
+            services.AddSingleton<IRequestContext, RequestContext>();
+            services.AddScoped<IAuthentificationContextUser, FakeAuthentificationContextUser>();
+            services.AddSingleton<IAuthentificationContextUserProvider, FakeAuthentificationContextUserProvider>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
+           
+            app.UseMiddleware<RequestContextMiddleware>();
 
             app.UseRouting();
-
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }

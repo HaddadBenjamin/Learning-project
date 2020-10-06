@@ -5,8 +5,8 @@ namespace Learning.AggregateRoot.Domain.Interfaces
     // Doit être setté par un middleware.
     public interface IAuthentificationContext
     {
-        IUser User { get; set; }
-        IUser ImpersonifiedUser { get; set; }
+        IAuthentificationContextUser User { get; set; }
+        IAuthentificationContextUser ImpersonatedUser { get; set; }
         Guid CorrelationId { get; set; }
     }
 }

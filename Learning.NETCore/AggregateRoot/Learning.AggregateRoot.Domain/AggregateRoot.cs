@@ -39,14 +39,14 @@ namespace Learning.AggregateRoot.Domain
         {
             CreatedAt = DateTime.UtcNow;
             CreatedBy = authentificationContext.User.Id;
-            CreatedOnBehalfOf = authentificationContext.ImpersonifiedUser.Id;
+            CreatedOnBehalfOf = authentificationContext.ImpersonatedUser.Id;
         }
 
         public void MarkAsUpdated(IAuthentificationContext authentificationContext)
         {
             LastUpdatedAt = DateTime.UtcNow;
             LastUpdatedBy = authentificationContext.User.Id;
-            LastUpdatedOnBehalfOf = authentificationContext.ImpersonifiedUser.Id;
+            LastUpdatedOnBehalfOf = authentificationContext.ImpersonatedUser.Id;
         }
 
         protected void RaiseEvent(IEvent @event)
