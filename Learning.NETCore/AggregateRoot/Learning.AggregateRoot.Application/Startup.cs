@@ -42,9 +42,9 @@ namespace Learning.AggregateRoot.Application
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
-            app.UseMiddleware<FakeRequestContextMiddleware>();// Remplacer par app.UseMiddleware<RequestContextMiddleware>();
-            
-            app.UseMvc();
+            app
+                .UseMiddleware<FakeRequestContextMiddleware>() // à remplacer par app.UseMiddleware<RequestContextMiddleware>();
+                .UseMvc();
         }
     }
 }
