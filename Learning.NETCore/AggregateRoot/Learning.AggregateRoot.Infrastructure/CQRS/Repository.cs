@@ -19,25 +19,15 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
 
         protected Repository(TContext context) => DbContext = context;
 
-        public TAggregate Get<TProperty>(Guid id) => Queryable.SingleOrDefault(aggregate => aggregate.Id == id);
+        public virtual TAggregate Get<TProperty>(Guid id) => Queryable.SingleOrDefault(aggregate => aggregate.Id == id);
+        public virtual TAggregate Get<TProperty>(Guid id, params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) => Search(includes).SingleOrDefault(aggregate => aggregate.Id == id);
+        public virtual TAggregate GetActive<TProperty>(Guid id) => Queryable.SingleOrDefault(aggregate => aggregate.Id == id && aggregate.IsActive);
+        public virtual TAggregate GetActive<TProperty>(Guid id, params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) => Search(includes).SingleOrDefault(aggregate => aggregate.Id == id && aggregate.IsActive);
 
-        public virtual TAggregate Get<TProperty>(Guid id, params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) =>
-            Search(includes).SingleOrDefault(aggregate => aggregate.Id == id);
-
-        public TAggregate GetActive<TProperty>(Guid id) => Queryable.SingleOrDefault(aggregate => aggregate.Id == id && aggregate.IsActive);
-
-        public TAggregate GetActive<TProperty>(Guid id, params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) =>
-            Search(includes).SingleOrDefault(aggregate => aggregate.Id == id && aggregate.IsActive);
-
-        public IQueryable<TAggregate> Search<TProperty>() => Queryable;
-
-        public virtual IQueryable<TAggregate> Search<TProperty>(params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) =>
-            includes.Aggregate(Queryable, (queryable, propertyToInclude) => queryable.Include(propertyToInclude));
-
-        public IQueryable<TAggregate> SearchActive<TProperty>() => Queryable.Where(aggregate => aggregate.IsActive);
-
-        public IQueryable<TAggregate> SearchActive<TProperty>(params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) =>
-            Search(includes).Where(aggregate => aggregate.IsActive);
+        public virtual IQueryable<TAggregate> Search<TProperty>() => Queryable;
+        public virtual IQueryable<TAggregate> Search<TProperty>(params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) => includes.Aggregate(Queryable, (queryable, propertyToInclude) => queryable.Include(propertyToInclude));
+        public virtual IQueryable<TAggregate> SearchActive<TProperty>() => Queryable.Where(aggregate => aggregate.IsActive);
+        public virtual IQueryable<TAggregate> SearchActive<TProperty>(params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) => Search(includes).Where(aggregate => aggregate.IsActive);
 
         public void Add(TAggregate aggregate) => DbSet.Add(aggregate);
         public void Update(TAggregate aggregate) => DbSet.Update(aggregate);
