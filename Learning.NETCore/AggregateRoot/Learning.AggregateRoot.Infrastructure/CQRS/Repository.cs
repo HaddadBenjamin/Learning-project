@@ -12,10 +12,9 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
         where TAggregate : Domain.AggregateRoot
         where TContext : Microsoft.EntityFrameworkCore.DbContext
     {
-        protected TContext DbContext { get; }
-
-        protected DbSet<TAggregate> DbSet => DbContext.Set<TAggregate>();
-        protected IQueryable<TAggregate> Queryable => DbContext.Set<TAggregate>();
+        private TContext DbContext { get; }
+        private DbSet<TAggregate> DbSet => DbContext.Set<TAggregate>();
+        private IQueryable<TAggregate> Queryable => DbContext.Set<TAggregate>();
 
         protected Repository(TContext context) => DbContext = context;
 
