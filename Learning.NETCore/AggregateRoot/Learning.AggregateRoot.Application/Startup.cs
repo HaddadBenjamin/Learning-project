@@ -1,7 +1,4 @@
 using Learning.AggregateRoot.Application.Example;
-using Learning.AggregateRoot.Application.Middlewares;
-using Learning.AggregateRoot.Domain.Example.Aggregate;
-using Learning.AggregateRoot.Domain.Example.Commands;
 using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 using Learning.AggregateRoot.Infrastructure.AuthentificationContext;

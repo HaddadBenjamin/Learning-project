@@ -53,14 +53,14 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
             _trackedAggregates.TryRemove(aggregate.Id, out _);
         }
 
-        public TAggregate Get<TProperty>(Guid id, params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes)
+        private TAggregate InternalGet(Func<TRepository, TAggregate> getAggregate, Guid id)
         {
             var aggregate = _trackedAggregates.OfType<TAggregate>().SingleOrDefault(t => t.Id == id);
 
             if (aggregate != null)
                 return aggregate;
 
-            aggregate = Repository.Get(id, includes);
+            aggregate = getAggregate(Repository);
 
             if (aggregate is null)
                 throw new AggregateNotFoundException(id);
@@ -70,8 +70,15 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
             return aggregate;
         }
 
-        public IQueryable<TAggregate> Search<TProperty>(params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) =>
-            _repository.Search(includes);
+        public TAggregate Get<TProperty>(Guid id) => InternalGet(repository => repository.Get<TAggregate>(id), id);
+        public TAggregate Get<TProperty>(Guid id, params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) => InternalGet(repository => repository.Get(id, includes), id);
+        public TAggregate GetActive<TProperty>(Guid id) => InternalGet(repository => repository.GetActive<TAggregate>(id), id);
+        public TAggregate GetActive<TProperty>(Guid id, params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) => InternalGet(repository => repository.GetActive(id, includes), id);
+
+        public IQueryable<TAggregate> Search<TProperty>() => _repository.Search<TProperty>();
+        public IQueryable<TAggregate> Search<TProperty>(params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) => _repository.Search(includes);
+        public IQueryable<TAggregate> SearchActive<TProperty>() => _repository.SearchActive<TProperty>();
+        public IQueryable<TAggregate> SearchActive<TProperty>(params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) => _repository.SearchActive(includes);
 
         public void Add(TAggregate aggregate)
         {
