@@ -11,7 +11,6 @@ namespace Learning.AggregateRoot.Domain
     {
         public Guid Id { get; set; }
         public int Version { get; set; }
-        // Ne devrait pas être à ce niveau ?
         public Guid CreatedBy { get; set; }
         public Guid CreatedOnBehalfOf { get; set; }
         public DateTime CreatedAt { get; set; }

@@ -12,6 +12,7 @@ namespace Learning.AggregateRoot.Infrastructure.DbContext
             entity.HasKey(aggregate => aggregate.Id);
             entity.Property(aggregate => aggregate.Id).IsConcurrencyToken();
             entity.HasIndex(aggregate => aggregate.Id);
+            entity.HasIndex(aggregate => aggregate.IsActive);
 
             Map(entity);
         }
