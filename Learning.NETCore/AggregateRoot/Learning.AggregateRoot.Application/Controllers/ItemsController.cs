@@ -59,10 +59,11 @@ namespace Learning.AggregateRoot.Application.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var command = new CreateItem
+            var command = new UpdateItem    
             {
-                Name = "test",
-                Locations = new List<string>() { "act I", "act II" }
+                Id = Guid.Parse("EF7D3AB6-8085-48F1-B3FF-E32C1928D536"),
+                Name = "updated",
+                Locations = new List<string>() { "act 3", "act 5" }
             };
 
             _mediator.SendCommand(command);

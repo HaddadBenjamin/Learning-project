@@ -25,15 +25,18 @@ namespace Learning.AggregateRoot.Application
             services.AddRouting(options => options.LowercaseUrls = true);
 
             services
+                // Register CQRS : mediator / session / repository.
                 .AddMediatR(typeof(ItemHandler))
                 .AddSingleton<IMediator, Mediator>()
-                .AddSingleton<IRequestContext, RequestContext>()
-                .AddSingleton<IAuthentificationContextUserProvider, FakeAuthentificationContextUserProvider>()
                 .AddScoped(typeof(ISession<>), typeof(Session<>))
                 .AddScoped(typeof(ISession<,>), typeof(Session<,>))
                 .AddScoped(typeof(IRepository<>), typeof(GenericRepository<>))
+                // Register authentification context.
+                .AddSingleton<IRequestContext, RequestContext>()
+                .AddSingleton<IAuthentificationContextUserProvider, FakeAuthentificationContextUserProvider>()
                 .AddScoped<IAuthentificationContext, AuthentificationContext>()
                 .AddScoped<IAuthentificationContextUser, FakeAuthentificationContextUser>()
+                // Register Db context.
                 .AddDbContextPool<YourDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=AggregateRoot;Trusted_Connection=True;MultipleActiveResultSets=true"));
         }
 
