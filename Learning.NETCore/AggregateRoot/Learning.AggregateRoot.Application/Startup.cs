@@ -1,3 +1,4 @@
+using Learning.AggregateRoot.Application.Example;
 using Learning.AggregateRoot.Application.Middlewares;
 using Learning.AggregateRoot.Domain.Example.Aggregate;
 using Learning.AggregateRoot.Domain.Example.Commands;
@@ -24,6 +25,7 @@ namespace Learning.AggregateRoot.Application
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddRouting(options => options.LowercaseUrls = true);
 
             services
                 .AddMediatR(typeof(ItemHandler))
@@ -35,9 +37,7 @@ namespace Learning.AggregateRoot.Application
                 .AddScoped(typeof(IRepository<>), typeof(GenericRepository<>))
                 .AddScoped<IAuthentificationContext, AuthentificationContext>()
                 .AddScoped<IAuthentificationContextUser, FakeAuthentificationContextUser>()
-                .AddScoped<Item>()
-                .AddScoped<CreateItem>()
-                .AddDbContext<YourDbContext>(options => options.UseSqlServer("Server=(localdb)\\DiabloIIDocumentation;Database=Documentation;Trusted_Connection=True;"));
+                .AddDbContextPool<YourDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=AggregateRoot;Trusted_Connection=True;MultipleActiveResultSets=true"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -45,9 +45,9 @@ namespace Learning.AggregateRoot.Application
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
+            app.UseMiddleware<FakeRequestContextMiddleware>();// Remplacer par app.UseMiddleware<RequestContextMiddleware>();
+            
             app.UseMvc();
-
-            app.UseMiddleware<RequestContextMiddleware>();
         }
     }
 }

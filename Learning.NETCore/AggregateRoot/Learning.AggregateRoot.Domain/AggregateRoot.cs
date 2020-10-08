@@ -12,13 +12,13 @@ namespace Learning.AggregateRoot.Domain
         public Guid Id { get; set; }
         public int Version { get; set; }
         // Ne devrait pas être à ce niveau ?
-        public bool IsActive { get; set; }
         public Guid CreatedBy { get; set; }
         public Guid CreatedOnBehalfOf { get; set; }
         public DateTime CreatedAt { get; set; }
         public Guid LastUpdatedBy { get; set; }
         public Guid LastUpdatedOnBehalfOf { get; set; }
         public DateTime LastUpdatedAt { get; set; }
+        public bool IsActive { get; set; } = true;
         private List<IEvent> _events { get; } = new List<IEvent>();
 
         public IReadOnlyCollection<IEvent> FlushEvents()

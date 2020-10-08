@@ -6,13 +6,13 @@ namespace Learning.AggregateRoot.Infrastructure.Example.AuthentificationContext
 {
     public class FakeAuthentificationContextUserProvider : IAuthentificationContextUserProvider
     {
-        private readonly FakeAuthentificationContextUser[] Users = new FakeAuthentificationContextUser[]
+        private readonly FakeAuthentificationContextUser[] Users =
         {
             new FakeAuthentificationContextUser
             {
-                Email = "toto@gmail.com",
-                FirstName = "toto",
-                LastName = "julius",
+                Email = "fake-email@gmail.com",
+                FirstName = "fake name",
+                LastName = "fake last name",
                 Id = Guid.NewGuid(),
                 IsSupport = true,
             }
