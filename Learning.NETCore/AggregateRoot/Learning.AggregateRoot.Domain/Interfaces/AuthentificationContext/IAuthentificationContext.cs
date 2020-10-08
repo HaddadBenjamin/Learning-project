@@ -2,7 +2,6 @@
 
 namespace Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext
 {
-    // Doit être setté par un middleware.
     public interface IAuthentificationContext
     {
         IAuthentificationContextUser User { get; set; }
