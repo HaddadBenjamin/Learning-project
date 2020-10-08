@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Learning.AggregateRoot.Application.Example.Dtos;
 using Learning.AggregateRoot.Domain.Example.Commands;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
@@ -15,15 +16,15 @@ namespace Learning.AggregateRoot.Application.Controllers
         public ItemsController(IMediator mediator) => _mediator = mediator;
 
         [HttpPost]
-        public IActionResult Create(/*[FromBody]CreateItemDto dto*/)
+        public IActionResult Create([FromBody]CreateItemDto dto)
         {
-            //var command = new CreateItem
-            //{
-            //    Name = dto.Name,
-            //    Locations = dto.Locations.Split(',')
-            //};
+            var command = new CreateItem
+            {
+                Name = dto.Name,
+                Locations = dto.Locations.Split(',')
+            };
 
-            //_mediator.SendCommand(command);
+            _mediator.SendCommand(command);
 
             return Ok();
         }
@@ -56,9 +57,17 @@ namespace Learning.AggregateRoot.Application.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get() => Ok("welcome sir");
-        [HttpGet]
-        [Route("test")]
-        public IActionResult Get2() => Ok("welcome sir2");
+        public IActionResult Get()
+        {
+            var command = new CreateItem
+            {
+                Name = "test",
+                Locations = new List<string>() { "act I", "act II" }
+            };
+
+            _mediator.SendCommand(command);
+
+            return Ok("yo");
+        }
     }
 }

@@ -1,9 +1,12 @@
 using Learning.AggregateRoot.Application.Middlewares;
+using Learning.AggregateRoot.Domain.Example.Aggregate;
+using Learning.AggregateRoot.Domain.Example.Commands;
 using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 using Learning.AggregateRoot.Infrastructure.AuthentificationContext;
 using Learning.AggregateRoot.Infrastructure.CQRS;
 using Learning.AggregateRoot.Infrastructure.Example.AuthentificationContext;
+using Learning.AggregateRoot.Infrastructure.Example.CommandHandlers;
 using Learning.AggregateRoot.Infrastructure.Example.DbContext;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -20,20 +23,21 @@ namespace Learning.AggregateRoot.Application
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddMvc(options => options.EnableEndpointRouting = false);
 
             services
-                .AddMediatR(typeof(Mediator))
+                .AddMediatR(typeof(ItemHandler))
                 .AddSingleton<IMediator, Mediator>()
                 .AddSingleton<IRequestContext, RequestContext>()
                 .AddSingleton<IAuthentificationContextUserProvider, FakeAuthentificationContextUserProvider>()
-                //.AddScoped(typeof(ISession<Item>), typeof(Session<Item>))
                 .AddScoped(typeof(ISession<>), typeof(Session<>))
                 .AddScoped(typeof(ISession<,>), typeof(Session<,>))
                 .AddScoped(typeof(IRepository<>), typeof(GenericRepository<>))
                 .AddScoped<IAuthentificationContext, AuthentificationContext>()
                 .AddScoped<IAuthentificationContextUser, FakeAuthentificationContextUser>()
-                .AddDbContext<YourDbContext>(opt => opt.UseInMemoryDatabase("TestDb"));
+                .AddScoped<Item>()
+                .AddScoped<CreateItem>()
+                .AddDbContext<YourDbContext>(options => options.UseSqlServer("Server=(localdb)\\DiabloIIDocumentation;Database=Documentation;Trusted_Connection=True;"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -41,13 +45,9 @@ namespace Learning.AggregateRoot.Application
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
-            app.UseHttpsRedirection();
-            app.UseRouting();
-            app.UseAuthorization();
+            app.UseMvc();
 
             app.UseMiddleware<RequestContextMiddleware>();
-
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 }
