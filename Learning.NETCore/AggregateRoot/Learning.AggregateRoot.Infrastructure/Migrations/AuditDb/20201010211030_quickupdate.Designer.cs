@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
 {
     [DbContext(typeof(AuditDbContext))]
-    [Migration("20201010193207_AuditAggregateRootChange")]
-    partial class AuditAggregateRootChange
+    [Migration("20201010211030_quickupdate")]
+    partial class quickupdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,59 +20,6 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                 .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Learning.AggregateRoot.Domain.Audit.AuditDatabaseChange", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Action")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<Guid>("EntityId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CorrelationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Delta")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<Guid>("ImpersonatedUserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("TableName")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Action");
-
-                    b.HasIndex("EntityId");
-
-                    b.HasIndex("CorrelationId");
-
-                    b.HasIndex("Date");
-
-                    b.HasIndex("Delta");
-
-                    b.HasIndex("Id");
-
-                    b.HasIndex("ImpersonatedUserId");
-
-                    b.HasIndex("TableName");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AuditAggregateRootChanges");
-                });
 
             modelBuilder.Entity("Learning.AggregateRoot.Domain.Audit.AuditCommand", b =>
                 {
@@ -115,6 +62,60 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                     b.HasIndex("UserId");
 
                     b.ToTable("AuditCommands");
+                });
+
+            modelBuilder.Entity("Learning.AggregateRoot.Domain.Audit.AuditDatabaseChange", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("CorrelationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Delta")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("EntityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ImpersonatedUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("TableName")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Action");
+
+                    b.HasIndex("CorrelationId");
+
+                    b.HasIndex("Date");
+
+                    b.HasIndex("Delta");
+
+                    b.HasIndex("EntityId");
+
+                    b.HasIndex("Id");
+
+                    b.HasIndex("ImpersonatedUserId");
+
+                    b.HasIndex("TableName");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AuditDatabaseChanges");
                 });
 
             modelBuilder.Entity("Learning.AggregateRoot.Domain.Audit.AuditEvent", b =>

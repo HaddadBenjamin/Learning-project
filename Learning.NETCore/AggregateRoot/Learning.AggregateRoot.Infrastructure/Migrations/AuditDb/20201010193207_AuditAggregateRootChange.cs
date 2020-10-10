@@ -34,7 +34,7 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
             migrationBuilder.CreateIndex(
                 name: "IX_AuditAggregateRootChanges_AggregateRootId",
                 table: "AuditAggregateRootChanges",
-                column: "AggregateRootId");
+                column: "EntityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuditAggregateRootChanges_CorrelationId",

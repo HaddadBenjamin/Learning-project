@@ -7,7 +7,7 @@ namespace Learning.AggregateRoot.Infrastructure.DbContext.Audit
     {
         public DbSet<AuditCommand> AuditCommands { get; set; }
         public DbSet<AuditEvent> AuditEvents { get; set; }
-        public DbSet<AuditAggregateRootChange> AuditAggregateRootChanges { get; set; }
+        public DbSet<AuditDatabaseChange> AuditDatabaseChanges { get; set; }
 
         public AuditDbContext(DbContextOptions<AuditDbContext> options) : base(options) { }
 
@@ -15,7 +15,7 @@ namespace Learning.AggregateRoot.Infrastructure.DbContext.Audit
         {
             new AuditCommandMapper().Map(modelBuilder);
             new AuditEventMapper().Map(modelBuilder);
-            new AuditAggregateRootChangeMapper().Map(modelBuilder);
+            new AuditDatabaseChangeMapper().Map(modelBuilder);
         }
     }
 }

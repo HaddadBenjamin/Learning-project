@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Learning.AggregateRoot.Domain.Exceptions;
+using Learning.AggregateRoot.Domain.Interfaces.Audit;
 using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 
@@ -16,8 +17,8 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
     public class Session<TAggregate> : Session<TAggregate, IRepository<TAggregate>>
         where TAggregate : Domain.AggregateRoot
     {
-        public Session(IRepository<TAggregate> repository, IAuthentificationContext authentificationContext, IMediator mediator) : base(repository, authentificationContext, mediator)
-        { }
+        public Session(IRepository<TAggregate> repository, IAuthentificationContext authentificationContext, IMediator mediator, IDatabaseChangesAuditer databaseChangesAuditer) :
+            base(repository, authentificationContext, mediator, databaseChangesAuditer) { }
     }
     public class Session<TAggregate, TRepository> : ISession<TAggregate, TRepository>
         where TAggregate : Domain.AggregateRoot
@@ -25,17 +26,19 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
     {
         private readonly IAuthentificationContext _authentificationContext;
         private readonly IMediator _mediator;
+        private readonly IDatabaseChangesAuditer _databaseChangesAuditer;
         private readonly ConcurrentDictionary<Guid, Domain.AggregateRoot> _trackedAggregates = new ConcurrentDictionary<Guid, Domain.AggregateRoot>();
 
         public TRepository Repository { get; }
         public IUnitOfWork UnitOfWork => Repository.UnitOfWork;
         public IQueryable<TAggregate> Queryable => Repository.Queryable;
 
-        public Session(TRepository repository, IAuthentificationContext authentificationContext, IMediator mediator)
+        public Session(TRepository repository, IAuthentificationContext authentificationContext, IMediator mediator, IDatabaseChangesAuditer databaseChangesAuditer)
         {
             Repository = repository;
             _authentificationContext = authentificationContext;
             _mediator = mediator;
+            _databaseChangesAuditer = databaseChangesAuditer;
         }
 
         public void Track(TAggregate aggregate)
@@ -130,6 +133,7 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
                 @event.CorrelationId = _authentificationContext.CorrelationId;
 
             await _mediator.PublishEvents(events);
+            await _databaseChangesAuditer.Audit();
             await Repository.UnitOfWork.SaveChangesAsync();
             
             _trackedAggregates.Clear();

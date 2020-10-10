@@ -45,6 +45,7 @@ namespace Learning.AggregateRoot.Application
                 .AddScoped<IRequestContext, RequestContext>()
                 .AddScoped<IAuthentificationContext, AuthentificationContext>()
                 // Audit
+                .AddScoped<IDatabaseChangesAuditer, GenericsDatabaseChangesAuditer>()
                 .AddScoped<ICommandAuditer, CommandAuditer>()
                 .AddScoped<IEventAuditer, EventAuditer>()
                 // Register Db context.
