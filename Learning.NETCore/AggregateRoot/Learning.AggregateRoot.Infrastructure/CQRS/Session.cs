@@ -28,6 +28,8 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
         private readonly ConcurrentDictionary<Guid, Domain.AggregateRoot> _trackedAggregates = new ConcurrentDictionary<Guid, Domain.AggregateRoot>();
 
         public TRepository Repository { get; }
+        public IUnitOfWork UnitOfWork => Repository.UnitOfWork;
+        public IQueryable<TAggregate> Queryable => Repository.Queryable;
 
         public Session(TRepository repository, IAuthentificationContext authentificationContext, IMediator mediator)
         {

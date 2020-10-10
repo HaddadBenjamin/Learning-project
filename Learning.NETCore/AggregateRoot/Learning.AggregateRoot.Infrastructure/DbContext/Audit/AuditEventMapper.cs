@@ -1,8 +1,8 @@
-﻿using Learning.AggregateRoot.Domain;
-using Learning.AggregateRoot.Domain.Audit;
+﻿using Learning.AggregateRoot.Domain.Audit;
+using Learning.AggregateRoot.Infrastructure.DbContext.Aggregate;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Learning.AggregateRoot.Infrastructure.DbContext
+namespace Learning.AggregateRoot.Infrastructure.DbContext.Audit
 {
     public class AuditEventMapper : AggregateMap<AuditEvent>
     {

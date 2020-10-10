@@ -1,5 +1,5 @@
 ﻿using Learning.AggregateRoot.Domain.Example.Aggregate;
-using Learning.AggregateRoot.Infrastructure.DbContext;
+using Learning.AggregateRoot.Infrastructure.DbContext.Aggregate;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Learning.AggregateRoot.Infrastructure.Example.DbContext

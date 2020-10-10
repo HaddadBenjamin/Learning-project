@@ -6,7 +6,7 @@ using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 using Learning.AggregateRoot.Infrastructure.Audit;
 using Learning.AggregateRoot.Infrastructure.AuthentificationContext;
 using Learning.AggregateRoot.Infrastructure.CQRS;
-using Learning.AggregateRoot.Infrastructure.DbContext;
+using Learning.AggregateRoot.Infrastructure.DbContext.Audit;
 using Learning.AggregateRoot.Infrastructure.Example.AuthentificationContext;
 using Learning.AggregateRoot.Infrastructure.Example.CommandHandlers;
 using Learning.AggregateRoot.Infrastructure.Example.DbContext;

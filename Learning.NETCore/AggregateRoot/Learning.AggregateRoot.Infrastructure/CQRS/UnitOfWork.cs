@@ -20,11 +20,7 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
             var aggregateTypeName = typeof(TAggregate).Name;
 
             if (!_repositories.ContainsKey(aggregateTypeName))
-            {
-                var repositoryInstance = Activator.CreateInstance(typeof(GenericRepository<>).MakeGenericType(typeof(TAggregate)), _dbContext);
-
-                _repositories.Add(aggregateTypeName, repositoryInstance);
-            }
+                _repositories.Add(aggregateTypeName, Activator.CreateInstance(typeof(GenericRepository<>).MakeGenericType(typeof(TAggregate)), _dbContext));
 
             return (IRepository<TAggregate>)_repositories[aggregateTypeName];
         }
