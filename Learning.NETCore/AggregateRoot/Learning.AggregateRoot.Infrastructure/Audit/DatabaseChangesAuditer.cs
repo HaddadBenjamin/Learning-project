@@ -23,7 +23,7 @@ namespace Learning.AggregateRoot.Infrastructure.Audit
             _authentificationContext = authentificationContext;
             _dbContextToAudit = dbContextToAudit;
             _auditDbContext = auditDbContext;
-            Separator = Environment.NewLine + ",";
+            Separator = $",{Environment.NewLine}";
         }
 
         public async Task Audit()
@@ -46,7 +46,11 @@ namespace Learning.AggregateRoot.Infrastructure.Audit
                 }
                 else if (change.State == EntityState.Modified)
                 {
-                    var delta = string.Join(Separator, change.OriginalValues.Properties.Select(property => $"{property.PropertyInfo.Name} :  {change.OriginalValues[property]}"));
+                    var delta = string.Join(Separator, change.OriginalValues.Properties
+                        .Where(property => change.OriginalValues[property].ToString() != change.CurrentValues[property].ToString())
+                        .Select(property => $"{property.PropertyInfo.Name} :  {change.CurrentValues[property]}"));
+
+                    AuditDatabaseChange(tableName, entityId, action, delta);
                 }
                 else if (change.State == EntityState.Deleted)
                     AuditDatabaseChange(tableName, entityId, action, null);
