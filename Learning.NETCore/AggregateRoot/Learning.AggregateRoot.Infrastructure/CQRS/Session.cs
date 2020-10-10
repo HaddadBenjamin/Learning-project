@@ -23,17 +23,16 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
         where TAggregate : Domain.AggregateRoot
         where TRepository : IRepository<TAggregate>
     {
-        private readonly TRepository _repository;
         private readonly IAuthentificationContext _authentificationContext;
         private readonly IMediator _mediator;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ConcurrentDictionary<Guid, Domain.AggregateRoot> _trackedAggregates = new ConcurrentDictionary<Guid, Domain.AggregateRoot>();
 
-        public TRepository Repository => _repository;
+        public TRepository Repository { get; }
 
         public Session(TRepository repository, IAuthentificationContext authentificationContext, IMediator mediator, IUnitOfWork unitOfWork)
         {
-            _repository = repository;
+            Repository = repository;
             _authentificationContext = authentificationContext;
             _mediator = mediator;
             _unitOfWork = unitOfWork;
