@@ -4,10 +4,6 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Migrations\AuditDb\20201010172208_removeAudit2.cs" />
-    <Compile Remove="Migrations\AuditDb\20201010172208_removeAudit2.Designer.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="8.1.0" />

@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Learning.AggregateRoot.Infrastructure.Migrations
+namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
 {
-    public partial class AuditCommandAndEvents : Migration
+    public partial class quickupdate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,6 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     CommandName = table.Column<string>(nullable: true),
-                    AggregateRootName = table.Column<string>(nullable: true),
                     Command = table.Column<string>(nullable: true),
                     CorrelationId = table.Column<Guid>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
@@ -23,6 +22,25 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AuditCommands", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AuditDatabaseChanges",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    TableName = table.Column<string>(nullable: true),
+                    EntityId = table.Column<Guid>(nullable: false),
+                    Action = table.Column<string>(nullable: false),
+                    Delta = table.Column<string>(nullable: true),
+                    CorrelationId = table.Column<Guid>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false),
+                    ImpersonatedUserId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AuditDatabaseChanges", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -41,16 +59,6 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_AuditEvents", x => x.Id);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Items_IsActive",
-                table: "Items",
-                column: "IsActive");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AuditCommands_AggregateRootName",
-                table: "AuditCommands",
-                column: "AggregateRootName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuditCommands_Command",
@@ -85,6 +93,51 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_AuditCommands_UserId",
                 table: "AuditCommands",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AuditDatabaseChanges_Action",
+                table: "AuditDatabaseChanges",
+                column: "Action");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AuditDatabaseChanges_CorrelationId",
+                table: "AuditDatabaseChanges",
+                column: "CorrelationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AuditDatabaseChanges_Date",
+                table: "AuditDatabaseChanges",
+                column: "Date");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AuditDatabaseChanges_Delta",
+                table: "AuditDatabaseChanges",
+                column: "Delta");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AuditDatabaseChanges_EntityId",
+                table: "AuditDatabaseChanges",
+                column: "EntityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AuditDatabaseChanges_Id",
+                table: "AuditDatabaseChanges",
+                column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AuditDatabaseChanges_ImpersonatedUserId",
+                table: "AuditDatabaseChanges",
+                column: "ImpersonatedUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AuditDatabaseChanges_TableName",
+                table: "AuditDatabaseChanges",
+                column: "TableName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AuditDatabaseChanges_UserId",
+                table: "AuditDatabaseChanges",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -129,11 +182,10 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations
                 name: "AuditCommands");
 
             migrationBuilder.DropTable(
-                name: "AuditEvents");
+                name: "AuditDatabaseChanges");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Items_IsActive",
-                table: "Items");
+            migrationBuilder.DropTable(
+                name: "AuditEvents");
         }
     }
 }
