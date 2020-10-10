@@ -2,8 +2,10 @@ using Learning.AggregateRoot.Application.Example;
 using Learning.AggregateRoot.Application.Filters;
 using Learning.AggregateRoot.Application.Middlewares;
 using Learning.AggregateRoot.Domain.Example.Readers;
+using Learning.AggregateRoot.Domain.Interfaces.Audit;
 using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
+using Learning.AggregateRoot.Infrastructure.Audit;
 using Learning.AggregateRoot.Infrastructure.AuthentificationContext;
 using Learning.AggregateRoot.Infrastructure.CQRS;
 using Learning.AggregateRoot.Infrastructure.Example.AuthentificationContext;
@@ -34,13 +36,16 @@ namespace Learning.AggregateRoot.Application
             services
                 // Register CQRS : mediator / session / repository.
                 .AddMediatR(typeof(Mediator))
-                .AddSingleton<IMediator, Mediator>()
+                .AddScoped<IMediator, Mediator>()
                 .AddScoped(typeof(ISession<>), typeof(Session<>))
                 .AddScoped(typeof(ISession<,>), typeof(Session<,>))
                 .AddScoped(typeof(IRepository<>), typeof(GenericRepository<>))
                 // Register authentification context.
                 .AddSingleton<IRequestContext, RequestContext>()
                 .AddScoped<IAuthentificationContext, AuthentificationContext>()
+                // Audit
+                .AddScoped<ICommandAuditer, CommandAuditer>()
+                .AddScoped<IEventAuditer, EventAuditer>()
                 // Register Db context.
                 .AddDbContextPool<YourDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=AggregateRoot;Trusted_Connection=True;MultipleActiveResultSets=true"))
                 // example
