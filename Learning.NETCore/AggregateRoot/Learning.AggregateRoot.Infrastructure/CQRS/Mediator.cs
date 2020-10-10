@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Learning.AggregateRoot.Domain.Interfaces.Audit;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
+using Learning.AggregateRoot.Infrastructure.DbContext;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Learning.AggregateRoot.Infrastructure.CQRS
@@ -25,16 +25,16 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
 
         public async Task SendCommand(ICommand command)
         {
-            _mediator.Send(command);
+            await _mediator.Send(command);
 
             _commandAuditer.Audit(command);
         }
 
-        public async Task PublishEvent(IEvent @event)
+        public async Task PublishEvents(IReadOnlyCollection<IEvent> events)
         {
-            _mediator.Publish(@event);
+            await Task.WhenAll(events.Select(@event => _mediator.Publish(@event)));
 
-            _eventAuditer.Audit(@event);
+            await _eventAuditer.Audit(events);
         }
     }
 }

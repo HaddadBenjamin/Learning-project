@@ -1,5 +1,4 @@
 using Learning.AggregateRoot.Application.Filters;
-using Learning.AggregateRoot.Application.Middlewares;
 using Learning.AggregateRoot.Domain.Example.Readers;
 using Learning.AggregateRoot.Domain.Interfaces.Audit;
 using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
@@ -7,12 +6,14 @@ using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 using Learning.AggregateRoot.Infrastructure.Audit;
 using Learning.AggregateRoot.Infrastructure.AuthentificationContext;
 using Learning.AggregateRoot.Infrastructure.CQRS;
+using Learning.AggregateRoot.Infrastructure.DbContext;
 using Learning.AggregateRoot.Infrastructure.Example.AuthentificationContext;
 using Learning.AggregateRoot.Infrastructure.Example.CommandHandlers;
 using Learning.AggregateRoot.Infrastructure.Example.DbContext;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,7 +31,6 @@ namespace Learning.AggregateRoot.Application
                 options.EnableEndpointRouting = false;
                 options.Filters.Add(new ExceptionHandlerFilter());
             });
-            //services.AddRouting(options => options.LowercaseUrls = true);
 
             services
                 // Register CQRS : mediator / session / repository.
@@ -40,12 +40,14 @@ namespace Learning.AggregateRoot.Application
                 .AddScoped(typeof(ISession<,>), typeof(Session<,>))
                 .AddScoped(typeof(IRepository<>), typeof(GenericRepository<>))
                 // Register authentification context.
-                .AddSingleton<IRequestContext, RequestContext>()
+                .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
+                .AddScoped<IRequestContext, RequestContext>()
                 .AddScoped<IAuthentificationContext, AuthentificationContext>()
                 // Audit
                 .AddScoped<ICommandAuditer, CommandAuditer>()
                 .AddScoped<IEventAuditer, EventAuditer>()
                 // Register Db context.
+                .AddDbContextPool<AuditDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Audit;Trusted_Connection=True;MultipleActiveResultSets=true"))
                 .AddDbContextPool<YourDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=AggregateRoot;Trusted_Connection=True;MultipleActiveResultSets=true"))
                 // example
                 .AddScoped<IAuthentificationContextUserProvider, FakeAuthentificationContextUserProvider>()
@@ -59,13 +61,11 @@ namespace Learning.AggregateRoot.Application
 
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                var dbContext = serviceScope.ServiceProvider.GetRequiredService<YourDbContext>();
-                dbContext.Database.Migrate();
+                serviceScope.ServiceProvider.GetRequiredService<YourDbContext>().Database.Migrate();
+                serviceScope.ServiceProvider.GetRequiredService<AuditDbContext>().Database.Migrate();
             }
 
-            app
-                .UseMiddleware<RequestContextMiddleware>()
-                .UseMvc();
+            app.UseMvc();
         }
     }
 }

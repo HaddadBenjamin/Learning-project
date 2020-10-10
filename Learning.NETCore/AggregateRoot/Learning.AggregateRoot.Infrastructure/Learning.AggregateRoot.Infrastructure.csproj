@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\AuditDb\20201010172208_removeAudit2.cs" />
+    <Compile Remove="Migrations\AuditDb\20201010172208_removeAudit2.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MediatR" Version="8.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.8" />

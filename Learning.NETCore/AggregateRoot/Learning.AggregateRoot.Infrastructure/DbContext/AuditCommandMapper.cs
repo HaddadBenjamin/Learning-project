@@ -10,7 +10,6 @@ namespace Learning.AggregateRoot.Infrastructure.DbContext
             entity.HasKey(auditCommand => auditCommand.Id);
 
             entity.HasIndex(auditCommand => auditCommand.Id);
-            entity.HasIndex(auditCommand => auditCommand.AggregateRootName);
             entity.HasIndex(auditCommand => auditCommand.CommandName);
             entity.HasIndex(auditCommand => auditCommand.Command);
             entity.HasIndex(auditCommand => auditCommand.CorrelationId);

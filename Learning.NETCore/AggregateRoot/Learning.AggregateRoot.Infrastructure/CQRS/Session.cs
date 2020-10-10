@@ -129,7 +129,7 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
             foreach (var @event in events)
                 @event.CorrelationId = _authentificationContext.CorrelationId;
 
-            await Task.WhenAll(events.Select(_mediator.PublishEvent));
+            await _mediator.PublishEvents(events);
 
             await _repository.SaveChanges();
 
