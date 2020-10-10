@@ -17,9 +17,9 @@ namespace Learning.AggregateRoot.Domain.Interfaces.CQRS
         void Track(TAggregate aggregate);
         void UnTrack(TAggregate aggregate);
 
-        TAggregate Get<TProperty>(Guid id);
+        TAggregate Get(Guid id);
         TAggregate Get<TProperty>(Guid id, params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes);
-        TAggregate GetActive<TProperty>(Guid id);
+        TAggregate GetActive(Guid id);
         TAggregate GetActive<TProperty>(Guid id, params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes);
 
         IQueryable<TAggregate> Search<TProperty>();

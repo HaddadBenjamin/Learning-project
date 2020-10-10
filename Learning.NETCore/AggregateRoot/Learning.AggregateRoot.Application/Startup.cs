@@ -1,10 +1,12 @@
 using Learning.AggregateRoot.Application.Example;
 using Learning.AggregateRoot.Application.Filters;
+using Learning.AggregateRoot.Domain.Example.Readers;
 using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 using Learning.AggregateRoot.Infrastructure.AuthentificationContext;
 using Learning.AggregateRoot.Infrastructure.CQRS;
 using Learning.AggregateRoot.Infrastructure.Example.AuthentificationContext;
+using Learning.AggregateRoot.Infrastructure.Example.CommandHandlers;
 using Learning.AggregateRoot.Infrastructure.Example.DbContext;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -41,7 +43,9 @@ namespace Learning.AggregateRoot.Application
                 .AddScoped<IAuthentificationContext, AuthentificationContext>()
                 .AddScoped<IAuthentificationContextUser, FakeAuthentificationContextUser>()
                 // Register Db context.
-                .AddDbContextPool<YourDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=AggregateRoot;Trusted_Connection=True;MultipleActiveResultSets=true"));
+                .AddDbContextPool<YourDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=AggregateRoot;Trusted_Connection=True;MultipleActiveResultSets=true"))
+                // random
+                .AddScoped<IItemReader, ItemReader>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

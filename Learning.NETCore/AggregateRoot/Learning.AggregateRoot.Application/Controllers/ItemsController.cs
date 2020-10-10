@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using Learning.AggregateRoot.Application.Example.Dtos;
 using Learning.AggregateRoot.Domain.Example.Commands;
+using Learning.AggregateRoot.Domain.Example.Readers;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,8 +12,13 @@ namespace Learning.AggregateRoot.Application.Controllers
     public class ItemsController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IItemReader _itemReader;
 
-        public ItemsController(IMediator mediator) => _mediator = mediator;
+        public ItemsController(IMediator mediator, IItemReader itemReader)
+        {
+            _mediator = mediator;
+            _itemReader = itemReader;
+        }
 
         [HttpPost]
         public IActionResult Create([FromBody]CreateItemDto dto)
@@ -57,17 +62,7 @@ namespace Learning.AggregateRoot.Application.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
-        {
-            var command = new CreateItem
-            {
-                Name = "test",
-                Locations = new List<string>() { "act I", "act II" }
-            };
-
-            _mediator.SendCommand(command);
-
-            return Ok("yo");
-        }
+        [Route("{itemId:guid}")]
+        public IActionResult Get([FromRoute] Guid itemId) => Ok(_itemReader.Get(itemId));
     }
 }
