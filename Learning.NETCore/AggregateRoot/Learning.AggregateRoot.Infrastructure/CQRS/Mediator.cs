@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Learning.AggregateRoot.Domain;
 using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;

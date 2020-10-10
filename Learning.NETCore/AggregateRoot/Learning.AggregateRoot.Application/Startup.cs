@@ -39,7 +39,7 @@ namespace Learning.AggregateRoot.Application
                 .AddScoped(typeof(IRepository<>), typeof(GenericRepository<>))
                 // Register authentification context.
                 .AddSingleton<IRequestContext, RequestContext>()
-                .AddSingleton<IAuthentificationContextUserProvider, FakeAuthentificationContextUserProvider>()
+                .AddScoped<IAuthentificationContextUserProvider, FakeAuthentificationContextUserProvider>()
                 .AddScoped<IAuthentificationContext, AuthentificationContext>()
                 .AddScoped<IAuthentificationContextUser, FakeAuthentificationContextUser>()
                 // Register Db context.

@@ -124,16 +124,16 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
             foreach (var aggregate in aggregates)
                 aggregate.MarkAsUpdated(_authentificationContext);
 
-            await _repository.SaveChanges();
-
-            _trackedAggregates.Clear();
-
             var events = aggregates.SelectMany(a => a.FlushEvents()).ToList();
 
             foreach (var @event in events)
                 @event.CorrelationId = _authentificationContext.CorrelationId;
 
             await Task.WhenAll(events.Select(_mediator.PublishEvent));
+
+            await _repository.SaveChanges();
+
+            _trackedAggregates.Clear();
 
             return events;
         }

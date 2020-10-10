@@ -73,7 +73,7 @@ namespace Learning.AggregateRoot.Domain
         }
         #endregion
 
-        #region Event sourcing like (brouillon)
+        #region Avec event sourcing (code brouillon)
         public void ReplayEvents(IReadOnlyCollection<IEvent> events)
         {
             foreach (var @event in events)
