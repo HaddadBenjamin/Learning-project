@@ -7,17 +7,15 @@ using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 
 namespace Learning.AggregateRoot.Domain
 {
+    /// <summary>
+    /// Veuillez choisir les options qui vous intéresse à savoir avec ou sans audit, suppression logique ou event sourcing.
+    /// </summary>
     public abstract class AggregateRoot
     {
+        #region Le minimum nécéssaire
         public Guid Id { get; set; }
         public int Version { get; set; }
-        public Guid CreatedBy { get; set; }
-        public Guid CreatedOnBehalfOf { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public Guid LastUpdatedBy { get; set; }
-        public Guid LastUpdatedOnBehalfOf { get; set; }
-        public DateTime LastUpdatedAt { get; set; }
-        public bool IsActive { get; set; } = true;
+
         private List<IEvent> _events { get; } = new List<IEvent>();
 
         public IReadOnlyCollection<IEvent> FlushEvents()
@@ -35,6 +33,31 @@ namespace Learning.AggregateRoot.Domain
             return events;
         }
 
+        protected void RaiseEvent(IEvent @event)
+        {
+            if (@event.Id == Guid.Empty)
+                @event.Id = Guid.NewGuid();
+
+            @event.Version = ++Version;
+            @event.Date = DateTime.UtcNow;
+
+            _events.Add(@event);
+        }
+        #endregion
+
+        #region Les options non obligatoires
+        #region Avec suppression logique
+        public bool IsActive { get; set; } = true;
+        #endregion
+
+        #region Avec audit
+        public Guid CreatedBy { get; set; }
+        public Guid CreatedOnBehalfOf { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public Guid LastUpdatedBy { get; set; }
+        public Guid LastUpdatedOnBehalfOf { get; set; }
+        public DateTime LastUpdatedAt { get; set; }
+
         public void MarkAsCreated(IAuthentificationContext authentificationContext)
         {
             CreatedAt = DateTime.UtcNow;
@@ -48,17 +71,7 @@ namespace Learning.AggregateRoot.Domain
             LastUpdatedBy = authentificationContext.User.Id;
             LastUpdatedOnBehalfOf = authentificationContext.ImpersonatedUser.Id;
         }
-
-        protected void RaiseEvent(IEvent @event)
-        {
-            if (@event.Id == Guid.Empty)
-                @event.Id = Guid.NewGuid();
-
-            @event.Version = ++Version;
-            @event.Date = DateTime.UtcNow;
-
-            _events.Add(@event);
-        }
+        #endregion
 
         #region Event sourcing like (brouillon)
         public void ReplayEvents(IReadOnlyCollection<IEvent> events)
@@ -73,6 +86,7 @@ namespace Learning.AggregateRoot.Domain
 
         // Switch (@event) et en fonction du type tu appliques une mutation de l'état.
         protected virtual void MutateState(IEvent @event) { }
+        #endregion
         #endregion
     }
 }
