@@ -26,7 +26,7 @@ namespace Learning.AggregateRoot.Application
                 options.EnableEndpointRouting = false;
                 options.Filters.Add(new ExceptionHandlerFilter());
             });
-            services.AddRouting(options => options.LowercaseUrls = true);
+            //services.AddRouting(options => options.LowercaseUrls = true);
 
             services
                 // Register CQRS : mediator / session / repository.
@@ -48,6 +48,12 @@ namespace Learning.AggregateRoot.Application
         {
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
+
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<YourDbContext>();
+                dbContext.Database.Migrate();
+            }
 
             app
                 .UseMiddleware<FakeRequestContextMiddleware>() // � remplacer par app.UseMiddleware<RequestContextMiddleware>();
