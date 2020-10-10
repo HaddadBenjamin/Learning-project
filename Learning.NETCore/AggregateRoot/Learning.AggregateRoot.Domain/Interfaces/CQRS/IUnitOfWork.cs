@@ -6,5 +6,9 @@ namespace Learning.AggregateRoot.Domain.Interfaces.CQRS
     {
         IRepository<TAggregate> Repository<TAggregate>() where TAggregate : AggregateRoot;
         Task SaveChangesAsync();
+
+        void BeginTransaction();
+        void CommitTransaction();
+        void RollbackTransaction();
     }
 }

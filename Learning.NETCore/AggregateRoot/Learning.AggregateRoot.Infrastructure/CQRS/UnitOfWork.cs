@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Threading.Tasks;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Learning.AggregateRoot.Infrastructure.CQRS
 {
@@ -10,6 +11,7 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
     {
         private readonly TDbContext _dbContext;
         private Hashtable _repositories = new Hashtable();
+        private IDbContextTransaction _transaction;
 
         public UnitOfWork(TDbContext dbContext) => _dbContext = dbContext;
 
@@ -28,5 +30,26 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
         }
 
         public async Task SaveChangesAsync() => await _dbContext.SaveChangesAsync();
+
+        public void BeginTransaction() => _transaction = _dbContext.Database.BeginTransaction();
+
+        public void CommitTransaction()
+        {
+            try
+            {
+                _dbContext.SaveChanges();
+                _transaction.Commit();
+            }
+            finally
+            {
+                _transaction.Dispose();
+            }
+        }
+
+        public void RollbackTransaction()
+        {
+            _transaction.Rollback();
+            _transaction.Dispose();
+        }
     }
 }
