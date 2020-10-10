@@ -36,6 +36,7 @@ namespace Learning.AggregateRoot.Application
                 // Register CQRS : mediator / session / repository.
                 .AddMediatR(typeof(Mediator))
                 .AddScoped<IMediator, Mediator>()
+                .AddScoped<IUnitOfWork, GenericUnitOfWork>()
                 .AddScoped(typeof(ISession<>), typeof(Session<>))
                 .AddScoped(typeof(ISession<,>), typeof(Session<,>))
                 .AddScoped(typeof(IRepository<>), typeof(GenericRepository<>))

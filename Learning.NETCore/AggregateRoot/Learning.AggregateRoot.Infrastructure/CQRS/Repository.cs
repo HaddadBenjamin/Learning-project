@@ -8,15 +8,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Learning.AggregateRoot.Infrastructure.CQRS
 {
-    public abstract class Repository<TAggregate, TContext> : IRepository<TAggregate>
+    public abstract class Repository<TAggregate, TDbContext> : IRepository<TAggregate>
         where TAggregate : Domain.AggregateRoot
-        where TContext : Microsoft.EntityFrameworkCore.DbContext
+        where TDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
-        private TContext DbContext { get; }
+        private TDbContext DbContext { get; }
         private DbSet<TAggregate> DbSet => DbContext.Set<TAggregate>();
         private IQueryable<TAggregate> Queryable => DbContext.Set<TAggregate>();
 
-        protected Repository(TContext context) => DbContext = context;
+        protected Repository(TDbContext context) => DbContext = context;
 
         public virtual TAggregate Get<TProperty>(Guid id) => Queryable.SingleOrDefault(aggregate => aggregate.Id == id);
         public virtual TAggregate Get<TProperty>(Guid id, params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) => Search(includes).SingleOrDefault(aggregate => aggregate.Id == id);

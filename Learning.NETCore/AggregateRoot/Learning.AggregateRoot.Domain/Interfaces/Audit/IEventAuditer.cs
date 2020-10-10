@@ -1,9 +1,11 @@
-﻿using Learning.AggregateRoot.Domain.Interfaces.CQRS;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 
 namespace Learning.AggregateRoot.Domain.Interfaces.Audit
 {
     public interface IEventAuditer
     {
-        void Audit(IEvent @event);
+        Task Audit(IReadOnlyCollection<IEvent> events);
     }
 }

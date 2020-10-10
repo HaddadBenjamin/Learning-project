@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Learning.AggregateRoot.Domain.Interfaces.Audit;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
-using Learning.AggregateRoot.Infrastructure.DbContext;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Learning.AggregateRoot.Infrastructure.CQRS

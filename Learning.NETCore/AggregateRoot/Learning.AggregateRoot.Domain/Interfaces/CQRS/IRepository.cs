@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace Learning.AggregateRoot.Domain.Interfaces.CQRS
 {
@@ -22,8 +21,5 @@ namespace Learning.AggregateRoot.Domain.Interfaces.CQRS
         void Add(TAggregate aggregate);
         void Update(TAggregate aggregate);
         void Remove(TAggregate aggregate);
-
-        // Est-ce que cette méthode devrait plutôt se retrouver dans le modèle de conception "Unit of work" ?
-        Task SaveChanges();
     }
 }

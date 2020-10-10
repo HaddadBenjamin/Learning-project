@@ -16,7 +16,7 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
     public class Session<TAggregate> : Session<TAggregate, IRepository<TAggregate>>
         where TAggregate : Domain.AggregateRoot
     {
-        public Session(IRepository<TAggregate> repository, IAuthentificationContext authentificationContext, IMediator mediator) : base(repository, authentificationContext, mediator)
+        public Session(IRepository<TAggregate> repository, IAuthentificationContext authentificationContext, IMediator mediator, IUnitOfWork unitOfWork) : base(repository, authentificationContext, mediator, unitOfWork)
         { }
     }
     public class Session<TAggregate, TRepository> : ISession<TAggregate, TRepository>
@@ -26,15 +26,17 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
         private readonly TRepository _repository;
         private readonly IAuthentificationContext _authentificationContext;
         private readonly IMediator _mediator;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly ConcurrentDictionary<Guid, Domain.AggregateRoot> _trackedAggregates = new ConcurrentDictionary<Guid, Domain.AggregateRoot>();
 
         public TRepository Repository => _repository;
 
-        public Session(TRepository repository, IAuthentificationContext authentificationContext, IMediator mediator)
+        public Session(TRepository repository, IAuthentificationContext authentificationContext, IMediator mediator, IUnitOfWork unitOfWork)
         {
             _repository = repository;
             _authentificationContext = authentificationContext;
             _mediator = mediator;
+            _unitOfWork = unitOfWork;
         }
 
         public void Track(TAggregate aggregate)
@@ -131,7 +133,7 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
 
             await _mediator.PublishEvents(events);
 
-            await _repository.SaveChanges();
+            await _unitOfWork.SaveChangesAsync();
 
             _trackedAggregates.Clear();
 
