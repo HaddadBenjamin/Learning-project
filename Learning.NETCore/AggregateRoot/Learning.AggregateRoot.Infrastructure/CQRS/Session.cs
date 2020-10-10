@@ -75,10 +75,10 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
         public TAggregate GetActive(Guid id) => InternalGet(() => Repository.GetActive<TAggregate>(id), id);
         public TAggregate GetActive<TProperty>(Guid id, params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) => InternalGet(() => Repository.GetActive(id, includes), id);
 
-        public IQueryable<TAggregate> Search<TProperty>() => _repository.Search<TProperty>();
-        public IQueryable<TAggregate> Search<TProperty>(params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) => _repository.Search(includes);
-        public IQueryable<TAggregate> SearchActive<TProperty>() => _repository.SearchActive<TProperty>();
-        public IQueryable<TAggregate> SearchActive<TProperty>(params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) => _repository.SearchActive(includes);
+        public IQueryable<TAggregate> Search<TProperty>() => Repository.Search<TProperty>();
+        public IQueryable<TAggregate> Search<TProperty>(params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) => Repository.Search(includes);
+        public IQueryable<TAggregate> SearchActive<TProperty>() => Repository.SearchActive<TProperty>();
+        public IQueryable<TAggregate> SearchActive<TProperty>(params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) => Repository.SearchActive(includes);
 
         public void Add(TAggregate aggregate)
         {
@@ -86,7 +86,7 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
                 throw new ArgumentNullException(nameof(aggregate));
 
             aggregate.MarkAsCreated(_authentificationContext);
-            _repository.Add(aggregate);
+            Repository.Add(aggregate);
 
             Track(aggregate);
         }
@@ -99,7 +99,7 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
             if (!_trackedAggregates.ContainsKey(aggregate.Id))
                 throw new AggregateNotFoundException(aggregate.Id);
 
-            _repository.Update(aggregate);
+            Repository.Update(aggregate);
 
             Track(aggregate);
         }
@@ -112,7 +112,7 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
             if (!_trackedAggregates.ContainsKey(aggregate.Id))
                 throw new AggregateNotFoundException(aggregate.Id);
 
-            _repository.Remove(aggregate);
+            Repository.Remove(aggregate);
 
             Track(aggregate);
         }

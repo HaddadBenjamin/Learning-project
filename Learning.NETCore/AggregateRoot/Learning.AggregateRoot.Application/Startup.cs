@@ -1,4 +1,3 @@
-using Learning.AggregateRoot.Application.Example;
 using Learning.AggregateRoot.Application.Filters;
 using Learning.AggregateRoot.Application.Middlewares;
 using Learning.AggregateRoot.Domain.Example.Readers;

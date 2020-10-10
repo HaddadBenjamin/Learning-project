@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Learning.AggregateRoot.Domain.Interfaces.Audit;
-using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
-using Learning.AggregateRoot.Infrastructure.Example.DbContext;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Learning.AggregateRoot.Infrastructure.CQRS
 {
-    public class Mediator : IMediator, IDisposable
+    public class Mediator : IMediator
     {
         private readonly ICommandAuditer _commandAuditer;
         private readonly IEventAuditer _eventAuditer;
@@ -36,7 +36,5 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
 
             _eventAuditer.Audit(@event);
         }
-
-        public void Dispose() => _serviceScope.Dispose();
     }
 }
