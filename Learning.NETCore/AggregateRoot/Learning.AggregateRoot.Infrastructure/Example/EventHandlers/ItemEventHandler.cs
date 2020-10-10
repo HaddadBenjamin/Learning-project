@@ -9,7 +9,7 @@ namespace Learning.AggregateRoot.Infrastructure.Example.EventHandlers
     {
         public Task Handle(ItemWriteEvent notification, CancellationToken cancellationToken)
         {
-            return Task.CompletedTask; 
+            return Task.CompletedTask;
         }
     }
 }

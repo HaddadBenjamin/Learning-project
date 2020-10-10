@@ -11,9 +11,11 @@ namespace Learning.AggregateRoot.Infrastructure.DbContext
 
             entity.HasIndex(auditEvent => auditEvent.Id);
             entity.HasIndex(auditEvent => auditEvent.EventName);
-            entity.HasIndex(auditEvent => auditEvent.Date);
             entity.HasIndex(auditEvent => auditEvent.Event);
             entity.HasIndex(auditEvent => auditEvent.CorrelationId);
+            entity.HasIndex(auditCommand => auditCommand.Date);
+            entity.HasIndex(auditCommand => auditCommand.UserId);
+            entity.HasIndex(auditCommand => auditCommand.ImpersonatedUserId);
         }
     }
 }

@@ -12,9 +12,11 @@ namespace Learning.AggregateRoot.Infrastructure.DbContext
             entity.HasIndex(auditCommand => auditCommand.Id);
             entity.HasIndex(auditCommand => auditCommand.AggregateRootName);
             entity.HasIndex(auditCommand => auditCommand.CommandName);
-            entity.HasIndex(auditCommand => auditCommand.Date);
             entity.HasIndex(auditCommand => auditCommand.Command);
             entity.HasIndex(auditCommand => auditCommand.CorrelationId);
+            entity.HasIndex(auditCommand => auditCommand.Date);
+            entity.HasIndex(auditCommand => auditCommand.UserId);
+            entity.HasIndex(auditCommand => auditCommand.ImpersonatedUserId);
         }
     }
 }

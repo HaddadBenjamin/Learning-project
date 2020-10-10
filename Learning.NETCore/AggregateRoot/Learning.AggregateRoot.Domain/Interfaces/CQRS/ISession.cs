@@ -21,7 +21,7 @@ namespace Learning.AggregateRoot.Domain.Interfaces.CQRS
         TAggregate Get<TProperty>(Guid id, params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes);
         TAggregate GetActive<TProperty>(Guid id);
         TAggregate GetActive<TProperty>(Guid id, params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes);
-     
+
         IQueryable<TAggregate> Search<TProperty>();
         IQueryable<TAggregate> Search<TProperty>(params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes);
         IQueryable<TAggregate> SearchActive<TProperty>();

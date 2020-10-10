@@ -17,15 +17,14 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
         private readonly MediatR.IMediator _mediator;
         private readonly IServiceScope _serviceScope;
 
-        public Mediator(IServiceScopeFactory serviceScopeFactory, YourDbContext dbContext, IAuthentificationContext authentificationContext)
+        public Mediator(IServiceScopeFactory serviceScopeFactory)
         {
-            _dbContext = dbContext;
-            _authentificationContext = authentificationContext;
             _serviceScope = serviceScopeFactory.CreateScope();
             _mediator = _serviceScope.ServiceProvider.GetRequiredService<MediatR.IMediator>();
+            _authentificationContext = _serviceScope.ServiceProvider.GetRequiredService<IAuthentificationContext>();
+            _dbContext = _serviceScope.ServiceProvider.GetRequiredService<YourDbContext>();
         }
 
-        // Tu peux maintenant t'amuser à étendre son comportement (audit / log / et autre).
         public async Task SendCommand(ICommand command)
         {
             _mediator.Send(command);
@@ -33,11 +32,12 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
             var auditCommand = new AuditCommand
             {
                 Id = Guid.NewGuid(),
-                AggregateRootName = command.GetType().GenericTypeArguments.First().Name,
+                CommandName = command.GetType().UnderlyingSystemType.Name,
                 Command = JsonConvert.SerializeObject(command, Formatting.Indented),
-                CommandName = command.GetType().BaseType.Name,
+                CorrelationId = _authentificationContext.CorrelationId,
                 Date = DateTime.UtcNow,
-                CorrelationId = _authentificationContext.CorrelationId
+                ImpersonatedUserId = _authentificationContext.ImpersonatedUser.Id,
+                UserId = _authentificationContext.User.Id
             };
 
             _dbContext.AuditCommands.Add(auditCommand);
@@ -50,10 +50,12 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
             var auditEvent = new AuditEvent
             {
                 Id = Guid.NewGuid(),
+                EventName = @event.GetType().UnderlyingSystemType.Name,
                 Event = JsonConvert.SerializeObject(@event, Formatting.Indented),
-                EventName = @event.GetType().BaseType.Name,
+                CorrelationId = _authentificationContext.CorrelationId,
                 Date = DateTime.UtcNow,
-                CorrelationId = _authentificationContext.CorrelationId
+                ImpersonatedUserId = _authentificationContext.ImpersonatedUser.Id,
+                UserId = _authentificationContext.User.Id
             };
 
             _dbContext.AuditEvents.Add(auditEvent);
