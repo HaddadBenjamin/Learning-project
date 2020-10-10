@@ -18,14 +18,14 @@ namespace Learning.AggregateRoot.Domain.Interfaces.CQRS
         void UnTrack(TAggregate aggregate);
 
         TAggregate Get(Guid id);
-        TAggregate Get<TProperty>(Guid id, params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes);
+        TAggregate Get<TPropertyIncluded>(Guid id, params Expression<Func<TAggregate, IEnumerable<TPropertyIncluded>>>[] includes);
         TAggregate GetActive(Guid id);
-        TAggregate GetActive<TProperty>(Guid id, params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes);
+        TAggregate GetActive<TPropertyIncluded>(Guid id, params Expression<Func<TAggregate, IEnumerable<TPropertyIncluded>>>[] includes);
 
-        IQueryable<TAggregate> Search<TProperty>();
-        IQueryable<TAggregate> Search<TProperty>(params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes);
-        IQueryable<TAggregate> SearchActive<TProperty>();
-        IQueryable<TAggregate> SearchActive<TProperty>(params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes);
+        IQueryable<TAggregate> Search();
+        IQueryable<TAggregate> Search<TPropertyIncluded>(params Expression<Func<TAggregate, IEnumerable<TPropertyIncluded>>>[] includes);
+        IQueryable<TAggregate> SearchActive();
+        IQueryable<TAggregate> SearchActive<TPropertyIncluded>(params Expression<Func<TAggregate, IEnumerable<TPropertyIncluded>>>[] includes);
 
         void Add(TAggregate aggregate);
         void Update(TAggregate aggregate);

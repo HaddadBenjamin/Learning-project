@@ -1,4 +1,5 @@
 ﻿using Learning.AggregateRoot.Domain;
+using Learning.AggregateRoot.Domain.Audit;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Learning.AggregateRoot.Infrastructure.DbContext

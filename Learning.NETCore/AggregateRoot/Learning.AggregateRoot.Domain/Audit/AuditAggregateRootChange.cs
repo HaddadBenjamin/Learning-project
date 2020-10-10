@@ -1,0 +1,15 @@
+﻿using System;
+
+namespace Learning.AggregateRoot.Domain.Audit
+{
+    /// <summary>
+    /// Permet d'auditer toutes les changements qui ont été réalisées à votre base de données.
+    /// </summary>
+    public class AuditAggregateRootChange
+    {
+        public Guid Id { get; set; }
+        public string TableName { get; set; }
+        public string Action { get; set; }
+        public string Delta { get; set; }
+    }
+}

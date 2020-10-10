@@ -1,10 +1,9 @@
 ﻿using System;
-using Learning.AggregateRoot.Domain;
+using Learning.AggregateRoot.Domain.Audit;
 using Learning.AggregateRoot.Domain.Interfaces.Audit;
 using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 using Learning.AggregateRoot.Infrastructure.DbContext;
-using Learning.AggregateRoot.Infrastructure.Example.DbContext;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 

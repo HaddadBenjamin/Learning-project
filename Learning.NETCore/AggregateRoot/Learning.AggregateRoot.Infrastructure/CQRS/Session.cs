@@ -16,7 +16,7 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
     public class Session<TAggregate> : Session<TAggregate, IRepository<TAggregate>>
         where TAggregate : Domain.AggregateRoot
     {
-        public Session(IRepository<TAggregate> repository, IAuthentificationContext authentificationContext, IMediator mediator, IUnitOfWork unitOfWork) : base(repository, authentificationContext, mediator, unitOfWork)
+        public Session(IRepository<TAggregate> repository, IAuthentificationContext authentificationContext, IMediator mediator) : base(repository, authentificationContext, mediator)
         { }
     }
     public class Session<TAggregate, TRepository> : ISession<TAggregate, TRepository>
@@ -25,17 +25,15 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
     {
         private readonly IAuthentificationContext _authentificationContext;
         private readonly IMediator _mediator;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly ConcurrentDictionary<Guid, Domain.AggregateRoot> _trackedAggregates = new ConcurrentDictionary<Guid, Domain.AggregateRoot>();
 
         public TRepository Repository { get; }
 
-        public Session(TRepository repository, IAuthentificationContext authentificationContext, IMediator mediator, IUnitOfWork unitOfWork)
+        public Session(TRepository repository, IAuthentificationContext authentificationContext, IMediator mediator)
         {
             Repository = repository;
             _authentificationContext = authentificationContext;
             _mediator = mediator;
-            _unitOfWork = unitOfWork;
         }
 
         public void Track(TAggregate aggregate)
@@ -72,13 +70,13 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
         }
 
         public TAggregate Get(Guid id) => InternalGet(() => Repository.Get<TAggregate>(id), id);
-        public TAggregate Get<TProperty>(Guid id, params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) => InternalGet(() => Repository.Get(id, includes), id);
+        public TAggregate Get<TPropertyIncluded>(Guid id, params Expression<Func<TAggregate, IEnumerable<TPropertyIncluded>>>[] includes) => InternalGet(() => Repository.Get(id, includes), id);
         public TAggregate GetActive(Guid id) => InternalGet(() => Repository.GetActive<TAggregate>(id), id);
-        public TAggregate GetActive<TProperty>(Guid id, params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) => InternalGet(() => Repository.GetActive(id, includes), id);
+        public TAggregate GetActive<TPropertyIncluded>(Guid id, params Expression<Func<TAggregate, IEnumerable<TPropertyIncluded>>>[] includes) => InternalGet(() => Repository.GetActive(id, includes), id);
 
-        public IQueryable<TAggregate> Search<TProperty>() => Repository.Search<TProperty>();
-        public IQueryable<TAggregate> Search<TProperty>(params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) => Repository.Search(includes);
-        public IQueryable<TAggregate> SearchActive<TProperty>() => Repository.SearchActive<TProperty>();
+        public IQueryable<TAggregate> Search() => Repository.Search();
+        public IQueryable<TAggregate> Search<TPropertyIncluded>(params Expression<Func<TAggregate, IEnumerable<TPropertyIncluded>>>[] includes) => Repository.Search(includes);
+        public IQueryable<TAggregate> SearchActive() => Repository.SearchActive();
         public IQueryable<TAggregate> SearchActive<TProperty>(params Expression<Func<TAggregate, IEnumerable<TProperty>>>[] includes) => Repository.SearchActive(includes);
 
         public void Add(TAggregate aggregate)
@@ -121,19 +119,17 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
         public async Task<IReadOnlyCollection<IEvent>> SaveChanges()
         {
             var aggregates = _trackedAggregates.Values.ToList();
+            var events = aggregates.SelectMany(a => a.FlushEvents()).ToList();
 
             foreach (var aggregate in aggregates)
                 aggregate.MarkAsUpdated(_authentificationContext);
-
-            var events = aggregates.SelectMany(a => a.FlushEvents()).ToList();
 
             foreach (var @event in events)
                 @event.CorrelationId = _authentificationContext.CorrelationId;
 
             await _mediator.PublishEvents(events);
-
-            await _unitOfWork.SaveChangesAsync();
-
+            await Repository.UnitOfWork.SaveChangesAsync();
+            
             _trackedAggregates.Clear();
 
             return events;
