@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Learning.AggregateRoot.Domain;
+using Learning.AggregateRoot.Domain.Interfaces.Audit;
 using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 using Learning.AggregateRoot.Infrastructure.Example.DbContext;
@@ -9,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace Learning.AggregateRoot.Infrastructure.CQRS
 {
-    public class Mediator : IMediator, IDisposable
+    public class Mediator : IMediator, ICommandAuditer, IEventAuditer, IDisposable
     {
         private readonly YourDbContext _dbContext;
         private readonly IAuthentificationContext _authentificationContext;
@@ -28,6 +29,18 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
         {
             _mediator.Send(command);
 
+            Audit(command);
+        }
+
+        public async Task PublishEvent(IEvent @event)
+        {
+            _mediator.Publish(@event);
+
+            Audit(@event);
+        }
+
+        public void Audit(ICommand command)
+        {
             var auditCommand = new AuditCommand
             {
                 Id = Guid.NewGuid(),
@@ -42,10 +55,8 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
             _dbContext.AuditCommands.Add(auditCommand);
         }
 
-        public async Task PublishEvent(IEvent @event)
+        public void Audit(IEvent @event)
         {
-            _mediator.Publish(@event);
-
             var auditEvent = new AuditEvent
             {
                 Id = Guid.NewGuid(),

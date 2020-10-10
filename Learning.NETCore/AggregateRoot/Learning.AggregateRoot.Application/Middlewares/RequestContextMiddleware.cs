@@ -21,7 +21,7 @@ namespace Learning.AggregateRoot.Application.Middlewares
         {
             var request = httpContext.Request;
 
-            _requestContext.ClientApplication = request.GetHeaderOrDefault("clientApplication");
+            _requestContext.ClientApplication = request.GetHeaderOrDefault("clientApplication", "UNKNOWN");
             _requestContext.CorrelationId = Guid.Parse(request.GetHeaderOrDefault("correlationId", Guid.NewGuid().ToString()));
             _requestContext.UserEmail = request.GetHeaderOrDefault("userEmail");
             _requestContext.ImpersonatedUserEmail = request.GetHeaderOrDefault("impersonatedUserEmail");

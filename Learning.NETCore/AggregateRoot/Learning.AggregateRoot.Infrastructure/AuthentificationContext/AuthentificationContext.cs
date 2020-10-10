@@ -21,8 +21,8 @@ namespace Learning.AggregateRoot.Infrastructure.AuthentificationContext
             }
         }
 
-        public IAuthentificationContextUser User { get; set; }
-        public IAuthentificationContextUser ImpersonatedUser { get; set; }
+        public AuthentificationContextUser User { get; set; }
+        public AuthentificationContextUser ImpersonatedUser { get; set; }
         public Guid CorrelationId { get; set; }
     }
 }

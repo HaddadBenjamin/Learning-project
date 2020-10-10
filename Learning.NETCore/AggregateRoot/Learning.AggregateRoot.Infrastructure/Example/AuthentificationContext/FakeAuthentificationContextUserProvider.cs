@@ -6,9 +6,9 @@ namespace Learning.AggregateRoot.Infrastructure.Example.AuthentificationContext
 {
     public class FakeAuthentificationContextUserProvider : IAuthentificationContextUserProvider
     {
-        private readonly FakeAuthentificationContextUser[] Users =
+        private readonly AuthentificationContextUser[] Users =
         {
-            new FakeAuthentificationContextUser
+            new AuthentificationContextUser
             {
                 Email = "fake-email@gmail.com",
                 FirstName = "fake name",
@@ -18,6 +18,6 @@ namespace Learning.AggregateRoot.Infrastructure.Example.AuthentificationContext
             }
         };
 
-        public IAuthentificationContextUser Get(string email) => Users.SingleOrDefault(u => u.Email == email);
+        public AuthentificationContextUser Get(string email) => Users.SingleOrDefault(u => u.Email == email);
     }
 }

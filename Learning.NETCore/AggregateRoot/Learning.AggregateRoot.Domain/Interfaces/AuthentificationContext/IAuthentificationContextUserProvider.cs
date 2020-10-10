@@ -2,6 +2,6 @@
 {
     public interface IAuthentificationContextUserProvider
     {
-        IAuthentificationContextUser Get(string email);
+        AuthentificationContextUser Get(string email);
     }
 }

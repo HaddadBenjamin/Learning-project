@@ -1,9 +1,8 @@
 ﻿using System;
-using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
 
-namespace Learning.AggregateRoot.Infrastructure.Example.AuthentificationContext
+namespace Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext
 {
-    public class FakeAuthentificationContextUser : IAuthentificationContextUser
+    public class AuthentificationContextUser
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }

@@ -1,5 +1,6 @@
 using Learning.AggregateRoot.Application.Example;
 using Learning.AggregateRoot.Application.Filters;
+using Learning.AggregateRoot.Application.Middlewares;
 using Learning.AggregateRoot.Domain.Example.Readers;
 using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
@@ -39,12 +40,11 @@ namespace Learning.AggregateRoot.Application
                 .AddScoped(typeof(IRepository<>), typeof(GenericRepository<>))
                 // Register authentification context.
                 .AddSingleton<IRequestContext, RequestContext>()
-                .AddScoped<IAuthentificationContextUserProvider, FakeAuthentificationContextUserProvider>()
                 .AddScoped<IAuthentificationContext, AuthentificationContext>()
-                .AddScoped<IAuthentificationContextUser, FakeAuthentificationContextUser>()
                 // Register Db context.
                 .AddDbContextPool<YourDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=AggregateRoot;Trusted_Connection=True;MultipleActiveResultSets=true"))
-                // random
+                // example
+                .AddScoped<IAuthentificationContextUserProvider, FakeAuthentificationContextUserProvider>()
                 .AddScoped<IItemReader, ItemReader>();
         }
 
@@ -60,7 +60,7 @@ namespace Learning.AggregateRoot.Application
             }
 
             app
-                .UseMiddleware<FakeRequestContextMiddleware>() // � remplacer par app.UseMiddleware<RequestContextMiddleware>();
+                .UseMiddleware<RequestContextMiddleware>()
                 .UseMvc();
         }
     }

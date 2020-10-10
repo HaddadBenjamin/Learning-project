@@ -4,8 +4,8 @@ namespace Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext
 {
     public interface IAuthentificationContext
     {
-        IAuthentificationContextUser User { get; set; }
-        IAuthentificationContextUser ImpersonatedUser { get; set; }
+        AuthentificationContextUser User { get; set; }
+        AuthentificationContextUser ImpersonatedUser { get; set; }
         Guid CorrelationId { get; set; }
     }
 }
