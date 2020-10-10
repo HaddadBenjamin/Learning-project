@@ -1,10 +1,10 @@
 using Learning.AggregateRoot.Application.Example;
+using Learning.AggregateRoot.Application.Filters;
 using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 using Learning.AggregateRoot.Infrastructure.AuthentificationContext;
 using Learning.AggregateRoot.Infrastructure.CQRS;
 using Learning.AggregateRoot.Infrastructure.Example.AuthentificationContext;
-using Learning.AggregateRoot.Infrastructure.Example.CommandHandlers;
 using Learning.AggregateRoot.Infrastructure.Example.DbContext;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -21,12 +21,16 @@ namespace Learning.AggregateRoot.Application
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddMvc(options =>
+            {
+                options.EnableEndpointRouting = false;
+                options.Filters.Add(new ExceptionHandlerFilter());
+            });
             services.AddRouting(options => options.LowercaseUrls = true);
 
             services
                 // Register CQRS : mediator / session / repository.
-                .AddMediatR(typeof(ItemHandler))
+                .AddMediatR(typeof(Mediator))
                 .AddSingleton<IMediator, Mediator>()
                 .AddScoped(typeof(ISession<>), typeof(Session<>))
                 .AddScoped(typeof(ISession<,>), typeof(Session<,>))
