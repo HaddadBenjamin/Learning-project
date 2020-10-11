@@ -4,6 +4,7 @@ using Learning.AggregateRoot.Infrastructure.DbContext.Audit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
 {
@@ -25,10 +26,11 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Command")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("CommandName")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<Guid>("CorrelationId")
                         .HasColumnType("uniqueidentifier");
@@ -43,8 +45,6 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Command");
 
                     b.HasIndex("CommandName");
 
@@ -69,7 +69,8 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
 
                     b.Property<string>("Action")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<Guid>("AggregateRootId")
                         .HasColumnType("uniqueidentifier");
@@ -90,7 +91,8 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("TableName")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -131,10 +133,11 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Event")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("EventName")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<Guid>("ImpersonatedUserId")
                         .HasColumnType("uniqueidentifier");
@@ -147,8 +150,6 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                     b.HasIndex("CorrelationId");
 
                     b.HasIndex("Date");
-
-                    b.HasIndex("Event");
 
                     b.HasIndex("EventName");
 

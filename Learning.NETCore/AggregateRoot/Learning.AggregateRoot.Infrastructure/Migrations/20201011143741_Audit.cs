@@ -2,7 +2,7 @@
 
 namespace Learning.AggregateRoot.Infrastructure.Migrations
 {
-    public partial class quickupdate : Migration
+    public partial class Audit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

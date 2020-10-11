@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Learning.AggregateRoot.Infrastructure.Migrations
 {
     [DbContext(typeof(YourDbContext))]
-    [Migration("20201010211300_quickupdate")]
-    partial class quickupdate
+    [Migration("20201011143741_Audit")]
+    partial class Audit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

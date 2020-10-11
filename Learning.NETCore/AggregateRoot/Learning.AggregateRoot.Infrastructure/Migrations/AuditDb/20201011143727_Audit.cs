@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
 {
-    public partial class quickupdate : Migration
+    public partial class Audit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,8 +12,8 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    CommandName = table.Column<string>(nullable: true),
-                    Command = table.Column<string>(nullable: true),
+                    CommandName = table.Column<string>(maxLength: 50, nullable: true),
+                    Command = table.Column<string>(type: "text", nullable: true),
                     CorrelationId = table.Column<Guid>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
@@ -29,10 +29,11 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    TableName = table.Column<string>(nullable: true),
+                    TableName = table.Column<string>(maxLength: 50, nullable: true),
+                    AggregateRootId = table.Column<Guid>(nullable: false),
                     EntityId = table.Column<Guid>(nullable: false),
-                    Action = table.Column<string>(nullable: false),
-                    Delta = table.Column<string>(nullable: true),
+                    Action = table.Column<string>(maxLength: 20, nullable: false),
+                    Delta = table.Column<string>(type: "text", nullable: true),
                     CorrelationId = table.Column<Guid>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
@@ -48,8 +49,8 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    EventName = table.Column<string>(nullable: true),
-                    Event = table.Column<string>(nullable: true),
+                    EventName = table.Column<string>(maxLength: 50, nullable: true),
+                    Event = table.Column<string>(type: "text", nullable: true),
                     CorrelationId = table.Column<Guid>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
@@ -59,11 +60,6 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                 {
                     table.PrimaryKey("PK_AuditEvents", x => x.Id);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AuditCommands_Command",
-                table: "AuditCommands",
-                column: "Command");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuditCommands_CommandName",
@@ -101,6 +97,11 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                 column: "Action");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AuditDatabaseChanges_AggregateRootId",
+                table: "AuditDatabaseChanges",
+                column: "AggregateRootId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AuditDatabaseChanges_CorrelationId",
                 table: "AuditDatabaseChanges",
                 column: "CorrelationId");
@@ -109,11 +110,6 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                 name: "IX_AuditDatabaseChanges_Date",
                 table: "AuditDatabaseChanges",
                 column: "Date");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AuditDatabaseChanges_Delta",
-                table: "AuditDatabaseChanges",
-                column: "Delta");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuditDatabaseChanges_EntityId",
@@ -149,11 +145,6 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                 name: "IX_AuditEvents_Date",
                 table: "AuditEvents",
                 column: "Date");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AuditEvents_Event",
-                table: "AuditEvents",
-                column: "Event");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuditEvents_EventName",

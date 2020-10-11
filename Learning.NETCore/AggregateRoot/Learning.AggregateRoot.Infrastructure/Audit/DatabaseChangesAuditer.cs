@@ -43,7 +43,7 @@ namespace Learning.AggregateRoot.Infrastructure.Audit
 
                 if (change.State == EntityState.Added)
                 {
-                    var delta = string.Join(Separator, change.OriginalValues.Properties.Select(property => $"{property.PropertyInfo.Name} :  {change.OriginalValues[property]}"));
+                    var delta = string.Join(Separator, change.OriginalValues.Properties.Select(property => $"{property.PropertyInfo.Name} : {change.OriginalValues[property]}"));
 
                     auditDatabaseChanges.Add(ToAuditDatabaseChange(tableName, entityId, aggregateRootId, action, delta));
                 }
@@ -52,7 +52,7 @@ namespace Learning.AggregateRoot.Infrastructure.Audit
                 {
                     var delta = string.Join(Separator, change.OriginalValues.Properties
                         .Where(property => change.OriginalValues[property].ToString() != change.CurrentValues[property].ToString())
-                        .Select(property => $"{property.PropertyInfo.Name} :  {change.CurrentValues[property]}"));
+                        .Select(property => $"{property.PropertyInfo.Name} : {change.CurrentValues[property]}"));
 
                     auditDatabaseChanges.Add(ToAuditDatabaseChange(tableName, entityId, aggregateRootId, action, delta));
                 }
