@@ -67,7 +67,8 @@ namespace Learning.AggregateRoot.Infrastructure.Audit
                 var aggregateRoot = group.First(_ => _.EntityId == aggregateRootId);
                 var aggregates = group
                     .Where(_ => _.Id != aggregateRoot.Id)
-                    .OrderBy(_ =>
+                    .OrderBy(_ => _.TableName)
+                    .ThenBy(_ =>
                         _.WriteAction == "Deleted" ? 1 :
                         _.WriteAction == "Created" ? 2 :
                         3
