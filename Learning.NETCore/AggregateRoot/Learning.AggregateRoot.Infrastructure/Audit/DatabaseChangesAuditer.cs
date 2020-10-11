@@ -30,9 +30,7 @@ namespace Learning.AggregateRoot.Infrastructure.Audit
 
         public async Task Audit()
         {
-            var changes = _dbContextToAudit.ChangeTracker.Entries()
-                .Where(change => change.State != EntityState.Unchanged)
-                .ToList();
+            var changes = _dbContextToAudit.ChangeTracker.Entries().Where(change => change.State != EntityState.Unchanged).ToList();
             var auditDatabaseChanges = GetAuditDatabaseChanges(changes);
             var mergedAuditDatabaseChangesPerAggregateRoot = MergeAuditDatabaseChangesPerAggregateRoot(auditDatabaseChanges);
 
