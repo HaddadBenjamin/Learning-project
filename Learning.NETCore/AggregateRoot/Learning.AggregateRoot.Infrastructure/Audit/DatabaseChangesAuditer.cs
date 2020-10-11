@@ -50,8 +50,7 @@ namespace Learning.AggregateRoot.Infrastructure.Audit
 
                 if (change.State == EntityState.Added)
                 {
-                    var delta = string.Join(Separator,
-                        change.OriginalValues.Properties.Select(property => $"{property.PropertyInfo.Name} : {change.OriginalValues[property]}"));
+                    var delta = string.Join(Separator, change.OriginalValues.Properties.Select(property => $"{property.PropertyInfo.Name} : {change.OriginalValues[property]}"));
 
                     auditDatabaseChanges.Add(ToAuditDatabaseChange(tableName, entityId, aggregateRootId, writeAction, delta));
                 }
@@ -105,9 +104,9 @@ namespace Learning.AggregateRoot.Infrastructure.Audit
         private List<AuditDatabaseChange> MergeAuditDatabaseChangesPerAggregateRoot(List<AuditDatabaseChange> auditDatabaseChanges) =>
             auditDatabaseChanges.ToLookup(a => a.AggregateRootId).Select(group =>
             {
-                var aggregateRootId = @group.First().AggregateRootId;
-                var aggregateRoot = @group.First(_ => _.EntityId == aggregateRootId);
-                var aggregates = @group
+                var aggregateRootId = group.First().AggregateRootId;
+                var aggregateRoot = group.First(_ => _.EntityId == aggregateRootId);
+                var aggregates = group
                     .Where(_ => _.Id != aggregateRoot.Id)
                     .OrderBy(_ => _.TableName)
                     .ThenBy(_ =>
