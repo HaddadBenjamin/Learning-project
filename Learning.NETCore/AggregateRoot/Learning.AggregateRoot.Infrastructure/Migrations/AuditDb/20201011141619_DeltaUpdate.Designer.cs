@@ -4,14 +4,16 @@ using Learning.AggregateRoot.Infrastructure.DbContext.Audit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
 {
     [DbContext(typeof(AuditDbContext))]
-    partial class AuditDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201011141619_DeltaUpdate")]
+    partial class DeltaUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,7 +84,8 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Delta")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(4000)")
+                        .HasMaxLength(4000);
 
                     b.Property<Guid>("EntityId")
                         .HasColumnType("uniqueidentifier");
@@ -105,6 +108,8 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                     b.HasIndex("CorrelationId");
 
                     b.HasIndex("Date");
+
+                    b.HasIndex("Delta");
 
                     b.HasIndex("EntityId");
 

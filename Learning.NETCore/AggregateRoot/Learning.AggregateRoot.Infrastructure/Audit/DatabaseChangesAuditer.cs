@@ -38,14 +38,14 @@ namespace Learning.AggregateRoot.Infrastructure.Audit
             foreach (var change in changes)
             {
                 var tableName = change.Entity.GetType().Name;
-                var entityId = GetEntityId(change);
+                var (entityId, aggregateRootId) = GetIds(change);
                 var action = change.State.ToString();
 
                 if (change.State == EntityState.Added)
                 {
                     var delta = string.Join(Separator, change.OriginalValues.Properties.Select(property => $"{property.PropertyInfo.Name} :  {change.OriginalValues[property]}"));
 
-                    auditDatabaseChanges.Add(ToAuditDatabaseChange(tableName, entityId, action, delta));
+                    auditDatabaseChanges.Add(ToAuditDatabaseChange(tableName, entityId, aggregateRootId, action, delta));
                 }
 
                 else if (change.State == EntityState.Modified)
@@ -54,32 +54,44 @@ namespace Learning.AggregateRoot.Infrastructure.Audit
                         .Where(property => change.OriginalValues[property].ToString() != change.CurrentValues[property].ToString())
                         .Select(property => $"{property.PropertyInfo.Name} :  {change.CurrentValues[property]}"));
 
-                    auditDatabaseChanges.Add(ToAuditDatabaseChange(tableName, entityId, action, delta));
+                    auditDatabaseChanges.Add(ToAuditDatabaseChange(tableName, entityId, aggregateRootId, action, delta));
                 }
 
                 else if(change.State == EntityState.Deleted)
-                    auditDatabaseChanges.Add(ToAuditDatabaseChange(tableName, entityId, action, null));
+                    auditDatabaseChanges.Add(ToAuditDatabaseChange(tableName, entityId, aggregateRootId, action, null));
             }
 
-            foreach (var auditDatabaseChange in auditDatabaseChanges)
-                _auditDbContext.Add(auditDatabaseChange);
+            auditDatabaseChanges = auditDatabaseChanges.ToLookup(a => a.AggregateRootId).Select(group =>
+            {
+                var aggregateRootId = group.First().AggregateRootId;
+                var aggregateRoot = group.First(_ => _.EntityId == aggregateRootId);
+                var aggregates = group.Where(_ => _.Id != aggregateRoot.Id);
+
+                aggregateRoot.Delta += $",{Environment.NewLine}" + string.Join(Separator, aggregates.Select(_ => $"{_.TableName} {_.Action} with id {_.Id}{Environment.NewLine}{_.Delta}"));
+
+                return aggregateRoot;
+            }).ToList();
 
             await _auditDbContext.BulkInsertAsync(auditDatabaseChanges);
+            await _auditDbContext.SaveChangesAsync();
         }
 
-        private Guid GetEntityId(EntityEntry entityEntry)
+        private (Guid entityId, Guid aggregateRootId) GetIds(EntityEntry entityEntry)
         {
-            var properties = entityEntry.OriginalValues.Properties;
-            var property = properties.FirstOrDefault(p => p.PropertyInfo.Name == "Id") ??
-                           properties.First(p => p.IsPrimaryKey());
+            var properties = entityEntry.CurrentValues.Properties;
+            var property = properties.FirstOrDefault(p => p.PropertyInfo.Name == "Id") ?? properties.First(p => p.IsPrimaryKey());
+            var entityId = Guid.Parse(entityEntry.CurrentValues[property].ToString());
+            var propertyAggregateRootId = properties.FirstOrDefault(p => p.PropertyInfo.PropertyType.GUID != entityId);
+            var aggregateRootId = Guid.Parse(entityEntry.CurrentValues[propertyAggregateRootId].ToString());
 
-            return property.PropertyInfo.PropertyType.GUID;
+            return (entityId, aggregateRootId);
         }
-
-        private AuditDatabaseChange ToAuditDatabaseChange(string tableName, Guid entityId, string action, string delta) => new AuditDatabaseChange
+       
+        private AuditDatabaseChange ToAuditDatabaseChange(string tableName, Guid entityId, Guid aggregateRootId, string action, string delta) => new AuditDatabaseChange
         {
-            EntityId = entityId,
             Id = Guid.NewGuid(),
+            EntityId = entityId,
+            AggregateRootId = aggregateRootId,
             Action = action,
             TableName = tableName,
             Delta = delta,

@@ -27,10 +27,8 @@ namespace Learning.AggregateRoot.Infrastructure.Audit
         {
             var auditEvents = events.Select(ToAuditEvent).ToList();
 
-            foreach (var auditEvent in auditEvents)
-                _dbContext.AuditEvents.Add(auditEvent);
-
             await _dbContext.BulkInsertAsync(auditEvents);
+            await _dbContext.SaveChangesAsync();
         }
 
         private AuditEvent ToAuditEvent(IEvent @event) => new AuditEvent

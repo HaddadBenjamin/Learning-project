@@ -1,5 +1,6 @@
 ﻿using Learning.AggregateRoot.Domain.Audit;
 using Learning.AggregateRoot.Infrastructure.DbContext.Aggregate;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Learning.AggregateRoot.Infrastructure.DbContext.Audit
@@ -9,6 +10,9 @@ namespace Learning.AggregateRoot.Infrastructure.DbContext.Audit
         protected override void Map(EntityTypeBuilder<AuditCommand> entity)
         {
             entity.HasKey(auditCommand => auditCommand.Id);
+
+            entity.Property(auditCommand => auditCommand.CommandName).HasMaxLength(50);
+            entity.Property(auditCommand => auditCommand.Command).HasColumnType("text");
 
             entity.HasIndex(auditCommand => auditCommand.Id);
             entity.HasIndex(auditCommand => auditCommand.CommandName);
