@@ -74,7 +74,7 @@ namespace Learning.AggregateRoot.Infrastructure.Audit
                     );
 
                 if (aggregates.Any())
-                    aggregateRoot.Delta += Separator + string.Join(Separator, aggregates.Select(_ => $"{_.TableName} {_.WriteAction} with id {_.EntityId}{Environment.NewLine}{_.Delta}"));
+                    aggregateRoot.Delta += Separator + string.Join(Separator, aggregates.Select(_ => $"{_.TableName} {_.WriteAction} with id {_.EntityId}" + (_.WriteAction != "Deleted" ? Separator : string.Empty) +_.Delta));
 
                 return aggregateRoot;
             }).ToList();

@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Learning.AggregateRoot.Infrastructure.Migrations
+namespace Learning.AggregateRoot.Infrastructure.Migrations.YourDb
 {
-    public partial class items : Migration
+    public partial class AggregateRootDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -65,6 +65,11 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations
                 name: "IX_Items_Id",
                 table: "Items",
                 column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Items_IsActive",
+                table: "Items",
+                column: "IsActive");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

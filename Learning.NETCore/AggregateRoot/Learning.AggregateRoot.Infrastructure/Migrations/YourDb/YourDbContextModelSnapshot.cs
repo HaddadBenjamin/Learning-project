@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Learning.AggregateRoot.Infrastructure.Migrations
+namespace Learning.AggregateRoot.Infrastructure.Migrations.YourDb
 {
     [DbContext(typeof(YourDbContext))]
     partial class YourDbContextModelSnapshot : ModelSnapshot

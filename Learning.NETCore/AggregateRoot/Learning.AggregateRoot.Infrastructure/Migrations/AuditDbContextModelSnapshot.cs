@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
+namespace Learning.AggregateRoot.Infrastructure.Migrations
 {
     [DbContext(typeof(AuditDbContext))]
     partial class AuditDbContextModelSnapshot : ModelSnapshot
@@ -67,11 +67,6 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("WriteAction")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
-
                     b.Property<Guid>("AggregateRootId")
                         .HasColumnType("uniqueidentifier");
 
@@ -97,9 +92,12 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.Property<string>("WriteAction")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
-                    b.HasIndex("WriteAction");
+                    b.HasKey("Id");
 
                     b.HasIndex("AggregateRootId");
 
@@ -116,6 +114,8 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                     b.HasIndex("TableName");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("WriteAction");
 
                     b.ToTable("AuditDatabaseChanges");
                 });

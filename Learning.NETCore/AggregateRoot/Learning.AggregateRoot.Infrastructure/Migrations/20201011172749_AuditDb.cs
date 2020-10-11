@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
+namespace Learning.AggregateRoot.Infrastructure.Migrations
 {
-    public partial class Audit : Migration
+    public partial class AuditDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,7 +32,7 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                     TableName = table.Column<string>(maxLength: 50, nullable: true),
                     AggregateRootId = table.Column<Guid>(nullable: false),
                     EntityId = table.Column<Guid>(nullable: false),
-                    Action = table.Column<string>(maxLength: 20, nullable: false),
+                    WriteAction = table.Column<string>(maxLength: 20, nullable: false),
                     Delta = table.Column<string>(type: "text", nullable: true),
                     CorrelationId = table.Column<Guid>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
@@ -92,11 +92,6 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AuditDatabaseChanges_Action",
-                table: "AuditDatabaseChanges",
-                column: "WriteAction");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_AuditDatabaseChanges_AggregateRootId",
                 table: "AuditDatabaseChanges",
                 column: "AggregateRootId");
@@ -135,6 +130,11 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                 name: "IX_AuditDatabaseChanges_UserId",
                 table: "AuditDatabaseChanges",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AuditDatabaseChanges_WriteAction",
+                table: "AuditDatabaseChanges",
+                column: "WriteAction");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuditEvents_CorrelationId",

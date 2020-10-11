@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Learning.AggregateRoot.Infrastructure.Migrations
+namespace Learning.AggregateRoot.Infrastructure.Migrations.YourDb
 {
     [DbContext(typeof(YourDbContext))]
-    [Migration("20201008154424_items")]
-    partial class items
+    [Migration("20201011172815_AggregateRootDb")]
+    partial class AggregateRootDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -59,6 +59,8 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Id");
+
+                    b.HasIndex("IsActive");
 
                     b.ToTable("Items");
                 });
