@@ -3,7 +3,7 @@
 namespace Learning.AggregateRoot.Domain.Audit
 {
     /// <summary>
-    /// Permet d'auditer tout les évènements qui ont été réalisées à votre base de données.
+    /// Permet d'auditer toutes les évènements envoyés par votre Médiateur.
     /// </summary>
     public class AuditEvent
     {

@@ -3,7 +3,7 @@
 namespace Learning.AggregateRoot.Domain.Audit
 {
     /// <summary>
-    /// Permet d'auditer toutes les commandes qui ont été réalisées à votre base de données.
+    /// Permet d'auditer toutes les commandes envoyées par votre Médiateur.
     /// </summary>
     public class AuditCommand
     {
