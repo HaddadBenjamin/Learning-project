@@ -67,7 +67,7 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Action")
+                    b.Property<string>("WriteAction")
                         .IsRequired()
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
@@ -99,7 +99,7 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Action");
+                    b.HasIndex("WriteAction");
 
                     b.HasIndex("AggregateRootId");
 

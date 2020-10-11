@@ -94,7 +94,7 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations.AuditDb
             migrationBuilder.CreateIndex(
                 name: "IX_AuditDatabaseChanges_Action",
                 table: "AuditDatabaseChanges",
-                column: "Action");
+                column: "WriteAction");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuditDatabaseChanges_AggregateRootId",

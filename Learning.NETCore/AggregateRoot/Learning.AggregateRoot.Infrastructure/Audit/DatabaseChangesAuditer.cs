@@ -39,13 +39,13 @@ namespace Learning.AggregateRoot.Infrastructure.Audit
             {
                 var tableName = change.Entity.GetType().Name;
                 var (entityId, aggregateRootId) = GetIds(change);
-                var action = change.State.ToString();
+                var writeAction = GetWriteAction(change.State);
 
                 if (change.State == EntityState.Added)
                 {
                     var delta = string.Join(Separator, change.OriginalValues.Properties.Select(property => $"{property.PropertyInfo.Name} : {change.OriginalValues[property]}"));
 
-                    auditDatabaseChanges.Add(ToAuditDatabaseChange(tableName, entityId, aggregateRootId, action, delta));
+                    auditDatabaseChanges.Add(ToAuditDatabaseChange(tableName, entityId, aggregateRootId, writeAction, delta));
                 }
 
                 else if (change.State == EntityState.Modified)
@@ -54,11 +54,11 @@ namespace Learning.AggregateRoot.Infrastructure.Audit
                         .Where(property => change.OriginalValues[property].ToString() != change.CurrentValues[property].ToString())
                         .Select(property => $"{property.PropertyInfo.Name} : {change.CurrentValues[property]}"));
 
-                    auditDatabaseChanges.Add(ToAuditDatabaseChange(tableName, entityId, aggregateRootId, action, delta));
+                    auditDatabaseChanges.Add(ToAuditDatabaseChange(tableName, entityId, aggregateRootId, writeAction, delta));
                 }
 
                 else if(change.State == EntityState.Deleted)
-                    auditDatabaseChanges.Add(ToAuditDatabaseChange(tableName, entityId, aggregateRootId, action, null));
+                    auditDatabaseChanges.Add(ToAuditDatabaseChange(tableName, entityId, aggregateRootId, writeAction, null));
             }
 
             auditDatabaseChanges = auditDatabaseChanges.ToLookup(a => a.AggregateRootId).Select(group =>
@@ -67,7 +67,8 @@ namespace Learning.AggregateRoot.Infrastructure.Audit
                 var aggregateRoot = group.First(_ => _.EntityId == aggregateRootId);
                 var aggregates = group.Where(_ => _.Id != aggregateRoot.Id);
 
-                aggregateRoot.Delta += $",{Environment.NewLine}" + string.Join(Separator, aggregates.Select(_ => $"{_.TableName} {_.Action} with id {_.Id}{Environment.NewLine}{_.Delta}"));
+                if (aggregates.Any())
+                    aggregateRoot.Delta += Separator + string.Join(Separator, aggregates.Select(_ => $"{_.TableName} {_.WriteAction} with id {_.EntityId}{Environment.NewLine}{_.Delta}"));
 
                 return aggregateRoot;
             }).ToList();
@@ -86,13 +87,18 @@ namespace Learning.AggregateRoot.Infrastructure.Audit
 
             return (entityId, aggregateRootId);
         }
-       
-        private AuditDatabaseChange ToAuditDatabaseChange(string tableName, Guid entityId, Guid aggregateRootId, string action, string delta) => new AuditDatabaseChange
+
+        private string GetWriteAction(EntityState entityState) =>
+            entityState == EntityState.Added ? "Created" :
+            entityState == EntityState.Modified ? "Updated" :
+            entityState.ToString();
+
+        private AuditDatabaseChange ToAuditDatabaseChange(string tableName, Guid entityId, Guid aggregateRootId, string writeAction, string delta) => new AuditDatabaseChange
         {
             Id = Guid.NewGuid(),
             EntityId = entityId,
             AggregateRootId = aggregateRootId,
-            Action = action,
+            WriteAction = writeAction,
             TableName = tableName,
             Delta = delta,
             CorrelationId = _authentificationContext.CorrelationId,
