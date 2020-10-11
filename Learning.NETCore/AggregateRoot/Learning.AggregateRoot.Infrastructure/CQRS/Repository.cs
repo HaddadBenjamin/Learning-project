@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,7 +35,5 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
         public void Add(TAggregate aggregate) => DbSet.Add(aggregate);
         public void Update(TAggregate aggregate) => DbSet.Update(aggregate);
         public void Remove(TAggregate aggregate) => DbSet.Remove(aggregate);
-
-        public async Task SaveChanges() => await DbContext.SaveChangesAsync();
     }
 }

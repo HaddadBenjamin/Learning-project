@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Learning.AggregateRoot.Domain.Audit;
@@ -7,6 +8,7 @@ using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
 using Learning.AggregateRoot.Infrastructure.DbContext.Audit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using EFCore.BulkExtensions;
 
 namespace Learning.AggregateRoot.Infrastructure.Audit
 {
@@ -31,7 +33,8 @@ namespace Learning.AggregateRoot.Infrastructure.Audit
             var changes = _dbContextToAudit.ChangeTracker.Entries()
                 .Where(change => change.State != EntityState.Unchanged)
                 .ToList();
-
+            var auditDatabaseChanges = new List<AuditDatabaseChange>();
+            
             foreach (var change in changes)
             {
                 var tableName = change.Entity.GetType().Name;
@@ -42,42 +45,48 @@ namespace Learning.AggregateRoot.Infrastructure.Audit
                 {
                     var delta = string.Join(Separator, change.OriginalValues.Properties.Select(property => $"{property.PropertyInfo.Name} :  {change.OriginalValues[property]}"));
 
-                    AuditDatabaseChange(tableName, entityId, action, delta);
+                    auditDatabaseChanges.Add(ToAuditDatabaseChange(tableName, entityId, action, delta));
                 }
+
                 else if (change.State == EntityState.Modified)
                 {
                     var delta = string.Join(Separator, change.OriginalValues.Properties
                         .Where(property => change.OriginalValues[property].ToString() != change.CurrentValues[property].ToString())
                         .Select(property => $"{property.PropertyInfo.Name} :  {change.CurrentValues[property]}"));
 
-                    AuditDatabaseChange(tableName, entityId, action, delta);
+                    auditDatabaseChanges.Add(ToAuditDatabaseChange(tableName, entityId, action, delta));
                 }
-                else if (change.State == EntityState.Deleted)
-                    AuditDatabaseChange(tableName, entityId, action, null);
+
+                else if(change.State == EntityState.Deleted)
+                    auditDatabaseChanges.Add(ToAuditDatabaseChange(tableName, entityId, action, null));
             }
 
-            await _auditDbContext.SaveChangesAsync();
+            foreach (var auditDatabaseChange in auditDatabaseChanges)
+                _auditDbContext.Add(auditDatabaseChange);
+
+            await _auditDbContext.BulkInsertAsync(auditDatabaseChanges);
         }
 
-        private Guid GetEntityId(EntityEntry entityEntry) =>
-            entityEntry.OriginalValues.Properties.First(p => p.IsPrimaryKey()).PropertyInfo.PropertyType.GUID;
-
-        private void AuditDatabaseChange(string tableName, Guid entityId, string action, string delta)
+        private Guid GetEntityId(EntityEntry entityEntry)
         {
-            var auditDatabaseChange = new AuditDatabaseChange
-            {
-                EntityId = entityId,
-                Id = Guid.NewGuid(),
-                Action = action,
-                TableName = tableName,
-                Delta = delta,
-                CorrelationId = _authentificationContext.CorrelationId,
-                Date = DateTime.UtcNow,
-                ImpersonatedUserId = _authentificationContext.ImpersonatedUser.Id,
-                UserId = _authentificationContext.User.Id,
-            };
+            var properties = entityEntry.OriginalValues.Properties;
+            var property = properties.FirstOrDefault(p => p.PropertyInfo.Name == "Id") ??
+                           properties.First(p => p.IsPrimaryKey());
 
-            _auditDbContext.AuditDatabaseChanges.Add(auditDatabaseChange);
+            return property.PropertyInfo.PropertyType.GUID;
         }
+
+        private AuditDatabaseChange ToAuditDatabaseChange(string tableName, Guid entityId, string action, string delta) => new AuditDatabaseChange
+        {
+            EntityId = entityId,
+            Id = Guid.NewGuid(),
+            Action = action,
+            TableName = tableName,
+            Delta = delta,
+            CorrelationId = _authentificationContext.CorrelationId,
+            Date = DateTime.UtcNow,
+            ImpersonatedUserId = _authentificationContext.ImpersonatedUser.Id,
+            UserId = _authentificationContext.User.Id,
+        };
     }
 }

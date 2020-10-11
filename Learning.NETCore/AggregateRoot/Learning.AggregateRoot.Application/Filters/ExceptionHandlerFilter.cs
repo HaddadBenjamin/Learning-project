@@ -21,6 +21,8 @@ namespace Learning.AggregateRoot.Application.Filters
             var responseHttpStatus = ExceptionTypeToHttpStatus.GetValueOrDefault(exception.GetType(), HttpStatusCode.InternalServerError);
 
             exceptionContext.Result = new JsonResult(exception) { StatusCode = (int)responseHttpStatus };
+
+            await Task.CompletedTask;
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using EFCore.BulkExtensions;
 using Learning.AggregateRoot.Domain.Audit;
 using Learning.AggregateRoot.Domain.Interfaces.Audit;
 using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
 using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 using Learning.AggregateRoot.Infrastructure.DbContext.Audit;
-using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
 namespace Learning.AggregateRoot.Infrastructure.Audit
@@ -16,18 +17,20 @@ namespace Learning.AggregateRoot.Infrastructure.Audit
         private readonly IAuthentificationContext _authentificationContext;
         private readonly AuditDbContext _dbContext;
 
-        public EventAuditer(IAuthentificationContext authentificationContext, IServiceScopeFactory serviceScopeFactory)
+        public EventAuditer(IAuthentificationContext authentificationContext, AuditDbContext auditDbContext)
         {
             _authentificationContext = authentificationContext;
-            _dbContext = serviceScopeFactory.CreateScope().ServiceProvider.GetService<AuditDbContext>();
+            _dbContext = auditDbContext;
         }
 
         public async Task Audit(IReadOnlyCollection<IEvent> events)
         {
-            foreach (var @event in events)
-                _dbContext.AuditEvents.Add(ToAuditEvent(@event));
-            
-            await _dbContext.SaveChangesAsync();
+            var auditEvents = events.Select(ToAuditEvent).ToList();
+
+            foreach (var auditEvent in auditEvents)
+                _dbContext.AuditEvents.Add(auditEvent);
+
+            await _dbContext.BulkInsertAsync(auditEvents);
         }
 
         private AuditEvent ToAuditEvent(IEvent @event) => new AuditEvent
