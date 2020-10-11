@@ -65,7 +65,13 @@ namespace Learning.AggregateRoot.Infrastructure.Audit
             {
                 var aggregateRootId = group.First().AggregateRootId;
                 var aggregateRoot = group.First(_ => _.EntityId == aggregateRootId);
-                var aggregates = group.Where(_ => _.Id != aggregateRoot.Id);
+                var aggregates = group
+                    .Where(_ => _.Id != aggregateRoot.Id)
+                    .OrderBy(_ =>
+                        _.WriteAction == "Deleted" ? 1 :
+                        _.WriteAction == "Created" ? 2 :
+                        3
+                    );
 
                 if (aggregates.Any())
                     aggregateRoot.Delta += Separator + string.Join(Separator, aggregates.Select(_ => $"{_.TableName} {_.WriteAction} with id {_.EntityId}{Environment.NewLine}{_.Delta}"));
