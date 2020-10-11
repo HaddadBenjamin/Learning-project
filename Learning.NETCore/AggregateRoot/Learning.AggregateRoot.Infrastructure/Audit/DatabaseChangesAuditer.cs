@@ -34,10 +34,9 @@ namespace Learning.AggregateRoot.Infrastructure.Audit
                 .Where(change => change.State != EntityState.Unchanged)
                 .ToList();
             var auditDatabaseChanges = GetAuditDatabaseChanges(changes);
+            var mergedAuditDatabaseChangesPerAggregateRoot = MergeAuditDatabaseChangesPerAggregateRoot(auditDatabaseChanges);
 
-            auditDatabaseChanges = MergeAuditDatabaseChangesPerAggregateRoot(auditDatabaseChanges);
-
-            await _auditDbContext.BulkInsertAsync(auditDatabaseChanges);
+            await _auditDbContext.BulkInsertAsync(mergedAuditDatabaseChangesPerAggregateRoot);
             await _auditDbContext.SaveChangesAsync();
         }
 
