@@ -11,12 +11,11 @@ namespace Learning.AggregateRoot.Infrastructure.DbContext.Audit
         {
             entity.HasKey(auditEvent => auditEvent.Id);
 
-            entity.Property(auditEvent => auditEvent.EventName).HasMaxLength(50);
             entity.Property(auditEvent => auditEvent.Event).HasColumnType("text");
+            entity.Property(auditEvent => auditEvent.EventName).HasMaxLength(50);
 
             entity.HasIndex(auditEvent => auditEvent.Id);
             entity.HasIndex(auditEvent => auditEvent.EventName);
-            entity.HasIndex(auditEvent => auditEvent.Event);
             entity.HasIndex(auditEvent => auditEvent.CorrelationId);
             entity.HasIndex(auditCommand => auditCommand.Date);
             entity.HasIndex(auditCommand => auditCommand.UserId);
