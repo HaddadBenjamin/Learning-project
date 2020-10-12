@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Learning.AggregateRoot.Infrastructure.DbContext.Aggregate
 {
-    public abstract class AggregateRootMap<TAggregate> where TAggregate : Domain.AggregateRoot
+    public abstract class AggregateRootMap<TAggregate> where TAggregate : Domain.CQRS.AggregateRoot
     {
         public void Map(ModelBuilder modelBuilder)
         {

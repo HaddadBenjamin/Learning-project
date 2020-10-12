@@ -1,4 +1,4 @@
-﻿using Learning.AggregateRoot.Domain.Audit;
+﻿using Learning.AggregateRoot.Domain.Audit.Aggregates;
 using Microsoft.EntityFrameworkCore;
 
 namespace Learning.AggregateRoot.Infrastructure.DbContext.Audit

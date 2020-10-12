@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Learning.AggregateRoot.Domain.Audit;
 using Learning.AggregateRoot.Domain.Interfaces.Audit;
-using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
 using Learning.AggregateRoot.Infrastructure.DbContext.Audit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using EFCore.BulkExtensions;
+using Learning.AggregateRoot.Domain.Audit.Aggregates;
+using Learning.AggregateRoot.Domain.AuthentificationContext.Interfaces;
 
 namespace Learning.AggregateRoot.Infrastructure.Audit
 {

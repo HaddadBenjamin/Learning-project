@@ -1,8 +1,8 @@
 using Learning.AggregateRoot.Application.Filters;
+using Learning.AggregateRoot.Domain.AuthentificationContext.Interfaces;
+using Learning.AggregateRoot.Domain.CQRS.Interfaces;
 using Learning.AggregateRoot.Domain.Example.Readers;
 using Learning.AggregateRoot.Domain.Interfaces.Audit;
-using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
-using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 using Learning.AggregateRoot.Infrastructure.Audit;
 using Learning.AggregateRoot.Infrastructure.AuthentificationContext;
 using Learning.AggregateRoot.Infrastructure.CQRS;
@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using IMediator = Learning.AggregateRoot.Domain.Interfaces.CQRS.IMediator;
+using IMediator = Learning.AggregateRoot.Domain.CQRS.Interfaces.IMediator;
 using Mediator = Learning.AggregateRoot.Infrastructure.CQRS.Mediator;
 
 namespace Learning.AggregateRoot.Application
@@ -46,8 +46,6 @@ namespace Learning.AggregateRoot.Application
                 .AddScoped<IAuthentificationContext, AuthentificationContext>()
                 // Audit
                 .AddScoped<IDatabaseChangesAuditer, GenericsDatabaseChangesAuditer>()
-                .AddScoped<ICommandAuditer, CommandAuditer>()
-                .AddScoped<IEventAuditer, EventAuditer>()
                 // Register Db context.
                 .AddDbContextPool<AuditDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Audit;Trusted_Connection=True;MultipleActiveResultSets=true"))
                 .AddDbContextPool<YourDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=AggregateRoot;Trusted_Connection=True;MultipleActiveResultSets=true"))

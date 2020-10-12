@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Learning.AggregateRoot.Domain.AuthentificationContext.Interfaces;
+using Learning.AggregateRoot.Domain.CQRS.Interfaces;
 using Learning.AggregateRoot.Domain.Exceptions;
 using Learning.AggregateRoot.Domain.Interfaces.Audit;
-using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
-using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 
 namespace Learning.AggregateRoot.Infrastructure.CQRS
 {
@@ -15,19 +15,19 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
     /// Gère vos racines d'aggrégats trackées, on en a besoin lors du save changes pour qu'ils puissent récupérer tous les évènements des aggrégats modifiées.
     /// </summary>
     public class Session<TAggregate> : Session<TAggregate, IRepository<TAggregate>>
-        where TAggregate : Domain.AggregateRoot
+        where TAggregate : Domain.CQRS.AggregateRoot
     {
         public Session(IRepository<TAggregate> repository, IAuthentificationContext authentificationContext, IMediator mediator, IDatabaseChangesAuditer databaseChangesAuditer) :
             base(repository, authentificationContext, mediator, databaseChangesAuditer) { }
     }
     public class Session<TAggregate, TRepository> : ISession<TAggregate, TRepository>
-        where TAggregate : Domain.AggregateRoot
+        where TAggregate : Domain.CQRS.AggregateRoot
         where TRepository : IRepository<TAggregate>
     {
         private readonly IAuthentificationContext _authentificationContext;
         private readonly IMediator _mediator;
         private readonly IDatabaseChangesAuditer _databaseChangesAuditer;
-        private readonly ConcurrentDictionary<Guid, Domain.AggregateRoot> _trackedAggregates = new ConcurrentDictionary<Guid, Domain.AggregateRoot>();
+        private readonly ConcurrentDictionary<Guid, Domain.CQRS.AggregateRoot> _trackedAggregates = new ConcurrentDictionary<Guid, Domain.CQRS.AggregateRoot>();
 
         public TRepository Repository { get; }
         public IUnitOfWork UnitOfWork => Repository.UnitOfWork;

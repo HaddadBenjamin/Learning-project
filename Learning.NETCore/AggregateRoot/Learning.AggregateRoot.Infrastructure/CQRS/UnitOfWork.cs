@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Threading.Tasks;
-using Learning.AggregateRoot.Domain.Interfaces.CQRS;
+using Learning.AggregateRoot.Domain.CQRS.Interfaces;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Learning.AggregateRoot.Infrastructure.CQRS
@@ -15,7 +15,7 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
 
         public UnitOfWork(TDbContext dbContext) => _dbContext = dbContext;
 
-        public IRepository<TAggregate> Repository<TAggregate>() where TAggregate : Domain.AggregateRoot
+        public IRepository<TAggregate> Repository<TAggregate>() where TAggregate : Domain.CQRS.AggregateRoot
         {
             var aggregateTypeName = typeof(TAggregate).Name;
 

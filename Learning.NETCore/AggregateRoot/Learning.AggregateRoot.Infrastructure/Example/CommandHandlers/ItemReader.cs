@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Learning.AggregateRoot.Domain.Example.Aggregate;
+using Learning.AggregateRoot.Domain.CQRS.Interfaces;
+using Learning.AggregateRoot.Domain.Example.Aggregates;
 using Learning.AggregateRoot.Domain.Example.Readers;
 using Learning.AggregateRoot.Domain.Example.Views;
-using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 
 namespace Learning.AggregateRoot.Infrastructure.Example.CommandHandlers
 {

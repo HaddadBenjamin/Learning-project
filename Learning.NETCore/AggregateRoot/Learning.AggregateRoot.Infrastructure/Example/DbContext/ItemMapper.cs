@@ -1,4 +1,4 @@
-﻿using Learning.AggregateRoot.Domain.Example.Aggregate;
+﻿using Learning.AggregateRoot.Domain.Example.Aggregates;
 using Learning.AggregateRoot.Infrastructure.DbContext.Aggregate;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

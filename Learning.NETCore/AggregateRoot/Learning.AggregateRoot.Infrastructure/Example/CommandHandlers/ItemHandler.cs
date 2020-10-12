@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Learning.AggregateRoot.Domain.Example.Aggregate;
+using Learning.AggregateRoot.Domain.CQRS.Interfaces;
+using Learning.AggregateRoot.Domain.Example.Aggregates;
 using Learning.AggregateRoot.Domain.Example.Commands;
-using Learning.AggregateRoot.Domain.Interfaces.CQRS;
 using MediatR;
 
 namespace Learning.AggregateRoot.Infrastructure.Example.CommandHandlers

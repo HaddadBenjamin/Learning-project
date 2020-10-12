@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Learning.AggregateRoot.Domain.Interfaces.CQRS;
+using Learning.AggregateRoot.Domain.CQRS.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Learning.AggregateRoot.Infrastructure.CQRS
 {
     public abstract class Repository<TAggregate, TDbContext> : IRepository<TAggregate>
-        where TAggregate : Domain.AggregateRoot
+        where TAggregate : Domain.CQRS.AggregateRoot
         where TDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
         public IUnitOfWork UnitOfWork { get; }

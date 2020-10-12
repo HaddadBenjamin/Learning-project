@@ -1,4 +1,5 @@
 ﻿using System;
+using Learning.AggregateRoot.Domain.CQRS;
 
 namespace Learning.AggregateRoot.Domain.Example.Events
 {

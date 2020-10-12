@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
-using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
+using Learning.AggregateRoot.Domain.AuthentificationContext;
+using Learning.AggregateRoot.Domain.AuthentificationContext.Interfaces;
 
 namespace Learning.AggregateRoot.Infrastructure.Example.AuthentificationContext
 {

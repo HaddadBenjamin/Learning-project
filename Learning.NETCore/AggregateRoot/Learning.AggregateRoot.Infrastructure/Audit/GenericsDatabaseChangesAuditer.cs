@@ -1,4 +1,4 @@
-﻿using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
+﻿using Learning.AggregateRoot.Domain.AuthentificationContext.Interfaces;
 using Learning.AggregateRoot.Infrastructure.DbContext.Audit;
 using Learning.AggregateRoot.Infrastructure.Example.DbContext;
 

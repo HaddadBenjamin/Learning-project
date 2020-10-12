@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Learning.AggregateRoot.Domain.Interfaces.CQRS;
+using Learning.AggregateRoot.Domain.CQRS.Interfaces;
 
 namespace Learning.AggregateRoot.Domain.Example.Commands
 {
