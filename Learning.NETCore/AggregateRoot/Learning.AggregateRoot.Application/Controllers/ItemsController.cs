@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Learning.AggregateRoot.Application.Example.Dtos;
 using Learning.AggregateRoot.Domain.CQRS.Interfaces;
 using Learning.AggregateRoot.Domain.ExampleToDelete.Commands;
-using Learning.AggregateRoot.Domain.ExampleToDelete.Readers;
+using Learning.AggregateRoot.Domain.ExampleToDelete.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Learning.AggregateRoot.Application.Controllers
@@ -12,13 +13,8 @@ namespace Learning.AggregateRoot.Application.Controllers
     public class ItemsController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IItemReader _itemReader;
 
-        public ItemsController(IMediator mediator, IItemReader itemReader)
-        {
-            _mediator = mediator;
-            _itemReader = itemReader;
-        }
+        public ItemsController(IMediator mediator) => _mediator = mediator;
 
         [HttpPost]
         public IActionResult Create([FromBody]CreateItemDto dto)
@@ -63,6 +59,6 @@ namespace Learning.AggregateRoot.Application.Controllers
 
         [HttpGet]
         [Route("{itemId:guid}")]
-        public IActionResult Get([FromRoute] Guid itemId) => Ok(_itemReader.Get(itemId));
+        public async Task<IActionResult> Get([FromRoute] Guid itemId) => Ok(await _mediator.SendQuery(new GetItem { Id = itemId }));
     }
 }

@@ -3,8 +3,7 @@ using Learning.AggregateRoot.Domain.Audit.Configuration;
 using Learning.AggregateRoot.Domain.Audit.Services;
 using Learning.AggregateRoot.Domain.AuthentificationContext;
 using Learning.AggregateRoot.Domain.CQRS.Interfaces;
-using Learning.AggregateRoot.Domain.ExampleToDelete.Readers;
-using Learning.AggregateRoot.Infrastructure.Audit.DbContext.Audit;
+using Learning.AggregateRoot.Infrastructure.Audit.DbContext;
 using Learning.AggregateRoot.Infrastructure.Audit.Services;
 using Learning.AggregateRoot.Infrastructure.AuthentificationContext;
 using Learning.AggregateRoot.Infrastructure.CQRS;
@@ -12,7 +11,6 @@ using Learning.AggregateRoot.Infrastructure.ExampleToRedefine.Audit;
 using Learning.AggregateRoot.Infrastructure.ExampleToRedefine.AuthentificationContext;
 using Learning.AggregateRoot.Infrastructure.ExampleToRedefine.CQRS;
 using Learning.AggregateRoot.Infrastructure.ExampleToRedefine.DbContext;
-using Learning.AggregateRoot.Infrastructure.ExampleToRemove.CommandHandlers;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -62,8 +60,7 @@ namespace Learning.AggregateRoot.Application
                 .AddDbContextPool<AuditDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Audit;Trusted_Connection=True;MultipleActiveResultSets=true"))
                 .AddDbContextPool<YourDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=AggregateRoot;Trusted_Connection=True;MultipleActiveResultSets=true"))
                 // Exemple : il faudra créer une nouvelle implémentation de IAuthentificationContextUserProvider.
-                .AddScoped<IAuthentificationContextUserProvider, FakeAuthentificationContextUserProvider>()
-                .AddScoped<IItemReader, ItemReader>();
+                .AddScoped<IAuthentificationContextUserProvider, FakeAuthentificationContextUserProvider>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

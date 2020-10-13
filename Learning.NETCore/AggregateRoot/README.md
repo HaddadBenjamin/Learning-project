@@ -1,6 +1,6 @@
 Ce projet est un modèle de projet pour réaliser une API avec les options suivantes :
 - CQRS : Mediator / AggregateRoot / Session / Repository / Unit Of Work.
-- Audit : commandes, évènements, les changements effectuées sur votre base de données, les performances de vos endpoints.
+- Audit : commandes, les queries, évènements, les changements effectués sur votre base de données, les performances de vos endpoints.
 
 Pour réutiliser ce projet il vous faut :
 - Choisir les options que votre aggregate root doit supporter, à savoir avec ou sans audit, suppression logique, event sourcing.

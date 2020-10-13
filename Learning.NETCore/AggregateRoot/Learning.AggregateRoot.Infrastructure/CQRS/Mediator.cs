@@ -8,6 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Learning.AggregateRoot.Infrastructure.CQRS
 {
+    /// <summary>
+    /// Mediator is a behavioral design pattern that lets you reduce chaotic dependencies between objects. The pattern restricts direct communications between the objects and forces them to collaborate only via a mediator object.
+    /// </summary>
     public class Mediator : IMediator
     {
         private readonly AuditConfiguration _auditConfiguration;
@@ -27,6 +30,20 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
 
             if (_auditConfiguration.AuditCommand)
                 await _mediator.Send(new CreateAuditCommand { Command = command });
+        }
+
+        public async Task<TQueryResult> SendQuery<TQueryResult>(IQuery<TQueryResult> query)
+        {
+            var queryResult = await _mediator.Send(query);
+
+            if (_auditConfiguration.AuditQuery)
+                await _mediator.Send(new CreateAuditQuery
+                {
+                    Query = query,
+                    QueryResult = queryResult
+                });
+
+            return queryResult;
         }
 
         public async Task PublishEvents(IReadOnlyCollection<IEvent> events)

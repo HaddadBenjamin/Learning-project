@@ -5,7 +5,7 @@ using Learning.AggregateRoot.Domain.Audit.Aggregates;
 using Learning.AggregateRoot.Domain.Audit.Commands;
 using Learning.AggregateRoot.Domain.Audit.Services;
 using Learning.AggregateRoot.Domain.AuthentificationContext;
-using Learning.AggregateRoot.Infrastructure.Audit.DbContext.Audit;
+using Learning.AggregateRoot.Infrastructure.Audit.DbContext;
 using MediatR;
 
 namespace Learning.AggregateRoot.Infrastructure.Audit.Handlers
