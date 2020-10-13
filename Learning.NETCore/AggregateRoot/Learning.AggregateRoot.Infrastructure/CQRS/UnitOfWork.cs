@@ -7,8 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Learning.AggregateRoot.Infrastructure.CQRS
 {
-    public class UnitOfWork<TDbContext> : IUnitOfWork
-        where TDbContext : Microsoft.EntityFrameworkCore.DbContext
+    public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
         private readonly TDbContext _dbContext;
         private Hashtable _repositories = new Hashtable();

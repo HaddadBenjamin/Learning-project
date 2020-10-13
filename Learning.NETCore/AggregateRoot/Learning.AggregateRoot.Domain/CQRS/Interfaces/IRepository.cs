@@ -5,7 +5,6 @@ using System.Linq.Expressions;
 
 namespace Learning.AggregateRoot.Domain.CQRS.Interfaces
 {
-    // Devrais-je renommer mes TAggregate en TEntity ou TRecord ?
     public interface IRepository<TAggregate> where TAggregate : AggregateRoot
     {
         IUnitOfWork UnitOfWork { get; }

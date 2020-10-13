@@ -3,7 +3,7 @@
 namespace Learning.AggregateRoot.Domain.Audit.Aggregates
 {
     /// <summary>
-    /// Permet d'auditer toutes les changements réalisés sur votre base de données.
+    /// Permet d'auditer tous les changements réalisés sur votre base de données.
     /// </summary>
     public class AuditDatabaseChange
     {

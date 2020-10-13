@@ -3,9 +3,7 @@ using System.Threading.Tasks;
 
 namespace Learning.AggregateRoot.Domain.CQRS.Interfaces
 {
-    public interface ISession<TAggregate> : ISession<TAggregate, IRepository<TAggregate>>
-        where TAggregate : AggregateRoot
-    { }
+    public interface ISession<TAggregate> : ISession<TAggregate, IRepository<TAggregate>> where TAggregate : AggregateRoot { }
 
     public interface ISession<TAggregate, out TRepository> :
         IHasRepository<TAggregate, TRepository>,

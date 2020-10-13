@@ -1,8 +1,10 @@
-Implémentation brouillon des modèles de conceptions AggregateRoot, Session, Repository, UnitOfWork.
+Ce projet est un modèle de projet pour réaliser une API avec les options suivantes :
+- CQRS : Mediator / AggregateRoot / Session / Repository / Unit Of Work.
+- Audit : commandes, évènements, les changements effectuées sur votre base de données, les performances de vos endpoints.
 
 Pour réutiliser ce projet il vous faut :
 - Choisir les options que votre aggregate root doit supporter, à savoir avec ou sans audit, suppression logique, event sourcing.
-- Vous pouvez désactiver l'audit de vos commandes et de vos évènements en modifiant votre Médiateur.
-- Vous pouvez désactiver l'audit de tous les changements réalisées à votre base de données en modifiant votre Session.
-- Si vous avez fait le choix de l'audit, créer une implémentation de IAuthentificationContextUserProvider et l'injecter.
-- Si ce n'est pas le cas vous pourrez alors supprimer requestContext, IAuthentificationContext, et tout ce qui va en suivre.
+- Modifier l'appsettings.json de sorte à définir le type d'audit que vous souhaitez supporter.
+- Supprimer les répertoires Learning.AggregateRoot.Domain.ExampleToDelete et Learning.AggregateRoot.Infrastructure.ExampleToDelete.
+- Modifier le nom du fichier YourDbContext et adapter les fichiers présents dans Learning.AggregateRoot.Infrastructure.ExampleToRedefine.
+- Modifier la chaîne de connection de votre DbContext dans le fichier Startup.cs.

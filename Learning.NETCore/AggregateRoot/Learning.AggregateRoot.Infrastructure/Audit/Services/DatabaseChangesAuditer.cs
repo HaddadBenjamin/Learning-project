@@ -13,8 +13,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Learning.AggregateRoot.Infrastructure.Audit.Services
 {
-    public class DatabaseChangesAuditService<TDbContext> : IDatabaseChangesAuditService
-        where TDbContext : Microsoft.EntityFrameworkCore.DbContext
+    public class DatabaseChangesAuditService<TDbContext> : IDatabaseChangesAuditService where TDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
         private readonly IAuthentificationContext _authentificationContext;
         private readonly AuditDbContext _auditDbContext;
