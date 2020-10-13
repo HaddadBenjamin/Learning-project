@@ -1,5 +1,5 @@
 ﻿using System;
-using Learning.AggregateRoot.Domain.Interfaces.AuthentificationContext;
+using Learning.AggregateRoot.Domain.AuthentificationContext;
 
 namespace Learning.AggregateRoot.Infrastructure.AuthentificationContext
 {
@@ -21,8 +21,8 @@ namespace Learning.AggregateRoot.Infrastructure.AuthentificationContext
             }
         }
 
-        public IAuthentificationContextUser User { get; set; }
-        public IAuthentificationContextUser ImpersonatedUser { get; set; }
+        public AuthentificationContextUser User { get; set; }
+        public AuthentificationContextUser ImpersonatedUser { get; set; }
         public Guid CorrelationId { get; set; }
     }
 }
