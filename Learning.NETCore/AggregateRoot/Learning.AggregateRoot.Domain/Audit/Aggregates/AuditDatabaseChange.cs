@@ -9,10 +9,9 @@ namespace Learning.AggregateRoot.Domain.Audit.Aggregates
     {
         public Guid Id { get; set; }
         public string TableName { get; set; }
-        public Guid AggregateRootId { get; set; }
-        public Guid EntityId { get; set; }
+        public string EntityId { get; set; }
         public string WriteAction { get; set; }
-        public string Delta { get; set; }
+        public string Changes { get; set; }
         public Guid CorrelationId { get; set; }
         public DateTime Date { get; set; }
         public Guid UserId { get; set; }

@@ -1,8 +1,8 @@
 using Learning.AggregateRoot.Application.Filters;
+using Learning.AggregateRoot.Domain.Audit.Services;
 using Learning.AggregateRoot.Domain.AuthentificationContext.Interfaces;
 using Learning.AggregateRoot.Domain.CQRS.Interfaces;
 using Learning.AggregateRoot.Domain.Example.Readers;
-using Learning.AggregateRoot.Domain.Interfaces.Audit;
 using Learning.AggregateRoot.Infrastructure.Audit;
 using Learning.AggregateRoot.Infrastructure.AuthentificationContext;
 using Learning.AggregateRoot.Infrastructure.CQRS;
@@ -45,7 +45,8 @@ namespace Learning.AggregateRoot.Application
                 .AddScoped<IRequestContext, RequestContext>()
                 .AddScoped<IAuthentificationContext, AuthentificationContext>()
                 // Audit
-                .AddScoped<IDatabaseChangesAuditer, GenericsDatabaseChangesAuditer>()
+                .AddScoped<IDatabaseChangesAuditService, GenericsDatabaseChangesAuditService>()
+                .AddScoped<IAuditSerializer, AuditSerializer>()
                 // Register Db context.
                 .AddDbContextPool<AuditDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Audit;Trusted_Connection=True;MultipleActiveResultSets=true"))
                 .AddDbContextPool<YourDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=AggregateRoot;Trusted_Connection=True;MultipleActiveResultSets=true"))

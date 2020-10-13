@@ -18,7 +18,7 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Learning.AggregateRoot.Domain.Audit.AuditCommand", b =>
+            modelBuilder.Entity("Learning.AggregateRoot.Domain.Audit.Aggregates.AuditCommand", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -60,14 +60,14 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations
                     b.ToTable("AuditCommands");
                 });
 
-            modelBuilder.Entity("Learning.AggregateRoot.Domain.Audit.AuditDatabaseChange", b =>
+            modelBuilder.Entity("Learning.AggregateRoot.Domain.Audit.Aggregates.AuditDatabaseChange", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AggregateRootId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Changes")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("CorrelationId")
                         .HasColumnType("uniqueidentifier");
@@ -75,11 +75,8 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Delta")
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("EntityId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("EntityId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("ImpersonatedUserId")
                         .HasColumnType("uniqueidentifier");
@@ -98,7 +95,7 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AggregateRootId");
+                    b.HasIndex("Changes");
 
                     b.HasIndex("CorrelationId");
 
@@ -119,7 +116,7 @@ namespace Learning.AggregateRoot.Infrastructure.Migrations
                     b.ToTable("AuditDatabaseChanges");
                 });
 
-            modelBuilder.Entity("Learning.AggregateRoot.Domain.Audit.AuditEvent", b =>
+            modelBuilder.Entity("Learning.AggregateRoot.Domain.Audit.Aggregates.AuditEvent", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

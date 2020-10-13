@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Learning.AggregateRoot.Domain.Audit.Attributes;
 using Learning.AggregateRoot.Domain.AuthentificationContext.Interfaces;
 using Learning.AggregateRoot.Domain.CQRS.Interfaces;
 using Learning.AggregateRoot.Domain.Exceptions;
@@ -51,12 +52,12 @@ namespace Learning.AggregateRoot.Domain.CQRS
         #endregion
 
         #region Avec audit
-        public Guid CreatedBy { get; set; }
-        public Guid CreatedOnBehalfOf { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public Guid LastUpdatedBy { get; set; }
-        public Guid LastUpdatedOnBehalfOf { get; set; }
-        public DateTime LastUpdatedAt { get; set; }
+        [ShallNotAudit] public Guid CreatedBy { get; set; }
+        [ShallNotAudit] public Guid CreatedOnBehalfOf { get; set; }
+        [ShallNotAudit] public DateTime CreatedAt { get; set; }
+        [ShallNotAudit] public Guid LastUpdatedBy { get; set; }
+        [ShallNotAudit] public Guid LastUpdatedOnBehalfOf { get; set; }
+        [ShallNotAudit] public DateTime LastUpdatedAt { get; set; }
 
         public void MarkAsCreated(IAuthentificationContext authentificationContext)
         {
