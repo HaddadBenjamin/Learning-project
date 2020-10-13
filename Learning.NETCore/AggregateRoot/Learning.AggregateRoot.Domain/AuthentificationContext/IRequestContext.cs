@@ -2,6 +2,9 @@
 
 namespace Learning.AggregateRoot.Domain.AuthentificationContext
 {
+    /// <summary>
+    /// Contient des informations sur l'appelant qui proviennent des en-têtes de la requête HTTP.
+    /// </summary>
     public interface IRequestContext
     {
         string ImpersonatedUserEmail { get; set; }
