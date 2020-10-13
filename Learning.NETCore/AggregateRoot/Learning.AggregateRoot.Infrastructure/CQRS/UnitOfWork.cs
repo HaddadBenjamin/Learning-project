@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Threading.Tasks;
+using Learning.AggregateRoot.Domain.Audit.Services;
 using Learning.AggregateRoot.Domain.CQRS.Interfaces;
 using Learning.AggregateRoot.Infrastructure.ExampleToRedefine.CQRS;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -10,10 +11,15 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
     public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
         private readonly TDbContext _dbContext;
+        private readonly IDatabaseChangesAuditService _databaseChangesAuditService;
         private Hashtable _repositories = new Hashtable();
         private IDbContextTransaction _transaction;
 
-        public UnitOfWork(TDbContext dbContext) => _dbContext = dbContext;
+        public UnitOfWork(TDbContext dbContext, IDatabaseChangesAuditService databaseChangesAuditService)
+        {
+            _dbContext = dbContext;
+            _databaseChangesAuditService = databaseChangesAuditService;
+        }
 
         public IRepository<TAggregate> Repository<TAggregate>() where TAggregate : Domain.CQRS.AggregateRoot
         {
@@ -25,7 +31,7 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
             return (IRepository<TAggregate>)_repositories[aggregateTypeName];
         }
 
-        public async Task SaveChangesAsync() => await _dbContext.SaveChangesAsync();
+        public async Task SaveChangesAsync() => Task.WaitAll(_dbContext.SaveChangesAsync(), _databaseChangesAuditService.Audit());
 
         public void BeginTransaction() => _transaction = _dbContext.Database.BeginTransaction();
 
