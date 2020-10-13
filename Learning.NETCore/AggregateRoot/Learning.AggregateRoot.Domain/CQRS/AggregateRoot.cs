@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Learning.AggregateRoot.Domain.Audit.Attributes;
-using Learning.AggregateRoot.Domain.AuthentificationContext.Interfaces;
+using Learning.AggregateRoot.Domain.AuthentificationContext;
+using Learning.AggregateRoot.Domain.CQRS.Exceptions;
 using Learning.AggregateRoot.Domain.CQRS.Interfaces;
-using Learning.AggregateRoot.Domain.Exceptions;
 
 namespace Learning.AggregateRoot.Domain.CQRS
 {
@@ -15,7 +15,7 @@ namespace Learning.AggregateRoot.Domain.CQRS
     {
         #region Le minimum nécéssaire
         public Guid Id { get; set; }
-        public int Version { get; set; }
+        [ShallNotAudit] public int Version { get; set; }
 
         private List<IEvent> _events { get; } = new List<IEvent>();
 
@@ -78,7 +78,10 @@ namespace Learning.AggregateRoot.Domain.CQRS
         public void ReplayEvents(IReadOnlyCollection<IEvent> events)
         {
             foreach (var @event in events)
+            {
                 MutateState(@event);
+                ++Version;
+            }
         }
 
         // En fonction des implémentations, cette méthode n'est pas forcément présente mais elle permet de valider tout l'état de votre racine d'aggrégat.

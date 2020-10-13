@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Learning.AggregateRoot.Domain.Audit.Commands;
-using Learning.AggregateRoot.Domain.AuthentificationContext.Interfaces;
+using Learning.AggregateRoot.Domain.Audit.Services;
+using Learning.AggregateRoot.Domain.AuthentificationContext;
 using Learning.AggregateRoot.Domain.CQRS.Interfaces;
-using Newtonsoft.Json;
 
 namespace Learning.AggregateRoot.Domain.Audit.Aggregates
 {
@@ -21,14 +21,14 @@ namespace Learning.AggregateRoot.Domain.Audit.Aggregates
         public Guid UserId { get; set; }
         public Guid ImpersonatedUserId { get; set; }
 
-        public static List<AuditEvent> Create(CreateAuditEvents command, IAuthentificationContext authentificationContext) =>
-            command.Events.Select(@event => ToAuditEvent(@event, authentificationContext)).ToList();
+        public static List<AuditEvent> Create(CreateAuditEvents command, IAuthentificationContext authentificationContext, IAuditSerializer auditSerializer) =>
+            command.Events.Select(@event => ToAuditEvent(@event, authentificationContext, auditSerializer)).ToList();
 
-        private static AuditEvent ToAuditEvent(IEvent @event, IAuthentificationContext authentificationContext) => new AuditEvent
+        private static AuditEvent ToAuditEvent(IEvent @event, IAuthentificationContext authentificationContext, IAuditSerializer auditSerializer) => new AuditEvent
         {
             Id = Guid.NewGuid(),
             EventName = @event.GetType().UnderlyingSystemType.Name,
-            Event = JsonConvert.SerializeObject(@event, Formatting.Indented),
+            Event = auditSerializer.Serialize(@event),
             CorrelationId = authentificationContext.CorrelationId,
             Date = DateTime.UtcNow,
             ImpersonatedUserId = authentificationContext.ImpersonatedUser.Id,

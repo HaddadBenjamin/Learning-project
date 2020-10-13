@@ -1,8 +1,7 @@
 ﻿using System;
 using Learning.AggregateRoot.Domain.Audit.Commands;
 using Learning.AggregateRoot.Domain.Audit.Services;
-using Learning.AggregateRoot.Domain.AuthentificationContext.Interfaces;
-using Newtonsoft.Json;
+using Learning.AggregateRoot.Domain.AuthentificationContext;
 
 namespace Learning.AggregateRoot.Domain.Audit.Aggregates
 {

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Threading.Tasks;
 using Learning.AggregateRoot.Domain.CQRS.Interfaces;
+using Learning.AggregateRoot.Infrastructure.ExampleToRedefine.CQRS;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Learning.AggregateRoot.Infrastructure.CQRS

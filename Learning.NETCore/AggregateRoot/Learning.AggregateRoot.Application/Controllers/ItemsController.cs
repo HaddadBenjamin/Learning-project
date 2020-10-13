@@ -1,8 +1,8 @@
 ﻿using System;
 using Learning.AggregateRoot.Application.Example.Dtos;
 using Learning.AggregateRoot.Domain.CQRS.Interfaces;
-using Learning.AggregateRoot.Domain.Example.Commands;
-using Learning.AggregateRoot.Domain.Example.Readers;
+using Learning.AggregateRoot.Domain.ExampleToDelete.Commands;
+using Learning.AggregateRoot.Domain.ExampleToDelete.Readers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Learning.AggregateRoot.Application.Controllers

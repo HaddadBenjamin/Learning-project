@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Learning.AggregateRoot.Domain.Exceptions;
+using Learning.AggregateRoot.Domain.CQRS.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 

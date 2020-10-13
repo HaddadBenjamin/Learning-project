@@ -1,6 +1,6 @@
 using System;
 using Learning.AggregateRoot.Application.Extensions;
-using Learning.AggregateRoot.Domain.AuthentificationContext.Interfaces;
+using Learning.AggregateRoot.Domain.AuthentificationContext;
 using Microsoft.AspNetCore.Http;
 
 namespace Learning.AggregateRoot.Application

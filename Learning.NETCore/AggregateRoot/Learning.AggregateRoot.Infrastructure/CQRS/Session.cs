@@ -5,9 +5,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Learning.AggregateRoot.Domain.Audit.Services;
-using Learning.AggregateRoot.Domain.AuthentificationContext.Interfaces;
+using Learning.AggregateRoot.Domain.AuthentificationContext;
+using Learning.AggregateRoot.Domain.CQRS.Exceptions;
 using Learning.AggregateRoot.Domain.CQRS.Interfaces;
-using Learning.AggregateRoot.Domain.Exceptions;
 
 namespace Learning.AggregateRoot.Infrastructure.CQRS
 {
