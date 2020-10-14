@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Learning.AggregateRoot.Domain.Audit.Commands;
@@ -26,6 +27,9 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
 
         public async Task SendCommand(ICommand command)
         {
+            if (command is null)
+                throw new ArgumentNullException(nameof(command));
+
             await _mediator.Send(command);
 
             if (_auditConfiguration.AuditCommands)
@@ -34,6 +38,9 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
 
         public async Task<TQueryResult> SendQuery<TQueryResult>(IQuery<TQueryResult> query)
         {
+            if (query is null)
+                throw new ArgumentNullException(nameof(query));
+
             var queryResult = await _mediator.Send(query);
 
             if (_auditConfiguration.AuditQueries)
@@ -48,6 +55,9 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
 
         public async Task PublishEvents(IReadOnlyCollection<IEvent> events)
         {
+            if (events is null)
+                throw new ArgumentNullException(nameof(events));
+
             await Task.WhenAll(events.Select(@event => _mediator.Publish(@event)));
 
             if (_auditConfiguration.AuditEvents)
