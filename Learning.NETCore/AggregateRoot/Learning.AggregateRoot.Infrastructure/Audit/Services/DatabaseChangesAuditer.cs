@@ -7,14 +7,13 @@ using Learning.AggregateRoot.Domain.Audit.Attributes;
 using Learning.AggregateRoot.Domain.Audit.Configuration;
 using Learning.AggregateRoot.Domain.Audit.Services;
 using Learning.AggregateRoot.Domain.AuthentificationContext;
-using Learning.AggregateRoot.Infrastructure.Audit.DbContext.Audit;
+using Learning.AggregateRoot.Infrastructure.Audit.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Learning.AggregateRoot.Infrastructure.Audit.Services
 {
-    public class DatabaseChangesAuditService<TDbContext> : IDatabaseChangesAuditService
-        where TDbContext : Microsoft.EntityFrameworkCore.DbContext
+    public class DatabaseChangesAuditService<TDbContext> : IDatabaseChangesAuditService where TDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
         private readonly IAuthentificationContext _authentificationContext;
         private readonly AuditDbContext _auditDbContext;
@@ -38,7 +37,7 @@ namespace Learning.AggregateRoot.Infrastructure.Audit.Services
 
         public async Task Audit()
         {
-            if (!_auditConfiguration.AuditDatabaseChange)
+            if (!_auditConfiguration.AuditDatabaseChanges)
                 return;
 
             var auditDatabaseChanges = _dbContextToAudit.ChangeTracker.Entries()

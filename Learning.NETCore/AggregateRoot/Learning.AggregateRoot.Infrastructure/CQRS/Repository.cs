@@ -7,6 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Learning.AggregateRoot.Infrastructure.CQRS
 {
+    /// <summary>
+    /// Edward Hieatt and Rob Mee : Mediates between the domain and data mapping layers using a collection-like interface for accessing domain objects.
+    /// </summary>
     public abstract class Repository<TAggregate, TDbContext> : IRepository<TAggregate>
         where TAggregate : Domain.CQRS.AggregateRoot
         where TDbContext : Microsoft.EntityFrameworkCore.DbContext

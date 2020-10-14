@@ -1,7 +1,7 @@
 ﻿using Learning.AggregateRoot.Domain.Audit.Configuration;
 using Learning.AggregateRoot.Domain.Audit.Services;
 using Learning.AggregateRoot.Domain.AuthentificationContext;
-using Learning.AggregateRoot.Infrastructure.Audit.DbContext.Audit;
+using Learning.AggregateRoot.Infrastructure.Audit.DbContext;
 using Learning.AggregateRoot.Infrastructure.Audit.Services;
 using Learning.AggregateRoot.Infrastructure.ExampleToRedefine.DbContext;
 

@@ -12,10 +12,9 @@ namespace Learning.AggregateRoot.Infrastructure.ExampleToRemove.CommandHandlers
         IRequestHandler<UpdateItem>,
         IRequestHandler<DeleteItem>
     {
-        // TODO use ISession<Item> instead of ISession<Item, IRepository<Item>>.
-        private readonly ISession<Item, IRepository<Item>> _session;
+        private readonly ISession<Item> _session;
 
-        public ItemHandler(ISession<Item, IRepository<Item>> session) => _session = session;
+        public ItemHandler(ISession<Item> session) => _session = session;
 
         public async Task<Unit> Handle(CreateItem command, CancellationToken cancellationToken)
         {

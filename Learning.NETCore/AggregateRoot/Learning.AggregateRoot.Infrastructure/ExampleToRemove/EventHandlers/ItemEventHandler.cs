@@ -7,9 +7,6 @@ namespace Learning.AggregateRoot.Infrastructure.ExampleToRemove.EventHandlers
 {
     public class ItemEventHandler : INotificationHandler<ItemWriteEvent>
     {
-        public async Task Handle(ItemWriteEvent notification, CancellationToken cancellationToken)
-        {
-            await Task.CompletedTask;
-        }
+        public async Task Handle(ItemWriteEvent notification, CancellationToken cancellationToken) => await Task.CompletedTask;
     }
 }
