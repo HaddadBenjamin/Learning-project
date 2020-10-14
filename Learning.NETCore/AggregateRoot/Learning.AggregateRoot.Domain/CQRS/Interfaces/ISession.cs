@@ -8,16 +8,25 @@ namespace Learning.AggregateRoot.Domain.CQRS.Interfaces
     /// Cette classe permet aussi d'encapsuler les modèles de conceptions repository et unit of work afin de réduire le couplage de nos handleurs en injectant seulement la session plutôt qu'un repository et unit of work.
     /// </summary>
     public interface ISession<TAggregate> :
-        ITrack<TAggregate>,
-        IRepository<TAggregate>,
+        IInternalSession<TAggregate>,
         IHasRepository<TAggregate, IRepository<TAggregate>>
+        where TAggregate : AggregateRoot { }
+
+    public interface ISession<TAggregate, out TRepository> :
+        IInternalSession<TAggregate>,
+        IHasRepository<TAggregate, TRepository>
+        where TAggregate : AggregateRoot
+        where TRepository : IRepository<TAggregate> { }
+
+    /// <summary>
+    ///  Cette interface permet uniquement de redéfinir IHasRepository dans les interfaces enfantes.
+    ///  Ce qui permet de déduire IHasRepository<TAggregateRoot, IRepository<TAggregate>> mais aussi IHasRepository<TAggregate, TRepository>.
+    /// </summary>
+    public interface IInternalSession<TAggregate> :
+        ITrack<TAggregate>,
+        IRepository<TAggregate>
         where TAggregate : AggregateRoot
     {
         Task<IReadOnlyCollection<IEvent>> SaveChanges();
     }
-
-    public interface ISession<TAggregate, out TRepository> :
-        ISession<TAggregate>
-        where TAggregate : AggregateRoot
-        where TRepository : IRepository<TAggregate> { }
 }

@@ -60,5 +60,8 @@ namespace Learning.AggregateRoot.Application.Controllers
         [HttpGet]
         [Route("{itemId:guid}")]
         public async Task<IActionResult> Get([FromRoute] Guid itemId) => Ok(await _mediator.SendQuery(new GetItem { Id = itemId }));
+
+        [HttpGet]
+        public async Task<IActionResult> GetByName([FromQuery] string name) => Ok(await _mediator.SendQuery(new GetItemByName { Name = name }));
     }
 }

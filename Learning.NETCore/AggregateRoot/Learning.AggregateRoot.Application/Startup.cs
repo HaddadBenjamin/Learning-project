@@ -3,6 +3,8 @@ using Learning.AggregateRoot.Domain.Audit.Configuration;
 using Learning.AggregateRoot.Domain.Audit.Services;
 using Learning.AggregateRoot.Domain.AuthentificationContext;
 using Learning.AggregateRoot.Domain.CQRS.Interfaces;
+using Learning.AggregateRoot.Domain.ExampleToDelete.Builders;
+using Learning.AggregateRoot.Domain.ExampleToDelete.Repositories;
 using Learning.AggregateRoot.Infrastructure.Audit.DbContext;
 using Learning.AggregateRoot.Infrastructure.Audit.Services;
 using Learning.AggregateRoot.Infrastructure.AuthentificationContext;
@@ -11,6 +13,8 @@ using Learning.AggregateRoot.Infrastructure.ExampleToRedefine.Audit;
 using Learning.AggregateRoot.Infrastructure.ExampleToRedefine.AuthentificationContext;
 using Learning.AggregateRoot.Infrastructure.ExampleToRedefine.CQRS;
 using Learning.AggregateRoot.Infrastructure.ExampleToRedefine.DbContext;
+using Learning.AggregateRoot.Infrastructure.ExampleToRemove.Mappers;
+using Learning.AggregateRoot.Infrastructure.ExampleToRemove.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -57,10 +61,13 @@ namespace Learning.AggregateRoot.Application
                 // Pour l'example, il faudra les redéfinir.
                 .AddScoped<IDatabaseChangesAuditService, GenericsDatabaseChangesAuditService>()
                 // Register Db context.
-                .AddDbContextPool<AuditDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Audit;Trusted_Connection=True;MultipleActiveResultSets=true"))
-                .AddDbContextPool<YourDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=AggregateRoot;Trusted_Connection=True;MultipleActiveResultSets=true"))
+                .AddDbContextPool<AuditDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Audit;Trusted_Connection=True;MultipleActiveResultSets=true", builder => builder.MigrationsHistoryTable("MigrationHistory", "dbo")))
+                .AddDbContextPool<YourDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=AggregateRoot;Trusted_Connection=True;MultipleActiveResultSets=true", builder => builder.MigrationsHistoryTable("MigrationHistory", "dbo")))
                 // Exemple : il faudra créer une nouvelle implémentation de IAuthentificationContextUserProvider.
-                .AddScoped<IAuthentificationContextUserProvider, FakeAuthentificationContextUserProvider>();
+                .AddScoped<IAuthentificationContextUserProvider, FakeAuthentificationContextUserProvider>()
+                // Ces injections sont juste là pour l'exemple, il faudra les supprimer
+                .AddScoped<IItemViewMapper, ItemViewMapper>()
+                .AddScoped<IItemRepository, ItemRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
