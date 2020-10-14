@@ -11,10 +11,9 @@ namespace Learning.AggregateRoot.Infrastructure.ExampleToRemove.QueryHandlers
 {
     public class ItemQueryHandler : IRequestHandler<GetItem, ItemView>
     {
-        // TODO use ISession<Item> instead of ISession<Item, IRepository<Item>>.
-        private readonly ISession<Item, IRepository<Item>> _session;
+        private readonly ISession<Item> _session;
 
-        public ItemQueryHandler(ISession<Item, IRepository<Item>> session) => _session = session;
+        public ItemQueryHandler(ISession<Item> session) => _session = session;
         
         public async Task<ItemView> Handle(GetItem query, CancellationToken cancellationToken)
         {

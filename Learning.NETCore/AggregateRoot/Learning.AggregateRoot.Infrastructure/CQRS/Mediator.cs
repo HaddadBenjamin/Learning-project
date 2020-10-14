@@ -28,7 +28,7 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
         {
             await _mediator.Send(command);
 
-            if (_auditConfiguration.AuditCommand)
+            if (_auditConfiguration.AuditCommands)
                 await _mediator.Send(new CreateAuditCommand { Command = command });
         }
 
@@ -36,7 +36,7 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
         {
             var queryResult = await _mediator.Send(query);
 
-            if (_auditConfiguration.AuditQuery)
+            if (_auditConfiguration.AuditQueries)
                 await _mediator.Send(new CreateAuditQuery
                 {
                     Query = query,
@@ -50,7 +50,7 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
         {
             await Task.WhenAll(events.Select(@event => _mediator.Publish(@event)));
 
-            if (_auditConfiguration.AuditEvent)
+            if (_auditConfiguration.AuditEvents)
                 await _mediator.Send(new CreateAuditEvents { Events = events });
         }
     }

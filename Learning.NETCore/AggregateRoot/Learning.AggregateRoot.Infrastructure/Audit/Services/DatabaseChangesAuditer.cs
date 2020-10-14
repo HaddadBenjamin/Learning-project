@@ -37,7 +37,7 @@ namespace Learning.AggregateRoot.Infrastructure.Audit.Services
 
         public async Task Audit()
         {
-            if (!_auditConfiguration.AuditDatabaseChange)
+            if (!_auditConfiguration.AuditDatabaseChanges)
                 return;
 
             var auditDatabaseChanges = _dbContextToAudit.ChangeTracker.Entries()

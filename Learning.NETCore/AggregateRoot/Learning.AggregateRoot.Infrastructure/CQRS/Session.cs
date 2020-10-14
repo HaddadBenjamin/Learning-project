@@ -10,24 +10,26 @@ using Learning.AggregateRoot.Domain.CQRS.Interfaces;
 
 namespace Learning.AggregateRoot.Infrastructure.CQRS
 {
-    public class Session<TAggregate> : Session<TAggregate, IRepository<TAggregate>> where TAggregate : Domain.CQRS.AggregateRoot
-    {
-        public Session(IRepository<TAggregate> repository, IAuthentificationContext authentificationContext, IMediator mediator) :
-            base(repository, authentificationContext, mediator) { }
-    }
-    public class Session<TAggregate, TRepository> : ISession<TAggregate, TRepository>
+    public class Session<TAggregate, TRepository> : Session<TAggregate>, ISession<TAggregate, TRepository>
         where TAggregate : Domain.CQRS.AggregateRoot
         where TRepository : IRepository<TAggregate>
+    {
+        public Session(TRepository repository, IAuthentificationContext authentificationContext, IMediator mediator) : base(repository, authentificationContext, mediator) { }
+
+        public TRepository Repository { get; }
+    }
+   
+    public class Session<TAggregate> : ISession<TAggregate> where TAggregate : Domain.CQRS.AggregateRoot
     {
         private readonly IAuthentificationContext _authentificationContext;
         private readonly IMediator _mediator;
         private readonly ConcurrentDictionary<Guid, Domain.CQRS.AggregateRoot> _trackedAggregates = new ConcurrentDictionary<Guid, Domain.CQRS.AggregateRoot>();
 
-        public TRepository Repository { get; }
+        public IRepository<TAggregate> Repository { get; }
         public IUnitOfWork UnitOfWork => Repository.UnitOfWork;
         public IQueryable<TAggregate> Queryable => Repository.Queryable;
 
-        public Session(TRepository repository, IAuthentificationContext authentificationContext, IMediator mediator)
+        public Session(IRepository<TAggregate> repository, IAuthentificationContext authentificationContext, IMediator mediator)
         {
             Repository = repository;
             _authentificationContext = authentificationContext;
@@ -127,7 +129,7 @@ namespace Learning.AggregateRoot.Infrastructure.CQRS
 
             await _mediator.PublishEvents(events);
             await Repository.UnitOfWork.SaveChangesAsync();
-            
+
             _trackedAggregates.Clear();
 
             return events;
