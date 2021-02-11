@@ -1,4 +1,7 @@
+Si je devais refaire un système d'authentification, je regarderai mes notes sur l'authentification par JWT de Nick Chapsas.
+
 Réalisation d'une authentification par JWT token, connection sur les différents réseaux sociaux et partage d'informations.
+
 
 Partage d'informations sur les réseaux sociaux :
 ![Image of Yaktocat](https://imgur.com/plkLtkQ.png)
