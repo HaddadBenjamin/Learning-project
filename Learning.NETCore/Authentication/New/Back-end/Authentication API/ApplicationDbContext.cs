@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Authentification
+namespace Authentication
 {
     public class ApplicationDbContext : DbContext
     {

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api50.Controllers
+namespace Authentication.Controllers
 {
     [ApiController]
     [Route("[controller]")]

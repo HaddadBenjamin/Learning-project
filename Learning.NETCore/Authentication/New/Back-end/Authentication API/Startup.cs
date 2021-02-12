@@ -2,13 +2,14 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
-namespace Authentification
+namespace Authentication
 {
     public class Startup
     {
@@ -31,27 +32,24 @@ namespace Authentification
                     In = ParameterLocation.Header,
                     Description = "JWT Authorization header using the Bearer scheme."
                 });
-                _.AddSecurityRequirement(new OpenApiSecurityRequirement
-                 {
-                     {
-                           new OpenApiSecurityScheme
-                             {
-                                 Reference = new OpenApiReference
-                                 {
-                                     Type = ReferenceType.SecurityScheme,
-                                     Id = "Bearer"
-                                 }
-                             },
-                             new string[] {}
-
-                     }
-                 });
+                _.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    new string[] {}
+                }});
             });
 
             // I should use an installer to refactor my DI.
             var jwtConfiguration = _configuration.GetSection("Jwt").Get<JwtConfiguration>();
             var tokenValidationParameters = new TokenValidationParameters
-            { 
+            {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtConfiguration.Secret)),
                 ValidateIssuer = false,
@@ -69,6 +67,10 @@ namespace Authentification
                     _.SaveToken = true;
                     _.TokenValidationParameters = tokenValidationParameters;
                 });
+
+            services
+                .AddDefaultIdentity<IdentityUser>()
+                .AddEntityFrameworkStore<ApplicationDbContext>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -87,7 +89,7 @@ namespace Authentification
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints => endpoints.MapControllers());
-
         }
     }
+
 }
