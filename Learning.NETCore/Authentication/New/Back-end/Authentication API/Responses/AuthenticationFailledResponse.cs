@@ -2,5 +2,8 @@
 
 namespace Authentication.Controllers
 {
-    public class AuthenticationFailledResponse { public IEnumerable<string> Errors { get; set; } }
+    public class AuthenticationFailledResponse
+    {
+        public IEnumerable<string> Errors { get; set; }
+    }
 }
