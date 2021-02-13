@@ -32,7 +32,6 @@ namespace Authentication.Services
         {
             var post = _dbContext.Posts.SingleOrDefault(p => p.Id == id);
 
-            // I could have a dedicated validation layer, but's that's not relevant for the moment
             if (post == null)
                 throw new NotFoundException(nameof(Post), id);
 

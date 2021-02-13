@@ -3,12 +3,14 @@ using System.Threading.Tasks;
 using Authentication.Requests;
 using Authentication.Responses;
 using Authentication.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Authentication.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [AllowAnonymous]
     public class IdentityController : ControllerBase
     {
         private readonly IIdentityService _identityService;
