@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Authentication.Configurations;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,7 @@ namespace Authentication.DependenyInjections
 
             var writeModelConfiguration = configuration.GetSection("WriteModel").Get<WriteModelConfiguration>();
 
+            services.AddSingleton(writeModelConfiguration);
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(writeModelConfiguration.ConnectionString));
         }
     }

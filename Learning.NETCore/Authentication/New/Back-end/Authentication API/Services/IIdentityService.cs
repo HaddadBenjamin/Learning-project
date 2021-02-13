@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
-
-namespace Authentication.Controllers
+namespace Authentication.Services
 {
     public interface IIdentityService
     {

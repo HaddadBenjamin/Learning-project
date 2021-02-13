@@ -1,4 +1,6 @@
 ﻿using System.Text;
+using Authentication.Configurations;
+using Authentication.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,6 +32,8 @@ namespace Authentication.DependenyInjections
                     _.SaveToken = true;
                     _.TokenValidationParameters = tokenValidationParameters;
                 });
+
+            services.AddScoped<IIdentityService, IdentityService>();
         }
     }
 }

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Authentication.Controllers;
+using Authentication.Configurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Authentication
+namespace Authentication.Services
 {
     public class IdentityService : IIdentityService
     {

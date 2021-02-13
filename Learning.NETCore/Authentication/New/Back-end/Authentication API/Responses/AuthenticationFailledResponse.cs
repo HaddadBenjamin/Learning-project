@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Authentication.Controllers
+namespace Authentication.Responses
 {
     public class AuthenticationFailledResponse
     {

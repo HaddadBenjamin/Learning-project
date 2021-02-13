@@ -1,4 +1,4 @@
-﻿namespace Authentication.Controllers
+﻿namespace Authentication.Responses
 {
     public class AuthenticationSuccessResponse
     {

@@ -1,4 +1,4 @@
-﻿namespace Authentication.Controllers
+﻿namespace Authentication.Requests
 {
     public class UserLoginRequest
     {

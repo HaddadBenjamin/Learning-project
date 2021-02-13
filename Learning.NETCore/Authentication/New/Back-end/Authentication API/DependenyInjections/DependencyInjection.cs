@@ -8,7 +8,6 @@ namespace Authentication.DependenyInjections
         public static void AddAuthentication(IServiceCollection services, IConfiguration configuration)
         {
             services.AddControllers();
-            services.AddSingleton(configuration.GetSection("WriteModel").Get<WriteModelConfiguration>());
 
             ServiceInjecterHelper.InjectServicesFromAssembly(typeof(Startup).Assembly, services, configuration);
         }

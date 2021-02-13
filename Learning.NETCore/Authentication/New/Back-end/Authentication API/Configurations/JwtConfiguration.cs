@@ -1,4 +1,4 @@
-﻿namespace Authentication
+﻿namespace Authentication.Configurations
 {
     public class JwtConfiguration
     { 
