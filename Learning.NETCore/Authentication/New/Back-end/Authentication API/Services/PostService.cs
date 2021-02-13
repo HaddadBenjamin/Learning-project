@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Authentication.Exceptions;
 using Authentication.Persistence;
+using Authentication.Persistence.Entities;
 
 namespace Authentication.Services
 {

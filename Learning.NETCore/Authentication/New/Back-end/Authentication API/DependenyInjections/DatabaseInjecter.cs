@@ -1,5 +1,6 @@
 ﻿using Authentication.Configurations;
 using Authentication.Persistence;
+using Authentication.Persistence.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -13,8 +14,9 @@ namespace Authentication.DependenyInjections
         {
             services
                 .AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddSignInManager<SignInManager<ApplicationUser>>();
+            
             var writeModelConfiguration = configuration.GetSection("WriteModel").Get<WriteModelConfiguration>();
 
             services.AddSingleton(writeModelConfiguration);

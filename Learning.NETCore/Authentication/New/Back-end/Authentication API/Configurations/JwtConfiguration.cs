@@ -1,7 +1,11 @@
-﻿namespace Authentication.Configurations
+﻿using System;
+
+namespace Authentication.Configurations
 {
     public class JwtConfiguration
     { 
         public string Secret { get; set; }
+        public TimeSpan AccessTokenLifetime { get; set; }
+        public TimeSpan RefreshTokenLifetime { get; set; }
     }
 }

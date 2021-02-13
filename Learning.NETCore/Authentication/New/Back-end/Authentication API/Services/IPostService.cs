@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Authentication.Persistence;
+using Authentication.Persistence.Entities;
 
 namespace Authentication.Services
 {

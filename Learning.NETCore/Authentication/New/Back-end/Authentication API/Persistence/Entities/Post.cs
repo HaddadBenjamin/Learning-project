@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Authentication.Persistence
+namespace Authentication.Persistence.Entities
 {
     public class Post
     {

@@ -5,7 +5,9 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Authentication.Configurations;
+using Authentication.Exceptions;
 using Authentication.Persistence;
+using Authentication.Persistence.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
@@ -14,12 +16,23 @@ namespace Authentication.Services
     public class IdentityService : IIdentityService
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly JwtConfiguration _jwtConfiguration;
+        private readonly ApplicationDbContext _dbContext;
+        private readonly TokenValidationParameters _tokenValidationParameters;
 
-        public IdentityService(UserManager<ApplicationUser> userManager, JwtConfiguration jwtConfiguration)
+        public IdentityService(
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            JwtConfiguration jwtConfiguration,
+            ApplicationDbContext dbContext,
+            TokenValidationParameters tokenValidationParameters)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
             _jwtConfiguration = jwtConfiguration;
+            _dbContext = dbContext;
+            _tokenValidationParameters = tokenValidationParameters;
         }
 
         public async Task<AuthenticationResult> RegisterAsync(string email, string password)
@@ -57,13 +70,97 @@ namespace Authentication.Services
             return GenerateUserAuthenticationSuccessResult(user);
         }
 
-        private AuthenticationResult GenerateUserAuthenticationSuccessResult(IdentityUser user) => new AuthenticationResult
+        public void Logout(string accessToken, string refreshToken, string userId)
         {
-            Success = true,
-            AccessToken = GenerateUserAccessToken(user)
-        };
+            _signInManager.SignOutAsync();
 
-        private string GenerateUserAccessToken(IdentityUser user)
+            RevokeRefreshToken(accessToken, refreshToken);
+        }
+
+        public async Task<AuthenticationResult> RefreshTokenAsync(string accessToken, string refreshToken)
+        {
+            var (tokenIsValid, claimsPrincipal) = ValidateToken(accessToken);
+
+            if (!tokenIsValid)
+                return new AuthenticationResult { Errors = new[] { "The token is not valid" } };
+
+            var expiryDateUnix = long.Parse(claimsPrincipal.Claims.Single(c => c.Type == JwtRegisteredClaimNames.Exp).Value);
+            var expiryDateUtc = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(expiryDateUnix);
+            var tokenHasExpired = DateTime.UtcNow > expiryDateUtc;
+
+            if (!tokenHasExpired)
+                return new AuthenticationResult { Errors = new[] { "The token has not expired yet" } };
+            
+            var userRefreshToken = _dbContext.RefreshTokens.SingleOrDefault(r => r.RefreshTokenValue == refreshToken);
+
+            if (userRefreshToken == null)
+                return new AuthenticationResult { Errors = new[] { "The refresh token does not exists" } };
+          
+            var refreshTokenHasExpired = DateTime.UtcNow > userRefreshToken.ExpiryDate;
+           
+            if (refreshTokenHasExpired)
+                return new AuthenticationResult { Errors = new[] { "The refresh token has expired" } };
+
+            if (userRefreshToken.Invalidated)
+                return new AuthenticationResult { Errors = new[] { "The refresh token has been invalidated" } };
+          
+            var jtiClaimValue = claimsPrincipal.Claims.Single(c => c.Type == JwtRegisteredClaimNames.Jti).Value;
+            var refreshTokenMatchWithTheAccessToken = jtiClaimValue == userRefreshToken.JwtId;
+
+            if (!refreshTokenMatchWithTheAccessToken)
+                return new AuthenticationResult { Errors = new[] { "The refresh token does not match with the provided access token" } };
+
+            if (userRefreshToken.Used)
+                return new AuthenticationResult { Errors = new[] { "The refresh token has already been used" } };
+
+            userRefreshToken.Used = true;
+            _dbContext.RefreshTokens.Update(userRefreshToken);
+            await _dbContext.SaveChangesAsync();
+
+            var userId = claimsPrincipal.Claims.Single(c => c.Type == "id").Value;
+            var user = await _userManager.FindByIdAsync(userId);
+
+            return GenerateUserAuthenticationSuccessResult(user);
+        }
+
+        public void RevokeRefreshToken(string accessToken, string refreshToken)
+        {
+            var (tokenIsValid, claimsPrincipal) = ValidateToken(accessToken);
+
+            if (!tokenIsValid)
+                throw new BadRequestException("The token is not valid");
+
+             var userRefreshToken = _dbContext.RefreshTokens.SingleOrDefault(r => r.RefreshTokenValue == refreshToken);
+
+            if (userRefreshToken == null)
+                throw new NotFoundException(nameof(RefreshToken), refreshToken);
+
+            var jtiClaimValue = claimsPrincipal.Claims.Single(c => c.Type == JwtRegisteredClaimNames.Jti).Value;
+            var refreshTokenMatchWithTheAccessToken = jtiClaimValue == userRefreshToken.JwtId;
+
+            if (!refreshTokenMatchWithTheAccessToken)
+                throw new BadRequestException("The refresh token does not match with the provided access token");
+
+            userRefreshToken.Invalidated = true;
+            _dbContext.RefreshTokens.Update(userRefreshToken);
+            _dbContext.SaveChanges();
+        }
+
+        private AuthenticationResult GenerateUserAuthenticationSuccessResult(ApplicationUser user)
+        {
+            var securityAccessToken = GenerateUserAccessToken(user);
+            var accessToken = new JwtSecurityTokenHandler().WriteToken(securityAccessToken);
+            var refreshToken = GenerateAndPersistUserRefreshToken(securityAccessToken, user);
+
+            return new AuthenticationResult
+            {
+                Success = true,
+                AccessToken = accessToken,
+                RefreshToken = refreshToken.RefreshTokenValue
+            };
+        }
+
+        private SecurityToken GenerateUserAccessToken(ApplicationUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenSignature = Encoding.ASCII.GetBytes(_jwtConfiguration.Secret);
@@ -76,12 +173,46 @@ namespace Authentication.Services
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
                     new Claim("id", user.Id),
                 }),
-                Expires = DateTime.UtcNow.AddHours(2),
+                Expires = DateTime.UtcNow.Add(_jwtConfiguration.AccessTokenLifetime),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenSignature), SecurityAlgorithms.HmacSha256Signature)
             };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+            
+            return tokenHandler.CreateToken(tokenDescriptor);
+        }
 
-            return tokenHandler.WriteToken(token);
+        private RefreshToken GenerateAndPersistUserRefreshToken(SecurityToken securityAccessToken, ApplicationUser user)
+        {
+            var refreshToken = new RefreshToken
+            {
+                RefreshTokenValue = Guid.NewGuid().ToString(),
+                JwtId = securityAccessToken.Id,
+                UserId = user.Id,
+                CreationDate = DateTime.UtcNow,
+                ExpiryDate = DateTime.UtcNow.Add(_jwtConfiguration.RefreshTokenLifetime)
+            };
+
+            _dbContext.RefreshTokens.Add(refreshToken);
+            _dbContext.SaveChanges();
+
+            return refreshToken;
+        }
+
+        // This method is complex, I should spend time to refactor it later
+        private (bool isValid, ClaimsPrincipal claimsPrincipal) ValidateToken(string token)
+        {
+            try
+            {
+                var claimsPrincipal = new JwtSecurityTokenHandler().ValidateToken(token, _tokenValidationParameters, out var securityAccessToken);
+
+                var tokenIsValid = (securityAccessToken is JwtSecurityToken jwtSecurityToken) &&
+                    jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase);
+
+                return (tokenIsValid, tokenIsValid ? claimsPrincipal : null);
+            }
+            catch
+            {
+                return (false, null);
+            }
         }
     }
 }

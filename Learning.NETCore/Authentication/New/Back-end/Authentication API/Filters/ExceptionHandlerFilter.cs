@@ -14,6 +14,7 @@ namespace Authentication.Filters
         {
             { typeof(NotFoundException), HttpStatusCode.NotFound },
             { typeof(ForbiddenException), HttpStatusCode.Forbidden },
+            { typeof(BadRequestException), HttpStatusCode.BadRequest },
         };
 
         public override void OnException(ExceptionContext exceptionContext)

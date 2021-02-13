@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Authentication.Persistence.Entities;
+using Authentication.Persistence.Mappers;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Authentication.Persistence
@@ -6,6 +8,7 @@ namespace Authentication.Persistence
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {   
         public DbSet<Post> Posts { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> dbContextOptions) : base(dbContextOptions) { }
 
@@ -13,14 +16,8 @@ namespace Authentication.Persistence
         {
             base.OnModelCreating(modelBuilder);
 
-            var entity = modelBuilder.Entity<Post>();
-
-            entity.HasKey(_ => _.Id);
-            entity.HasIndex(_ => _.Id);
-            entity
-                .HasOne(po => po.User)
-                .WithMany(a => a.Posts)
-                .HasForeignKey(po => po.UserId);
+            PostMapper.Map(modelBuilder);
+            RefreshTokenMapper.Map(modelBuilder);
         }
     }
 }
