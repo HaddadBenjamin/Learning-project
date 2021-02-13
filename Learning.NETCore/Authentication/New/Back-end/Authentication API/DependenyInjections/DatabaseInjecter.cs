@@ -1,4 +1,5 @@
 ﻿using Authentication.Configurations;
+using Authentication.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,7 +12,7 @@ namespace Authentication.DependenyInjections
         public void InjectService(IServiceCollection services, IConfiguration configuration)
         {
             services
-                .AddIdentity<IdentityUser, IdentityRole>()
+                .AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             var writeModelConfiguration = configuration.GetSection("WriteModel").Get<WriteModelConfiguration>();

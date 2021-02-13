@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
+using Authentication.Extensions;
+using Authentication.Requests;
+using Authentication.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Authentication.Controllers
@@ -12,21 +13,23 @@ namespace Authentication.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class PostController : ControllerBase
     {
-        // Todo : simple rest api & endpoints (without ddd in a firist time)
+        private readonly IPostService _postService;
+
+        public PostController(IPostService postService) => _postService = postService;
+
         [HttpGet]
-        public string Get() => "you have access";
-    }
+        public IActionResult List() => Ok(_postService.List());
 
-    // i'll continue this part a bit later, in a first time i'll have to check if my register & login endpoints work correectly
-    public class Post
-    {
-        public Guid Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
+        [HttpPost]
+        public IActionResult Create([FromBody] CreatePostRequest request) =>
+            Created(nameof(Create), _postService.Create(request.Title, request.Description, HttpContext.GetUserId()));
 
-        public Guid UserId { get; set; }
-        // to do : foreign key
-        public IdentityUser User { get; set; }
-        // link data to a user
+        [HttpDelete]
+        public IActionResult Delete(Guid id)
+        {
+            _postService.Delete(id, HttpContext.GetUserId());
+
+            return Ok();
+        }
     }
 }

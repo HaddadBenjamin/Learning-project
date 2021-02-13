@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Authentication.Configurations;
+using Authentication.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
@@ -12,10 +13,10 @@ namespace Authentication.Services
 {
     public class IdentityService : IIdentityService
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly JwtConfiguration _jwtConfiguration;
 
-        public IdentityService(UserManager<IdentityUser> userManager, JwtConfiguration jwtConfiguration)
+        public IdentityService(UserManager<ApplicationUser> userManager, JwtConfiguration jwtConfiguration)
         {
             _userManager = userManager;
             _jwtConfiguration = jwtConfiguration;
@@ -28,7 +29,7 @@ namespace Authentication.Services
             if (userExists)
                 return new AuthenticationResult { Errors = new[] { "User with this email already exists" } };
 
-            var newUser = new IdentityUser
+            var newUser = new ApplicationUser
             {
                 UserName = email,
                 Email = email
@@ -59,7 +60,7 @@ namespace Authentication.Services
         private AuthenticationResult GenerateUserAuthenticationSuccessResult(IdentityUser user) => new AuthenticationResult
         {
             Success = true,
-            Token = GenerateUserAccessToken(user)
+            AccessToken = GenerateUserAccessToken(user)
         };
 
         private string GenerateUserAccessToken(IdentityUser user)

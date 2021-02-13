@@ -37,7 +37,7 @@ namespace Authentication.Controllers
         }
 
         private IActionResult GetAuthenticationResponse(AuthenticationResult authenticationResult) => authenticationResult.Success ?
-            Ok(new AuthenticationSuccessResponse { Token = authenticationResult.Token }) :
+            Ok(new AuthenticationSuccessResponse { AccessToken = authenticationResult.AccessToken }) :
             BadRequest(new AuthenticationFailledResponse { Errors = authenticationResult.Errors });
     }
 }
