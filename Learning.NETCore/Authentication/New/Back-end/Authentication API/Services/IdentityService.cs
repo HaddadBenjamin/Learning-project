@@ -21,8 +21,6 @@ namespace Authentication
             _jwtConfiguration = jwtConfiguration;
         }
 
-        // tester de fond en comble
-        // tester de rajouter un password faké, voir la tronche des erreurs
         public async Task<AuthenticationResult> RegisterAsync(string email, string password)
         {
             var userExists = await _userManager.FindByEmailAsync(email) != null;

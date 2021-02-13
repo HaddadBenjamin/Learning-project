@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Authentication.DependenyInjections
 {
-    interface IInjecter
+    interface IServiceInjecter
     {
         void InjectService(IServiceCollection services, IConfiguration configuration);
     }

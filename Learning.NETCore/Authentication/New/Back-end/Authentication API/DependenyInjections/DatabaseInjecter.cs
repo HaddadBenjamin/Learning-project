@@ -4,10 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Authentication.DependenyInjections
 {
-    public class DatabaseInjecter : IInjecter
+    public class DatabaseInjecter : IServiceInjecter
     {
         public void InjectService(IServiceCollection services, IConfiguration configuration) => services
             .AddDefaultIdentity<IdentityUser>()
-            .AddEntityFrameworkStore<ApplicationDbContext>();
+            .AddEntityFrameworkStores<ApplicationDbContext>();
     }
 }

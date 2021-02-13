@@ -13,13 +13,7 @@ namespace Authentication
 
         public Startup(IConfiguration configuration) => _configuration = configuration;
 
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddControllers();
-            services.AddSingleton(_configuration.GetSection("WriteModel").Get<WriteModelConfiguration>());
-
-            InjecterHelper.InjectServicesFromAssembly(typeof(Startup).Assembly, services, _configuration);
-        }
+        public void ConfigureServices(IServiceCollection services) => DependencyInjection.AddAuthentication(services, _configuration);
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

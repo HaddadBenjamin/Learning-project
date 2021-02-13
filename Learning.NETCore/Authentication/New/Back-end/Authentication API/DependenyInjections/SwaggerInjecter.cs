@@ -4,7 +4,7 @@ using Microsoft.OpenApi.Models;
 
 namespace Authentication.DependenyInjections
 {
-    public class SwaggerInjecter : IInjecter
+    public class SwaggerInjecter : IServiceInjecter
     {
         public void InjectService(IServiceCollection services, IConfiguration configuration)
         {

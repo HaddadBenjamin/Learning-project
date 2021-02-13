@@ -6,13 +6,13 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Authentication.DependenyInjections
 {
-    public static class InjecterHelper
+    public static class ServiceInjecterHelper
     {
         public static void InjectServicesFromAssembly(Assembly assembly, IServiceCollection services, IConfiguration configuration) =>
             assembly.ExportedTypes
-                 .Where(e => typeof(IInjecter).IsAssignableFrom(e) && e.IsInterface && !e.IsAbstract)
+                 .Where(e => typeof(IServiceInjecter).IsAssignableFrom(e) && e.IsInterface && !e.IsAbstract)
                  .Select(Activator.CreateInstance)
-                 .Cast<IInjecter>()
+                 .Cast<IServiceInjecter>()
                  .ToList()
                  .ForEach(injecter => injecter.InjectService(services, configuration));
     }

@@ -6,7 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Authentication.DependenyInjections
 {
-    public class AuthenticationInjecter : IInjecter
+    public class AuthenticationInjecter : IServiceInjecter
     {
         public void InjectService(IServiceCollection services, IConfiguration configuration)
         {
