@@ -23,7 +23,6 @@ namespace Authentication
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Authentification v1"));
             }
-
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
