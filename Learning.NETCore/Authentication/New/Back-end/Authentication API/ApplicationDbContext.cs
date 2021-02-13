@@ -5,7 +5,10 @@ namespace Authentication
 {
     public class ApplicationDbContext : IdentityDbContext
     {
-        // This connection string should be stored in the configuration
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Test");
+        private readonly WriteModelConfiguration _writeModelConfiguration;
+
+        public ApplicationDbContext(WriteModelConfiguration writeModelConfiguration) => _writeModelConfiguration = writeModelConfiguration;
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlServer(_writeModelConfiguration.ConnectionString);
     }
 }

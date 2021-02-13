@@ -1,8 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 using Authentication.Controllers;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 
-/* Come back in 20 minutes ²*/
 namespace Authentication
 {
     public class IdentityService : IIdentityService
@@ -16,24 +21,68 @@ namespace Authentication
             _jwtConfiguration = jwtConfiguration;
         }
 
+        // tester de fond en comble
+        // tester de rajouter un password faké, voir la tronche des erreurs
         public async Task<AuthenticationResult> RegisterAsync(string email, string password)
         {
-            // Hmmm, if not exist I just have to create it, why should I return an error when it's not found ?
-            var user = await _userManager.FindByEmailAsync(email);
+            var userExists = await _userManager.FindByEmailAsync(email) != null;
 
-            if (user is not null &&)
-                return new AuthenticationResult { Errors = new[] { "User does not exists" } };
+            if (userExists)
+                return new AuthenticationResult { Errors = new[] { "User with this email already exists" } };
 
-            // check if user dont exists already
-            // check if password validation is ok
-            // create token & return
+            var newUser = new IdentityUser
+            {
+                UserName = email,
+                Email = email
+            };
+            var createUserResult = await _userManager.CreateAsync(newUser, password);
 
-            throw new System.NotImplementedException();
+            if (!createUserResult.Succeeded)
+                return new AuthenticationResult { Errors = createUserResult.Errors.Select(e => e.Description) };
+
+            return GenerateUserAuthenticationSuccessResult(newUser);
         }
 
         public async Task<AuthenticationResult> LoginAsync(string email, string password)
         {
-            throw new System.NotImplementedException();
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+                return new AuthenticationResult { Errors = new[] { "User don't exists" } };
+
+            var passwordIsValid = await _userManager.CheckPasswordAsync(user, password);
+
+            if (!passwordIsValid)
+                return new AuthenticationResult { Errors = new[] { "The combination of user/password is not valid" } };
+
+            return GenerateUserAuthenticationSuccessResult(user);
+        }
+
+        private AuthenticationResult GenerateUserAuthenticationSuccessResult(IdentityUser user) => new AuthenticationResult
+        {
+            Success = true,
+            Token = GenerateUserAccessToken(user)
+        };
+
+        private string GenerateUserAccessToken(IdentityUser user)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenSignature = Encoding.ASCII.GetBytes(_jwtConfiguration.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                    new Claim("id", user.Id),
+                }),
+                Expires = DateTime.UtcNow.AddHours(2),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenSignature), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
         }
     }
 }
