@@ -4,6 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>Authentication</AssemblyName>
     <RootNamespace>Authentication</RootNamespace>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
