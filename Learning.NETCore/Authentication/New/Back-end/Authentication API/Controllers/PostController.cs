@@ -3,7 +3,6 @@ using System.Linq;
 using Authentication.Exceptions;
 using Authentication.Extensions;
 using Authentication.Persistence;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Authentication.Controllers
@@ -13,7 +12,6 @@ namespace Authentication.Controllers
     /// </summary>
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
     public class PostController : ControllerBase
     {
         private readonly ApplicationDbContext _dbContext;

@@ -18,6 +18,7 @@ namespace Authentication.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [AllowAnonymous]
     public class IdentityController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -45,7 +46,7 @@ namespace Authentication.Controllers
         /// Generate a new access token and refresh token, the front will store them.
         /// </summary>
         [HttpPost]
-        [Route("register")]
+        [Route("signIn")]
         public async Task<IActionResult> SignIn(UserRegistrationRequest request)
         {
             var (email, password) = (request.Email, request.Password);

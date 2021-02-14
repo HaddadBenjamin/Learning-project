@@ -30,16 +30,22 @@ namespace Authentication
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddMvc(config => config.Filters.Add(new ExceptionHandlerFilter()))
+                .AddMvc(config =>
+                {
+                    var mustBeLoggedPolicy = new AuthorizationPolicyBuilder()
+                        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                        .RequireAuthenticatedUser()
+                        .Build();
+
+                    config.Filters.Add(new AuthorizeFilter(mustBeLoggedPolicy));
+                    config.Filters.Add(new ExceptionHandlerFilter());
+                })
                 .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
             services
                 .AddCors()
                 .AddRouting(options => options.LowercaseUrls = true);
 
-            // Authorization
-            //services.AddAuthorization(_ => _.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build());
-        
             // Authentication
             var jwtConfiguration = _configuration.GetSection("Jwt").Get<JwtConfiguration>();
             var tokenValidationParameters = new TokenValidationParameters
@@ -111,23 +117,21 @@ namespace Authentication
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Authentification v1"));
+                app
+                    .UseDeveloperExceptionPage()
+                    .UseSwagger()
+                    .UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Authentification v1"));
             }
 
-            app.UseCors(policyBuilder => policyBuilder
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
+            app
+                .UseHttpsRedirection()
+                .UseRouting()
+                .UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())
 
-            app.UseHttpsRedirection();
-            app.UseRouting();
+                .UseAuthentication()
+                .UseAuthorization()
 
-            app.UseAuthentication();
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
+                .UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 
