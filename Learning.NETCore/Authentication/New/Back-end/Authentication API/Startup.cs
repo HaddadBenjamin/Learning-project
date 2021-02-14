@@ -6,15 +6,18 @@ using Authentication.Configurations;
 using Authentication.Exceptions;
 using Authentication.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 
 namespace Authentication
 {
@@ -26,8 +29,17 @@ namespace Authentication
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers(options => options.Filters.Add(new ExceptionHandlerFilter()));
-           
+            services
+                .AddMvc(config => config.Filters.Add(new ExceptionHandlerFilter()))
+                .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+
+            services
+                .AddCors()
+                .AddRouting(options => options.LowercaseUrls = true);
+
+            // Authorization
+            //services.AddAuthorization(_ => _.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build());
+        
             // Authentication
             var jwtConfiguration = _configuration.GetSection("Jwt").Get<JwtConfiguration>();
             var tokenValidationParameters = new TokenValidationParameters
@@ -40,9 +52,9 @@ namespace Authentication
                 ValidateLifetime = true,
             };
 
-            services.AddSingleton(jwtConfiguration);
-            services.AddSingleton(tokenValidationParameters);
             services
+                .AddSingleton(jwtConfiguration)
+                .AddSingleton(tokenValidationParameters)
                 .AddAuthentication(_ => _.DefaultAuthenticateScheme = _.DefaultScheme = _.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(_ =>
                 {
@@ -58,8 +70,9 @@ namespace Authentication
 
             var writeModelConfiguration = _configuration.GetSection("WriteModel").Get<WriteModelConfiguration>();
 
-            services.AddSingleton(writeModelConfiguration);
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(writeModelConfiguration.ConnectionString));
+            services
+                .AddSingleton(writeModelConfiguration)
+                .AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(writeModelConfiguration.ConnectionString));
 
             // Swagger
             services.AddSwaggerGen(_ =>
@@ -102,6 +115,12 @@ namespace Authentication
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Authentification v1"));
             }
+
+            app.UseCors(policyBuilder => policyBuilder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
             app.UseHttpsRedirection();
             app.UseRouting();
 

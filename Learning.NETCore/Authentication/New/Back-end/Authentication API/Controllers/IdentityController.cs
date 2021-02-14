@@ -18,7 +18,6 @@ namespace Authentication.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [AllowAnonymous]
     public class IdentityController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
