@@ -1,32 +1,63 @@
 ﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+using System.Linq;
+using Authentication.Exceptions;
+using Authentication.Extensions;
+using Authentication.Persistence;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Authentication.Controllers
 {
+    /// <summary>
+    /// Must be logged to those endpoints.
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class PostController : ControllerBase
     {
-        // Todo : simple rest api & endpoints (without ddd in a firist time)
+        private readonly ApplicationDbContext _dbContext;
+
+        public Object HtttpContext { get; private set; }
+
+        public PostController(ApplicationDbContext dbContext) => _dbContext = dbContext;
+
         [HttpGet]
-        public string Get() => "you have access";
-    }
+        public IActionResult List() => Ok(_dbContext.Posts.ToList());
 
-    // i'll continue this part a bit later, in a first time i'll have to check if my register & login endpoints work correectly
-    public class Post
-    {
-        public Guid Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
+        [HttpPost]
+        public IActionResult Create([FromBody] CreatePostRequest request)
+        {
+            var (title, description, userId) = (request.Title, request.Description, HttpContext.GetUserId());
+            var post = new Post
+            {
+                Id = Guid.NewGuid(),
+                Title = title,
+                Description = description,
+                UserId = userId
+            };
 
-        public Guid UserId { get; set; }
-        // to do : foreign key
-        public IdentityUser User { get; set; }
-        // link data to a user
+            _dbContext.Posts.Add(post);
+            _dbContext.SaveChanges();
+
+            return Created(nameof(Create), post);
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(Guid id)
+        {
+            var post = _dbContext.Posts.SingleOrDefault(p => p.Id == id);
+
+            if (post == null)
+                throw new NotFoundException(nameof(Post), id);
+
+            var userOwnPost = post.UserId == HttpContext.GetUserId();
+
+            if (!userOwnPost)
+                throw new ForbiddenException();
+
+            _dbContext.Posts.Remove(post);
+            _dbContext.SaveChanges();
+
+            return Ok();
+        }
     }
 }

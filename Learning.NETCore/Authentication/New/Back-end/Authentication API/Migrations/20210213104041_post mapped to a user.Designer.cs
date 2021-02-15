@@ -4,14 +4,16 @@ using Authentication.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Authentication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210213104041_post mapped to a user")]
+    partial class postmappedtoauser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,7 +21,7 @@ namespace Authentication.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.3");
 
-            modelBuilder.Entity("Authentication.Persistence.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("Authentication.Persistence.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -84,7 +86,7 @@ namespace Authentication.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Authentication.Persistence.Entities.Post", b =>
+            modelBuilder.Entity("Authentication.Persistence.Post", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -106,38 +108,6 @@ namespace Authentication.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Posts");
-                });
-
-            modelBuilder.Entity("Authentication.Persistence.Entities.RefreshToken", b =>
-                {
-                    b.Property<string>("RefreshTokenValue")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ExpiryDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Invalidated")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("JwtId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Used")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("RefreshTokenValue");
-
-                    b.HasIndex("RefreshTokenValue");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -271,19 +241,10 @@ namespace Authentication.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Authentication.Persistence.Entities.Post", b =>
+            modelBuilder.Entity("Authentication.Persistence.Post", b =>
                 {
-                    b.HasOne("Authentication.Persistence.Entities.ApplicationUser", "User")
+                    b.HasOne("Authentication.Persistence.ApplicationUser", "User")
                         .WithMany("Posts")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Authentication.Persistence.Entities.RefreshToken", b =>
-                {
-                    b.HasOne("Authentication.Persistence.Entities.ApplicationUser", "User")
-                        .WithMany("RefreshTokens")
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
@@ -300,7 +261,7 @@ namespace Authentication.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Authentication.Persistence.Entities.ApplicationUser", null)
+                    b.HasOne("Authentication.Persistence.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -309,7 +270,7 @@ namespace Authentication.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Authentication.Persistence.Entities.ApplicationUser", null)
+                    b.HasOne("Authentication.Persistence.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -324,7 +285,7 @@ namespace Authentication.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Authentication.Persistence.Entities.ApplicationUser", null)
+                    b.HasOne("Authentication.Persistence.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -333,18 +294,16 @@ namespace Authentication.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Authentication.Persistence.Entities.ApplicationUser", null)
+                    b.HasOne("Authentication.Persistence.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Authentication.Persistence.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("Authentication.Persistence.ApplicationUser", b =>
                 {
                     b.Navigation("Posts");
-
-                    b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618
         }
