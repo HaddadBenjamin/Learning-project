@@ -5,7 +5,7 @@ const apiUrl = "https://localhost:44326";
 const signInEndpoint = `${apiUrl}/authentication/signin`;
 const logiEndpoint = `${apiUrl}/authentication/login`;
 const logoutEndpoint = `${apiUrl}/authentication/logout`;
-const refreshtTokenEndpoint = `${apiUrl}/authentication/refreshtoken`;
+const refreshTokenEndpoint = `${apiUrl}/authentication/refreshtoken`;
 const revokeRefreshTokenEndpoint = `${apiUrl}/authentication/revokerefreshtoken`;
 const getPostsEndpoints = `${apiUrl}/post/`;
 const defaultHeaders = {
@@ -86,23 +86,18 @@ const AuthenticationForm = () =>
     }
     async function callRefreshToken()
     {
-        fetch(refreshtTokenEndpoint,
+      await axios(
         {
-          method: 'post',
-          headers:  defaultHeaders,
-          body: JSON.stringify({ AccessToken : accessToken, RefreshToken : refreshToken }),
+          method: 'POST',
+          url: refreshTokenEndpoint,
+          headers: defaultHeaders,
+          data: JSON.stringify({ AccessToken : accessToken, RefreshToken : refreshToken }),
         })
         .then(response =>
         {
-            if (response.ok) return response.json();
-            else throw new Error('Something went wrong');
-        })
-        .then(data =>
-        {
-          setAccessToken(data.AccessToken);
-          setRefreshToken(data.RefreshToken);
-        })
-        .catch(function(error) { console.log(JSON.stringify(error)); });
+            setAccessToken(response.data.AccessToken);
+            setRefreshToken(response.data.RefreshToken);
+        },    error =>console.log(JSON.stringify(error)));
     }
     function onClickRevokeRefreshToken()
     { 
@@ -123,6 +118,8 @@ const AuthenticationForm = () =>
         if (tokenHasExpired === true)
         {
             await callRefreshToken();
+            // Pour une raison que j'ignore l'access token n'a pas eu le temps de se mettre à jour
+            // avant d'appeler de nouveau getPosts() ce qui fait qu'il y a toujours une 401 avec un token expiré.
             await getPosts();
         }
     }
@@ -150,6 +147,8 @@ const AuthenticationForm = () =>
                     
                     if (error.response.status === 401 && error.response.headers['token-expired'])
                         tokenHasExpired = true;
+
+                    setPosts(null);
                 });
 
           return tokenHasExpired;
@@ -157,22 +156,22 @@ const AuthenticationForm = () =>
 
     function renderPage()
     {
-      if (!isConnected)
-          return <>
-              <input ref={emailRef} type="text" placeholder="Email address" />
-              <input ref={passwordRef}  type="text" placeholder="Password"/>
-              <button onClick={onClickSignIn}>Sign In</button>
-              <button onClick={onClickLogin}>Login</button>
-          </>;
-      else
-          return <>
-              <p>You're connected</p>
-              <button onClick={onClickLogout}>Logout</button>
-              <button onClick={onClickRevokeRefreshToken}>Revoke refresh token</button>
-              <button onClick={onClickGetPosts}>Get posts</button>
-              <h2>The posts :</h2>
-              {posts !== undefined && JSON.stringify(posts)}
-          </>
+        if (!isConnected)
+            return <>
+                <input ref={emailRef} type="text" placeholder="Email address" />
+                <input ref={passwordRef}  type="text" placeholder="Password"/>
+                <button onClick={onClickSignIn}>Sign In</button>
+                <button onClick={onClickLogin}>Login</button>
+            </>;
+        else
+            return <>
+                <p>You're connected</p>
+                <button onClick={onClickLogout}>Logout</button>
+                <button onClick={onClickRevokeRefreshToken}>Revoke refresh token</button>
+                <button onClick={onClickGetPosts}>Get posts</button>
+                <h2>The posts :</h2>
+                {posts !== undefined && JSON.stringify(posts)}
+            </>
     }
     return (
         <>

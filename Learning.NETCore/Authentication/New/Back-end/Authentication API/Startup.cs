@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using Authentication.Configurations;
 using Authentication.Exceptions;
 using Authentication.Persistence;
@@ -69,10 +70,11 @@ namespace Authentication
                     _.TokenValidationParameters = tokenValidationParameters;
                     _.Events = new JwtBearerEvents
                     {
-                        OnAuthenticationFailed = async context =>
+                        OnAuthenticationFailed = context =>
                         {
-                            if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                            if (context.Exception is SecurityTokenExpiredException)
                                 context.Response.Headers.Add("Token-Expired", "true");
+                            return Task.CompletedTask;
                         }
                     };
                 });
