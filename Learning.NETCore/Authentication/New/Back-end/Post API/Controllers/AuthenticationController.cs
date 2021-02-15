@@ -13,7 +13,6 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.ComponentModel.DataAnnotations;
-using Authentication.Utilities;
 
 namespace Authentication.Controllers
 {
@@ -26,20 +25,29 @@ namespace Authentication.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly JwtConfiguration _jwtConfiguration;
         private readonly ApplicationDbContext _dbContext;
-        private readonly TokenUtilities _tokenUtilities;
+        private readonly TokenValidationParameters _tokenValidationParameters;
+
 
         public AuthenticationController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             JwtConfiguration jwtConfiguration,
             ApplicationDbContext dbContext,
-            TokenUtilities tokenUtilities)
+            TokenValidationParameters tokenValidationParameters)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _jwtConfiguration = jwtConfiguration;
             _dbContext = dbContext;
-            _tokenUtilities = tokenUtilities;
+            _tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateLifetime = false,
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                RequireExpirationTime = false,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = tokenValidationParameters.IssuerSigningKey,
+            };
         }
 
         /// <summary>
@@ -120,10 +128,12 @@ namespace Authentication.Controllers
         public async Task<IActionResult> RefreshToken(RefreshTokenRequest request)
         {
             var (accessToken, refreshToken) = (request.AccessToken, request.RefreshToken);
-            
-            _tokenUtilities.ValidateAccessToken(accessToken);
+            var tokenIsValid = ValidateToken(accessToken);
 
-            var claimsPrincipal = _tokenUtilities.GetTokenClaimsPrincipal(request.AccessToken);
+            if (!tokenIsValid)
+                throw new BadRequestException("The token is not valid");
+
+            var claimsPrincipal = GetTokenClaimsPrincipal(request.AccessToken);
             var expiryDateUnix = long.Parse(claimsPrincipal.Claims.Single(c => c.Type == JwtRegisteredClaimNames.Exp).Value);
             var expiryDateUtc = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(expiryDateUnix);
             var tokenHasExpired = DateTime.UtcNow > expiryDateUtc;
@@ -171,15 +181,17 @@ namespace Authentication.Controllers
         public IActionResult RevokeRefreshToken(RevokeRefreshTokenRequest request)
         {
             var (accessToken, refreshToken) = (request.AccessToken, request.RefreshToken);
-            
-            _tokenUtilities.ValidateAccessToken(accessToken);
+            var tokenIsValid = ValidateToken(accessToken);
+
+            if (!tokenIsValid)
+                throw new BadRequestException("The token is not valid");
 
             var userRefreshToken = _dbContext.RefreshTokens.SingleOrDefault(r => r.RefreshTokenValue == refreshToken);
 
             if (userRefreshToken == null)
                 throw new NotFoundException(nameof(RefreshToken), refreshToken);
 
-            var claimsPrincipal = _tokenUtilities.GetTokenClaimsPrincipal(request.AccessToken);
+            var claimsPrincipal = GetTokenClaimsPrincipal(request.AccessToken);
             var jtiClaimValue = claimsPrincipal.Claims.Single(c => c.Type == JwtRegisteredClaimNames.Jti).Value;
             var refreshTokenMatchWithTheAccessToken = jtiClaimValue == userRefreshToken.JwtId;
 
@@ -242,6 +254,25 @@ namespace Authentication.Controllers
 
             return refreshToken;
         }
+
+        private bool ValidateToken(string token)
+        {
+            try
+            {
+                new JwtSecurityTokenHandler().ValidateToken(token, _tokenValidationParameters, out var securityAccessToken);
+               
+                var tokenIsValid = (securityAccessToken is JwtSecurityToken jwtSecurityToken) &&
+                     jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase);
+
+                return tokenIsValid;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        private ClaimsPrincipal GetTokenClaimsPrincipal(string token) => new JwtSecurityTokenHandler().ValidateToken(token, _tokenValidationParameters, out var _);
     }
 
     public class LogoutRequest

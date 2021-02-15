@@ -8,6 +8,7 @@ namespace Authentication.Persistence
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {   
+        public DbSet<Post> Posts { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> dbContextOptions) : base(dbContextOptions) { }
@@ -15,6 +16,15 @@ namespace Authentication.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            var post = modelBuilder.Entity<Post>();
+
+            post.HasKey(_ => _.Id);
+            post.HasIndex(_ => _.Id);
+            post
+                .HasOne(po => po.User)
+                .WithMany(a => a.Posts)
+                .HasForeignKey(po => po.UserId);
 
             var refreshToken = modelBuilder.Entity<RefreshToken>();
 
@@ -29,7 +39,18 @@ namespace Authentication.Persistence
 
     public class ApplicationUser : IdentityUser
     {
+        public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
+    }
+
+    public class Post
+    {
+        public Guid Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+
+        public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
     }
 
     public class RefreshToken

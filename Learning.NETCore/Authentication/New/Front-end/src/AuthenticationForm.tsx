@@ -1,13 +1,14 @@
 import React, { useRef, useState } from 'react';
 import axios from "axios";
 
-const apiUrl = "https://localhost:44326";
-const signInEndpoint = `${apiUrl}/authentication/signin`;
-const logiEndpoint = `${apiUrl}/authentication/login`;
-const logoutEndpoint = `${apiUrl}/authentication/logout`;
-const refreshTokenEndpoint = `${apiUrl}/authentication/refreshtoken`;
-const revokeRefreshTokenEndpoint = `${apiUrl}/authentication/revokerefreshtoken`;
-const getPostsEndpoints = `${apiUrl}/post/`;
+const authenticationApiUrl = "https://localhost:44326";
+const signInEndpoint = `${authenticationApiUrl}/authentication/signin`;
+const logiEndpoint = `${authenticationApiUrl}/authentication/login`;
+const logoutEndpoint = `${authenticationApiUrl}/authentication/logout`;
+const refreshTokenEndpoint = `${authenticationApiUrl}/authentication/refreshtoken`;
+const revokeRefreshTokenEndpoint = `${authenticationApiUrl}/authentication/revokerefreshtoken`;
+const getMyUserEndpoint = `${authenticationApiUrl}/user/me`;
+const getPostEndpoint = `${authenticationApiUrl}/post`;
 const defaultHeaders = {
   'Accept': 'application/json',
   'Content-Type': 'application/json',
@@ -21,6 +22,7 @@ const AuthenticationForm = () =>
     const emailRef : any = useRef(null);
     const passwordRef : any = useRef(null);
     const [posts, setPosts] = useState(null);
+    const [myUser, setMyUser] = useState(null);
 
     function onClickSignIn()
     {
@@ -131,7 +133,7 @@ const AuthenticationForm = () =>
         await axios(
           {
             method: 'GET',
-            url: getPostsEndpoints,
+            url: getPostEndpoint,
             headers:
             {
               'Accept': 'application/json',
@@ -153,6 +155,48 @@ const AuthenticationForm = () =>
 
           return tokenHasExpired;
     }
+    async function onClickGetMyUser()
+    { 
+        var tokenHasExpired = await getMyUser();
+
+        if (tokenHasExpired === true)
+        {
+            await callRefreshToken();
+            // Pour une raison que j'ignore l'access token n'a pas eu le temps de se mettre à jour
+            // avant d'appeler de nouveau getPosts() ce qui fait qu'il y a toujours une 401 avec un token expiré.
+            await getMyUser();
+        }
+    }
+
+    async function getMyUser() : Promise<any>
+    {
+        var tokenHasExpired = false;
+        
+        await axios(
+        {
+            method: 'GET',
+            url: getMyUserEndpoint,
+            headers:
+            {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization' : `Bearer ${accessToken}`
+            },
+            data: {}
+          })
+          .then(response => setMyUser(response.data), 
+                error =>
+                {
+                    console.log(JSON.stringify(error));
+                    
+                    if (error.response.status === 401 && error.response.headers['token-expired'])
+                        tokenHasExpired = true;
+
+                    setMyUser(null);
+                });
+
+          return tokenHasExpired;
+    }
 
     function renderPage()
     {
@@ -168,7 +212,10 @@ const AuthenticationForm = () =>
                 <p>You're connected</p>
                 <button onClick={onClickLogout}>Logout</button>
                 <button onClick={onClickRevokeRefreshToken}>Revoke refresh token</button>
+                <button onClick={onClickGetMyUser}>Get my user</button>
                 <button onClick={onClickGetPosts}>Get posts</button>
+                <h2>My user :</h2>
+                {myUser !== undefined && JSON.stringify(myUser)}
                 <h2>The posts :</h2>
                 {posts !== undefined && JSON.stringify(posts)}
             </>

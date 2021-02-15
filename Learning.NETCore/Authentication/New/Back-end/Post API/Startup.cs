@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Authentication.Configurations;
 using Authentication.Exceptions;
 using Authentication.Persistence;
-using Authentication.Utilities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -64,7 +63,6 @@ namespace Authentication
             services
                 .AddSingleton(jwtConfiguration)
                 .AddSingleton(tokenValidationParameters)
-                .AddSingleton<TokenUtilities>()
                 .AddAuthentication(_ => _.DefaultAuthenticateScheme = _.DefaultScheme = _.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(_ =>
                 {

@@ -19,7 +19,7 @@ namespace Authentication.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.3");
 
-            modelBuilder.Entity("Authentication.Persistence.ApplicationUser", b =>
+            modelBuilder.Entity("Authentication.Persistence.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -84,7 +84,31 @@ namespace Authentication.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Authentication.Persistence.RefreshToken", b =>
+            modelBuilder.Entity("Authentication.Persistence.Entities.Post", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("Authentication.Persistence.Entities.RefreshToken", b =>
                 {
                     b.Property<string>("RefreshTokenValue")
                         .HasColumnType("nvarchar(450)");
@@ -247,9 +271,18 @@ namespace Authentication.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Authentication.Persistence.RefreshToken", b =>
+            modelBuilder.Entity("Authentication.Persistence.Entities.Post", b =>
                 {
-                    b.HasOne("Authentication.Persistence.ApplicationUser", "User")
+                    b.HasOne("Authentication.Persistence.Entities.ApplicationUser", "User")
+                        .WithMany("Posts")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Authentication.Persistence.Entities.RefreshToken", b =>
+                {
+                    b.HasOne("Authentication.Persistence.Entities.ApplicationUser", "User")
                         .WithMany("RefreshTokens")
                         .HasForeignKey("UserId");
 
@@ -267,7 +300,7 @@ namespace Authentication.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Authentication.Persistence.ApplicationUser", null)
+                    b.HasOne("Authentication.Persistence.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -276,7 +309,7 @@ namespace Authentication.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Authentication.Persistence.ApplicationUser", null)
+                    b.HasOne("Authentication.Persistence.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -291,7 +324,7 @@ namespace Authentication.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Authentication.Persistence.ApplicationUser", null)
+                    b.HasOne("Authentication.Persistence.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -300,15 +333,17 @@ namespace Authentication.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Authentication.Persistence.ApplicationUser", null)
+                    b.HasOne("Authentication.Persistence.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Authentication.Persistence.ApplicationUser", b =>
+            modelBuilder.Entity("Authentication.Persistence.Entities.ApplicationUser", b =>
                 {
+                    b.Navigation("Posts");
+
                     b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618
