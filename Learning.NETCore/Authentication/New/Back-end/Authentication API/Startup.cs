@@ -56,6 +56,7 @@ namespace Authentication
                 ValidateAudience = false,
                 RequireExpirationTime = false,
                 ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero
             };
 
             services
@@ -66,6 +67,14 @@ namespace Authentication
                 {
                     _.SaveToken = true;
                     _.TokenValidationParameters = tokenValidationParameters;
+                    _.Events = new JwtBearerEvents
+                    {
+                        OnAuthenticationFailed = async context =>
+                        {
+                            if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                                context.Response.Headers.Add("Token-Expired", "true");
+                        }
+                    };
                 });
 
             // Database 
@@ -126,7 +135,7 @@ namespace Authentication
             app
                 .UseHttpsRedirection()
                 .UseRouting()
-                .UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())
+                .UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().WithExposedHeaders("Token-Expired"))
 
                 .UseAuthentication()
                 .UseAuthorization()
