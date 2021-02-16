@@ -1,9 +1,11 @@
 using System.Threading.Tasks;
+using Authentication.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Refit;
 
-namespace Authentication.Middlewares
+namespace Post.Middlewares
 {
     public class ApiKeyMiddleware
     {

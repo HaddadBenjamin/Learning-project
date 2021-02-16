@@ -1,26 +1,25 @@
 using System;
 using System.IO;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Authentication.Configurations;
-using Authentication.Exceptions;
-using Authentication.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
+using Post.Authentication;
+using Post.Configurations;
+using Post.Exceptions;
+using Post.Middlewares;
+using Post.Persistence;
+using Refit;
 
-namespace Authentication
+namespace Post
 {
     public class Startup
     {
@@ -45,46 +44,10 @@ namespace Authentication
 
             services
                 .AddCors()
-                .AddRouting(options => options.LowercaseUrls = true);
-
-            // Authentication
-            var jwtConfiguration = _configuration.GetSection("Jwt").Get<JwtConfiguration>();
-            var tokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtConfiguration.Secret)),
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                RequireExpirationTime = false,
-                ValidateLifetime = true,
-                ClockSkew = TimeSpan.Zero
-            };
-
-            services
-                .AddSingleton(jwtConfiguration)
-                .AddSingleton(tokenValidationParameters)
-                .AddAuthentication(_ => _.DefaultAuthenticateScheme = _.DefaultScheme = _.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(_ =>
-                {
-                    _.SaveToken = true;
-                    _.TokenValidationParameters = tokenValidationParameters;
-                    _.Events = new JwtBearerEvents
-                    {
-                        OnAuthenticationFailed = context =>
-                        {
-                            if (context.Exception is SecurityTokenExpiredException)
-                                context.Response.Headers.Add("Token-Expired", "true");
-                            return Task.CompletedTask;
-                        }
-                    };
-                });
+                .AddRouting(options => options.LowercaseUrls = true)
+                .AddHttpContextAccessor();
 
             // Database 
-            services
-               .AddIdentity<ApplicationUser, IdentityRole>()
-               .AddEntityFrameworkStores<ApplicationDbContext>()
-               .AddSignInManager<SignInManager<ApplicationUser>>();
-
             var writeModelConfiguration = _configuration.GetSection("WriteModel").Get<WriteModelConfiguration>();
 
             services
@@ -122,6 +85,15 @@ namespace Authentication
                     new string[] {}
                 }});
             });
+
+            // Authentication API Client
+            var authenticationApiConfiguration = _configuration.GetSection("AuthenticationClient").Get<AuthenticationClientConfiguration>();
+
+            services
+                .AddSingleton(authenticationApiConfiguration)
+                .AddScoped<IUserApi, UserApi>()
+                .AddRefitClient<IUserApiClient>()
+                .ConfigureHttpClient(_ => _.BaseAddress = new Uri($"{authenticationApiConfiguration.Url}/user"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -145,5 +117,4 @@ namespace Authentication
                 .UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
-
 }

@@ -2,13 +2,14 @@ import React, { useRef, useState } from 'react';
 import axios from "axios";
 
 const authenticationApiUrl = "https://localhost:44326";
+const postApiUrl = "https://localhost:44327";
 const signInEndpoint = `${authenticationApiUrl}/authentication/signin`;
 const logiEndpoint = `${authenticationApiUrl}/authentication/login`;
 const logoutEndpoint = `${authenticationApiUrl}/authentication/logout`;
 const refreshTokenEndpoint = `${authenticationApiUrl}/authentication/refreshtoken`;
 const revokeRefreshTokenEndpoint = `${authenticationApiUrl}/authentication/revokerefreshtoken`;
 const getMyUserEndpoint = `${authenticationApiUrl}/user/me`;
-const getPostEndpoint = `${authenticationApiUrl}/post`;
+const getPostEndpoint = `${postApiUrl}/post`;
 const defaultHeaders = {
   'Accept': 'application/json',
   'Content-Type': 'application/json',

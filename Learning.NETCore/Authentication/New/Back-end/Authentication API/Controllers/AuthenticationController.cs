@@ -47,7 +47,7 @@ namespace Authentication.Controllers
         /// </summary>
         [HttpPost]
         [Route("signIn")]
-        public async Task<IActionResult> SignIn(UserRegistrationRequest request)
+        public async Task<IActionResult> SignIn(UserRegistrationDto request)
         {
             var (email, password) = (request.Email, request.Password);
             var userExists = await _userManager.FindByEmailAsync(email) != null;
@@ -75,7 +75,7 @@ namespace Authentication.Controllers
         /// </summary>
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login(UserLoginRequest request)
+        public async Task<IActionResult> Login(UserLoginDto request)
         {
             var (email, password) = (request.Email, request.Password);
             var user = await _userManager.FindByEmailAsync(email);
@@ -97,13 +97,13 @@ namespace Authentication.Controllers
         [HttpPost]
         [Route("logout")]
         [Authorize]
-        public async Task<IActionResult> Logout(LogoutRequest request)
+        public async Task<IActionResult> Logout(LogoutDto request)
         {
             var (accessToken, refreshToken) = (request.AccessToken, request.RefreshToken);
 
             _signInManager.SignOutAsync();
 
-            RevokeRefreshToken(new RevokeRefreshTokenRequest
+            RevokeRefreshToken(new RevokeRefreshTokenDto
             {
                 AccessToken = request.AccessToken,
                 RefreshToken = request.RefreshToken
@@ -117,7 +117,7 @@ namespace Authentication.Controllers
         /// </summary>
         [HttpPost]
         [Route("refreshToken")]
-        public async Task<IActionResult> RefreshToken(RefreshTokenRequest request)
+        public async Task<IActionResult> RefreshToken(RefreshTokenDto request)
         {
             var (accessToken, refreshToken) = (request.AccessToken, request.RefreshToken);
             
@@ -168,7 +168,7 @@ namespace Authentication.Controllers
         /// </summary>
         [HttpPost]
         [Route("revokeRefreshToken")]
-        public IActionResult RevokeRefreshToken(RevokeRefreshTokenRequest request)
+        public IActionResult RevokeRefreshToken(RevokeRefreshTokenDto request)
         {
             var (accessToken, refreshToken) = (request.AccessToken, request.RefreshToken);
             
@@ -244,37 +244,31 @@ namespace Authentication.Controllers
         }
     }
 
-    public class LogoutRequest
+    public class LogoutDto
+    {
+        [Required] public string AccessToken { get; set; }
+        [Required] public string RefreshToken { get; set; }
+    }
+    
+    public class RefreshTokenDto
     {
         [Required] public string AccessToken { get; set; }
         [Required] public string RefreshToken { get; set; }
     }
 
-    public class CreatePostRequest
-    {
-        [Required] public string Title { get; set; }
-        [Required] public string Description { get; set; }
-    }
-
-    public class RefreshTokenRequest
+    public class RevokeRefreshTokenDto
     {
         [Required] public string AccessToken { get; set; }
         [Required] public string RefreshToken { get; set; }
     }
 
-    public class RevokeRefreshTokenRequest
-    {
-        [Required] public string AccessToken { get; set; }
-        [Required] public string RefreshToken { get; set; }
-    }
-
-    public class UserLoginRequest
+    public class UserLoginDto
     {
         [Required] public string Email { get; set; }
         [Required] public string Password { get; set; }
     }
 
-    public class UserRegistrationRequest
+    public class UserRegistrationDto
     {
         [Required] [EmailAddress] public string Email { get; set; }
         [Required] public string Password { get; set; }

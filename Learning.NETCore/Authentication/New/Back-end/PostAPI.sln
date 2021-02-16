@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentification", "Authentication API\Authentification.csproj", "{BCD8E3B5-0A85-4BD6-90F2-38849ADBDD7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Post", "Post API\Post.csproj", "{87BD2AC2-3A2F-4571-B1D8-62DE326CEBE3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication.Contracts", "Authentication.Contracts\Authentication.Contracts.csproj", "{1C91E156-70E0-4A41-AB1D-DEE54B146DAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BCD8E3B5-0A85-4BD6-90F2-38849ADBDD7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BCD8E3B5-0A85-4BD6-90F2-38849ADBDD7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BCD8E3B5-0A85-4BD6-90F2-38849ADBDD7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BCD8E3B5-0A85-4BD6-90F2-38849ADBDD7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87BD2AC2-3A2F-4571-B1D8-62DE326CEBE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87BD2AC2-3A2F-4571-B1D8-62DE326CEBE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87BD2AC2-3A2F-4571-B1D8-62DE326CEBE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87BD2AC2-3A2F-4571-B1D8-62DE326CEBE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C91E156-70E0-4A41-AB1D-DEE54B146DAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C91E156-70E0-4A41-AB1D-DEE54B146DAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C91E156-70E0-4A41-AB1D-DEE54B146DAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C91E156-70E0-4A41-AB1D-DEE54B146DAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
