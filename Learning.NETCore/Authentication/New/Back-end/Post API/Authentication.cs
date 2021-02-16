@@ -1,4 +1,5 @@
-﻿using Authentication.Contracts;
+﻿using System.Threading.Tasks;
+using Authentication.Contracts;
 using Microsoft.AspNetCore.Http;
 using Refit;
 
@@ -6,27 +7,39 @@ namespace Post.Authentication
 {
     public interface IAuthenticationContext
     {
-        public UserDto MyUser { get; set; }
+        public UserDto MyUser { get; }
     }
 
     public class AuthenticationContext : IAuthenticationContext
     {
-        public AuthenticationContext(IUserApi userApi) => MyUser = userApi.Me();
+        private readonly IUserApi _userApi;
+        private UserDto _myUser;
 
-        public UserDto MyUser { get; set; }
+        public AuthenticationContext(IUserApi userApi) => _userApi = userApi;
+
+        public UserDto MyUser
+        { 
+            get
+            {
+                if (_myUser == null)
+                    _myUser = _userApi.Me().Result;
+              
+                return _myUser;
+            }
+        }
     }
 
     [Headers("Content-Type: application/json",
              "Accept: application/json")]
     public interface IUserApiClient
     {
-        [Get("me")]
-        public UserDto Me([Header("Authorization")] string authorization);
+        [Get("/me")]
+        public Task<UserDto> Me([Header("Authorization")] string authorization);
     }
 
     public interface IUserApi
     {
-        public UserDto Me();
+        public Task<UserDto> Me();
     }
 
     public class UserApi : IUserApi
@@ -40,13 +53,13 @@ namespace Post.Authentication
             _userApiClient = userApiClient;
         }
 
-        public UserDto Me()
+        public async Task<UserDto> Me()
         {
             var authorizationHeader = Helpers.Helpers.GetHeaderOrDefault(_httpContextAccessor.HttpContext, "Authorization");
 
             try
             {
-                return _userApiClient.Me(authorizationHeader);
+                return await _userApiClient.Me(authorizationHeader);
             }
             catch (ApiException e)
             {

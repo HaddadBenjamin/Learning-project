@@ -5,8 +5,9 @@
         public string ConnectionString { get; set; }
     }
 
-    public class AuthenticationClientConfiguration
+    public class AuthenticationConfiguration
     {
         public string Url { get; set; }
+        public string Secret { get; set; }
     }
 }

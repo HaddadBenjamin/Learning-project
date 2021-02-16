@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using Post.Authentication;
@@ -46,6 +49,41 @@ namespace Post
                 .AddCors()
                 .AddRouting(options => options.LowercaseUrls = true)
                 .AddHttpContextAccessor();
+            
+            // Authentication
+            var authenticationConfiguration = _configuration.GetSection("Authentication").Get<AuthenticationConfiguration>();
+
+            services
+                .AddSingleton(authenticationConfiguration)
+                .AddAuthentication(_ => _.DefaultAuthenticateScheme = _.DefaultScheme = _.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(_ =>
+                {
+                    _.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(authenticationConfiguration.Secret)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        RequireExpirationTime = false,
+                        ValidateLifetime = false,
+                        ClockSkew = TimeSpan.Zero
+                    };
+                    _.Events = new JwtBearerEvents
+                    {
+                        OnAuthenticationFailed = context =>
+                        {
+                            if (context.Exception is SecurityTokenExpiredException)
+                                context.Response.Headers.Add("Token-Expired", "true");
+                            return Task.CompletedTask;
+                        }
+                    };
+                });
+
+            services
+                .AddScoped<IAuthenticationContext, AuthenticationContext>()
+                .AddScoped<IUserApi, UserApi>()
+                .AddRefitClient<IUserApiClient>()
+                .ConfigureHttpClient(_ => _.BaseAddress = new Uri($"{authenticationConfiguration.Url}/user"));
 
             // Database 
             var writeModelConfiguration = _configuration.GetSection("WriteModel").Get<WriteModelConfiguration>();
@@ -85,15 +123,6 @@ namespace Post
                     new string[] {}
                 }});
             });
-
-            // Authentication API Client
-            var authenticationApiConfiguration = _configuration.GetSection("AuthenticationClient").Get<AuthenticationClientConfiguration>();
-
-            services
-                .AddSingleton(authenticationApiConfiguration)
-                .AddScoped<IUserApi, UserApi>()
-                .AddRefitClient<IUserApiClient>()
-                .ConfigureHttpClient(_ => _.BaseAddress = new Uri($"{authenticationApiConfiguration.Url}/user"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -110,8 +139,7 @@ namespace Post
                 .UseHttpsRedirection()
                 .UseRouting()
                 .UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().WithExposedHeaders("Token-Expired"))
-
-                .UseAuthentication()
+                
                 .UseAuthorization()
 
                 .UseEndpoints(endpoints => endpoints.MapControllers());
