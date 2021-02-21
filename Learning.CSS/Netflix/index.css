@@ -1,5 +1,134 @@
-body
+@font-face
+{
+    font-family: "Netflix Sans";
+    src: url("/Fonts/Netflix.ttf") format("ttf");
+}
+   
+*
 {
     box-sizing: border-box;
     margin : 0;
+    padding : 0;
+    color : white;
+
+    font-family : "Netflix Sans", "Helvetica Neue", Helvetica;
+    font-smooth : antialiased;
+    line-height : 1.1; 
 }
+h1
+{
+    font-size: 3.88rem;
+    font-weight :bold;
+
+    margin-top : 20px;
+    margin-bottom : 20px;
+}
+h4
+{
+    font-size : 1.218rem;
+    font-weight : 300;
+    line-height : 1.33; 
+
+    margin-top : 33px;
+    margin-bottom : 18px;
+}
+p
+{
+    font-size : 1.655rem;
+    font-weight : 400;
+
+    margin-top : 20px;
+    margin-bottom : 20px;
+}
+
+.header-container
+{
+    display : flex;
+    justify-content : space-between;
+  
+    padding-top : 23px;
+    padding-right : 56px;
+    padding-left : 53px;
+}
+.header-logo { width:  173px; }
+.login-button
+{
+    background : #e50914;
+    padding: 8.5px 17.5px;
+    font-weight: 400;
+    font-size: 1.04rem;
+    border-radius: 3px;
+    height : 100%;
+    margin-top : 5px;
+}
+.login-button:hover
+{
+    cursor: pointer;
+    filter: brightness(107.5%);
+}
+.main-page
+{
+    position : absolute;
+    top : 0px;
+    width : 100%;
+    height : 105vh;
+    z-index : -1;
+    box-shadow :
+        inset 480px 400px 1000px rgba(0,0,0,0.4),
+        inset -480px -400px 1000px rgba(0,0,0,0.4),
+        inset 120px 100px 250px rgba(0,0,0,0.5),
+        inset -120px -100px 250px rgba(0,0,0,0.5);
+
+}
+.main-page
+{
+    background: url("Images/background.jpg");
+    background-size : cover;
+}
+.main-page-container
+{
+    width : 855px;
+    margin : auto;
+    margin-top : 15.5rem;
+    text-align : center;
+}
+.main-page-title
+{ 
+    width : 800px !important;
+    margin : auto;
+}
+.signin-container
+{
+    display : flex;
+    justify-content: center;
+    height : 70px;
+}
+.email-text-border
+{
+    width : 500px;
+    background: white;
+    border-radius : 2px 0px 0px 2px;
+}
+.email-text-placeholder
+{
+    position: relative;
+    margin-right : 375px;
+    top : 25px;
+
+    color : #8c8c8c;
+    font-size : 16px;
+}
+.send-signin-button
+{
+    background: #e50914;
+    font-size : 1.9rem;
+    padding: 1rem 1.9rem;
+    margin-left : 2px;
+    border-radius : 0px 2px 2px 0px;
+}
+.send-signin-button:hover
+{
+    cursor: pointer; 
+    filter: brightness(107.5%);
+}
+.send-signin-button img { height : 18px; }
