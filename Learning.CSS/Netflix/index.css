@@ -204,8 +204,8 @@ p
     max-width : 1245px;
 }
 @media only screen and (max-width: 1225px) { .tv-page-container { column-gap: .5rem; } }
-@media only screen and (max-width: 1150px) { .tv-page-container { padding-right : 50px; padding-left : 50px; flex-direction: column; padding-bottom : 335px; padding-top : 50px;} }
-@media only screen and (max-width: 650px) { .tv-page-container { padding-right : 30px; padding-left : 30px;} }
+@media only screen and (max-width: 1150px) { .tv-page-container { padding : 50px 50px 335px 50px; flex-direction: column; } }
+@media only screen and (max-width: 650px) { .tv-page-container { padding : auto 30px auto 30px; } }
 
 .tv-page-element { width : 50%;  }
 @media only screen and (max-width: 1150px) { .tv-page-element { width : 100%;  }}
@@ -215,7 +215,6 @@ p
 .tv-video
 {
     position : absolute;
-
     margin : -5px 0px 0px 70px;
 
     width : clamp(0px, 39.7356%, 390px);
@@ -244,15 +243,14 @@ p
 {
     .tv-image
     {
-        margin-top : -5px;
-        padding-top : -130px;
-        width : clamp(530px, 60%, 670px);
         left : 0%;
         right : 0%;
-        margin-left : auto;
-        margin-right : auto;
+        margin : -5px auto auto auto;
+        padding-top : -130px;
+        
+        width : clamp(530px, 60%, 670px);
     }
 }
-@media only screen and (max-width: 1150px) { .tv-image { width : 349.8px; min-width : 349.8px; }}
+@media only screen and (max-width: 1150px) { .tv-image { width : clamp(349.8px, 349.8px, 670px); }}
 /* Cleaner & vérifier les intervales sur le P (line height) 1.1  & margins aussi, revoir ma main page & taille de font 1.6555
 Problème lorsque je resize ma page, le header est mal positionné */
