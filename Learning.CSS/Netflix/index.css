@@ -256,5 +256,102 @@ p
     }
 }
 @media only screen and (max-width: 1150px) { .tv-image { width : clamp(349.8px, 349.8px, 670px); }}
-/* Cleaner & vérifier les intervales sur le P (line height) 1.1  & margins aussi, revoir ma main page & taille de font 1.6555
-Problème lorsque je resize ma page, le header est mal positionné */
+
+/* Mobile page */
+.mobile-page { background: black; }
+
+.mobile-page-container
+{
+    display : flex;
+    justify-content: center;
+    column-gap: 3.8rem;
+
+    padding : 50px 40px 90px 40px;
+    margin: auto;
+
+    max-width : 1245px;  
+}
+
+@media only screen and (max-width: 1150px)
+{
+    .mobile-page-container
+    { 
+        width : 100%;
+        flex-direction: column; 
+        column-gap: 1rem;
+        padding : 30px 30px 90px 30px;
+    }
+}
+@media only screen and (max-width: 625px) { .mobile-page-container { padding-bottom : 30px; }}
+@media only screen and (max-width: 550px) { .mobile-page-container { padding-bottom : 25px; }}
+
+.mobile-first-page-element { margin-left : 20px; margin-top: -29px;}
+@media only screen and (max-width: 1150px)
+{
+    .mobile-first-page-element 
+    {
+        order : 2;
+        margin : -20px auto auto auto;
+        transform : scale(1.1);
+    }
+}
+@media only screen and (max-width: 625px)
+{ 
+    .mobile-first-page-element 
+    {
+        transform : scale(0.9);
+        margin : -50px auto auto auto;
+        margin-left : -25px !important;
+    }
+}
+@media only screen and (max-width: 550px)
+{ 
+    .mobile-first-page-element 
+    {
+        margin-left : -38px !important;
+        transform : scale(0.8);
+    }
+}
+
+.mobile-image { width: 504px; }
+
+.mobile-description { width : 60%; }
+@media only screen and (max-width: 1150px) { .mobile-description { width : 100%; }}
+
+.mobile-content-container
+{
+    display : flex;
+    column-gap: 1rem;
+    align-items: center;
+
+    background: black;
+    
+    border-radius : 10px;
+    border : 2px solid rgba(255,255,255,.25);
+    
+    position : absolute;
+    padding : 10px;
+    width : 350px;
+    margin-top: -135px;
+    margin-left : 71px;
+
+}
+.mobile-content-image { width : 57.13px; height : 80px; }
+
+.mobile-title-container {  margin : 20px 0px; }
+
+.mobile-title
+{
+    font-size : 1rem;
+    font-weight: 600;
+}
+
+.mobile-subtitle
+{
+    color: #0071eb;
+    font-weight: 400;
+    font-size : .9rem;
+    margin : 3px 0px 0px 0px;
+}
+
+.mobile-download-animation { height: 3.75em;}
