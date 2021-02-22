@@ -355,3 +355,79 @@ p
 }
 
 .mobile-download-animation { height: 3.75em;}
+
+/* Computer TV */
+.computer-page { background : black; }
+
+.computer-page-container
+{
+    display : flex;
+    justify-content: center;
+    column-gap: 2.5rem;
+
+    padding : 145px 75px 155px 75px;
+    margin: auto;
+
+    max-width : 1245px;
+}
+@media only screen and (max-width: 1350px) { .computer-page-container {  column-gap: 2rem; } }
+@media only screen and (max-width: 1150px)
+{ 
+    .computer-page-container
+    { 
+        flex-direction: column;
+        align-items: center;
+        padding : 55px 75px 335px 75px;
+    }
+}
+
+.computer-page-element { width : 50%;  }
+@media only screen and (max-width: 1150px) { .computer-page-element { width : 100%;  } }
+
+@media only screen and (max-width: 1350px) { .computer-container { transform : scale(0.85); margin-left : -50px;} }
+@media only screen and (max-width: 1150px) { .computer-container
+{ 
+    transform : scale(1); 
+    margin : 120px auto auto auto;
+    left : 0%;
+    right : 0%;
+} }
+@media only screen and (max-width: 850px) { .computer-container
+{
+    transform : scale(.85); 
+} }
+@media only screen and (max-width: 700px) { .computer-container
+{
+    transform : scale(.75); 
+} }
+
+
+.computer-video
+{
+    position : absolute;
+    margin : -65px 0px 0px 130px;
+  
+    width : 369px;
+}
+@media only screen and (max-width: 1150px) { .computer-video
+{
+    margin : -40px auto auto auto;
+    left : 90px;
+    right : 0%;
+} }
+
+.computer-image
+{
+    position : absolute;
+    margin : -100px 0px 0px 40px;
+
+    width : 555px;
+}
+
+@media only screen and (max-width: 1150px) { .computer-image
+{
+    margin : -75px auto auto auto;
+    left : 0%;
+    right : 0%;
+} }
+    
