@@ -1,3 +1,4 @@
+/* Shared */
 @font-face
 {
     font-family: "Netflix Sans";
@@ -27,6 +28,16 @@ h1
 @media only screen and (max-width: 1450px) { h1 {  font-size: 3rem; } }
 @media only screen and (max-width: 550px) { h1 {  font-size: 1.7rem; } }
 
+h2
+{
+    font-size: 3.1rem;
+    font-weight :600;
+
+    margin : 20px 0px;
+}
+@media only screen and (max-width: 1150px) { h2 {  font-size: 2.5rem; text-align: center; } }
+@media only screen and (max-width: 650px) { h2 {  font-size: 1.8rem; } }
+
 h4
 {
     font-size : 1.218rem;
@@ -40,15 +51,27 @@ h4
 
 p
 {
-    font-size : 1.655rem;
+    font-size : 1.58rem;
     font-weight : 400;
+    line-height : 1.3;
 
+    position :relative;
     margin : 20px 0px;
 }
-@media only screen and (max-width: 550px) { p { font-size: 1.1rem; } }
+@media only screen and (max-width: 1150px) { p {  font-size: 1.3rem; text-align: center; } }
 
+.page-separator
+{
+    width : 100%;
+    border-bottom: solid 10px rgb(34,34,34);
+    margin-top : -1px;
+}
+
+/* Header */
 .header-container
 {
+    position : absolute;
+    width : 100%;
     display : flex;
     justify-content : space-between;
   
@@ -80,12 +103,9 @@ p
 }
 @media only screen and (max-width: 550px) {  .header-button { font-size: 0.9rem; margin : 2px -32px 0 0; padding: 5.2px 9.5px; } }
 
+/* Main page */
 .main-page
 {
-    position : absolute;
-    z-index : -1;
-
-    top : 0px;
     width : 100%;
     height : 105vh;
 
@@ -98,16 +118,20 @@ p
     background: url("Images/background.jpg");
     background-size : cover;
 }
+@media only screen and (max-width: 750px) { .main-page{ height : 95vh; } }
+@media only screen and (max-width: 550px) { .main-page{ height : 80vh; } }
+
 .main-page-container
 {
     width : 855px;
     max-width : 100%;
-    margin : 15.5rem auto auto auto;
+    margin : auto;
+    padding-top : 15.5rem;
     
     text-align : center;
 }
-@media only screen and (max-width: 1450px) { .main-page-container {  margin-top : 14.5rem;} }
-@media only screen and (max-width: 950px) { .main-page-container {   width : 90%; margin-top : 9.5rem; } }
+@media only screen and (max-width: 1450px) { .main-page-container {  padding-top : 14.5rem;} }
+@media only screen and (max-width: 950px) { .main-page-container {   width : 90%; padding-top : 9.5rem; } }
 
 .main-page-title
 { 
@@ -123,7 +147,7 @@ p
     
     height : 70px;
 }
-@media only screen and (max-width: 950px) { .signin-container {  height : 48px; } }
+@media only screen and (max-width: 950px) { .signin-container {  height : 48px; margin-top : 25px; } }
 
 .signin-text-border
 {
@@ -164,3 +188,71 @@ p
 
 .signin-button img { height : 18px; }
 @media only screen and (max-width: 950px) { .signin-button img { height : 10px; } }
+
+/* Page TV */
+.tv-page { background : black; }
+
+.tv-page-container
+{
+    display : flex;
+    justify-content: center;
+    column-gap: minmax(4.5rem, 2.5rem);
+
+    padding : 100px 75px;
+    margin: auto;
+
+    max-width : 1245px;
+}
+@media only screen and (max-width: 1225px) { .tv-page-container { column-gap: .5rem; } }
+@media only screen and (max-width: 1150px) { .tv-page-container { padding-right : 50px; padding-left : 50px; flex-direction: column; padding-bottom : 335px; padding-top : 50px;} }
+@media only screen and (max-width: 650px) { .tv-page-container { padding-right : 30px; padding-left : 30px;} }
+
+.tv-page-element { width : 50%;  }
+@media only screen and (max-width: 1150px) { .tv-page-element { width : 100%;  }}
+
+@media only screen and (max-width: 1150px) { .tv-container { margin-top : 10px;  }}
+
+.tv-video
+{
+    position : absolute;
+
+    margin : -5px 0px 0px 70px;
+
+    width : clamp(0px, 39.7356%, 390px);
+}
+@media only screen and (max-width: 1150px)
+{ 
+    .tv-video
+    {
+        margin: 47px auto auto auto; 
+        left : 0%;
+        right : 0%;
+
+        width : clamp(390px, 52.98%, 520px);
+    }
+}
+@media only screen and (max-width: 1150px) { .tv-video {  width : 257.4px; min-width : 257.4px; }}
+
+.tv-image
+{
+    position : absolute;
+    margin-top : -85px;
+
+    width : clamp(0px, 45%, 530px);
+}
+@media only screen and (max-width: 1150px)
+{
+    .tv-image
+    {
+        margin-top : -5px;
+        padding-top : -130px;
+        width : clamp(530px, 60%, 670px);
+        left : 0%;
+        right : 0%;
+        margin-left : auto;
+        margin-right : auto;
+    }
+}
+@media only screen and (max-width: 1150px) { .tv-image { width : 349.8px; min-width : 349.8px; }}
+/* Cleaner & vérifier les intervales sur le P (line height) 1.1  & margins aussi, revoir ma main page & taille de font 1.6555
+Problème lorsque je resize ma page, le header est mal positionné */
