@@ -37,6 +37,7 @@ h2
 }
 @media only screen and (max-width: 1150px) { h2 {  font-size: 2.5rem; text-align: center; } }
 @media only screen and (max-width: 650px) { h2 {  font-size: 1.8rem; } }
+@media only screen and (max-width: 550px) { h2 {  font-size: 1.6rem; } }
 
 h4
 {
@@ -59,6 +60,7 @@ p
     margin : 20px 0px;
 }
 @media only screen and (max-width: 1150px) { p {  font-size: 1.3rem; text-align: center; } }
+@media only screen and (max-width: 550px) { p {  font-size: 1.075rem; margin-top :15px;  } }
 
 .page-separator
 {
@@ -139,6 +141,7 @@ p
     max-width : 100%;
     margin : auto;
 }
+@media only screen and (max-width: 1450px) { .main-page-title { width : 600px; } }
 
 .signin-container
 {
@@ -196,7 +199,7 @@ p
 {
     display : flex;
     justify-content: center;
-    column-gap: minmax(4.5rem, 2.5rem);
+    column-gap: 4.5rem;
 
     padding : 100px 75px;
     margin: auto;
@@ -205,12 +208,13 @@ p
 }
 @media only screen and (max-width: 1225px) { .tv-page-container { column-gap: .5rem; } }
 @media only screen and (max-width: 1150px) { .tv-page-container { padding : 50px 50px 335px 50px; flex-direction: column; } }
-@media only screen and (max-width: 650px) { .tv-page-container { padding : auto 30px auto 30px; } }
+@media only screen and (max-width: 650px) { .tv-page-container { padding-left: 30px; padding-right : 30px; } }
+@media only screen and (max-width: 550px) { .tv-page-container { padding-top : 35px; padding-bottom : 315px; } }
 
 .tv-page-element { width : 50%;  }
 @media only screen and (max-width: 1150px) { .tv-page-element { width : 100%;  }}
 
-@media only screen and (max-width: 1150px) { .tv-container { margin-top : 10px;  }}
+@media only screen and (max-width: 1150px) { .tv-container { margin-top : 0px;  }}
 
 .tv-video
 {
