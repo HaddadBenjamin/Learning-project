@@ -301,7 +301,7 @@ p
     {
         transform : scale(0.9);
         margin : -50px auto auto auto;
-        margin-left : -25px !important;
+        width : 100%;
     }
 }
 @media only screen and (max-width: 550px)
@@ -380,6 +380,8 @@ p
         padding : 55px 75px 335px 75px;
     }
 }
+@media only screen and (max-width: 750px) { .computer-page-container { padding : 30px 30px 315px 30px; } }
+@media only screen and (max-width: 650px) { .computer-page-container { padding : 30px 30px 250px 30px; } }
 
 .computer-page-element { width : 50%;  }
 @media only screen and (max-width: 1150px) { .computer-page-element { width : 100%;  } }
@@ -394,13 +396,15 @@ p
 } }
 @media only screen and (max-width: 850px) { .computer-container
 {
+    width : 600px;
     transform : scale(.85); 
+    margin : 80px -50px auto -50px; 
 } }
 @media only screen and (max-width: 700px) { .computer-container
 {
-    transform : scale(.75); 
+    transform : scale(.65); 
+    margin : 60px -40px auto -40px; 
 } }
-
 
 .computer-video
 {
@@ -411,8 +415,8 @@ p
 }
 @media only screen and (max-width: 1150px) { .computer-video
 {
-    margin : -40px auto auto auto;
-    left : 90px;
+    margin : -40px auto auto auto;  
+    left : -5px;
     right : 0%;
 } }
 
@@ -430,4 +434,9 @@ p
     left : 0%;
     right : 0%;
 } }
+@media only screen and (max-width: 750px) { .computer-image
+{
+
+} }
+        
     
