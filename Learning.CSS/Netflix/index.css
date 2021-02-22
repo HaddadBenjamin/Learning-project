@@ -170,7 +170,7 @@ p
     color : #8c8c8c;
     font-size : 16px;
 }
-@media only screen and (max-width: 950px){ .signin-text-placeholder {  font-size : 14px; top : 15px; margin-right : 175px; } }
+@media only screen and (max-width: 950px){ .signin-text-placeholder { font-size : 14px; top : 15px; margin-right : 175px; } }
 
 .signin-button
 {
@@ -223,17 +223,14 @@ p
 
     width : clamp(0px, 39.7356%, 390px);
 }
-@media only screen and (max-width: 1150px)
-{ 
-    .tv-video
-    {
-        margin: 47px auto auto auto; 
-        left : 0%;
-        right : 0%;
+@media only screen and (max-width: 1150px) { .tv-video
+{
+    margin: 47px auto auto auto; 
+    left : 0%;
+    right : 0%;
 
-        width : clamp(390px, 52.98%, 520px);
-    }
-}
+    width : clamp(390px, 52.98%, 520px);
+} }
 @media only screen and (max-width: 1150px) { .tv-video {  width : 257.4px; min-width : 257.4px; }}
 
 .tv-image
@@ -243,18 +240,15 @@ p
 
     width : clamp(0px, 45%, 530px);
 }
-@media only screen and (max-width: 1150px)
+@media only screen and (max-width: 1150px) { .tv-image
 {
-    .tv-image
-    {
-        left : 0%;
-        right : 0%;
-        margin : -5px auto auto auto;
-        padding-top : -130px;
-        
-        width : clamp(530px, 60%, 670px);
-    }
-}
+    left : 0%;
+    right : 0%;
+    margin : -5px auto auto auto;
+    padding-top : -130px;
+    
+    width : clamp(530px, 60%, 670px);
+} }
 @media only screen and (max-width: 1150px) { .tv-image { width : clamp(349.8px, 349.8px, 670px); }}
 
 /* Mobile page */
@@ -272,46 +266,34 @@ p
     max-width : 1245px;  
 }
 
-@media only screen and (max-width: 1150px)
-{
-    .mobile-page-container
-    { 
-        width : 100%;
-        flex-direction: column; 
-        column-gap: 1rem;
-        padding : 30px 30px 90px 30px;
-    }
-}
+@media only screen and (max-width: 1150px) { .mobile-page-container
+{ 
+    width : 100%;
+    flex-direction: column; 
+    column-gap: 1rem;
+    padding : 30px 30px 90px 30px;
+} }
 @media only screen and (max-width: 625px) { .mobile-page-container { padding-bottom : 30px; }}
 @media only screen and (max-width: 550px) { .mobile-page-container { padding-bottom : 25px; }}
 
 .mobile-first-page-element { margin-left : 20px; margin-top: -29px;}
-@media only screen and (max-width: 1150px)
+@media only screen and (max-width: 1150px) { .mobile-first-page-element 
 {
-    .mobile-first-page-element 
-    {
-        order : 2;
-        margin : -20px auto auto auto;
-        transform : scale(1.1);
-    }
-}
-@media only screen and (max-width: 625px)
-{ 
-    .mobile-first-page-element 
-    {
-        transform : scale(0.9);
-        margin : -50px auto auto auto;
-        width : 100%;
-    }
-}
-@media only screen and (max-width: 550px)
-{ 
-    .mobile-first-page-element 
-    {
-        margin-left : -38px !important;
-        transform : scale(0.8);
-    }
-}
+    order : 2;
+    margin : -20px auto auto auto;
+    transform : scale(1.1);
+} }
+@media only screen and (max-width: 625px) {  .mobile-first-page-element 
+{
+    transform : scale(0.9);
+    margin : -50px auto auto auto;
+    width : 100%;
+} }
+@media only screen and (max-width: 550px) { .mobile-first-page-element 
+{
+    margin-left : -38px !important;
+    transform : scale(0.8);
+} }
 
 .mobile-image { width: 504px; }
 
@@ -371,15 +353,12 @@ p
     max-width : 1245px;
 }
 @media only screen and (max-width: 1350px) { .computer-page-container {  column-gap: 2rem; } }
-@media only screen and (max-width: 1150px)
+@media only screen and (max-width: 1150px) { .computer-page-container
 { 
-    .computer-page-container
-    { 
-        flex-direction: column;
-        align-items: center;
-        padding : 55px 75px 335px 75px;
-    }
-}
+    flex-direction: column;
+    align-items: center;
+    padding : 55px 75px 335px 75px;
+} }
 @media only screen and (max-width: 750px) { .computer-page-container { padding : 30px 30px 315px 30px; } }
 @media only screen and (max-width: 650px) { .computer-page-container { padding : 30px 30px 250px 30px; } }
 
@@ -390,19 +369,22 @@ p
 @media only screen and (max-width: 1150px) { .computer-container
 { 
     transform : scale(1); 
+    
     margin : 120px auto auto auto;
     left : 0%;
     right : 0%;
 } }
 @media only screen and (max-width: 850px) { .computer-container
 {
-    width : 600px;
     transform : scale(.85); 
+   
     margin : 80px -50px auto -50px; 
+    width : 600px;
 } }
 @media only screen and (max-width: 700px) { .computer-container
 {
     transform : scale(.65); 
+  
     margin : 60px -40px auto -40px; 
 } }
 
@@ -434,9 +416,3 @@ p
     left : 0%;
     right : 0%;
 } }
-@media only screen and (max-width: 750px) { .computer-image
-{
-
-} }
-        
-    
