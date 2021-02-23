@@ -338,7 +338,7 @@ p
 
 .mobile-download-animation { height: 3.75em;}
 
-/* Computer TV */
+/* Computer Page */
 .computer-page { background : black; }
 
 .computer-page-container
@@ -416,3 +416,69 @@ p
     left : 0%;
     right : 0%;
 } }
+
+/* FAQ Page */
+.faq-page { background : black; }
+
+.faq-page-container
+{
+    max-width : 1245px;
+    margin : auto;
+    column-gap: 2.5rem;
+
+    padding : 55px 75px 155px 75px;
+}
+
+.faq-title { text-align :center; margin-bottom : 50px; }
+
+.faq-container
+{
+    margin : auto;
+    margin-bottom: 9px;
+    width : 820px;
+    justify-content : center;
+}
+
+.faq-question-container, .faq-answer
+{
+    background : #303030;
+    padding : 22px 30px;
+}
+
+.faq-question-container
+{
+    display : flex;
+    justify-content : space-between;
+}
+.faq-question-container:hover { cursor : pointer; }
+
+.faq-question { margin : 0; }
+
+.faq-question-title
+{
+    font-size : 1.6rem;
+    font-weight : 400px;
+}
+
+.faq-question-expand-image { width : 28px; }
+.faq-question-collapse-image { width : 22px; display : none; }
+
+.faq-answer
+{
+    margin-top : 1px;
+    margin-bottom : 10px;
+}
+.faq-answer p { margin : 0; text-align : justify; }
+
+.faq-answer
+{
+    display : none;
+}
+
+.faq-form-title
+{
+    width : 850px;
+    text-align : center;
+    margin-top : 60px;
+}
+.signin-text-placeholder-from-faq { margin-left : 10px; margin-right : 0px;}
