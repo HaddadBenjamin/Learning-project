@@ -417,6 +417,7 @@ p
     right : 0%;
 } }
 
+
 /* FAQ Page */
 .faq-page { background : black; }
 
@@ -426,10 +427,13 @@ p
     margin : auto;
     column-gap: 2.5rem;
 
-    padding : 55px 75px 155px 75px;
+    padding : 55px 75px 75px 75px;
 }
+@media only screen and (max-width: 550px) { .faq-page-container { padding : 55px 0px 55px 0px;} }
 
 .faq-title { text-align :center; margin-bottom : 50px; }
+@media only screen and (max-width: 950px) { .faq-title  { margin-bottom : 28px; } }
+@media only screen and (max-width: 550px) { .faq-title  { margin-top : 0px; } }
 
 .faq-container
 {
@@ -438,12 +442,15 @@ p
     width : 820px;
     justify-content : center;
 }
+@media only screen and (max-width: 950px) { .faq-container { max-width: 100%;}}
 
 .faq-question-container, .faq-answer
 {
     background : #303030;
     padding : 22px 30px;
 }
+@media only screen and (max-width: 950px) { .faq-question-container, .faq-answer{  padding : 17px 19px; } }
+
 
 .faq-question-container
 {
@@ -454,14 +461,19 @@ p
 
 .faq-question { margin : 0; }
 
-.faq-question-title
+.faq-question-title, .faq-answer p 
 {
     font-size : 1.6rem;
     font-weight : 400px;
 }
+@media only screen and (max-width: 950px) { .faq-question-title, .faq-answer p  { font-size : 1.25rem; } }
+@media only screen and (max-width: 550px) { .faq-question-title, .faq-answer p  { font-size : 1.1rem; } }
 
 .faq-question-expand-image { width : 28px; }
+@media only screen and (max-width: 950px) { .faq-question-expand-image { width : 20px; } }
+
 .faq-question-collapse-image { width : 22px; display : none; }
+@media only screen and (max-width: 950px) { .faq-question-collapse-image { width : 15.5px; } }
 
 .faq-answer
 {
@@ -478,7 +490,16 @@ p
 .faq-form-title
 {
     width : 850px;
+    max-width : 100%;
     text-align : center;
     margin-top : 60px;
 }
+@media only screen and (max-width: 950px) { .faq-form-title
+{ 
+    margin-top : 30px; 
+    margin-bottom : -10px;
+    max-width : 75%; 
+} }
+@media only screen and (max-width: 550px) { .faq-form-title { font-size: 1.1rem; } }
+
 .signin-text-placeholder-from-faq { margin-left : 10px; margin-right : 0px;}
