@@ -7,7 +7,7 @@ const Counter = ({initialValue = 0, step = 1}) =>
 
     return (
         <>
-            <h2>Les fonctions</h2>
+            <h2>Les fonctions & les customs hooks</h2>
             <div style={{backgroundColor : 'red'}}>{value}</div>
             <div>{step}</div>
             <button onClick={increment}>Increment</button>

@@ -1,4 +1,4 @@
-export interface Product {
+interface Product {
     category: string
     price: string
     stocked: boolean

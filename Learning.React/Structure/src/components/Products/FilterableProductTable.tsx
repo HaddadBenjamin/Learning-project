@@ -17,10 +17,13 @@ const FilterableProductTable = () =>
         setFilteredProducts(products.filter(p => (!inStockOnly || p.stocked) && p.name.includes(filterText)));
     }
 
-    return <div className="container col-4">
-        <ProductTableFilters onFiltersChange={onFiltersChange}/>
-        <ProductTable products={filteredProducts}/>
-    </div>
+    return <>
+        <h2>Structurer ses composants</h2>
+        <div className="container col-4">
+            <ProductTableFilters onFiltersChange={onFiltersChange}/>
+            <ProductTable products={filteredProducts}/>
+        </div>
+    </>
 }
 
 export default FilterableProductTable
