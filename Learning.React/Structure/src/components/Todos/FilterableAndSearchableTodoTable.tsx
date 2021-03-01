@@ -5,14 +5,18 @@ import TodoTable from "./TodoTable";
 import TodoTableFilters from "./TodoTableFilters";
 import TodoAddForm from "./TodoAddForm";
 import { filterTodos } from "./TodoFilters";
+import { sortTodos } from "./TodoSorter";
 import Todo from "./Todo";
 
 const FilterableAndSearchableTodoTable = () =>
 {
-    const [todoState, dispatch] = useReducer(todoReducer, initialState)
-    const [filteredTodos, setFilteredTodos] = useState<Todo[]>(filterTodos(todoState.todos, todoState.filters))
+    const getFilteredAndSortedTodos = () : Todo[] => sortTodos(filterTodos(todoState.todos, todoState.filters));
   
-    useEffect(() => setFilteredTodos((filterTodos(todoState.todos, todoState.filters))), [todoState]);
+    const [todoState, dispatch] = useReducer(todoReducer, initialState)
+    const [filteredTodos, setFilteredTodos] = useState<Todo[]>(getFilteredAndSortedTodos())
+  
+    useEffect(() => setFilteredTodos(getFilteredAndSortedTodos()), []);
+    useEffect(() => setFilteredTodos(getFilteredAndSortedTodos()), [todoState]);
 
     console.log(filteredTodos);
 
@@ -26,7 +30,6 @@ const FilterableAndSearchableTodoTable = () =>
     </>
 
     // TODO -> 
-    // - Fix icons
     // - Optimisations : useMemo, useCallback, React.memo
     // - Extract button from addform in a dedicated class & use it TodoRow & TodoAddForm
     // - Highlight filter ?

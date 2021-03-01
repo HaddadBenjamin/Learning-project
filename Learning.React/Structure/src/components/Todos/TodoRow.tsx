@@ -35,13 +35,13 @@ const TodoRow = React.memo<Props>(({todo, dispatch}) =>
         </td>
 
         <td>
-            <button type="button" className="btn btn-primary" aria-label="Edit" onClick={handleOnClickOnPublishEdition}>
+            <button type="button" className="btn btn-primary" onClick={handleOnClickOnPublishEdition} style={{width : '2.5rem'}}>
                 <i className="fas fa-edit"></i>
             </button>
         </td>
 
         <td>
-            <button type="button" className="btn btn-danger" aria-label="Remove" onClick={handleOnClickOnDelete}>
+            <button type="button" className="btn btn-danger" onClick={handleOnClickOnDelete}>
                 <i className="fas fa-trash"></i>
             </button>
         </td>
