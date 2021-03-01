@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Checkbox from '../../shared/components/Checkbox'
 import TextInput from '../../shared/components/TextInput'
+import Button, { ButtonColor } from '../../shared/components/Button'
 import Todo from './Todo'
 import { deleteTodo, TodoActions, toggleTodo, updateTodo } from './Todo.action'
 
@@ -35,15 +36,17 @@ const TodoRow = React.memo<Props>(({todo, dispatch}) =>
         </td>
 
         <td>
-            <button type="button" className="btn btn-primary" onClick={handleOnClickOnPublishEdition} style={{width : '2.5rem'}}>
-                <i className="fas fa-edit"></i>
-            </button>
+            <Button 
+                onClick={handleOnClickOnPublishEdition} 
+                icon='edit'
+                style={{width : '2.5rem'}}/>
         </td>
 
         <td>
-            <button type="button" className="btn btn-danger" onClick={handleOnClickOnDelete}>
-                <i className="fas fa-trash"></i>
-            </button>
+            <Button 
+                onClick={handleOnClickOnDelete} 
+                color={ButtonColor.Danger}
+                icon='trash'/>
         </td>
     </tr>
 })

@@ -9,16 +9,17 @@ interface Props
     label? : string
     placeholder? : string
     disabled? : boolean
+    classes? : string
 }
 
-const TextInput = ({id, onChange, value, defaultValue, label, placeholder, disabled} : Props) =>
+const TextInput = ({id, onChange, value, defaultValue, label, placeholder, disabled, classes = ''} : Props) =>
 {
     const onValueChange = (event : React.ChangeEvent<HTMLInputElement>) =>
     {
         onChange(event.target.value, id);
     }
 
-    return <div className="form-group">
+    return <div className={`form-group ${classes}`} style={{marginTop : '-7.5px'}}>
         <label htmlFor={id}>{label}</label>
         <input
             type="text"

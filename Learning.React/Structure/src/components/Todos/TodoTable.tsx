@@ -11,7 +11,7 @@ interface Props
 
 const TodoTable = React.memo<Props>(({ todos, dispatch }) =>
 {
-    return <table className="table table-dark table-striped mt-4">
+    return <table className="table table-dark table-striped">
         <thead>
         <tr>
             <th>Completed</th>
