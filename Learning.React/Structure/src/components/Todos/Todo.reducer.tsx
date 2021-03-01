@@ -5,7 +5,7 @@ import ITodoFilters from "./TodoFilters"
 
 export interface ITodosState
 {
-    todos : Todo[],
+    todos : Todo[]
     filters : ITodoFilters
 }
 

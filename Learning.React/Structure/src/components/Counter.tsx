@@ -1,7 +1,13 @@
-import React from 'react';
+import React from 'react'
 import useCounter from '../shared/hooks/useCounter'
 
-const Counter = ({initialValue = 0, step = 1}) =>
+interface Props
+{
+    initialValue? : number,
+    step? : number
+}
+
+const Counter = ({initialValue = 0, step = 1} : Props) =>
 {
     const [value, increment, decrement] = useCounter(initialValue, step)
 

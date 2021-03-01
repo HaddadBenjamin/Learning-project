@@ -12,7 +12,7 @@ export enum TodoActionTypes
 
 export interface ICreateTodoAction
 {
-    type : TodoActionTypes.CREATE_TODO, 
+    type : TodoActionTypes.CREATE_TODO,
     payload :
     {
         title : string
@@ -21,7 +21,7 @@ export interface ICreateTodoAction
 
 export interface IUpdateTodoAction
 {
-    type : TodoActionTypes.UPDATE_TODO,
+    type : TodoActionTypes.UPDATE_TODO
     payload :
     {
         id : string,
@@ -31,7 +31,7 @@ export interface IUpdateTodoAction
 
 export interface IToggleTodoAction
 {
-    type : TodoActionTypes.TOGGLE_TODO,
+    type : TodoActionTypes.TOGGLE_TODO
     payload :
     {
         id : string
@@ -40,7 +40,7 @@ export interface IToggleTodoAction
 
 export interface IDeleteTodoAction
 {
-    type : TodoActionTypes.DELETE_TODO,
+    type : TodoActionTypes.DELETE_TODO
     payload :
     {
         id : string
@@ -49,7 +49,7 @@ export interface IDeleteTodoAction
 
 export interface IUpdateTodoFiltersAction
 {
-    type : TodoActionTypes.UPDATE_TODO_FILTERS,
+    type : TodoActionTypes.UPDATE_TODO_FILTERS
     payload : ITodoFilters
 }
 
