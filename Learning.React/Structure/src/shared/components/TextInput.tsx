@@ -5,12 +5,13 @@ interface Props
     id : string
     onChange(value : string, id : string) : void
     defaultValue? : string
+    value? : string
     label? : string
     placeholder? : string
     disabled? : boolean
 }
 
-const TextInput = ({id, onChange, defaultValue, label, placeholder, disabled} : Props) =>
+const TextInput = ({id, onChange, value, defaultValue, label, placeholder, disabled} : Props) =>
 {
     const onValueChange = (event : React.ChangeEvent<HTMLInputElement>) =>
     {
@@ -21,6 +22,7 @@ const TextInput = ({id, onChange, defaultValue, label, placeholder, disabled} : 
         <label htmlFor={id}>{label}</label>
         <input
             type="text"
+            value={value}
             defaultValue={defaultValue}
             placeholder={placeholder}
             onChange={onValueChange}

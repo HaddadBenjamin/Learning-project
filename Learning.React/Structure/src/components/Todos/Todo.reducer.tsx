@@ -1,4 +1,4 @@
-import cuid from "cuid"
+import { uuidv4 } from "../../shared/helpers/StringHelpers"
 import Todo from "./Todo"
 import { TodoActionTypes, TodoActions } from "./Todo.action"
 import ITodoFilters from "./TodoFilters"
@@ -9,16 +9,16 @@ export interface ITodosState
     filters : ITodoFilters
 }
 
-const initialState : ITodosState =
+export const initialState : ITodosState =
 {
     todos : [
-        { id : cuid(), title : "Faire le lit", completed : false },
-        { id : cuid(), title : "Ranger le lave vaiselle", completed : false }
+        { id : uuidv4(), title : "Faire le lit", completed : false },
+        { id : uuidv4(), title : "Ranger le lave vaiselle", completed : false }
     ],
     filters :
     {
         terms : '',
-        onlyCompleted : false
+        onlyUncompleted : true
     }
 }
 
@@ -30,7 +30,7 @@ export default function todoReducer(state : ITodosState = initialState, action :
         case TodoActionTypes.CREATE_TODO :
             return {
                 ...state,
-                todos : [ ...state.todos, { id : cuid(), title : action.payload.title, completed : false } ]
+                todos : [ ...state.todos, { id : uuidv4(), title : action.payload.title, completed : false } ]
             }
 
         case TodoActionTypes.UPDATE_TODO :

@@ -1,5 +1,11 @@
+import Todo from "./Todo";
+
 export default interface ITodoFilters
 {
     terms : string,
-    onlyCompleted : boolean
+    onlyUncompleted : boolean
 }
+
+export const filterTodos = (todos : Todo[], filters : ITodoFilters) : Todo[] => todos.filter(todo =>
+    todo.title.includes(filters.terms) &&
+    (!todo.completed || !filters.onlyUncompleted))

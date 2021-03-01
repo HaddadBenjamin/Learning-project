@@ -6,6 +6,7 @@ import FilterableProductTable from "./components/Products/FilterableProductTable
 import Counter from "./components/Counter";
 import ControledAndUncontroledFields from "./components/ControledAndUncontroledFields";
 import MyContextConsumer, {initialUserState, UserContext} from "./components/PlayWithContext";
+import FilterableAndSearchableTodoTable from './components/Todos/FilterableAndSearchableTodoTable';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,7 +14,8 @@ ReactDOM.render(
           <Counter initialValue={5}/>
           <ControledAndUncontroledFields />
           <MyContextConsumer/>
-          <FilterableProductTable/>,
+          <FilterableProductTable/>
+          <FilterableAndSearchableTodoTable/>
       </UserContext.Provider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { TodoActions, updateTodoFilters } from './Todo.action'
 import ITodoFilters from './TodoFilters'
 import TextInput from "../../shared/components/TextInput";
@@ -12,8 +12,8 @@ export type Props =
 
 const TodoTableFilters = ({ filters, dispatch } : Props) =>
 {
-    const onFiltersChange = (terms : string, onlyCompleted : boolean) => dispatch(updateTodoFilters({ terms, onlyCompleted }))
-    const onTermsChange = (value : string, id : string) : void => onFiltersChange(value, filters.onlyCompleted)
+    const onFiltersChange = (terms : string, onlyUncompleted : boolean) => dispatch(updateTodoFilters({ terms, onlyUncompleted }))
+    const onTermsChange = (value : string, id : string) : void => onFiltersChange(value, filters.onlyUncompleted)
     const onOnlyCompletedChange = (isChecked : boolean, id : string) : void => onFiltersChange(filters.terms, isChecked)
 
     return <>
@@ -23,9 +23,9 @@ const TodoTableFilters = ({ filters, dispatch } : Props) =>
             onChange={onTermsChange}
             defaultValue={filters.terms}/>
         <Checkbox
-            id="FilterOnlyCompletedTodo"
-            label="Only completed"
-            checked={filters.onlyCompleted}
+            id="FilterOnlyUncompletedTodo"
+            label="Only uncompleted"
+            checked={filters.onlyUncompleted}
             onChange={onOnlyCompletedChange}/>
     </>
 }

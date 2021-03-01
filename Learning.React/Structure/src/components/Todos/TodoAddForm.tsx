@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import TextInput from '../../shared/components/TextInput'
-import { TodoActions } from './Todo.action'
+import { createTodo, TodoActions } from './Todo.action'
 
 export type Props =
 {
@@ -9,19 +9,33 @@ export type Props =
 
 const TodoAddForm = ({ dispatch } : Props) =>
 {
-    const [title] = useState<string>('');
+    const [title, setTitle] = useState<string>('');
     
-    // Form -> preventdefault
-    // Input to update the new to do text
-    // Button to send the form
-    return <>
+    const handleOnTitleChange = (value : string, id : string) : void => setTitle(value)
+    const handleSubmit = (event : React.FormEvent) : void =>
+    {
+        event.preventDefault()
+        dispatchCreateTodo()
+    }
+    const dispatchCreateTodo = () =>
+    {
+        dispatch(createTodo(title))
+        setTitle('')
+    } 
+    const handleOnClick = () => dispatchCreateTodo()
+
+    return <form onSubmit={handleSubmit}>
+        <button type="button" className="btn btn-dark" onClick={handleOnClick}>
+            <i className="fas fa-plus"></i>
+        </button>
+
         <TextInput
             id="AddTodo"
             label="Create a new todo"
             placeholder="title..."
-            defaultValue={title}
-        />
-    </>
+            value={title}
+            onChange={handleOnTitleChange}/>
+    </form>
 }
 
 export default TodoAddForm
