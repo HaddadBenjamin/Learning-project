@@ -3,7 +3,7 @@ import useCounter from '../shared/hooks/useCounter'
 
 interface Props
 {
-    initialValue? : number,
+    initialValue? : number
     step? : number
 }
 
@@ -22,4 +22,4 @@ const Counter = ({initialValue = 0, step = 1} : Props) =>
     );
 }
 
-export default Counter;
+export default Counter

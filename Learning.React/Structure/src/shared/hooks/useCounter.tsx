@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
 const useCounter = (initialValue : number = 0, step : number = 1) =>
 {
@@ -10,4 +10,4 @@ const useCounter = (initialValue : number = 0, step : number = 1) =>
     return [value, increment, decrement] as const
 }
 
-export default useCounter;
+export default useCounter

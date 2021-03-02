@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import {ProductFilters} from "./ProductFilters";
-import Product, {PRODUCTS} from "./Product";
-import ProductTable from "./ProductTable";
-import ProductTableFilters from "./ProductTableFilters";
-import './Global.scss';
+import React, {useState} from 'react'
+import {ProductFilters} from "./ProductFilters"
+import Product, {PRODUCTS} from "./Product"
+import ProductTable from "./ProductTable"
+import ProductTableFilters from "./ProductTableFilters"
+import './Global.scss'
 
 const FilterableProductTable = () =>
 {

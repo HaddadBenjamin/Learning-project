@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext } from "react"
 
-export const UserContext = React.createContext();
+export const UserContext = React.createContext()
 export const initialUserState = {
     firstName : "John",
     lastName : "Doe"
@@ -8,7 +8,7 @@ export const initialUserState = {
 
 export default function MyContextConsumer()
 {
-    const { firstName, lastName } = useContext(UserContext);
+    const { firstName, lastName } = useContext(UserContext)
 
     return (
         <>

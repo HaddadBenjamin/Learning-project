@@ -24,4 +24,4 @@ const ControledAndUncontroledFields = () =>
     );
 }
 
-export default ControledAndUncontroledFields;
+export default ControledAndUncontroledFields

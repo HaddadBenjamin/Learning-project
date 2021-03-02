@@ -12,7 +12,7 @@ export enum TodoActionTypes
 
 export interface ICreateTodoAction
 {
-    type : TodoActionTypes.CREATE_TODO,
+    type : TodoActionTypes.CREATE_TODO
     payload :
     {
         title : string

@@ -2,7 +2,7 @@ import Todo from "./Todo";
 
 export default interface ITodoFilters
 {
-    terms : string,
+    terms : string
     onlyUncompleted : boolean
 }
 

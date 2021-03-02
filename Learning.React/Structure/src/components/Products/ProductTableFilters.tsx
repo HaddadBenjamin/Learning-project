@@ -1,7 +1,7 @@
-import {ProductFilters} from "./ProductFilters";
-import React, {useEffect, useState} from "react";
-import TextInput from "../../shared/components/TextInput";
-import Checkbox from "../../shared/components/Checkbox";
+import {ProductFilters} from "./ProductFilters"
+import React, {useEffect, useState} from "react"
+import TextInput from "../../shared/components/TextInput"
+import Checkbox from "../../shared/components/Checkbox"
 
 interface Props
 {

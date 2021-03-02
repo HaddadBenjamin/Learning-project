@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 interface Props
 {
@@ -28,4 +28,4 @@ const Button = React.memo(({onClick, icon, color = ButtonColor.Primary, style, c
     </button>
 })
 
-export default Button;
+export default Button

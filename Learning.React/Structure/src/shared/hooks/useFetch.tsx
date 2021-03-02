@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react"
+import {useEffect, useState} from "react"
 
 interface State<T>
 {
-    isLoading : boolean,
-    items : T[],
+    isLoading : boolean
+    items : T[]
     error : string
 }
 const useFetch = function<T>(url : string)
@@ -31,7 +31,7 @@ const useFetch = function<T>(url : string)
         asyncUseEffect();
     }, [])
 
-    const { items, isLoading, error } = state;
+    const { items, isLoading, error } = state
     return [items, isLoading, error]
 }
 

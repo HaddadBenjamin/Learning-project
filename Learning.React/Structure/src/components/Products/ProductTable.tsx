@@ -1,7 +1,7 @@
-import Product from "./Product";
-import ProductCategoryRow from "./ProductCategoryRow";
-import React from "react";
-import ProductRow from "./ProductRow";
+import Product from "./Product"
+import ProductCategoryRow from "./ProductCategoryRow"
+import React from "react"
+import ProductRow from "./ProductRow"
 
 interface ProductTableProps
 {
@@ -26,7 +26,7 @@ const ProductTable = ({products} : ProductTableProps) =>
             rows.push(<ProductRow key={p.name} product={p}/>)
         })
 
-        return rows;
+        return rows
     }
 
     return <div>
