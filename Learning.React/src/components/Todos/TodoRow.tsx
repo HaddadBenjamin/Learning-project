@@ -13,7 +13,7 @@ interface Props
 
 const TodoRow = React.memo<Props>(({todo, dispatch}) =>
 {
-    const [title, setTitle] = useState<string>(todo.title);
+    const [title, setTitle] = useState<string>(todo.title)
 
     const onCompletedChange = (isChecked : boolean, id : string) => dispatch(toggleTodo(todo.id))
     const onTitleChange = (value : string, id : string) => setTitle(value)

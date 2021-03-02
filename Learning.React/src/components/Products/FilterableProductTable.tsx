@@ -12,9 +12,9 @@ const FilterableProductTable = () =>
 
     const onFiltersChange = (filters : ProductFilters) =>
     {
-        const {inStockOnly, filterText} = filters;
+        const {inStockOnly, filterText} = filters
 
-        setFilteredProducts(products.filter(p => (!inStockOnly || p.stocked) && p.name.includes(filterText)));
+        setFilteredProducts(products.filter(p => (!inStockOnly || p.stocked) && p.name.includes(filterText)))
     }
 
     return <>

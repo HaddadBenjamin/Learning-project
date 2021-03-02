@@ -28,7 +28,7 @@ const useFetch = function<T>(url : string)
                         setState({...state, isLoading: false, items : await response.json()})
                 })
         }
-        asyncUseEffect();
+        asyncUseEffect()
     }, [])
 
     const { items, isLoading, error } = state

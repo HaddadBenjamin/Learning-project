@@ -10,7 +10,7 @@ export type Props =
 
 const TodoAddForm = ({ dispatch } : Props) =>
 {
-    const [title, setTitle] = useState<string>('');
+    const [title, setTitle] = useState<string>('')
     
     const handleOnTitleChange = (value : string, id : string) : void => setTitle(value)
     const handleSubmit = (event : React.FormEvent) : void =>

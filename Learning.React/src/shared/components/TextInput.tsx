@@ -16,7 +16,7 @@ const TextInput = ({id, onChange, value, defaultValue, label, placeholder, disab
 {
     const onValueChange = (event : React.ChangeEvent<HTMLInputElement>) =>
     {
-        onChange(event.target.value, id);
+        onChange(event.target.value, id)
     }
 
     return <div className={`form-group ${classes}`} style={{marginTop : '-7.5px'}}>
