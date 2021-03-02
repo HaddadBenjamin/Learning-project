@@ -1,9 +1,0 @@
-# dependencies
-/node_modules
-/.idea
-/src/.idea
-/.pnp
-.pnp.js
-
-# production
-/build
