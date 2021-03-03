@@ -21,7 +21,7 @@ const ControledAndUncontroledFields = () =>
             <input type="text" ref={uncontroledInputRef} />
             <button onClick={handleOnSubmit}>Mettre à jour votre champs incontrolé</button>
         </>
-    );
+    )
 }
 
 export default ControledAndUncontroledFields

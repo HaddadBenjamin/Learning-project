@@ -14,7 +14,6 @@ ReactDOM.render(
           <Counter initialValue={5}/>
           <ControledAndUncontroledFields />
           <MyContextConsumer/>
-          <FilterableProductTable/>
           <FilterableAndSearchableTodoTable/>
       </UserContext.Provider>
   </React.StrictMode>,

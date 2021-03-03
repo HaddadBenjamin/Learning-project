@@ -19,7 +19,7 @@ const Counter = ({initialValue = 0, step = 1} : Props) =>
             <button onClick={increment}>Increment</button>
             <button onClick={decrement}>Decrement</button>
         </>
-    );
+    )
 }
 
 export default Counter

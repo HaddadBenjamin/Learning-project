@@ -1,7 +1,6 @@
 import { uuidv4 } from "../../shared/helpers/StringHelpers"
-import Todo from "./Todo"
 import { TodoActionTypes, TodoActions } from "./Todo.action"
-import ITodoFilters from "./TodoFilters"
+import { ITodoFilters, Todo } from "./Todo.model"
 
 export interface ITodosState
 {

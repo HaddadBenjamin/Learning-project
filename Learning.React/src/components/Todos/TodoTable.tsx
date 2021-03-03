@@ -1,5 +1,5 @@
 import React from 'react'
-import Todo from './Todo'
+import { Todo } from './Todo.model'
 import { TodoActions } from './Todo.action'
 import TodoRow from './TodoRow'
 
