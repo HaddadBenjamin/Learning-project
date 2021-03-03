@@ -21,7 +21,7 @@ export const initialState : ITodosState =
     }
 }
 
-// Without Immer & Redux & API
+// Without Immer & Redux & API + asynchronous call
 export default function todoReducer(state : ITodosState = initialState, action : TodoActions) : ITodosState
 {
     switch (action.type)

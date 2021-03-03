@@ -4,21 +4,18 @@ import React from 'react'
 import TodoTable from "./TodoTable"
 import TodoTableFilters from "./TodoTableFilters"
 import TodoAddForm from "./TodoAddForm"
-import { filterAndSortTodosSelector } from "./Todo.selector"
-import { Todo } from "./Todo.model"
+import { selectFilteredAndSortedTodos } from "./Todo.selector"
 
 const FilterableAndSearchableTodoTable = () =>
 {
     const [todoState, dispatch] = useReducer(todoReducer, initialState)
   
-    const filteredAndSortedTodos = () : Todo[] => filterAndSortTodosSelector(todoState.todos, todoState.filters)
-
     return <>
         <h2>CRUD & UseReducer & Structure</h2>
         <div className="container col-8">
             <TodoTableFilters filters={todoState.filters} dispatch={dispatch}/>
             <TodoAddForm dispatch={dispatch}/>
-            <TodoTable todos={filteredAndSortedTodos()} dispatch={dispatch}/>
+            <TodoTable todos={selectFilteredAndSortedTodos(todoState)} dispatch={dispatch}/>
         </div>
     </>
 

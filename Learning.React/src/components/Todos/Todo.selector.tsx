@@ -1,11 +1,18 @@
-import { ITodoFilters, Todo } from "./Todo.model"
+import { Todo } from "./Todo.model"
+import { ITodosState } from "./Todo.reducer"
 
-export const filterTodosSelector = (todos : Todo[], filters : ITodoFilters) : Todo[] => todos.filter(todo =>
-    todo.title.includes(filters.terms) &&
-    (!todo.completed || !filters.onlyUncompleted))
+const selectFilteredTodos = (state : ITodosState) : Todo[] =>
+{
+    const { todos, filters } = state;
 
-export const sortTodosSelector = (todos : Todo[]) : Todo[] =>
+    return todos.filter(todo =>
+        todo.title.includes(filters.terms) &&
+        (!todo.completed || !filters.onlyUncompleted))
+} 
+
+// Est-ce que cette fonction est un sélecteur ? elle ne prend pas l'état en paramètre.
+const sortTodos = (todos : Todo[]) : Todo[] =>
     todos.sort((a, b) => (a === b) ? 0 : a.completed ? 1 : -1)
 
-export const filterAndSortTodosSelector = (todos : Todo[], filters : ITodoFilters) : Todo[] =>
-    sortTodosSelector(filterTodosSelector(todos, filters))
+export const selectFilteredAndSortedTodos = (state : ITodosState) : Todo[] =>
+    sortTodos(selectFilteredTodos(state))
