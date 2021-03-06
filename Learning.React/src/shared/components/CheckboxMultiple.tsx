@@ -17,7 +17,12 @@ export interface CheckboxData
     disabled? : boolean
 }
 
-const CheckboxMultiple = ({checkboxes, onChange, checkboxClassName} : Props) =>
+const CheckboxMultiple = (
+{
+    checkboxes,
+    onChange,
+    checkboxClassName = ''
+} : Props) =>
 {
     const onCheckboxChange = (isChecked : boolean, id : string) =>
     {

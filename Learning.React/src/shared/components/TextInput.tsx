@@ -12,14 +12,24 @@ interface Props
     classes? : string
 }
 
-const TextInput = ({id, onChange, value, defaultValue, label, placeholder, disabled, classes = ''} : Props) =>
+const TextInput = (
+{
+    id, 
+    onChange, 
+    value, 
+    defaultValue, 
+    label = '', 
+    placeholder = '', 
+    disabled = false, 
+    classes = ''
+} : Props) =>
 {
     const onValueChange = (event : React.ChangeEvent<HTMLInputElement>) =>
     {
         onChange(event.target.value, id)
     }
 
-    return <div className={`form-group ${classes}`} style={{marginTop : '-7.5px'}}>
+    return <div className={`form-group ${classes}`.trim()} style={{marginTop : '-7.5px'}}>
         <label htmlFor={id}>{label}</label>
         <input
             type="text"

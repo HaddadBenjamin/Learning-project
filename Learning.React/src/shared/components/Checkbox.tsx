@@ -11,14 +11,23 @@ interface Props
     className? : string
 }
 
-const Checkbox = React.memo(({id, onChange, defaultChecked, label, disabled, checked, className} : Props) =>
+const Checkbox = React.memo((
+{
+    id,
+    onChange,
+    label = '',
+    defaultChecked,
+    disabled,
+    checked, 
+    className = ''
+} : Props) =>
 {
     const onCheckedChange = (event : React.ChangeEvent<HTMLInputElement>) =>
     {
         onChange(checked === undefined ? event.target.checked : !checked, id)
     }
 
-    return <div className={`form-check ${className}`}>
+    return <div className={`form-check ${className}`.trim()}>
         <input
             type="checkbox"
             defaultChecked={defaultChecked}

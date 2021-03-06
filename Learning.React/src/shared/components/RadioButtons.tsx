@@ -18,7 +18,12 @@ interface Props
     className? : string
 }
 
-const RadioButtons = ({radios, onChange, className} : Props) =>
+const RadioButtons = (
+{
+    radios,
+    onChange,
+    className = ''
+} : Props) =>
 {
     const onRadioChange = (event :  React.ChangeEvent<HTMLInputElement>) =>
     {
@@ -31,7 +36,7 @@ const RadioButtons = ({radios, onChange, className} : Props) =>
     return <div onChange={onRadioChange}>
         {
             radios.map(r =>
-                <div className={`form-check ${className}`} key={r.id}>
+                <div className={`form-check ${className}`.trim()} key={r.id}>
                     <input
                         id={r.id}
                         type="radio"

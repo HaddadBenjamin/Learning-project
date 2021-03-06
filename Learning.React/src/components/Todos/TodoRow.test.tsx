@@ -13,7 +13,11 @@ describe("TodoRow", () =>
         const dispatch : Dispatch<TodoActions> = jest.fn() // Je vais rencontrer des problèmes car je n'ai pas monté un vrai redux ici.
     
         // Act
-        render(<TodoRow todo={todo} dispatch={dispatch}/>)
+        render(<table>
+            <tbody>
+                <TodoRow todo={todo} dispatch={dispatch}/>
+            </tbody>
+        </table>)
 
         const trs : NodeListOf<HTMLTableRowElement> = document.querySelectorAll('tr')
         const tds : NodeListOf<HTMLTableDataCellElement> = trs[0].querySelectorAll('td')
