@@ -49,3 +49,5 @@ describe("TodoRow", () =>
         expect(deleteTodoIcon.className).toBe('fas fa-trash')
   })
 })
+
+// To do test all events & behaviours
