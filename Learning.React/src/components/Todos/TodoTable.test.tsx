@@ -41,5 +41,3 @@ describe("TodoTable", () =>
         expect(ths[3].textContent).toBe('Remove')
   })
 })
-
-// To do test all events & behaviours
