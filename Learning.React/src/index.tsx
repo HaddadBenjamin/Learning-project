@@ -11,10 +11,12 @@ import 'bootstrap/dist/css/bootstrap.css';
 ReactDOM.render(
   <React.StrictMode>
       <UserContext.Provider value={initialUserState}>
-          <Counter initialValue={5}/>
-          <ControledAndUncontroledFields />
-          <MyContextConsumer/>
-          <FilterableAndSearchableTodoTable/>
+          <div className="container col-8">
+              <FilterableAndSearchableTodoTable/>
+              <Counter initialValue={5}/>
+              <ControledAndUncontroledFields />
+              <MyContextConsumer/>
+          </div>
       </UserContext.Provider>
   </React.StrictMode>,
   document.getElementById('root')

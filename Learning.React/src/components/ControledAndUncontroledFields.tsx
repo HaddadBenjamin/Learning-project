@@ -14,10 +14,12 @@ const ControledAndUncontroledFields = () =>
             <br/><br/>
             <h2>Les champs contrôlés et incontrôlés</h2>
             <label>{controledField}</label>
+            <br></br>
             <input type="text" value={controledField} onChange={handleOnChange}></input>
 
             <br/><br/>
             <label>{uncontroledField}</label>
+            <br></br>
             <input type="text" ref={uncontroledInputRef} />
             <button onClick={handleOnSubmit}>Mettre à jour votre champs incontrolé</button>
         </>

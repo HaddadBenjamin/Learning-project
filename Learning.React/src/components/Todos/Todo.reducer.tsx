@@ -17,7 +17,7 @@ export const initialState : ITodosState =
     filters :
     {
         terms : '',
-        onlyUncompleted : true
+        onlyUncompleted : false
     }
 }
 
