@@ -1,8 +1,8 @@
 import React from 'react'
 import { TodoActions, updateTodoFilters } from './Todo.action'
-import ITodoFilters from './TodoFilters'
 import TextInput from "../../shared/components/TextInput"
 import Checkbox from '../../shared/components/Checkbox'
+import { ITodoFilters } from './Todo.model'
 
 interface Props
 {

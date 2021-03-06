@@ -21,9 +21,16 @@ export enum ButtonColor
     Dark = 'dark'
 }
 
-const Button = React.memo(({onClick, icon, color = ButtonColor.Primary, style, classes } : Props) =>
+const Button = React.memo((
 {
-    return <button type="button" className={`btn btn-${color} ${classes}`} onClick={onClick} style={style}>
+    onClick, 
+    icon = '', 
+    color = ButtonColor.Primary, 
+    style = {}, 
+    classes = ''
+} : Props) =>
+{
+    return <button type="button" className={`btn btn-${color} ${classes}`.trim()} onClick={onClick} style={style}>
         <i className={`fas fa-${icon}`}></i>
     </button>
 })

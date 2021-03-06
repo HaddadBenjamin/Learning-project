@@ -1,10 +1,4 @@
-import Todo from "./Todo";
-
-export default interface ITodoFilters
-{
-    terms : string
-    onlyUncompleted : boolean
-}
+import { ITodoFilters, Todo } from "./Todo.model"
 
 export const filterTodos = (todos : Todo[], filters : ITodoFilters) : Todo[] => todos.filter(todo =>
     todo.title.includes(filters.terms) &&

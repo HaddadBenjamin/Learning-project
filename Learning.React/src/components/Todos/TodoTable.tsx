@@ -1,5 +1,5 @@
 import React from 'react'
-import Todo from './Todo'
+import { Todo } from './Todo.model'
 import { TodoActions } from './Todo.action'
 import TodoRow from './TodoRow'
 
@@ -11,22 +11,24 @@ interface Props
 
 const TodoTable = React.memo<Props>(({ todos, dispatch }) =>
 {
-    return <table className="table table-dark table-striped">
-        <thead>
-        <tr>
-            <th>Completed</th>
-            <th>Title</th>
-            <th>Publish edition</th>
-            <th>Remove</th>
-        </tr>
-        </thead>
-        <tbody>{todos.map(todo =>
-            <TodoRow 
-                key={todo.id} 
-                todo={todo} 
-                dispatch={dispatch}/>)}
-        </tbody>
-    </table>
+    return <> {todos.length > 0 && 
+        <table className="table table-dark table-striped">
+            <thead>
+            <tr>
+                <th>Completed</th>
+                <th>Title</th>
+                <th>Publish edition</th>
+                <th>Remove</th>
+            </tr>
+            </thead>
+            <tbody>{todos.map(todo =>
+                <TodoRow 
+                    key={todo.id} 
+                    todo={todo} 
+                    dispatch={dispatch}/>)}
+            </tbody>
+        </table>}
+    </>
 })
 
 export default TodoTable

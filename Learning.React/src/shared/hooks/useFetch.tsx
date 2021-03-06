@@ -9,11 +9,11 @@ interface State<T>
 const useFetch = function<T>(url : string)
 {
     const [state, setState] = useState<State<T>>(
-        {
-            isLoading : true,
-            items : [],
-            error : ''
-        })
+    {
+        isLoading : true,
+        items : [],
+        error : ''
+    })
 
     useEffect(() =>
     {
@@ -28,7 +28,7 @@ const useFetch = function<T>(url : string)
                         setState({...state, isLoading: false, items : await response.json()})
                 })
         }
-        asyncUseEffect();
+        asyncUseEffect()
     }, [])
 
     const { items, isLoading, error } = state

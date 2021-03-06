@@ -1,7 +1,6 @@
-import { uuidv4 } from "../../shared/helpers/StringHelpers"
-import Todo from "./Todo"
+import { newGuid } from "../../shared/helpers/StringHelpers"
 import { TodoActionTypes, TodoActions } from "./Todo.action"
-import ITodoFilters from "./TodoFilters"
+import { ITodoFilters, Todo } from "./Todo.model"
 
 export interface ITodosState
 {
@@ -12,17 +11,17 @@ export interface ITodosState
 export const initialState : ITodosState =
 {
     todos : [
-        { id : uuidv4(), title : "Faire le lit", completed : false },
-        { id : uuidv4(), title : "Ranger le lave vaiselle", completed : false }
+        { id : newGuid(), title : "Faire le lit", completed : false },
+        { id : newGuid(), title : "Ranger le lave vaiselle", completed : false }
     ],
     filters :
     {
         terms : '',
-        onlyUncompleted : true
+        onlyUncompleted : false
     }
 }
 
-// Without Immer & Redux & API
+// Without Immer & Redux & API + asynchronous call
 export default function todoReducer(state : ITodosState = initialState, action : TodoActions) : ITodosState
 {
     switch (action.type)
@@ -30,7 +29,7 @@ export default function todoReducer(state : ITodosState = initialState, action :
         case TodoActionTypes.CREATE_TODO :
             return {
                 ...state,
-                todos : [ ...state.todos, { id : uuidv4(), title : action.payload.title, completed : false } ]
+                todos : [ ...state.todos, { id : newGuid(), title : action.payload.title, completed : false } ]
             }
 
         case TodoActionTypes.UPDATE_TODO :

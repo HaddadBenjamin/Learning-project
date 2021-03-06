@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Checkbox from '../../shared/components/Checkbox'
 import TextInput from '../../shared/components/TextInput'
 import Button, { ButtonColor } from '../../shared/components/Button'
-import Todo from './Todo'
+import{ Todo } from './Todo.model'
 import { deleteTodo, TodoActions, toggleTodo, updateTodo } from './Todo.action'
 
 interface Props
@@ -13,7 +13,7 @@ interface Props
 
 const TodoRow = React.memo<Props>(({todo, dispatch}) =>
 {
-    const [title, setTitle] = useState<string>(todo.title);
+    const [title, setTitle] = useState<string>(todo.title)
 
     const onCompletedChange = (isChecked : boolean, id : string) => dispatch(toggleTodo(todo.id))
     const onTitleChange = (value : string, id : string) => setTitle(value)
