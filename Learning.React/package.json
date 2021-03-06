@@ -39,12 +39,6 @@
       "last 1 safari version"
     ]
   },
-  "jest": {
-    "name": "Learning.React",
-    "jest": {
-      "verbose": true
-    }
-  },
   "devDependencies": {
     "@babel/core": "^7.13.8",
     "@babel/preset-env": "^7.13.9",

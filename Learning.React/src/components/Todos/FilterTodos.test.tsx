@@ -15,7 +15,7 @@ describe("FilterTodos", () =>
     const filteredTodos : Todo[] = filterTodos(todos, filters)
 
     // Assert
-    expect(filteredTodos.length).toBe(2)
+    expect(filteredTodos).toHaveLength(2)
     expect(filteredTodos[0]).toBe(completedTodo)
     expect(filteredTodos[1]).toBe(otherTodo)
   }),
@@ -32,7 +32,7 @@ describe("FilterTodos", () =>
     const filteredTodos : Todo[] = filterTodos(todos, filters)
 
     // Assert
-    expect(filteredTodos.length).toBe(1)
+    expect(filteredTodos).toHaveLength(1)
     expect(filteredTodos[0]).toBe(uncompletedTodo)
   })
 })

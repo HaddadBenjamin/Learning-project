@@ -9,7 +9,7 @@ Je me suis entrainé à :
 Plus tard :
 - Gérer l'état centralisé avec Redux-Observable et configurer un reduceur, une epic, un store et des actions.
 - Pousser l'utilisation de Redux en utilisant typescript-fsa pour générer mes actions et Immer pour gérer l'immutabilité.
-- Communiquer avec une API.
+- Créer une fausse API avec JSONPlaceholder, Communiquer avec via des observables et la tester avec supertest.
 - Créer des tests unitaires avec jest & react testing library.
 - Gérer différents environnements avec une configuration différente.
 - Créer un petit formulaire avec de la validation avec Formik.

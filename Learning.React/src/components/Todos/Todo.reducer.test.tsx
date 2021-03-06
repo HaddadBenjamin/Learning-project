@@ -14,7 +14,7 @@ describe("TodoReducer", () =>
         const newState : ITodosState = todoReducer(initialState, createTodoAction)
 
         // Assert
-        expect(newState.todos.length).toBe(1)
+        expect(newState.todos).toHaveLength(1)
         expect(newState.todos[0].completed).toBeFalsy()
         expect(newState.todos[0].title).toBe(newTodoTitle)
     }),
@@ -36,7 +36,7 @@ describe("TodoReducer", () =>
             const newState : ITodosState = todoReducer(initialState, updateTodoAction)
     
             // Assert
-            expect(newState.todos.length).toBe(1)
+            expect(newState.todos).toHaveLength(1)
             expect(newState.todos[0].completed).toBeFalsy()
             expect(newState.todos[0].title).toBe(newTodoTitle)
         }),
@@ -69,7 +69,7 @@ describe("TodoReducer", () =>
             const newState : ITodosState = todoReducer(initialState, toggleTodoAction)
     
             // Assert
-            expect(newState.todos.length).toBe(1)
+            expect(newState.todos).toHaveLength(1)
             expect(newState.todos[0].completed).toBeTruthy()
         }),
 
@@ -100,7 +100,7 @@ describe("TodoReducer", () =>
             const newState : ITodosState = todoReducer(initialState, deleteTodoAction)
 
             // Assert
-            expect(newState.todos.length).toBe(0)
+            expect(newState.todos).toHaveLength(0)
         }),
 
         it("DELETE_TODO should not throw an excpetion when the todo don't exists", () => {
@@ -124,7 +124,7 @@ describe("TodoReducer", () =>
         const newState : ITodosState = todoReducer(initialState, updateTodoFiltersAction)
 
         // Assert
-        expect(newState.todos.length).toBe(0)
+        expect(newState.todos).toHaveLength(0)
         expect(newState.filters).toEqual(newTodoFilters)
     })
 })

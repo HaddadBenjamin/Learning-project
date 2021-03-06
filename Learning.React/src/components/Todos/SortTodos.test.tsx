@@ -13,7 +13,7 @@ describe("SortTodos", () =>
     const sortedTodos : Todo[] = sortTodos(todos)
 
     // Assert
-    expect(sortedTodos.length).toBe(2)
+    expect(sortedTodos).toHaveLength(2)
     expect(sortedTodos[0]).toBe(uncompletedTodo)
     expect(sortedTodos[1]).toBe(completedTodo)
   })
