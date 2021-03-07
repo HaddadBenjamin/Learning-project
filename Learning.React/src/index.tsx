@@ -6,20 +6,25 @@ import Counter from "./components/Counter"
 import ControledAndUncontroledFields from "./components/ControledAndUncontroledFields"
 import MyContextConsumer, {initialUserState, UserContext} from "./components/PlayWithContext"
 import FilterableAndSearchableTodoTable from './components/Todos/FilterableAndSearchableTodoTable'
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.css'
+import { Provider } from 'react-redux'
+import store from './store'
 
 ReactDOM.render(
-  <React.StrictMode>
-      <UserContext.Provider value={initialUserState}>
-          <div className="container col-8">
-              <FilterableAndSearchableTodoTable/>
-              <Counter initialValue={5}/>
-              <ControledAndUncontroledFields />
-              <MyContextConsumer/>
-          </div>
-      </UserContext.Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <Provider store={store}>
+            <UserContext.Provider value={initialUserState}>
+                <div className="container col-8">
+                    <FilterableAndSearchableTodoTable/>
+                    <Counter initialValue={5}/>
+                    <ControledAndUncontroledFields />
+                    <MyContextConsumer/>
+                </div>
+            </UserContext.Provider>
+        </Provider>
+    </React.StrictMode>,
+    
+    document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
