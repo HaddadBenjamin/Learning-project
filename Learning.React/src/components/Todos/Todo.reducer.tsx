@@ -1,6 +1,6 @@
-import { newGuid } from "../../shared/helpers/StringHelpers"
-import { TodoActionTypes, TodoActions } from "./Todo.action"
-import { ITodoFilters, Todo } from "./Todo.model"
+import { TodoActionTypes, TodoActions } from './todo.action'
+import { ITodoFilters, Todo } from './todo.model'
+import { newGuid } from '../../shared/helpers/stringHelpers'
 
 export interface ITodosState
 {
@@ -8,7 +8,7 @@ export interface ITodosState
     filters : ITodoFilters
 }
 
-export const initialState : ITodosState =
+export const initialTodoState : ITodosState =
 {
     todos : [
         { id : newGuid(), title : "Faire le lit", completed : false },
@@ -22,7 +22,7 @@ export const initialState : ITodosState =
 }
 
 // Without Immer & Redux & API + asynchronous call
-export default function todoReducer(state : ITodosState = initialState, action : TodoActions) : ITodosState
+export default function todoReducer(state : ITodosState = initialTodoState, action : TodoActions) : ITodosState
 {
     switch (action.type)
     {
@@ -51,5 +51,8 @@ export default function todoReducer(state : ITodosState = initialState, action :
 
         case TodoActionTypes.UPDATE_TODO_FILTERS :
             return { ...state, filters : { ...action.payload } }
+
+        // Without this line, the state is undefined at first init
+        default : return state
     }
 }

@@ -2,18 +2,19 @@ import React, { useState } from 'react'
 import Checkbox from '../../shared/components/Checkbox'
 import TextInput from '../../shared/components/TextInput'
 import Button, { ButtonColor } from '../../shared/components/Button'
-import{ Todo } from './Todo.model'
-import { deleteTodo, TodoActions, toggleTodo, updateTodo } from './Todo.action'
+import{ Todo } from './todo.model'
+import { deleteTodo, toggleTodo, updateTodo } from './todo.action'
+import { useDispatch } from 'react-redux'
 
 interface Props
 {
     todo : Todo
-    dispatch : React.Dispatch<TodoActions>
 }
 
-const TodoRow = React.memo<Props>(({todo, dispatch}) =>
+const TodoRow = React.memo<Props>(({ todo }) =>
 {
     const [title, setTitle] = useState<string>(todo.title)
+    const dispatch = useDispatch()
 
     const onCompletedChange = (isChecked : boolean, id : string) => dispatch(toggleTodo(todo.id))
     const onTitleChange = (value : string, id : string) => setTitle(value)

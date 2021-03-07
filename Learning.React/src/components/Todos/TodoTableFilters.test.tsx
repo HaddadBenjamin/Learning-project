@@ -1,18 +1,16 @@
-import { ITodoFilters, Todo } from './Todo.model'
+import { ITodoFilters } from './todo.model'
 import { render } from '@testing-library/react'
-import React, { Dispatch } from 'react'
+import React from 'react'
 import TodoTableFilters from './TodoTableFilters'
-import { TodoActions } from './Todo.action'
 
 describe("TodoTableFilters", () =>
 {
   it("Should be correctly mounted", () => {
         // Arrange
         const filters : ITodoFilters = { terms : '', onlyUncompleted : true }
-        const dispatch : Dispatch<TodoActions> = jest.fn()
     
         // Act
-        render(<TodoTableFilters filters={filters} dispatch={dispatch}/>)
+        render(<TodoTableFilters/>)
 
         const divs : NodeListOf<HTMLDivElement> = document.querySelectorAll('div')
         const inputSearchInput : HTMLInputElement = divs[1].querySelector('input')

@@ -1,6 +1,6 @@
-import { ITodoFilters, Todo } from './Todo.model'
-import todoReducer, { ITodosState } from './Todo.reducer'
-import { createTodo, deleteTodo, TodoActions, toggleTodo, updateTodo, updateTodoFilters } from './Todo.action'
+import { ITodoFilters, Todo } from './todo.model'
+import todoReducer, { ITodosState } from './todo.reducer'
+import { createTodo, deleteTodo, TodoActions, toggleTodo, updateTodo, updateTodoFilters } from './todo.action'
 
 describe("TodoReducer", () =>
 {

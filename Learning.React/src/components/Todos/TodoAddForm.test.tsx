@@ -1,16 +1,12 @@
 import { render } from '@testing-library/react'
-import React, { Dispatch } from 'react'
+import React from 'react'
 import TodoAddForm from './TodoAddForm'
-import { TodoActions } from './Todo.action'
 
 describe("TodoAddForm", () =>
 {
   it("Should be correctly mounted", () => {
-        // Arrange
-        const dispatch : Dispatch<TodoActions> = jest.fn()
-
         // Act
-        render(<TodoAddForm dispatch={dispatch}/>)
+        render(<TodoAddForm/>)
     
         const forms : NodeListOf<HTMLFormElement> = document.querySelectorAll('form')
         const divs : NodeListOf<HTMLDivElement> = document.querySelectorAll('form > div')

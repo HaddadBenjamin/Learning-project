@@ -1,8 +1,7 @@
-import { Todo } from './Todo.model'
+import { Todo } from './todo.model'
 import { render } from '@testing-library/react'
-import React, { Dispatch } from 'react'
+import React from 'react'
 import TodoRow from './TodoRow'
-import { TodoActions } from './Todo.action'
 
 describe("TodoRow", () =>
 {
@@ -10,12 +9,11 @@ describe("TodoRow", () =>
         // Arrange
         const todoTitle : string = "faire la vaiselle"
         const todo : Todo = { id : "1", title : todoTitle, completed : false }
-        const dispatch : Dispatch<TodoActions> = jest.fn() // Je vais rencontrer des problèmes car je n'ai pas monté un vrai redux ici.
     
         // Act
         render(<table>
             <tbody>
-                <TodoRow todo={todo} dispatch={dispatch}/>
+                <TodoRow todo={todo}/>
             </tbody>
         </table>)
 

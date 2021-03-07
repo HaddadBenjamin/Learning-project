@@ -1,6 +1,6 @@
-import { Todo } from "./Todo.model"
-import { ITodosState } from "./Todo.reducer"
-import { selectFilteredAndSortedTodos } from "./Todo.selector"
+import { Todo } from "./todo.model"
+import { ITodosState } from "./todo.reducer"
+import { selectFilteredAndSortedTodos } from "./todo.selector"
 
 describe("TodoSelector", () =>
 {
@@ -12,7 +12,7 @@ describe("TodoSelector", () =>
             const uncompletedTodo : Todo = { id : "1", title : "faire la vaiselle", completed : false }
             const otherTodo : Todo = { id : "3", title : "Rire plus fort", completed : true }
             const todos : Todo[] = [ uncompletedTodo, completedTodo, otherTodo ]
-            const todoState : ITodosState = { todos : todos, filters :  { terms : '', onlyUncompleted : false } }
+            const todoState : ITodosState = { todos : todos, filters : { terms : '', onlyUncompleted : false } }
 
             // Act
             const filteredAndSortedTodos : Todo[] = selectFilteredAndSortedTodos(todoState)

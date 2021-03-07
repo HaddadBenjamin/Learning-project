@@ -1,16 +1,12 @@
 import React from 'react'
-import { Todo } from './Todo.model'
-import { TodoActions } from './Todo.action'
+import { useSelector } from 'react-redux'
+import { selectFilteredAndSortedTodos } from './todo.selector'
 import TodoRow from './TodoRow'
 
-interface Props
+const TodoTable = React.memo(() =>
 {
-    todos : Todo[]
-    dispatch : React.Dispatch<TodoActions>
-}
-
-const TodoTable = React.memo<Props>(({ todos, dispatch }) =>
-{
+    const todos = useSelector(selectFilteredAndSortedTodos)
+   
     return <> {todos.length > 0 && 
         <table className="table table-dark table-striped">
             <thead>
@@ -22,10 +18,7 @@ const TodoTable = React.memo<Props>(({ todos, dispatch }) =>
             </tr>
             </thead>
             <tbody>{todos.map(todo =>
-                <TodoRow 
-                    key={todo.id} 
-                    todo={todo} 
-                    dispatch={dispatch}/>)}
+                <TodoRow key={todo.id} todo={todo}/>)}
             </tbody>
         </table>}
     </>

@@ -1,4 +1,4 @@
-import { ITodoFilters } from "./Todo.model"
+import { ITodoFilters } from "./todo.model"
 
 export enum TodoActionTypes
 {

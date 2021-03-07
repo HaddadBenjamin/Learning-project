@@ -1,8 +1,7 @@
-import { Todo } from './Todo.model'
+import { Todo } from './todo.model'
 import { render } from '@testing-library/react'
-import React, { Dispatch } from 'react'
+import React from 'react'
 import TodoTable from './TodoTable'
-import { TodoActions } from './Todo.action'
 
 describe("TodoTable", () =>
 {
@@ -12,10 +11,9 @@ describe("TodoTable", () =>
             { id : "1", title : "faire la vaiselle", completed : false },
             { id : "2", title : "acheter du poisson", completed : true }
         ]
-        const dispatch : Dispatch<TodoActions> = jest.fn()
     
         // Act
-        render(<TodoTable todos={todos} dispatch={dispatch}/>)
+        render(<TodoTable/>)
 
         const tables : NodeListOf<HTMLTableElement> = document.querySelectorAll('table')
         const table : HTMLTableElement = tables[0]

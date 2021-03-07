@@ -1,5 +1,5 @@
-import { sortTodos } from './SortTodos'
-import { Todo } from './Todo.model'
+import { sortTodos } from './sortTodos'
+import { Todo } from './todo.model'
 
 describe("SortTodos", () =>
 {

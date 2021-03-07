@@ -1,5 +1,5 @@
 import { filterTodos } from './FilterTodos'
-import { Todo, ITodoFilters } from './Todo.model'
+import { Todo, ITodoFilters } from './todo.model'
 
 describe("FilterTodos", () =>
 {
