@@ -2,6 +2,9 @@ import { Todo } from './todo.model'
 import { render } from '@testing-library/react'
 import React from 'react'
 import TodoTable from './TodoTable'
+import configureStore from 'redux-mock-store'
+import { Provider } from 'react-redux'
+import { IGlobalState, initialGlobalState } from '../../rootReducer'
 
 describe("TodoTable", () =>
 {
@@ -11,9 +14,14 @@ describe("TodoTable", () =>
             { id : "1", title : "faire la vaiselle", completed : false },
             { id : "2", title : "acheter du poisson", completed : true }
         ]
-    
+        let globalState : IGlobalState = initialGlobalState
+        globalState.todos.todos = todos
+        const mockStore = configureStore()(globalState)
+        
         // Act
-        render(<TodoTable/>)
+        render(<Provider store={mockStore}>
+          <TodoTable/>
+        </Provider>)
 
         const tables : NodeListOf<HTMLTableElement> = document.querySelectorAll('table')
         const table : HTMLTableElement = tables[0]

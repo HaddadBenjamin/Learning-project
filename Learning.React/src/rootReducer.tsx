@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import todoReducer, { initialTodoState, ITodosState } from './components/Todos/todo.reducer'
 
-interface IGlobalState
+export interface IGlobalState
 {
     todos : ITodosState
 }

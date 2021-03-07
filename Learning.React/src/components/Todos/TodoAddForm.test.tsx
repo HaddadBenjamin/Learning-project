@@ -1,12 +1,19 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 import TodoAddForm from './TodoAddForm'
+import configureStore from 'redux-mock-store'
+import { Provider } from 'react-redux'
 
 describe("TodoAddForm", () =>
 {
   it("Should be correctly mounted", () => {
+        //Arrange
+        const mockStore = configureStore()(undefined)
+        
         // Act
-        render(<TodoAddForm/>)
+        render(<Provider store={mockStore}>
+          <TodoAddForm/>
+        </Provider>)
     
         const forms : NodeListOf<HTMLFormElement> = document.querySelectorAll('form')
         const divs : NodeListOf<HTMLDivElement> = document.querySelectorAll('form > div')

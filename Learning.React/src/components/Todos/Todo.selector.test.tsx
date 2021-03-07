@@ -1,6 +1,7 @@
 import { Todo } from "./todo.model"
 import { ITodosState } from "./todo.reducer"
 import { selectFilteredAndSortedTodos } from "./todo.selector"
+import { IGlobalState } from '../../rootReducer'
 
 describe("TodoSelector", () =>
 {
@@ -12,10 +13,10 @@ describe("TodoSelector", () =>
             const uncompletedTodo : Todo = { id : "1", title : "faire la vaiselle", completed : false }
             const otherTodo : Todo = { id : "3", title : "Rire plus fort", completed : true }
             const todos : Todo[] = [ uncompletedTodo, completedTodo, otherTodo ]
-            const todoState : ITodosState = { todos : todos, filters : { terms : '', onlyUncompleted : false } }
+            const globalState : IGlobalState = { todos : { todos : todos, filters : { terms : '', onlyUncompleted : false } } }
 
             // Act
-            const filteredAndSortedTodos : Todo[] = selectFilteredAndSortedTodos(todoState)
+            const filteredAndSortedTodos : Todo[] = selectFilteredAndSortedTodos(globalState)
 
             // Assert
             expect(filteredAndSortedTodos.length).toBe(3)
@@ -30,10 +31,10 @@ describe("TodoSelector", () =>
             const uncompletedTodo : Todo = { id : "1", title : "faire la vaiselle", completed : false }
             const otherTodo : Todo = { id : "3", title : "Rire plus fort", completed : true }
             const todos : Todo[] = [ uncompletedTodo, completedTodo, otherTodo ]
-            const todoState : ITodosState = { todos : todos, filters :  { terms : '', onlyUncompleted : true } }
+            const globalState : IGlobalState = { todos : { todos : todos, filters :  { terms : '', onlyUncompleted : true } } }
 
             // Act
-            const filteredAndSortedTodos : Todo[] = selectFilteredAndSortedTodos(todoState)
+            const filteredAndSortedTodos : Todo[] = selectFilteredAndSortedTodos(globalState)
 
             // Assert
             expect(filteredAndSortedTodos.length).toBe(1)
@@ -46,10 +47,10 @@ describe("TodoSelector", () =>
             const uncompletedTodo : Todo = { id : "1", title : "faire la vaiselle", completed : false }
             const otherTodo : Todo = { id : "3", title : "Sauter 5 minutes", completed : true }
             const todos : Todo[] = [ uncompletedTodo, completedTodo, otherTodo ]
-            const todoState : ITodosState = { todos : todos, filters :  { terms : 'minutes', onlyUncompleted : false } }
+            const globalState : IGlobalState = { todos : { todos : todos, filters :  { terms : 'minutes', onlyUncompleted : false } } }
 
             // Act
-            const filteredAndSortedTodos : Todo[] = selectFilteredAndSortedTodos(todoState)
+            const filteredAndSortedTodos : Todo[] = selectFilteredAndSortedTodos(globalState)
 
             // Assert
             expect(filteredAndSortedTodos.length).toBe(2)
