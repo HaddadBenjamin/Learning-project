@@ -1,5 +1,4 @@
 import { Todo } from "./todo.model"
-import { ITodosState } from "./todo.reducer"
 import { selectFilteredAndSortedTodos } from "./todo.selector"
 import { IGlobalState } from '../../rootReducer'
 
