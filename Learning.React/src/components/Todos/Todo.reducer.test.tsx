@@ -44,7 +44,7 @@ describe("TodoReducer", () =>
             expect(newState.todos[0].title).toBe(newTodoTitle)
         }),
 
-        it("UPDATE_TODO should not throw an excpetion when the todo don't exists", () => {
+        it("UPDATE_TODO should throw an excpetion when the todo don't exists", () => {
             // Arrange
             const initialState : ITodosState = { ...initialTodoState, todos : [] }
             const todoIdThatDontExists : string = '28'
@@ -72,7 +72,7 @@ describe("TodoReducer", () =>
             expect(newState.todos[0].completed).toBeTruthy()
         }),
 
-        it("TOGGLE_TODO should not throw an excpetion when the todo don't exists", () => {
+        it("TOGGLE_TODO should throw an excpetion when the todo don't exists", () => {
             // Arrange
             const initialState : ITodosState = { ...initialTodoState, todos : [] }
             const todoIdThatDontExists : string = '28'
