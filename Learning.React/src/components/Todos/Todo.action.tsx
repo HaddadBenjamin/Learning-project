@@ -1,4 +1,4 @@
-import { ITodoFilters, Todo } from "./todo.model"
+import { ITodoFilters, Todo } from './todo.model'
 import actionCreatorFactory from 'typescript-fsa'
 
 export enum TodoActions

@@ -1,6 +1,6 @@
 import React from 'react'
 import { updateTodoFilters } from './todo.action'
-import TextInput from "../../shared/components/TextInput"
+import TextInput from '../../shared/components/TextInput'
 import Checkbox from '../../shared/components/Checkbox'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectFilters } from './todo.selector'

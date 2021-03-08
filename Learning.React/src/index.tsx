@@ -2,9 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom';
 import './index.css'
 import * as serviceWorker from './serviceWorker'
-import Counter from "./components/Counter"
-import ControledAndUncontroledFields from "./components/ControledAndUncontroledFields"
-import MyContextConsumer, {initialUserState, UserContext} from "./components/PlayWithContext"
+import Counter from './components/Counter'
+import ControledAndUncontroledFields from './components/ControledAndUncontroledFields'
+import MyContextConsumer, {initialUserState, UserContext} from './components/PlayWithContext'
 import FilterableAndSearchableTodoTable from './components/Todos/FilterableAndSearchableTodoTable'
 import 'bootstrap/dist/css/bootstrap.css'
 import { Provider } from 'react-redux'

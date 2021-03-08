@@ -1,7 +1,7 @@
 import React from 'react'
-import TodoTable from "./TodoTable"
-import TodoTableFilters from "./TodoTableFilters"
-import TodoAddForm from "./TodoAddForm"
+import TodoTable from './TodoTable'
+import TodoTableFilters from './TodoTableFilters'
+import TodoAddForm from './TodoAddForm'
 
 const FilterableAndSearchableTodoTable = () =>
 {   

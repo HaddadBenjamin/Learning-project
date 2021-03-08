@@ -1,5 +1,5 @@
-import { Todo } from "./todo.model"
-import { selectFilteredAndSortedTodos } from "./todo.selector"
+import { Todo } from './todo.model'
+import { selectFilteredAndSortedTodos } from './todo.selector'
 import { IGlobalState } from '../../rootReducer'
 import { initialTodoState } from './todo.reducer'
 

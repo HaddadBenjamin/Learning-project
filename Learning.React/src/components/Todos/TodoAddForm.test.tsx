@@ -9,7 +9,7 @@ describe("TodoAddForm", () =>
   it("Should be correctly mounted", () => {
         //Arrange
         const mockStore = configureStore()(undefined)
-        
+
         // Act
         render(<Provider store={mockStore}>
           <TodoAddForm/>

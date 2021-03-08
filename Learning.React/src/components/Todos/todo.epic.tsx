@@ -1,8 +1,8 @@
 import { createTodo } from './todo.action'
 import { newGuid } from '../../shared/helpers/stringHelpers'
-import { combineEpics, Epic } from "redux-observable";
-import { map, filter, delay } from "rxjs/operators";
-import { of } from "rxjs";
+import { combineEpics, Epic } from 'redux-observable'
+import { map, filter, delay } from 'rxjs/operators'
+import { of } from 'rxjs'
 
 const createTodoEpic : Epic = (action$, state$) => action$.pipe(
     filter(createTodo.started.match),
