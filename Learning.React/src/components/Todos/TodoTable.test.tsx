@@ -5,6 +5,7 @@ import TodoTable from './TodoTable'
 import configureStore from 'redux-mock-store'
 import { Provider } from 'react-redux'
 import { IGlobalState, initialGlobalState } from '../../rootReducer'
+import { initialTodoState } from './todo.reducer'
 
 describe("TodoTable", () =>
 {
@@ -14,8 +15,7 @@ describe("TodoTable", () =>
             { id : "1", title : "faire la vaiselle", completed : false },
             { id : "2", title : "acheter du poisson", completed : true }
         ]
-        let globalState : IGlobalState = initialGlobalState
-        globalState.todos.todos = todos
+        let globalState : IGlobalState = { ...initialGlobalState, todos : { ...initialTodoState, todos : todos } }
         const mockStore = configureStore()(globalState)
         
         // Act

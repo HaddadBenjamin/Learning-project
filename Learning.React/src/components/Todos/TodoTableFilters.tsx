@@ -9,7 +9,7 @@ const TodoTableFilters = () =>
 {
     const filters  = useSelector(selectFilters)
     const dispatch = useDispatch()
-    const onFiltersChange = (terms : string, onlyUncompleted : boolean) => dispatch(updateTodoFilters({ terms, onlyUncompleted }))
+    const onFiltersChange = (terms : string, onlyUncompleted : boolean) => dispatch(updateTodoFilters({ filters : { terms, onlyUncompleted } }))
     const onTermsChange = (value : string, id : string) => onFiltersChange(value, filters.onlyUncompleted)
     const onOnlyCompletedChange = (isChecked : boolean, id : string) => onFiltersChange(filters.terms, isChecked)
 

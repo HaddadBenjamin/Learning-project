@@ -1,18 +1,16 @@
-import { ITodoFilters } from './todo.model'
 import { render } from '@testing-library/react'
 import React from 'react'
 import TodoTableFilters from './TodoTableFilters'
 import { IGlobalState, initialGlobalState } from '../../rootReducer'
 import configureStore from 'redux-mock-store'
 import { Provider } from 'react-redux'
+import { initialTodoState } from './todo.reducer'
 
 describe("TodoTableFilters", () =>
 {
   it("Should be correctly mounted", () => {
         // Arrange
-        const filters : ITodoFilters = { terms : '', onlyUncompleted : true }
-        let globalState : IGlobalState = initialGlobalState
-        globalState.todos.filters = filters
+        let globalState : IGlobalState = {  ...initialGlobalState, todos: { ...initialTodoState, filters :  { terms : '', onlyUncompleted : true } } }
         const mockStore = configureStore()(globalState)
         
         // Act

@@ -17,7 +17,7 @@ const TodoAddForm = () =>
     }
     const dispatchCreateTodo = () =>
     {
-        dispatch(createTodo(title))
+        dispatch(createTodo.started({ title }))
         setTitle('')
     } 
     const handleOnClick = () => dispatchCreateTodo()

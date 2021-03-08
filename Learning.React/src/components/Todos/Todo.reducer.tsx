@@ -1,12 +1,17 @@
-import { TodoActionTypes, TodoActions } from './todo.action'
+import { createTodo, updateTodo, toggleTodo, deleteTodo, updateTodoFilters } from './todo.action'
 import { ITodoFilters, Todo } from './todo.model'
 import { newGuid } from '../../shared/helpers/stringHelpers'
 import produce, { Draft } from 'immer'
+import { isType } from 'typescript-fsa'
+import { Action } from 'redux'
+import ActionStatus from '../../shared/models/actionStatus'
 
 export interface ITodosState
 {
     todos : Todo[]
     filters : ITodoFilters
+    createActionStatus : ActionStatus
+    createActionErrorMessage : string
 }
 
 export const initialTodoState : ITodosState =
@@ -19,57 +24,59 @@ export const initialTodoState : ITodosState =
     {
         terms : '',
         onlyUncompleted : false
-    }
+    },
+    createActionErrorMessage : '',
+    createActionStatus : ActionStatus.Loaded
 }
 
 const getTodoOrThrowError = (draft : Draft<ITodosState>, id : string) : Draft<Todo> =>
 {
-    const todo = draft.todos.find(todo => todo.id)
+    const todo = draft.todos.find(todo => todo.id === id)
 
     if (!todo)
         throw new Error("Cannot find todo with id: " + id)
 
     return todo
 }
-const getTodoIndexOrThrowError = (draft : Draft<ITodosState>, id : string) : number =>
+
+// With Immer & Typescript-fsa
+export default (state : ITodosState = initialTodoState, action : Action) => produce(state, draft => 
 {
-    const todoIndex = draft.todos.findIndex(todo => todo.id)
-
-    if (todoIndex === -1)
-        throw new Error("Cannot find todo with id: " + id)
-
-    return todoIndex
-}
-
-// With Immer
-export default (state : ITodosState = initialTodoState, action : TodoActions) => produce(state, draft => 
-{
-    switch (action.type)
+    if (isType(action, createTodo.started))
     {
-        case TodoActionTypes.CREATE_TODO :
-            draft.todos.push({ id : newGuid(), title : action.payload.title, completed : false })
-            break
-
-        case TodoActionTypes.UPDATE_TODO :
-            getTodoOrThrowError(draft, action.payload.id).title = action.payload.newTitle
-            break
-
-        case TodoActionTypes.TOGGLE_TODO :
-            let todo = getTodoOrThrowError(draft, action.payload.id)
-            todo.completed = !todo.completed
-            break
-
-        case TodoActionTypes.DELETE_TODO :
-            draft.todos.splice(getTodoIndexOrThrowError(draft, action.payload.id), 1)
-            break
-
-        case TodoActionTypes.UPDATE_TODO_FILTERS :
-            draft.filters = action.payload
-            break;
+        draft.createActionStatus = ActionStatus.Loading
+        draft.createActionErrorMessage = ''
     }
+
+    if (isType(action, createTodo.done))
+    { 
+        draft.createActionStatus = ActionStatus.Loaded
+        draft.todos.push(action.payload.result.todo)
+    }
+
+    if (isType(action, createTodo.failed))
+    {
+        draft.createActionStatus = ActionStatus.Failed
+        draft.createActionErrorMessage = action.payload.error.errorMessage
+    }
+
+    if (isType(action, updateTodo))
+        getTodoOrThrowError(draft, action.payload.id).title = action.payload.newTitle
+
+    if (isType(action, toggleTodo))
+    {
+        const todo = getTodoOrThrowError(draft, action.payload.id)
+        todo.completed = !todo.completed
+    }
+
+    if (isType(action, deleteTodo))
+        draft.todos = draft.todos.filter(todo => todo.id !== action.payload.id)
+    
+    if (isType(action, updateTodoFilters))
+        draft.filters = action.payload.filters
 })
 
-// Without Immer
+// Without Immer & Typescript-fsa
 // export default function todoReducer(state : ITodosState = initialTodoState, action : TodoActions) : ITodosState
 // {   
 //     switch (action.type)

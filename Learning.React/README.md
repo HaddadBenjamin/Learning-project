@@ -19,8 +19,8 @@ TODO :
 
 Technologies:
 - React, Typescript
-- Redux, Redux-observable, redux-devtools-extension, Immer. 
-- Jest, React testing library, react-mock-store. 
-
+- Gestion de l'état et de l'immutabilité : Redux, Redux-observable, redux-devtools-extension, Immer, typescript-fsa, react-redux.
+- Tests : Jest, React testing library, react-mock-store. 
+1
 ![Image of Yaktocat](https://imgur.com/RDZwvL6.png)
 // Photo du rendu

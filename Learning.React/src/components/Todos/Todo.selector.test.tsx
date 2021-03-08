@@ -1,6 +1,7 @@
 import { Todo } from "./todo.model"
 import { selectFilteredAndSortedTodos } from "./todo.selector"
 import { IGlobalState } from '../../rootReducer'
+import { initialTodoState } from './todo.reducer'
 
 describe("TodoSelector", () =>
 {
@@ -12,7 +13,7 @@ describe("TodoSelector", () =>
             const uncompletedTodo : Todo = { id : "1", title : "faire la vaiselle", completed : false }
             const otherTodo : Todo = { id : "3", title : "Rire plus fort", completed : true }
             const todos : Todo[] = [ uncompletedTodo, completedTodo, otherTodo ]
-            const globalState : IGlobalState = { todos : { todos : todos, filters : { terms : '', onlyUncompleted : false } } }
+            const globalState : IGlobalState = { todos : { ...initialTodoState, todos : todos, filters : { terms : '', onlyUncompleted : false } } }
 
             // Act
             const filteredAndSortedTodos : Todo[] = selectFilteredAndSortedTodos(globalState)
@@ -30,7 +31,7 @@ describe("TodoSelector", () =>
             const uncompletedTodo : Todo = { id : "1", title : "faire la vaiselle", completed : false }
             const otherTodo : Todo = { id : "3", title : "Rire plus fort", completed : true }
             const todos : Todo[] = [ uncompletedTodo, completedTodo, otherTodo ]
-            const globalState : IGlobalState = { todos : { todos : todos, filters :  { terms : '', onlyUncompleted : true } } }
+            const globalState : IGlobalState = { todos : { ...initialTodoState, todos : todos, filters : { terms : '', onlyUncompleted : true } } }
 
             // Act
             const filteredAndSortedTodos : Todo[] = selectFilteredAndSortedTodos(globalState)
@@ -46,7 +47,7 @@ describe("TodoSelector", () =>
             const uncompletedTodo : Todo = { id : "1", title : "faire la vaiselle", completed : false }
             const otherTodo : Todo = { id : "3", title : "Sauter 5 minutes", completed : true }
             const todos : Todo[] = [ uncompletedTodo, completedTodo, otherTodo ]
-            const globalState : IGlobalState = { todos : { todos : todos, filters :  { terms : 'minutes', onlyUncompleted : false } } }
+            const globalState : IGlobalState = { todos : { ...initialTodoState, todos : todos, filters : { terms : 'minutes', onlyUncompleted : false } } }
 
             // Act
             const filteredAndSortedTodos : Todo[] = selectFilteredAndSortedTodos(globalState)
