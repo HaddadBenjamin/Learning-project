@@ -7,7 +7,8 @@ describe("TodoSelector", () =>
 {
     describe("selectFilteredAndSortedTodos", () =>
     {
-        it("Todos should be sorted by completed status", () => {
+        it("Todos should be sorted by completed status", () =>
+        {
             // Arrange
             const completedTodo : ITodo = { id : "2", title : "courrir 20 minutes", completed : true }
             const uncompletedTodo : ITodo = { id : "1", title : "faire la vaiselle", completed : false }
@@ -25,7 +26,8 @@ describe("TodoSelector", () =>
             expect(filteredAndSortedTodos[2]).toBe(otherTodo)
         }),
 
-      it("Todos should be filtered by completed status", () => {
+      it("Todos should be filtered by completed status", () =>
+      {
             // Arrange
             const completedTodo : ITodo = { id : "2", title : "courrir 20 minutes", completed : true }
             const uncompletedTodo : ITodo = { id : "1", title : "faire la vaiselle", completed : false }
@@ -41,7 +43,8 @@ describe("TodoSelector", () =>
             expect(filteredAndSortedTodos[0]).toBe(uncompletedTodo)
         }),
 
-        it("Todos should be filtered by terms", () => {
+        it("Todos should be filtered by terms", () =>
+        {
             // Arrange
             const completedTodo : ITodo = { id : "2", title : "courrir 20 minutes", completed : true }
             const uncompletedTodo : ITodo = { id : "1", title : "faire la vaiselle", completed : false }

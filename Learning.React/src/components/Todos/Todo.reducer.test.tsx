@@ -1,34 +1,72 @@
 import { ITodoFilters, ITodo } from './todo.model'
 import todoReducer, { initialTodoState, ITodosState } from './todo.reducer'
-import { createTodo, deleteTodo, ICreatedTodoAction, ICreateTodoAction, IDeleteTodoAction, IToggleTodoAction, IUpdateTodoAction, IUpdateTodoFiltersAction, toggleTodo, updateTodo, updateTodoFilters } from './todo.action'
-import { Action, Success } from 'typescript-fsa'
+import { createTodo, deleteTodo, ICreatedTodoAction, ICreateTodoAction, ICreateTodoFailedAction, IDeleteTodoAction, IToggleTodoAction, IUpdateTodoAction, IUpdateTodoFiltersAction, toggleTodo, updateTodo, updateTodoFilters } from './todo.action'
+import { Action, Failure, Success } from 'typescript-fsa'
 import { newGuid } from '../../shared/helpers/stringHelpers'
+import ActionStatus from '../../shared/models/actionStatus'
 
 describe("TodoReducer", () =>
 {
-  it("CREATE_TODO should create a new todo", () => {
-        // Arrange
-        const initialState : ITodosState = { ...initialTodoState, todos : [] }
-        const newTodoTitle : string = 'Faire les courses'
-        const createdTodoAction : Action<Success<ICreateTodoAction, ICreatedTodoAction>> =
-            createTodo.done(
+    describe('CREATE_TODO', () => 
+    {
+        it("Started action should define create action", () =>
+        {
+            // Arrange
+            const createTodoAction : Action<ICreateTodoAction> = createTodo.started({ title : 'Faire les courses' })
+
+            // Act
+            const { createAction : { status, errorMessage }} : ITodosState = todoReducer(initialTodoState, createTodoAction)
+            
+            // Assert
+            expect(status).toBe(ActionStatus.Loading)
+            expect(errorMessage).toBeNull()
+        })
+
+        it("Done action should create a new todo", () =>
+        {
+            // Arrange
+            const initialState : ITodosState = { ...initialTodoState, todos : [] }
+            const newTodoTitle : string = 'Faire les courses'
+            const createdTodoAction : Action<Success<ICreateTodoAction, ICreatedTodoAction>> = createTodo.done(
             { 
                 params : { title : newTodoTitle },
                 result : { todo : { id : newGuid(), completed : false, title : newTodoTitle } }
             })
+    
+            // Act
+            const { todos, createAction : { status }} : ITodosState = todoReducer(initialState, createdTodoAction)
+            const todo : ITodo = todos[0]
 
-        // Act
-        const newState : ITodosState = todoReducer(initialState, createdTodoAction)
+            // Assert
+            expect(todos).toHaveLength(1)
+            expect(todo.completed).toBeFalsy()
+            expect(todo.title).toBe(newTodoTitle)
+            expect(status).toBe(ActionStatus.Loaded)
+        })
 
-        // Assert
-        expect(newState.todos).toHaveLength(1)
-        expect(newState.todos[0].completed).toBeFalsy()
-        expect(newState.todos[0].title).toBe(newTodoTitle)
-    }),
+        it("Failed action should define create action error message & status", () =>
+        {
+            // Arrange
+            const expectedErrorMessage : string = 'HTTP Error 500 (Internal Server)'
+            const createTodoFailedAction : Action<Failure<ICreateTodoAction, ICreateTodoFailedAction>> = createTodo.failed(
+            { 
+                params : { title : '' }, 
+                error : { errorMessage : expectedErrorMessage }
+            })
+
+            // Act
+            const { createAction : { status, errorMessage } } : ITodosState = todoReducer(initialTodoState, createTodoFailedAction)
+
+            // Assert
+            expect(errorMessage).toBe(expectedErrorMessage)
+            expect(status).toBe(ActionStatus.Failed)
+        })
+    })
 
     describe("UPDATE_TODO", () => 
     {
-        it("UPDATE_TODO should update an existing todo", () => {
+        it("Should update an existing todo", () =>
+        {
             // Arrange
             const existingTodo : ITodo = { id : '1', completed : false, title : 'Faire les courses'}
             const initialState : ITodosState = { ...initialTodoState, todos : [existingTodo] }
@@ -36,90 +74,93 @@ describe("TodoReducer", () =>
             const updateTodoAction : Action<IUpdateTodoAction> = updateTodo({ id : existingTodo.id, newTitle : newTodoTitle })
     
             // Act
-            const newState : ITodosState = todoReducer(initialState, updateTodoAction)
+            const { todos } : ITodosState = todoReducer(initialState, updateTodoAction)
+            const todo = todos[0]
     
             // Assert
-            expect(newState.todos).toHaveLength(1)
-            expect(newState.todos[0].completed).toBeFalsy()
-            expect(newState.todos[0].title).toBe(newTodoTitle)
-        }),
+            expect(todos).toHaveLength(1)
+            expect(todo.completed).toBeFalsy()
+            expect(todo.title).toBe(newTodoTitle)
+        })
 
-        it("UPDATE_TODO should throw an excpetion when the todo don't exists", () => {
+        it("Should throw an exception when the todo don't exists", () =>
+        {
             // Arrange
             const initialState : ITodosState = { ...initialTodoState, todos : [] }
-            const todoIdThatDontExists : string = '28'
-            const newTodoTitle : string = 'Acheter du poivre'
-            const updateTodoAction : Action<IUpdateTodoAction> = updateTodo({ id : todoIdThatDontExists, newTitle : newTodoTitle })
+            const updateTodoAction : Action<IUpdateTodoAction> = updateTodo({ id : newGuid(), newTitle : 'Acheter du poivre' })
 
              // Act & Assert
              expect(() => todoReducer(initialState, updateTodoAction)).toThrow()
         })
-    }),
+    })
 
     describe("TOGGLE_TODO", () => 
     {
-        it("TOGGLE_TODO should toggle an existing todo", () => {
+        it("Should toggle an existing todo", () =>
+        {
             // Arrange
             const existingTodo : ITodo = { id : '1', completed : false, title : 'Faire les courses'}
             const initialState : ITodosState = { ...initialTodoState, todos : [existingTodo] }
             const toggleTodoAction : Action<IToggleTodoAction> = toggleTodo({ id : existingTodo.id })
     
             // Act
-            const newState : ITodosState = todoReducer(initialState, toggleTodoAction)
-    
+            const { todos } : ITodosState = todoReducer(initialState, toggleTodoAction)
+            
             // Assert
-            expect(newState.todos).toHaveLength(1)
-            expect(newState.todos[0].completed).toBeTruthy()
+            expect(todos).toHaveLength(1)
+            expect(todos[0].completed).toBeTruthy()
         }),
 
-        it("TOGGLE_TODO should throw an excpetion when the todo don't exists", () => {
+        it("Should throw an exception when the todo don't exists", () =>
+        {
             // Arrange
             const initialState : ITodosState = { ...initialTodoState, todos : [] }
-            const todoIdThatDontExists : string = '28'
-            const toggleTodoAction : Action<IToggleTodoAction> = toggleTodo({ id : todoIdThatDontExists })
+            const toggleTodoAction : Action<IToggleTodoAction> = toggleTodo({ id : newGuid() })
 
              // Act & Assert
              expect(() => todoReducer(initialState, toggleTodoAction)).toThrow()
         })
-    }),
+    })
 
     describe("DELETE_TODO", () => 
     {    
-        it("DELETE_TODO should delete an existing todo", () => {
+        it("should delete an existing todo", () =>
+        {
             // Arrange
             const existingTodo : ITodo = { id : '1', completed : false, title : 'Faire les courses'}
             const initialState : ITodosState = { ...initialTodoState, todos : [existingTodo] }
             const deleteTodoAction : Action<IToggleTodoAction> = deleteTodo({ id : existingTodo.id })
 
             // Act
-            const newState : ITodosState = todoReducer(initialState, deleteTodoAction)
+            const { todos } : ITodosState = todoReducer(initialState, deleteTodoAction)
 
             // Assert
-            expect(newState.todos).toHaveLength(0)
-        }),
+            expect(todos).toHaveLength(0)
+        })
 
-        it("DELETE_TODO should not throw an excpetion when the todo don't exists", () => {
+        it("Should not throw an exception when the todo don't exists", () =>
+        {
             // Arrange
             const initialState : ITodosState = { ...initialTodoState, todos : [] }
-            const todoIdThatDontExists : string = '28'
-            const deleteTodoAction : Action<IDeleteTodoAction> = deleteTodo({ id : todoIdThatDontExists })
+            const deleteTodoAction : Action<IDeleteTodoAction> = deleteTodo({ id : newGuid() })
 
              // Act & Assert
              expect(() => todoReducer(initialState, deleteTodoAction)).not.toThrow()
         })
     })
 
-    it("UPDATE_TODO_FILTERS should update to do filters", () => {
+    it("UPDATE_TODO_FILTERS should update the todo filters", () =>
+    {
         // Arrange
         const initialState : ITodosState = { ...initialTodoState, todos : [] }
         const newTodoFilters : ITodoFilters = { onlyUncompleted : true, terms : 'courses' }
         const updateTodoFiltersAction : Action<IUpdateTodoFiltersAction> = updateTodoFilters({ filters : newTodoFilters })
 
         // Act
-        const newState : ITodosState = todoReducer(initialState, updateTodoFiltersAction)
+        const { todos, filters } : ITodosState = todoReducer(initialState, updateTodoFiltersAction)
 
         // Assert
-        expect(newState.todos).toHaveLength(0)
-        expect(newState.filters).toEqual(newTodoFilters)
+        expect(todos).toHaveLength(0)
+        expect(filters).toEqual(newTodoFilters)
     })
 })

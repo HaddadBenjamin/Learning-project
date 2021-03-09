@@ -4,6 +4,7 @@ import actionCreatorFactory from 'typescript-fsa'
 export enum TodoActions
 {
     CREATE_TODO = "todo/create",
+    CREATE_TODO_STARTED = "todo/create_STARTED",
 
     UPDATE_TODO = "todo/update",
     TOGGLE_TODO = "todo/toggle",

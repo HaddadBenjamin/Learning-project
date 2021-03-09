@@ -3,7 +3,8 @@ import { ITodo, ITodoFilters } from './todo.model'
 
 describe("FilterTodos", () =>
 {
-  it("Todos should be filtered by terms", () => {
+  it("Todos should be filtered by terms", () =>
+  {
       // Arrange
       const completedTodo : ITodo = { id : "2", title : "courrir 20 minutes", completed : true }
       const uncompletedTodo : ITodo = { id : "1", title : "faire la vaiselle", completed : false }
@@ -18,9 +19,10 @@ describe("FilterTodos", () =>
       expect(filteredTodos).toHaveLength(2)
       expect(filteredTodos[0]).toBe(completedTodo)
       expect(filteredTodos[1]).toBe(otherTodo)
-  }),
+  })
 
-  it("Todos should be filtered by completed status", () => {
+  it("Todos should be filtered by completed status", () =>
+  {
       // Arrange
       const completedTodo : ITodo = { id : "2", title : "courrir 20 minutes", completed : true }
       const uncompletedTodo : ITodo = { id : "1", title : "faire la vaiselle", completed : false }

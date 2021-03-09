@@ -6,7 +6,7 @@ import { of } from 'rxjs'
 
 const createTodoEpic : Epic = (action$, state$) => action$.pipe(
     filter(createTodo.started.match),
-    delay(550),
+    delay(50),
     map(({ payload }) =>
     {
         try
