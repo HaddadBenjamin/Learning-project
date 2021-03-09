@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { selectFilteredAndSortedTodos } from './todo.selector'
+import { selectFilteredAndSortedTodos } from './Todo.selector'
 import TodoRow from './TodoRow'
 
 const TodoTable = React.memo(() =>
