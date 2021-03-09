@@ -1,3 +1,5 @@
+![Image of Yaktocat](https://imgur.com/4APYWnY.png)
+
 Ce petit projet me permet de m'entrainer à développer mes compétences sur React.
 
 Je me suis entrainé à :
@@ -24,5 +26,5 @@ Technologies:
 - Tests : Jest, React testing library, react-mock-store. 
 
 
-![Image of Yaktocat](https://imgur.com/BmZRpvl.png)
+![Image of Yaktocat](https://imgur.com/eAKueY2.png)
 // Photo du rendu
