@@ -1,13 +1,9 @@
-import { ITodoFilters, Todo } from './todo.model'
+import { ITodoFilters, ITodo } from './todo.model'
 import actionCreatorFactory from 'typescript-fsa'
 
 export enum TodoActions
 {
     CREATE_TODO = "todo/create",
-
-    CREATE_TODO_STARTED = "todo/create_STARTED",
-    CREATE_TODO_DONE = "todo/create_DONE",
-    CREATE_TODO_FAILED = "todo/create_FAILED",
 
     UPDATE_TODO = "todo/update",
     TOGGLE_TODO = "todo/toggle",
@@ -17,7 +13,7 @@ export enum TodoActions
 }
 
 export interface ICreateTodoAction { title : string }
-export interface ICreatedTodoAction { todo : Todo }
+export interface ICreatedTodoAction { todo : ITodo }
 export interface ICreateTodoFailedAction { errorMessage : string }
 export const createTodo = actionCreatorFactory().async<
     ICreateTodoAction, ICreatedTodoAction, ICreateTodoFailedAction>(TodoActions.CREATE_TODO)

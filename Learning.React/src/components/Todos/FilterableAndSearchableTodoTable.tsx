@@ -6,7 +6,7 @@ import TodoAddForm from './TodoAddForm'
 const FilterableAndSearchableTodoTable = () =>
 {   
    return <>
-        <h2>CRUD & UseReducer & Structure & Tests & without Redux, middleware, immer, typescrpit-fsa, useCallback, useMemo </h2>
+        <h2>CRUD & Structure & Tests & Redux & middlewares & Immer & Typescript-fsa<br></br> Without useCallback, useMemo </h2>
         <TodoTableFilters/>
         <TodoAddForm/>
         <TodoTable/>

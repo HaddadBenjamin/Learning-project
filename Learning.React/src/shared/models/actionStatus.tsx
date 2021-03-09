@@ -1,8 +1,8 @@
 enum ActionStatus
 {
-    Loading = 'loading',
-    Loaded = 'loaded',
-    Failed = 'failed'
+    Loading,
+    Loaded,
+    Failed
 }
 
 export default ActionStatus

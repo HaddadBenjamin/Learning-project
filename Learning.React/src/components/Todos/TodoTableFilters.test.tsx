@@ -5,6 +5,7 @@ import { IGlobalState, initialGlobalState } from '../../rootReducer'
 import configureStore from 'redux-mock-store'
 import { Provider } from 'react-redux'
 import { initialTodoState } from './todo.reducer'
+import { querySelectorWithThrow } from '../../shared/helpers/reactTestingLibaryHelpers'
 
 describe("TodoTableFilters", () =>
 {
@@ -19,9 +20,9 @@ describe("TodoTableFilters", () =>
         </Provider>)
 
         const divs : NodeListOf<HTMLDivElement> = document.querySelectorAll('div')
-        const inputSearchInput : HTMLInputElement | null = divs[1].querySelector('input')
-        const checkboxInput : HTMLInputElement | null = divs[2].querySelector('input')
-        const checkboxLabel : HTMLLabelElement | null = divs[2].querySelector('label')
+        const inputSearchInput : HTMLInputElement = querySelectorWithThrow(divs[1], 'input')
+        const checkboxInput : HTMLInputElement = querySelectorWithThrow(divs[2], 'input')
+        const checkboxLabel : HTMLLabelElement = querySelectorWithThrow(divs[2], 'label')
 
         const firstDivStyle : CSSStyleDeclaration = window.getComputedStyle(divs[1])
         
@@ -31,13 +32,13 @@ describe("TodoTableFilters", () =>
         expect(divs[1].className).toBe('form-group')
         expect(firstDivStyle.marginTop).toBe('-7.5px')
 
-        expect(inputSearchInput?.placeholder).toBe("Search...")
-        expect(inputSearchInput?.className).toBe("form-control")
+        expect(inputSearchInput.placeholder).toBe("Search...")
+        expect(inputSearchInput.className).toBe("form-control")
 
         expect(divs[2].className).toBe('form-check')
-        expect(checkboxInput?.className).toBe('form-check-label')
-        expect(checkboxLabel?.className).toBe('form-check-label ml-1')
-        expect(checkboxLabel?.textContent).toBe('Only uncompleted')
+        expect(checkboxInput.className).toBe('form-check-label')
+        expect(checkboxLabel.className).toBe('form-check-label ml-1')
+        expect(checkboxLabel.textContent).toBe('Only uncompleted')
   })
 })
 

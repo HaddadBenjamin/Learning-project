@@ -1,17 +1,17 @@
 import { createTodo, updateTodo, toggleTodo, deleteTodo, updateTodoFilters } from './todo.action'
-import { ITodoFilters, Todo } from './todo.model'
+import { ITodoFilters, ITodo } from './todo.model'
 import { newGuid } from '../../shared/helpers/stringHelpers'
 import produce, { Draft } from 'immer'
 import { isType } from 'typescript-fsa'
 import { Action } from 'redux'
 import ActionStatus from '../../shared/models/actionStatus'
+import IActionMetadata from '../../shared/models/actionMetadata'
 
 export interface ITodosState
 {
-    todos : Todo[]
+    todos : ITodo[]
     filters : ITodoFilters
-    createActionStatus : ActionStatus
-    createActionErrorMessage : string
+    createAction : IActionMetadata
 }
 
 export const initialTodoState : ITodosState =
@@ -25,11 +25,10 @@ export const initialTodoState : ITodosState =
         terms : '',
         onlyUncompleted : false
     },
-    createActionErrorMessage : '',
-    createActionStatus : ActionStatus.Loaded
+    createAction : { errorMessage : null, status : ActionStatus.Loaded }
 }
 
-const getTodoOrThrowError = (draft : Draft<ITodosState>, id : string) : Draft<Todo> =>
+const getTodoOrThrowError = (draft : Draft<ITodosState>, id : string) : Draft<ITodo> =>
 {
     const todo = draft.todos.find(todo => todo.id === id)
 
@@ -43,22 +42,16 @@ const getTodoOrThrowError = (draft : Draft<ITodosState>, id : string) : Draft<To
 export default (state : ITodosState = initialTodoState, action : Action) => produce(state, draft => 
 {
     if (isType(action, createTodo.started))
-    {
-        draft.createActionStatus = ActionStatus.Loading
-        draft.createActionErrorMessage = ''
-    }
+        draft.createAction = { status : ActionStatus.Loading, errorMessage : null }
 
     if (isType(action, createTodo.done))
     { 
-        draft.createActionStatus = ActionStatus.Loaded
+        draft.createAction.status = ActionStatus.Loaded
         draft.todos.push(action.payload.result.todo)
     }
 
     if (isType(action, createTodo.failed))
-    {
-        draft.createActionStatus = ActionStatus.Failed
-        draft.createActionErrorMessage = action.payload.error.errorMessage
-    }
+        draft.createAction = { status : ActionStatus.Failed, errorMessage : action.payload.error.errorMessage }
 
     if (isType(action, updateTodo))
         getTodoOrThrowError(draft, action.payload.id).title = action.payload.newTitle

@@ -1,16 +1,16 @@
 import { sortTodos } from './sortTodos'
-import { Todo } from './todo.model'
+import { ITodo } from './todo.model'
 
 describe("SortTodos", () =>
 {
   it("Todos should be sorted by completed status", () => {
     // Arrange
-    const completedTodo : Todo = { id : "2", title : "courrir 20 minutes", completed : true }
-    const uncompletedTodo : Todo = { id : "1", title : "faire la vaiselle", completed : false }
-    const todos : Todo[] = [ uncompletedTodo, completedTodo ];
+    const completedTodo : ITodo = { id : "2", title : "courrir 20 minutes", completed : true }
+    const uncompletedTodo : ITodo = { id : "1", title : "faire la vaiselle", completed : false }
+    const todos : ITodo[] = [ uncompletedTodo, completedTodo ];
 
     // Act
-    const sortedTodos : Todo[] = sortTodos(todos)
+    const sortedTodos : ITodo[] = sortTodos(todos)
 
     // Assert
     expect(sortedTodos).toHaveLength(2)

@@ -4,11 +4,11 @@ import TextInput from '../../shared/components/TextInput'
 import Button, { ButtonColor } from '../../shared/components/Button'
 import { deleteTodo, toggleTodo, updateTodo } from './todo.action'
 import { useDispatch } from 'react-redux'
-import { Todo } from './todo.model'
+import { ITodo } from './todo.model'
 
 interface Props
 {
-    todo : Todo
+    todo : ITodo
 }
 
 const TodoRow = React.memo<Props>(({ todo }) =>

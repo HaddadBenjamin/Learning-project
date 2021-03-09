@@ -1,16 +1,17 @@
-import { Todo } from './todo.model'
+import { ITodo } from './todo.model'
 import { render } from '@testing-library/react'
 import React from 'react'
 import TodoRow from './TodoRow'
 import configureStore from 'redux-mock-store'
 import { Provider } from 'react-redux'
+import { querySelectorWithThrow } from '../../shared/helpers/reactTestingLibaryHelpers'
 
 describe("TodoRow", () =>
 {
   it("Should be correctly mounted", () => {
         // Arrange
         const todoTitle : string = "faire la vaiselle"
-        const todo : Todo = { id : "1", title : todoTitle, completed : false }
+        const todo : ITodo = { id : "1", title : todoTitle, completed : false }
         const mockStore = configureStore()(undefined)
 
         // Act
@@ -27,12 +28,12 @@ describe("TodoRow", () =>
         const todoCompletedCheckbox : HTMLInputElement | null = tds[0].querySelector('input[type="checkbox"]')
         const todoTitleInput : HTMLInputElement | null = tds[1].querySelector('input[type="text"]')
 
-        const updateTodoButton : HTMLButtonElement | null = tds[2].querySelector('button')
-        const updateTodoIcon = updateTodoButton?.querySelector('i')
-        const updateTodoButtonStyle : CSSStyleDeclaration | null = updateTodoButton != null ? window.getComputedStyle(updateTodoButton) : null
+        const updateTodoButton : HTMLButtonElement = querySelectorWithThrow(tds[2], 'button')
+        const updateTodoIcon = querySelectorWithThrow(updateTodoButton, 'i')
+        const updateTodoButtonStyle : CSSStyleDeclaration = window.getComputedStyle(updateTodoButton)
 
-        const deleteTodoButton : HTMLButtonElement | null = tds[3].querySelector('button')
-        const deleteTodoIcon : HTMLElement | null | undefined = deleteTodoButton?.querySelector('i')
+        const deleteTodoButton : HTMLButtonElement = querySelectorWithThrow(tds[3], 'button')
+        const deleteTodoIcon : HTMLElement = querySelectorWithThrow(deleteTodoButton, 'i')
 
         // Assert
         expect(trs).toHaveLength(1)
@@ -44,12 +45,12 @@ describe("TodoRow", () =>
         expect(todoTitleInput?.getAttribute('id')).toBe(`todo input ${todo.id}`)
         expect(todoTitleInput?.getAttribute('value')).toBe(todoTitle)
 
-        expect(updateTodoButton?.className).toBe('btn btn-primary')
-        expect(updateTodoButtonStyle?.width).toBe('2.5rem')
-        expect(updateTodoIcon?.className).toBe('fas fa-edit')
+        expect(updateTodoButton.className).toBe('btn btn-primary')
+        expect(updateTodoButtonStyle.width).toBe('2.5rem')
+        expect(updateTodoIcon.className).toBe('fas fa-edit')
 
-        expect(deleteTodoButton?.className).toBe('btn btn-danger')
-        expect(deleteTodoIcon?.className).toBe('fas fa-trash')
+        expect(deleteTodoButton.className).toBe('btn btn-danger')
+        expect(deleteTodoIcon.className).toBe('fas fa-trash')
   })
 })
 

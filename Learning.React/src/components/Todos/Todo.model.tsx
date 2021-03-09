@@ -4,7 +4,7 @@ export interface ITodoFilters
     onlyUncompleted : boolean
 }
 
-export interface Todo
+export interface ITodo
 {
     id : string
     title : string

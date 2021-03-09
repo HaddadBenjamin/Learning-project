@@ -1,4 +1,4 @@
-import { ITodoFilters, Todo } from './todo.model'
+import { ITodoFilters, ITodo } from './todo.model'
 import todoReducer, { initialTodoState, ITodosState } from './todo.reducer'
 import { createTodo, deleteTodo, ICreatedTodoAction, ICreateTodoAction, IDeleteTodoAction, IToggleTodoAction, IUpdateTodoAction, IUpdateTodoFiltersAction, toggleTodo, updateTodo, updateTodoFilters } from './todo.action'
 import { Action, Success } from 'typescript-fsa'
@@ -30,7 +30,7 @@ describe("TodoReducer", () =>
     {
         it("UPDATE_TODO should update an existing todo", () => {
             // Arrange
-            const existingTodo : Todo = { id : '1', completed : false, title : 'Faire les courses'}
+            const existingTodo : ITodo = { id : '1', completed : false, title : 'Faire les courses'}
             const initialState : ITodosState = { ...initialTodoState, todos : [existingTodo] }
             const newTodoTitle : string = 'Acheter du poivre'
             const updateTodoAction : Action<IUpdateTodoAction> = updateTodo({ id : existingTodo.id, newTitle : newTodoTitle })
@@ -60,7 +60,7 @@ describe("TodoReducer", () =>
     {
         it("TOGGLE_TODO should toggle an existing todo", () => {
             // Arrange
-            const existingTodo : Todo = { id : '1', completed : false, title : 'Faire les courses'}
+            const existingTodo : ITodo = { id : '1', completed : false, title : 'Faire les courses'}
             const initialState : ITodosState = { ...initialTodoState, todos : [existingTodo] }
             const toggleTodoAction : Action<IToggleTodoAction> = toggleTodo({ id : existingTodo.id })
     
@@ -87,7 +87,7 @@ describe("TodoReducer", () =>
     {    
         it("DELETE_TODO should delete an existing todo", () => {
             // Arrange
-            const existingTodo : Todo = { id : '1', completed : false, title : 'Faire les courses'}
+            const existingTodo : ITodo = { id : '1', completed : false, title : 'Faire les courses'}
             const initialState : ITodosState = { ...initialTodoState, todos : [existingTodo] }
             const deleteTodoAction : Action<IToggleTodoAction> = deleteTodo({ id : existingTodo.id })
 
