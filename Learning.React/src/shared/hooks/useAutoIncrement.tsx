@@ -1,5 +1,5 @@
-import useIncrement from "./useIncrement"
-import {useEffect} from "react"
+import useIncrement from './useIncrement'
+import {useEffect} from 'react'
 
 const useAutoIncrement  = (initialValue : number = 0, step : number = 1) =>
 {

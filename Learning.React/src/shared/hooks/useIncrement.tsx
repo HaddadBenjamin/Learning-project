@@ -1,4 +1,4 @@
-import {useState} from "react"
+import {useState} from 'react'
 
 const useIncrement = (initialValue : number = 0, step : number = 1) =>
 {

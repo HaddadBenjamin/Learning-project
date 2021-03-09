@@ -1,39 +1,41 @@
 import { render } from '@testing-library/react'
-import React, { Dispatch } from 'react'
+import React from 'react'
 import TodoAddForm from './TodoAddForm'
-import { TodoActions } from './Todo.action'
+import configureStore from 'redux-mock-store'
+import { Provider } from 'react-redux'
+import { querySelectorWithThrow } from '../../shared/helpers/reactTestingLibaryHelpers'
 
 describe("TodoAddForm", () =>
 {
   it("Should be correctly mounted", () => {
-        // Arrange
-        const dispatch : Dispatch<TodoActions> = jest.fn()
+        //Arrange
+        const mockStore = configureStore()(undefined)
 
         // Act
-        render(<TodoAddForm dispatch={dispatch}/>)
+        render(<Provider store={mockStore}>
+          <TodoAddForm/>
+        </Provider>)
     
         const forms : NodeListOf<HTMLFormElement> = document.querySelectorAll('form')
         const divs : NodeListOf<HTMLDivElement> = document.querySelectorAll('form > div')
-        const buttons : NodeListOf<HTMLButtonElement> = divs[0].querySelectorAll('button')
-        const is : NodeListOf<HTMLElement> = buttons[0].querySelectorAll('i')
-        const divsInsideDivs : NodeListOf<HTMLDivElement> = divs[0].querySelectorAll('div')
-        const inputs : NodeListOf<HTMLInputElement> = divsInsideDivs[0].querySelectorAll('input')
+        const button : HTMLButtonElement = querySelectorWithThrow(divs[0], 'button')
+        const is : NodeListOf<HTMLElement> = button.querySelectorAll('i')
+        const divsInsideDiv : HTMLDivElement = querySelectorWithThrow(divs[0], 'div')
+        const input : HTMLInputElement = querySelectorWithThrow(divsInsideDiv, 'input')
 
-        const divInsideDivStyle: CSSStyleDeclaration = window.getComputedStyle(divsInsideDivs[0])
+        const divInsideDivStyle: CSSStyleDeclaration = window.getComputedStyle(divsInsideDiv)
 
         // Assert
         expect(forms).toHaveLength(1)
         expect(divs).toHaveLength(1)
-        expect(buttons).toHaveLength(1)
         expect(is).toHaveLength(1)
-        expect(inputs).toHaveLength(1)
 
         expect(divs[0].className).toBe('d-flex justify-content-between align-content-center')
-        expect(buttons[0].className).toBe('btn btn-dark m-auto')
-        expect(divsInsideDivs[0].className).toBe('form-group flex-grow-1 ml-2')
+        expect(button.className).toBe('btn btn-dark m-auto')
+        expect(divsInsideDiv.className).toBe('form-group flex-grow-1 ml-2')
 
         expect(divInsideDivStyle.marginTop).toBe('-7.5px')
-        expect(inputs[0].placeholder).toBe('title...')
+        expect(input.placeholder).toBe('title...')
   })
 })
 

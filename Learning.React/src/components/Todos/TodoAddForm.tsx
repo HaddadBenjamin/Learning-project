@@ -1,16 +1,13 @@
 import React, { useState } from 'react'
 import TextInput from '../../shared/components/TextInput'
 import Button, { ButtonColor } from '../../shared/components/Button'
-import { createTodo, TodoActions } from './Todo.action'
+import { createTodo } from './todo.action'
+import { useDispatch } from 'react-redux'
 
-export type Props =
-{
-    dispatch : React.Dispatch<TodoActions>
-}
-
-const TodoAddForm = ({ dispatch } : Props) =>
+const TodoAddForm = () =>
 {
     const [title, setTitle] = useState<string>('')
+    const dispatch = useDispatch()
     
     const handleOnTitleChange = (value : string, id : string) : void => setTitle(value)
     const handleSubmit = (event : React.FormEvent) : void =>
@@ -20,7 +17,7 @@ const TodoAddForm = ({ dispatch } : Props) =>
     }
     const dispatchCreateTodo = () =>
     {
-        dispatch(createTodo(title))
+        dispatch(createTodo.started({ title }))
         setTitle('')
     } 
     const handleOnClick = () => dispatchCreateTodo()

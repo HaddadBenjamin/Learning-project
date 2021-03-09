@@ -1,36 +1,38 @@
-import { Todo } from './Todo.model'
+import { ITodo } from './todo.model'
 import { render } from '@testing-library/react'
-import React, { Dispatch } from 'react'
+import React from 'react'
 import TodoTable from './TodoTable'
-import { TodoActions } from './Todo.action'
+import configureStore from 'redux-mock-store'
+import { Provider } from 'react-redux'
+import { IGlobalState, initialGlobalState } from '../../rootReducer'
+import { initialTodoState } from './todo.reducer'
+import { querySelectorWithThrow } from '../../shared/helpers/reactTestingLibaryHelpers'
 
 describe("TodoTable", () =>
 {
   it("Should be correctly mounted", () => {
         // Arrange
-        const todos : Todo[] = [
+        const todos : ITodo[] = [
             { id : "1", title : "faire la vaiselle", completed : false },
             { id : "2", title : "acheter du poisson", completed : true }
         ]
-        const dispatch : Dispatch<TodoActions> = jest.fn()
-    
+        let globalState : IGlobalState = { ...initialGlobalState, todos : { ...initialTodoState, todos : todos } }
+        const mockStore = configureStore()(globalState)
+        
         // Act
-        render(<TodoTable todos={todos} dispatch={dispatch}/>)
+        render(<Provider store={mockStore}>
+          <TodoTable/>
+        </Provider>)
 
-        const tables : NodeListOf<HTMLTableElement> = document.querySelectorAll('table')
-        const table : HTMLTableElement = tables[0]
-        const theads : NodeListOf<HTMLTableSectionElement> = table.querySelectorAll('thead')
-        const trs : NodeListOf<HTMLTableRowElement> = theads[0].querySelectorAll('tr')
-        const ths : NodeListOf<HTMLTableHeaderCellElement> = trs[0].querySelectorAll('th')
-        const tbody : NodeListOf<HTMLTableSectionElement> = table.querySelectorAll('tbody')
-        const trsInsideTbody : NodeListOf<HTMLTableRowElement> = tbody[0].querySelectorAll('tr')
+        const table : HTMLTableElement = querySelectorWithThrow(document, 'table')
+        const thead : HTMLTableSectionElement = querySelectorWithThrow(table, 'thead')
+        const tr : HTMLTableRowElement = querySelectorWithThrow(thead, 'tr')
+        const ths : NodeListOf<HTMLTableHeaderCellElement> = tr.querySelectorAll('th')
+        const tbody : HTMLTableSectionElement = querySelectorWithThrow(table, 'tbody')
+        const trsInsideTbody : NodeListOf<HTMLTableRowElement> = tbody.querySelectorAll('tr')
 
         // Assert
-        expect(tables).toHaveLength(1)
-        expect(theads).toHaveLength(1)
-        expect(trs).toHaveLength(1)
         expect(ths).toHaveLength(4)
-        expect(tbody).toHaveLength(1)
         expect(trsInsideTbody).toHaveLength(2)
 
         expect(table.className).toBe('table table-dark table-striped')
