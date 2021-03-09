@@ -4,21 +4,19 @@
 // import { createTodo, ICreateTodoAction, TodoActions } from './todo.action'
 // import { createTodoEpic } from './todo.epic'
 
-// describe("todo.epic", () =>
-// {
-//     it('create to do action should return a new todo', () =>
-//     {
+describe("todo.epic", () =>
+{
+    it.skip('create to do action should return a new todo', () =>
+    {
 //         const testScheduler = new TestScheduler((actual, expected) => {})
         
 //         testScheduler.run(({ hot, expectObservable }) =>
 //         {
 //             const payload : ICreateTodoAction = { title : 'Faire les courses' }
 //             const action$ = hot('-a', { a : createTodo.started(payload) })
-//             const state$ = null
+//             const epicOutput$ = createTodoEpic(action$, null, undefined);
           
-//             const output$ = createTodoEpic(action$, state$, undefined);
-          
-//             expectObservable(output$).toBe('249ms -a)',
+//             expectObservable(epicOutput$).toBe('249ms -a)',
 //             {
 //                 a : createTodo.done(
 //                 { 
@@ -27,5 +25,5 @@
 //                 })
 //             });
 //           });
-//     })
-// })
+    })
+})
