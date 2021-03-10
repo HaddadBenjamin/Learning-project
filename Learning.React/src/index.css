@@ -16,3 +16,8 @@ code {
 }
 
 .table th, .table td {  vertical-align: middle !important; }
+
+* {
+  text-shadow : 2px 2px 3px rgba(black, 0.35);
+  box-shadow : 2px 2px 3px rgba(black, 0.35);
+}
