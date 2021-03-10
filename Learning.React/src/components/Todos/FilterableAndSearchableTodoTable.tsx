@@ -11,7 +11,7 @@ const FilterableAndSearchableTodoTable = () =>
     
     useEffect(() =>
     {
-        async function effectAsync() { await dispatch(getTodos.started({})) }
+        async function effectAsync() { dispatch(getTodos.started({})) }
         effectAsync()
     })
 
