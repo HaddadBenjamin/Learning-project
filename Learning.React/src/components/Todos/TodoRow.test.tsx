@@ -60,7 +60,7 @@ describe("TodoRow", () =>
         //Arrange
         const mockStore = configureStore()(undefined)
         const todo : ITodo = { id : newGuid(), completed : false, title : 'Faire les courses' }
-        const expectedAction = { type : TodoActions.TOGGLE_TODO, payload : { id: todo.id } }
+        const expectedAction = { type : TodoActions.TOGGLE_TODO_STARTED, payload : { id: todo.id } }
 
         render(<Provider store={mockStore}>
             <table>
@@ -105,7 +105,7 @@ describe("TodoRow", () =>
         const mockStore = configureStore()(undefined)
         const todo : ITodo = { id : newGuid(), completed : false, title : 'Faire les courses' }
         const newTodoTitle : string = 'Faire boire les chèvres'
-        const expectedAction = { type : TodoActions.UPDATE_TODO, payload : { id: todo.id, newTitle : newTodoTitle } }
+        const expectedAction = { type : TodoActions.UPDATE_TODO_STARTED, payload : { id: todo.id, newTitle : newTodoTitle } }
 
         render(<Provider store={mockStore}>
             <table>
@@ -131,7 +131,7 @@ describe("TodoRow", () =>
         //Arrange
         const mockStore = configureStore()(undefined)
         const todo : ITodo = { id : newGuid(), completed : false, title : 'Faire les courses' }
-        const expectedAction = { type : TodoActions.DELETE_TODO, payload : { id: todo.id } }
+        const expectedAction = { type : TodoActions.DELETE_TODO_STARTED, payload : { id: todo.id } }
 
         render(<Provider store={mockStore}>
             <table>

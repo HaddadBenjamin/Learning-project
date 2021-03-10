@@ -20,10 +20,7 @@ export interface ITodosState
 
 export const initialTodoState : ITodosState =
 {
-    todos : [
-        { id : newGuid(), title : "Faire le lit", completed : false },
-        { id : newGuid(), title : "Ranger le lave vaiselle", completed : false }
-    ],
+    todos : [],
     filters :
     {
         terms : '',

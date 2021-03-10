@@ -16,10 +16,10 @@ const TodoRow = React.memo<Props>(({ todo }) =>
     const [title, setTitle] = useState<string>(todo.title)
     const dispatch = useDispatch()
 
-    const onCompletedChange = (isChecked : boolean, id : string) => dispatch(toggleTodo({ id : todo.id } ))
+    const onCompletedChange = (isChecked : boolean, id : string) => dispatch(toggleTodo.started({ id : todo.id } ))
     const onTitleChange = (value : string, id : string) => setTitle(value)
-    const handleOnClickOnPublishEdition = () => dispatch(updateTodo({ id : todo.id, newTitle : title }))
-    const handleOnClickOnDelete = () => dispatch(deleteTodo({ id : todo.id }))
+    const handleOnClickOnPublishEdition = () => dispatch(updateTodo.started({ id : todo.id, newTitle : title }))
+    const handleOnClickOnDelete = () => dispatch(deleteTodo.started({ id : todo.id }))
 
     return <tr>
         <td>
