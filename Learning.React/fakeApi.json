@@ -1,0 +1,6 @@
+{
+    "todos" : [
+        { "id" : "778313b3-a379-4e79-9145-01dd2fbd5003", "title" : "Faire le lit", "completed" : false },
+        { "id" : "4627f923-906c-4447-b42f-381a42e02371", "title" : "Ranger le lave vaiselle", "completed" : false }
+    ]
+}
