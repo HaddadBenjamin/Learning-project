@@ -30,7 +30,7 @@
     "start": "concurrently --kill-others \"npm run fakeApi\" \"react-scripts start\"",
     "build": "react-scripts build",
     "test": "react-scripts test --watch a",
-    "fakeApi": "json-server --watch fakeApi.json --port 3001",
+    "fakeApi": "json-server --watch fakeApi.json --port 3001 --no-cors",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
