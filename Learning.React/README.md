@@ -14,7 +14,7 @@ Je me suis entrainé à :
 
 
 TODO :
-- Créer une fausse API avec JSONPlaceholder la la tester avec supertest.
+- Créer une fausse API et base de données avec json-server et la tester avec supertest.
 - Gérer différents environnements avec une configuration différente.
 - Créer un petit formulaire avec de la validation avec Formik.
 - Déployer un site React.
