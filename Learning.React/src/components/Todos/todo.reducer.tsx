@@ -50,7 +50,7 @@ export default (state : ITodosState = initialTodoState, action : Action) => prod
     
     if (isType(action, getTodos.done))   {  draft.getAction = loadedActionMetadata;     draft.todos = action.payload.result.todos }
     if (isType(action, createTodo.done)) {  draft.createAction = loadedActionMetadata;  draft.todos.push(action.payload.result.todo) }
-    if (isType(action, updateTodo.done)) {  const { todo } = action.payload.result;
+    if (isType(action, updateTodo.done)) {  const { todo } = action.payload.result
                                             draft.updateAction = loadedActionMetadata;  selectDraftTodoByIdOrThrow(draft, todo.id).title = todo.title }
     if (isType(action, toggleTodo.done)) {  const { todo } = action.payload.result
                                             draft.toggleAction = loadedActionMetadata;  selectDraftTodoByIdOrThrow(draft, todo.id).completed = todo.completed }
