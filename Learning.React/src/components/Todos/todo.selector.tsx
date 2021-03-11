@@ -10,7 +10,7 @@ const selectFilteredTodos = (state : IGlobalState) : ITodo[] => filterTodos(stat
 export const selectFilteredAndSortedTodos = (state : IGlobalState) : ITodo[] => sortTodos(selectFilteredTodos(state))
 export const selectFilters = (state : IGlobalState) : ITodoFilters => state.todos.filters
 
-export const selectDraftTodoOrThrow = (draft : Draft<ITodosState>, id : string) : Draft<ITodo> =>
+export const selectDraftTodoByIdOrThrow = (draft : Draft<ITodosState>, id : string) : Draft<ITodo> =>
 {
     const todo = draft.todos.find(todo => todo.id === id)
 

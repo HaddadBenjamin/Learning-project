@@ -4,7 +4,7 @@ import produce from 'immer'
 import { isType } from 'typescript-fsa'
 import { Action } from 'redux'
 import IActionMetadata from '../../shared/models/actionMetadata'
-import { selectDraftTodoOrThrow } from './todo.selector'
+import { selectDraftTodoByIdOrThrow } from './todo.selector'
 import { loadedActionMetadata, loadingActionMetadata, failedActionMetadata } from '../../shared/helpers/actionMetadataHelpers'
 
 export interface ITodosState
@@ -51,9 +51,9 @@ export default (state : ITodosState = initialTodoState, action : Action) => prod
     if (isType(action, getTodos.done))   {  draft.getAction = loadedActionMetadata;     draft.todos = action.payload.result.todos }
     if (isType(action, createTodo.done)) {  draft.createAction = loadedActionMetadata;  draft.todos.push(action.payload.result.todo) }
     if (isType(action, updateTodo.done)) {  const { todo } = action.payload.result;
-                                            draft.updateAction = loadedActionMetadata;  selectDraftTodoOrThrow(draft, todo.id).title = todo.title }
+                                            draft.updateAction = loadedActionMetadata;  selectDraftTodoByIdOrThrow(draft, todo.id).title = todo.title }
     if (isType(action, toggleTodo.done)) {  const { todo } = action.payload.result
-                                            draft.toggleAction = loadedActionMetadata;  selectDraftTodoOrThrow(draft, todo.id).completed = todo.completed }
+                                            draft.toggleAction = loadedActionMetadata;  selectDraftTodoByIdOrThrow(draft, todo.id).completed = todo.completed }
     if (isType(action, deleteTodo.done)) {  const { id } = action.payload.result
                                             draft.deleteAction = loadedActionMetadata;  draft.todos = draft.todos.filter(todo => todo.id !== id) }
 
