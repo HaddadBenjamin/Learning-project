@@ -21,11 +21,11 @@ export enum TodoActions
     UPDATE_TODO_FILTERS = "todo/update/filters",
     UPDATE_TODO_FILTERS_STARTED = "todo/update/filters_STARTED"
 }
-export interface IGetTodoAction { }
+export interface IGetTodosAction { }
 export interface IGotTodosAction { todos : ITodo[] }
-export interface IGetTodoFailedAction { errorMessage : string }
+export interface IGetTodosFailedAction { errorMessage : string }
 export const getTodos = actionCreatorFactory().async<
-    IGetTodoAction, IGotTodosAction, IGetTodoFailedAction>(TodoActions.GET_TODO)
+    IGetTodosAction, IGotTodosAction, IGetTodosFailedAction>(TodoActions.GET_TODO)
 
 export interface ICreateTodoAction { title : string }
 export interface ICreatedTodoAction { todo : ITodo }
