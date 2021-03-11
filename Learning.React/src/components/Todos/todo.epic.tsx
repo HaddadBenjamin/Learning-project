@@ -7,6 +7,7 @@ import * as api from './todo.api'
 import { ITodo } from './todo.model'
 import { AxiosResponse } from 'axios'
 import { IGlobalState } from '../../rootReducer'
+import { selectTodoByIdOrThrow } from './todo.selector'
 
 type TodoEpic = Epic<any, any, IGlobalState>
 
@@ -44,12 +45,8 @@ const patchTodoCompletedEpic : TodoEpic = (action$, state$ : StateObservable<IGl
     filter(toggleTodo.started.match),
     mergeMap(({ payload }) => 
     {
-        const todos : ITodo[] = state$.value.todos.todos
-        const todo : ITodo | undefined = todos.find((todo : ITodo) => todo.id === payload.id)
-
-        if (todo === undefined)
-            return of(toggleTodo.failed({ params : payload, error : { errorMessage : `todo ${payload.id} do not exists` } }))
-
+        const todo : ITodo = selectTodoByIdOrThrow(state$.value, payload.id)
+        
         return from(api.patchTodoCompleted(payload.id, !todo.completed)).pipe(
             map((todo : AxiosResponse<ITodo>) => toggleTodo.done({ params : payload, result : { todo : todo.data } })),
             catchError((error : string) => of(toggleTodo.failed({ params : payload, error : { errorMessage : error } })))

@@ -5,7 +5,7 @@ import { isType } from 'typescript-fsa'
 import { Action } from 'redux'
 import IActionMetadata from '../../shared/models/actionMetadata'
 import { selectDraftTodoByIdOrThrow } from './todo.selector'
-import { loadedActionMetadata, loadingActionMetadata, failedActionMetadata } from '../../shared/helpers/actionMetadataHelpers'
+import { loadedActionMetadata, loadingActionMetadata, failedActionMetadataByAction } from '../../shared/helpers/actionMetadataHelpers'
 
 export interface ITodosState
 {
@@ -42,11 +42,11 @@ export default (state : ITodosState = initialTodoState, action : Action) => prod
     if (isType(action, toggleTodo.started)) draft.toggleAction = loadingActionMetadata
     if (isType(action, deleteTodo.started)) draft.deleteAction = loadingActionMetadata
     
-    if (isType(action, getTodos.failed))    draft.getAction =    failedActionMetadata(action)
-    if (isType(action, createTodo.failed))  draft.createAction = failedActionMetadata(action)
-    if (isType(action, updateTodo.failed))  draft.updateAction = failedActionMetadata(action)
-    if (isType(action, toggleTodo.failed))  draft.toggleAction = failedActionMetadata(action)
-    if (isType(action, deleteTodo.failed))  draft.deleteAction = failedActionMetadata(action)
+    if (isType(action, getTodos.failed))    draft.getAction =    failedActionMetadataByAction(action)
+    if (isType(action, createTodo.failed))  draft.createAction = failedActionMetadataByAction(action)
+    if (isType(action, updateTodo.failed))  draft.updateAction = failedActionMetadataByAction(action)
+    if (isType(action, toggleTodo.failed))  draft.toggleAction = failedActionMetadataByAction(action)
+    if (isType(action, deleteTodo.failed))  draft.deleteAction = failedActionMetadataByAction(action)
     
     if (isType(action, getTodos.done))   {  draft.getAction = loadedActionMetadata;     draft.todos = action.payload.result.todos }
     if (isType(action, createTodo.done)) {  draft.createAction = loadedActionMetadata;  draft.todos.push(action.payload.result.todo) }

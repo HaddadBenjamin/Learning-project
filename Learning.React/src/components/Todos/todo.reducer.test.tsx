@@ -4,7 +4,7 @@ import { createTodo, deleteTodo, ICreatedTodoAction, ICreateTodoAction, ICreateT
 import { Action, Failure, Success } from 'typescript-fsa'
 import { newGuid } from '../../shared/helpers/stringHelpers'
 import ActionStatus from '../../shared/models/actionStatus'
-import { failedActionMetadata, loadedActionMetadata, loadingActionMetadata } from '../../shared/helpers/actionMetadataHelpers'
+import { failedActionMetadataByAction, failedActionMetadataByErrorMessage, loadedActionMetadata, loadingActionMetadata } from '../../shared/helpers/actionMetadataHelpers'
 
 describe("TodoReducer", () =>
 {
@@ -58,7 +58,7 @@ describe("TodoReducer", () =>
             const { getAction } : ITodosState = todoReducer(initialTodoState, getTodosFailedAction)
 
             // Assert
-            expect(getAction).toEqual(failedActionMetadata)
+            expect(getAction).toEqual(failedActionMetadataByErrorMessage(expectedErrorMessage))
         })
     })
     describe('CREATE_TODO', () => 
@@ -94,7 +94,7 @@ describe("TodoReducer", () =>
             expect(todos).toHaveLength(1)
             expect(todo.completed).toBeFalsy()
             expect(todo.title).toBe(todoTitle)
-            expect(createAction).toEqual(loadingActionMetadata)
+            expect(createAction).toEqual(loadedActionMetadata)
         })
 
         it("Failed create action should set create action error message to null and status to failed", () =>
@@ -111,7 +111,7 @@ describe("TodoReducer", () =>
             const { createAction } : ITodosState = todoReducer(initialTodoState, createTodoFailedAction)
 
             // Assert
-            expect(createAction).toEqual(failedActionMetadata(expectedErrorMessage))
+            expect(createAction).toEqual(failedActionMetadataByErrorMessage(expectedErrorMessage))
         })
     })
 
@@ -153,7 +153,7 @@ describe("TodoReducer", () =>
                 expect(todos).toHaveLength(1)
                 expect(todo.completed).toBeFalsy()
                 expect(todo.title).toBe(newTodoTitle)
-                expect(updateAction).toEqual(loadingActionMetadata)
+                expect(updateAction).toEqual(loadedActionMetadata)
             })
     
             it("Should throw an exception when the todo don't exists", () =>
@@ -185,7 +185,7 @@ describe("TodoReducer", () =>
             const { updateAction } : ITodosState = todoReducer(initialTodoState, updateTodoFailedAction)
 
             // Assert
-            expect(updateAction).toBe(failedActionMetadata(expectedErrorMessage))
+            expect(updateAction).toEqual(failedActionMetadataByErrorMessage(expectedErrorMessage))
         })
     })
 
@@ -241,7 +241,7 @@ describe("TodoReducer", () =>
             const { todos, toggleAction } : ITodosState = todoReducer(initialState, toggleTodoFailedAction)
             
             // Assert
-            expect(toggleAction).toEqual(failedActionMetadata(expectedErrorMessage))
+            expect(toggleAction).toEqual(failedActionMetadataByErrorMessage(expectedErrorMessage))
         })
     })
 
@@ -277,7 +277,7 @@ describe("TodoReducer", () =>
 
             // Assert
             expect(todos).toHaveLength(0)
-            expect(deleteAction).toBe(loadingActionMetadata)
+            expect(deleteAction).toEqual(loadedActionMetadata)
         })
 
         it("Failed delete action should set delete action status to failed and error message", () =>
@@ -296,7 +296,7 @@ describe("TodoReducer", () =>
             const { deleteAction } : ITodosState = todoReducer(initialState, deleteTodoFailedAction)
 
             // Assert
-            expect(deleteAction).toBe(failedActionMetadata(expectedErrorMessage))
+            expect(deleteAction).toEqual(failedActionMetadataByErrorMessage(expectedErrorMessage))
         })
     })
 

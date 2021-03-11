@@ -1,7 +1,8 @@
 import { ITodo } from './todo.model'
-import { selectFilteredAndSortedTodos } from './todo.selector'
-import { IGlobalState } from '../../rootReducer'
+import { selectFilteredAndSortedTodos, selectTodoByIdOrThrow } from './todo.selector'
+import { IGlobalState, initialGlobalState } from '../../rootReducer'
 import { initialTodoState } from './todo.reducer'
+import { newGuid } from '../../shared/helpers/stringHelpers'
 
 describe("TodoSelector", () =>
 {
@@ -57,5 +58,12 @@ describe("TodoSelector", () =>
             // Assert
             expect(filteredAndSortedTodos).toEqual(expectedTodos)
         })
+    })
+
+    describe("selectTodoByIdOrThrow", () =>
+    {
+        it("should throw when todo do not exists", () =>
+            // Act & Assert
+            expect(() => selectTodoByIdOrThrow(initialGlobalState, newGuid())).toThrow())
     })
 })
