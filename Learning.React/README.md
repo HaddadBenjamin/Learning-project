@@ -7,7 +7,7 @@ Je me suis entrainé à :
 - Pousser l'utilisation de Redux en utilisant typescript-fsa pour générer mes actions et Immer pour gérer l'immutabilité.
 - Créer des tests unitaires avec jest & react testing library & redux-mock-store.
 - Créer des tests simulant les intéractions d'un utilisateur sur mon IHM.
-- Générer une fausse API et base de données grâce à json-server et l'appeler par des appels HTTP en utilisant axios.
+- Générer une fausse API et base de données grâce à json-server et la consommer par des appels HTTP en utilisant axios.
 - Créer une structure de projet et de code cohérente.
 - Créer et utiliser des hooks, un contexte, des champs contrôlés et non contrôlés.
 - Créer une classe utilitaires et un semblant d'une librairie de composants UI partagés.
