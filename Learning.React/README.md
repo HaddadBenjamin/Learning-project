@@ -18,7 +18,7 @@ Technologies:
 - React, Typescript.
 - Gestion de l'état et de l'immutabilité : Redux, Redux-observable, redux-devtools-extension, Immer, typescript-fsa, react-redux.
 - Tests : Jest, React testing library, react-mock-store, json-server.
-- Autres : axios, concurrently, redux-devtools-extension.
+- Autres : axios, concurrently.
 
 
 ![Image of Yaktocat](https://imgur.com/DC65wj1.png)
