@@ -13,7 +13,7 @@ const FilterableAndSearchableTodoTable = () =>
     {
         async function effectAsync() { dispatch(getTodos.started({})) }
         effectAsync()
-    })
+    }, [])
 
     return <>
         <h2>CRUD & Structure & Tests & Redux & middlewares & Immer & Typescript-fsa</h2>
