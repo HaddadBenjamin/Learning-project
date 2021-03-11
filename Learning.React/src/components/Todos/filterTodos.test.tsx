@@ -11,14 +11,13 @@ describe("FilterTodos", () =>
         const otherTodo : ITodo = { id : "3", title : "Sauter 5 minutes", completed : true }
         const todos : ITodo[] = [ uncompletedTodo, completedTodo, otherTodo ]
         const filters : ITodoFilters = { terms : 'minutes', onlyUncompleted : false }
+        const expectedTodos : ITodo[] = [completedTodo, otherTodo]
 
         // Act
         const filteredTodos : ITodo[] = filterTodos(todos, filters)
 
         // Assert
-        expect(filteredTodos).toHaveLength(2)
-        expect(filteredTodos[0]).toBe(completedTodo)
-        expect(filteredTodos[1]).toBe(otherTodo)
+        expect(filteredTodos).toEqual(expectedTodos)
     })
 
     it("Todos should be filtered by completed status", () =>
@@ -29,12 +28,12 @@ describe("FilterTodos", () =>
         const otherTodo : ITodo = { id : "3", title : "Rire plus fort", completed : true }
         const todos : ITodo[] = [ uncompletedTodo, completedTodo, otherTodo ]
         const filters : ITodoFilters = { terms : '', onlyUncompleted : true }
+        const expectedTodos : ITodo[] = [uncompletedTodo]
 
         // Act
         const filteredTodos : ITodo[] = filterTodos(todos, filters)
 
         // Assert
-        expect(filteredTodos).toHaveLength(1)
-        expect(filteredTodos[0]).toBe(uncompletedTodo)
+        expect(filteredTodos).toEqual(expectedTodos)
     })
 })
