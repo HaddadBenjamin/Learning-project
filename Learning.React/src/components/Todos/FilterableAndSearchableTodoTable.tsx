@@ -16,7 +16,7 @@ const FilterableAndSearchableTodoTable = () =>
     }, [])
 
     return <>
-        <h2>CRUD & Structure & Tests & Redux & middlewares & Immer & Typescript-fsa</h2>
+        <h2 style={{paddingTop : '20px' }}>CRUD & Structure & Tests & Redux & middlewares & Immer & Typescript-fsa & Json-server & react testing library & jest</h2>
         <TodoTableFilters/>
         <TodoAddForm/>
         <TodoTable/>
