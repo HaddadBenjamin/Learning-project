@@ -1,11 +1,11 @@
 import { createTodo, updateTodo, toggleTodo, deleteTodo, updateTodoFilters, getTodos } from './todo.action'
 import { ITodoFilters, ITodo } from './todo.model'
-import { newGuid } from '../../shared/helpers/stringHelpers'
-import produce, { Draft } from 'immer'
+import produce from 'immer'
 import { isType } from 'typescript-fsa'
 import { Action } from 'redux'
-import ActionStatus from '../../shared/models/actionStatus'
 import IActionMetadata from '../../shared/models/actionMetadata'
+import { selectDraftTodoOrThrow } from './todo.selector'
+import { loadedActionMetadata, loadingActionMetadata, failedActionMetadata } from '../../shared/helpers/actionMetadataHelpers'
 
 export interface ITodosState
 {
@@ -26,46 +26,36 @@ export const initialTodoState : ITodosState =
         terms : '',
         onlyUncompleted : false
     },
-    getAction : { errorMessage : null, status : ActionStatus.Loaded },
-    createAction : { errorMessage : null, status : ActionStatus.Loaded },
-    updateAction : { errorMessage : null, status : ActionStatus.Loaded },
-    toggleAction : { errorMessage : null, status : ActionStatus.Loaded },
-    deleteAction : { errorMessage : null, status : ActionStatus.Loaded }
-}
-
-const getTodoOrThrowError = (draft : Draft<ITodosState>, id : string) : Draft<ITodo> =>
-{
-    const todo = draft.todos.find(todo => todo.id === id)
-
-    if (!todo)
-        throw new Error("Cannot find todo with id: " + id)
-
-    return todo
+    getAction : loadedActionMetadata,
+    createAction : loadedActionMetadata,
+    updateAction : loadedActionMetadata,
+    toggleAction : loadedActionMetadata,
+    deleteAction : loadedActionMetadata
 }
 
 // With Immer & Typescript-fsa
 export default (state : ITodosState = initialTodoState, action : Action) => produce(state, draft => 
 {
-    if (isType(action, getTodos.started))   draft.getAction =    { status : ActionStatus.Loading, errorMessage : null }
-    if (isType(action, createTodo.started)) draft.createAction = { status : ActionStatus.Loading, errorMessage : null }
-    if (isType(action, updateTodo.started)) draft.updateAction = { status : ActionStatus.Loading, errorMessage : null }
-    if (isType(action, toggleTodo.started)) draft.toggleAction = { status : ActionStatus.Loading, errorMessage : null }
-    if (isType(action, deleteTodo.started)) draft.deleteAction = { status : ActionStatus.Loading, errorMessage : null }
+    if (isType(action, getTodos.started))   draft.getAction =    loadingActionMetadata
+    if (isType(action, createTodo.started)) draft.createAction = loadingActionMetadata
+    if (isType(action, updateTodo.started)) draft.updateAction = loadingActionMetadata
+    if (isType(action, toggleTodo.started)) draft.toggleAction = loadingActionMetadata
+    if (isType(action, deleteTodo.started)) draft.deleteAction = loadingActionMetadata
     
-    if (isType(action, getTodos.failed))    draft.getAction =    { status : ActionStatus.Failed, errorMessage : action.payload.error.errorMessage }
-    if (isType(action, createTodo.failed))  draft.createAction = { status : ActionStatus.Failed, errorMessage : action.payload.error.errorMessage }
-    if (isType(action, updateTodo.failed))  draft.updateAction = { status : ActionStatus.Failed, errorMessage : action.payload.error.errorMessage }
-    if (isType(action, toggleTodo.failed))  draft.toggleAction = { status : ActionStatus.Failed, errorMessage : action.payload.error.errorMessage }
-    if (isType(action, deleteTodo.failed))  draft.deleteAction = { status : ActionStatus.Failed, errorMessage : action.payload.error.errorMessage }
+    if (isType(action, getTodos.failed))    draft.getAction =    failedActionMetadata(action)
+    if (isType(action, createTodo.failed))  draft.createAction = failedActionMetadata(action)
+    if (isType(action, updateTodo.failed))  draft.updateAction = failedActionMetadata(action)
+    if (isType(action, toggleTodo.failed))  draft.toggleAction = failedActionMetadata(action)
+    if (isType(action, deleteTodo.failed))  draft.deleteAction = failedActionMetadata(action)
     
-    if (isType(action, getTodos.done))   {  draft.getAction.status = ActionStatus.Loaded;     draft.todos = action.payload.result.todos }
-    if (isType(action, createTodo.done)) {  draft.createAction.status = ActionStatus.Loaded;  draft.todos.push(action.payload.result.todo) }
+    if (isType(action, getTodos.done))   {  draft.getAction = loadedActionMetadata;     draft.todos = action.payload.result.todos }
+    if (isType(action, createTodo.done)) {  draft.createAction = loadedActionMetadata;  draft.todos.push(action.payload.result.todo) }
     if (isType(action, updateTodo.done)) {  const { todo } = action.payload.result;
-                                            draft.updateAction.status = ActionStatus.Loaded;  getTodoOrThrowError(draft, todo.id).title = todo.title }
+                                            draft.updateAction = loadedActionMetadata;  selectDraftTodoOrThrow(draft, todo.id).title = todo.title }
     if (isType(action, toggleTodo.done)) {  const { todo } = action.payload.result
-                                            draft.toggleAction.status = ActionStatus.Loaded;  getTodoOrThrowError(draft, todo.id).completed = todo.completed }
+                                            draft.toggleAction = loadedActionMetadata;  selectDraftTodoOrThrow(draft, todo.id).completed = todo.completed }
     if (isType(action, deleteTodo.done)) {  const { id } = action.payload.result
-                                            draft.deleteAction.status = ActionStatus.Loaded;  draft.todos = draft.todos.filter(todo => todo.id !== id) }
+                                            draft.deleteAction = loadedActionMetadata;  draft.todos = draft.todos.filter(todo => todo.id !== id) }
 
     if (isType(action, updateTodoFilters))
         draft.filters = action.payload.filters

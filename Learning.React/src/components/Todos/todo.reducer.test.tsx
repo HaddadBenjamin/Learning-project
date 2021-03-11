@@ -71,7 +71,7 @@ describe("TodoReducer", () =>
             const existingTodo : ITodo = { id : '1', completed : false, title : 'Faire les courses'}
             const initialState : ITodosState = { ...initialTodoState, todos : [existingTodo] }
             const newTodoTitle : string = 'Acheter du poivre'
-            const updateTodoAction : Action<IUpdateTodoAction> = updateTodo({ id : existingTodo.id, newTitle : newTodoTitle })
+            const updateTodoAction : Action<IUpdateTodoAction> = updateTodo.started({ id : existingTodo.id, newTitle : newTodoTitle })
     
             // Act
             const { todos } : ITodosState = todoReducer(initialState, updateTodoAction)
@@ -87,7 +87,7 @@ describe("TodoReducer", () =>
         {
             // Arrange
             const initialState : ITodosState = { ...initialTodoState, todos : [] }
-            const updateTodoAction : Action<IUpdateTodoAction> = updateTodo({ id : newGuid(), newTitle : 'Acheter du poivre' })
+            const updateTodoAction : Action<IUpdateTodoAction> = updateTodo.started({ id : newGuid(), newTitle : 'Acheter du poivre' })
 
              // Act & Assert
              expect(() => todoReducer(initialState, updateTodoAction)).toThrow()
@@ -101,7 +101,7 @@ describe("TodoReducer", () =>
             // Arrange
             const existingTodo : ITodo = { id : '1', completed : false, title : 'Faire les courses'}
             const initialState : ITodosState = { ...initialTodoState, todos : [existingTodo] }
-            const toggleTodoAction : Action<IToggleTodoAction> = toggleTodo({ id : existingTodo.id })
+            const toggleTodoAction : Action<IToggleTodoAction> = toggleTodo.started({ id : existingTodo.id })
     
             // Act
             const { todos } : ITodosState = todoReducer(initialState, toggleTodoAction)
@@ -115,7 +115,7 @@ describe("TodoReducer", () =>
         {
             // Arrange
             const initialState : ITodosState = { ...initialTodoState, todos : [] }
-            const toggleTodoAction : Action<IToggleTodoAction> = toggleTodo({ id : newGuid() })
+            const toggleTodoAction : Action<IToggleTodoAction> = toggleTodo.started({ id : newGuid() })
 
              // Act & Assert
              expect(() => todoReducer(initialState, toggleTodoAction)).toThrow()
@@ -129,7 +129,7 @@ describe("TodoReducer", () =>
             // Arrange
             const existingTodo : ITodo = { id : '1', completed : false, title : 'Faire les courses'}
             const initialState : ITodosState = { ...initialTodoState, todos : [existingTodo] }
-            const deleteTodoAction : Action<IToggleTodoAction> = deleteTodo({ id : existingTodo.id })
+            const deleteTodoAction : Action<IToggleTodoAction> = deleteTodo.started({ id : existingTodo.id })
 
             // Act
             const { todos } : ITodosState = todoReducer(initialState, deleteTodoAction)
@@ -142,7 +142,7 @@ describe("TodoReducer", () =>
         {
             // Arrange
             const initialState : ITodosState = { ...initialTodoState, todos : [] }
-            const deleteTodoAction : Action<IDeleteTodoAction> = deleteTodo({ id : newGuid() })
+            const deleteTodoAction : Action<IDeleteTodoAction> = deleteTodo.started({ id : newGuid() })
 
              // Act & Assert
              expect(() => todoReducer(initialState, deleteTodoAction)).not.toThrow()
