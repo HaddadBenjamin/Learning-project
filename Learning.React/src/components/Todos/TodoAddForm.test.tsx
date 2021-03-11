@@ -1,13 +1,15 @@
-import { render } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
 import TodoAddForm from './TodoAddForm'
 import configureStore from 'redux-mock-store'
 import { Provider } from 'react-redux'
 import { querySelectorWithThrow } from '../../shared/helpers/reactTestingLibaryHelpers'
+import { TodoActions } from './todo.action'
 
 describe("TodoAddForm", () =>
 {
-  it("Should be correctly mounted", () => {
+    it("Should be correctly mounted", () =>
+    {
         //Arrange
         const mockStore = configureStore()(undefined)
 
@@ -36,7 +38,62 @@ describe("TodoAddForm", () =>
 
         expect(divInsideDivStyle.marginTop).toBe('-7.5px')
         expect(input.placeholder).toBe('title...')
-  })
-})
+    })
 
-// To do : test differnet user behaviour
+    it("Submit form should dispatch create todo action started", () =>
+    {
+        //Arrange
+        const mockStore = configureStore()(undefined)
+        const expectedAction = { type : TodoActions.CREATE_TODO_STARTED, payload : { title: ''} }
+
+        render(<Provider store={mockStore}>
+          <TodoAddForm/>
+        </Provider>)
+
+        const form : HTMLFormElement = querySelectorWithThrow(document, 'form')
+
+        // Act
+        fireEvent.submit(form)
+
+        // Assert
+        expect(mockStore.getActions()).toEqual([expectedAction])
+    })
+
+    it("Click on add button should dispatch create todo action started", () =>
+    {
+        //Arrange
+        const mockStore = configureStore()(undefined)
+        const expectedAction = { type : TodoActions.CREATE_TODO_STARTED, payload : { title: ''} }
+
+        render(<Provider store={mockStore}>
+          <TodoAddForm/>
+        </Provider>)
+
+        const button : HTMLButtonElement = querySelectorWithThrow(document, 'button')
+
+        // Act
+        fireEvent.click(button)
+
+        // Assert
+        expect(mockStore.getActions()).toEqual([expectedAction])
+    })
+
+    it("Update input text shoud update it's value", () =>
+    {
+        //Arrange
+        const mockStore = configureStore()(undefined)
+
+        render(<Provider store={mockStore}>
+          <TodoAddForm/>
+        </Provider>)
+
+        const input : HTMLInputElement = querySelectorWithThrow(document, 'input')
+        const expectedInputValue : string = 'Faire les courses'
+
+        // Act
+        fireEvent.change(input, { target: { value: expectedInputValue } })
+
+        // Assert
+        expect(input.value).toBe(expectedInputValue)
+    })
+})

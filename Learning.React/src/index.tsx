@@ -16,7 +16,7 @@ ReactDOM.render(
             <UserContext.Provider value={initialUserState}>
                 <div className="container col-8">
                     <FilterableAndSearchableTodoTable/>
-                    <Counter initialValue={5}/>
+                    <Counter initialValue={1}/>
                     <ControledAndUncontroledFields />
                     <MyContextConsumer/>
                 </div>
