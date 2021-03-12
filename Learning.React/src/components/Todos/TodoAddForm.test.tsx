@@ -4,7 +4,7 @@ import TodoAddForm from './TodoAddForm'
 import configureStore from 'redux-mock-store'
 import { Provider } from 'react-redux'
 import { querySelectorWithThrow } from '../../shared/helpers/reactTestingLibaryHelpers'
-import { TodoActions } from './todo.action'
+import { TodoActions } from '../../domains/todos/todo.action'
 
 describe("TodoAddForm", () =>
 {

@@ -1,11 +1,11 @@
-import { ITodo } from './todo.model'
+import { ITodo } from '../../domains/todos/todo.model'
 import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
 import TodoRow from './TodoRow'
 import configureStore from 'redux-mock-store'
 import { Provider } from 'react-redux'
 import { querySelectorWithThrow } from '../../shared/helpers/reactTestingLibaryHelpers'
-import { TodoActions } from './todo.action'
+import { TodoActions } from '../../domains/todos/todo.action'
 import { newGuid } from '../../shared/helpers/stringHelpers'
 
 describe("TodoRow", () =>

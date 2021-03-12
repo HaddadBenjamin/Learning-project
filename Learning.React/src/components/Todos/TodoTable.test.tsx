@@ -1,12 +1,12 @@
-import { ITodo } from './todo.model'
+import { ITodo } from '../../domains/todos/todo.model'
 import { render } from '@testing-library/react'
 import React from 'react'
 import TodoTable from './TodoTable'
 import configureStore from 'redux-mock-store'
 import { Provider } from 'react-redux'
 import { IGlobalState, initialGlobalState } from '../../rootReducer'
-import { initialTodoState } from './todo.reducer'
 import { querySelectorWithThrow } from '../../shared/helpers/reactTestingLibaryHelpers'
+import { initialTodoState } from '../../domains/Todos/todo.reducer'
 
 describe("TodoTable", () =>
 {
@@ -30,16 +30,14 @@ describe("TodoTable", () =>
         const ths : NodeListOf<HTMLTableHeaderCellElement> = tr.querySelectorAll('th')
         const tbody : HTMLTableSectionElement = querySelectorWithThrow(table, 'tbody')
         const trsInsideTbody : NodeListOf<HTMLTableRowElement> = tbody.querySelectorAll('tr')
+        const actualThTextContents : (string | null)[] = Array.from(ths).map(th => th.textContent)
+        const expectedThTextContents : string[] = ['Completed', 'Title', 'Publish edition', 'Remove']
 
         // Assert
-        expect(ths).toHaveLength(4)
         expect(trsInsideTbody).toHaveLength(2)
 
         expect(table.className).toBe('table table-dark table-striped')
 
-        expect(ths[0].textContent).toBe('Completed')
-        expect(ths[1].textContent).toBe('Title')
-        expect(ths[2].textContent).toBe('Publish edition')
-        expect(ths[3].textContent).toBe('Remove')
+        expect(actualThTextContents).toEqual(expectedThTextContents)
   })
 })

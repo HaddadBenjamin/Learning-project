@@ -4,9 +4,9 @@ import TodoTableFilters from './TodoTableFilters'
 import { IGlobalState, initialGlobalState } from '../../rootReducer'
 import configureStore from 'redux-mock-store'
 import { Provider } from 'react-redux'
-import { initialTodoState } from './todo.reducer'
+import { initialTodoState } from '../../domains/todos/todo.reducer'
 import { querySelectorWithThrow } from '../../shared/helpers/reactTestingLibaryHelpers'
-import { IUpdateTodoFiltersAction, TodoActions } from './todo.action'
+import { TodoActions } from '../../domains/todos/todo.action'
 
 describe("TodoTableFilters", () =>
 {
