@@ -5,7 +5,7 @@ import { isType } from 'typescript-fsa'
 import { Action } from 'redux'
 import IActionMetadata from '../../shared/models/actionMetadata'
 import { selectDraftTodoByIdOrThrow } from './todo.selector'
-import { loadedActionMetadata, loadingActionMetadata, failedActionMetadataByAction } from '../../shared/helpers/actionMetadataHelpers'
+import { loadedActionMetadata, loadingActionMetadata, failedActionMetadataByAction } from '../../shared/models/actionMetadata'
 
 export interface ITodosState
 {

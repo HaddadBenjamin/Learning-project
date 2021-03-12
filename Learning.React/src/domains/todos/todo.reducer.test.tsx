@@ -3,8 +3,7 @@ import todoReducer, { initialTodoState, ITodosState } from './todo.reducer'
 import { createTodo, deleteTodo, ICreatedTodoAction, ICreateTodoAction, ICreateTodoFailedAction, IDeletedTodoAction, IDeleteTodoAction, IToggledTodoAction, IToggleTodoAction, IToggleTodoFailedAction, IUpdatedTodoAction, IUpdateTodoAction, IUpdateTodoFailedAction, IUpdateTodoFiltersAction, toggleTodo, updateTodo, updateTodoFilters, IDeleteTodoFailedAction, getTodos, IGetTodosAction, IGotTodosAction, IGetTodosFailedAction } from './todo.action'
 import { Action, Failure, Success } from 'typescript-fsa'
 import { newGuid } from '../../shared/helpers/stringHelpers'
-import ActionStatus from '../../shared/models/actionStatus'
-import { failedActionMetadataByAction, failedActionMetadataByErrorMessage, loadedActionMetadata, loadingActionMetadata } from '../../shared/helpers/actionMetadataHelpers'
+import { failedActionMetadataByErrorMessage, loadedActionMetadata, loadingActionMetadata } from '../../shared/models/actionMetadata'
 
 describe("TodoReducer", () =>
 {
@@ -79,21 +78,19 @@ describe("TodoReducer", () =>
         {
             // Arrange
             const initialState : ITodosState = { ...initialTodoState, todos : [] }
-            const todoTitle : string = 'Faire les courses'
+            const expectedTodoTitle : string = 'Faire les courses'
             const createdTodoAction : Action<Success<ICreateTodoAction, ICreatedTodoAction>> = createTodo.done(
             { 
-                params : { title : todoTitle },
-                result : { todo : { id : newGuid(), completed : false, title : todoTitle } }
+                params : { title : expectedTodoTitle },
+                result : { todo : { id : newGuid(), completed : false, title : expectedTodoTitle } }
             })
     
             // Act
             const { todos, createAction } : ITodosState = todoReducer(initialState, createdTodoAction)
-            const todo : ITodo = todos[0]
+            const expectedTodos : ITodo[] = [{ title : expectedTodoTitle, completed : false, id : todos[0].id }]
 
             // Assert
-            expect(todos).toHaveLength(1)
-            expect(todo.completed).toBeFalsy()
-            expect(todo.title).toBe(todoTitle)
+            expect(todos).toEqual(expectedTodos)
             expect(createAction).toEqual(loadedActionMetadata)
         })
 
@@ -147,12 +144,10 @@ describe("TodoReducer", () =>
         
                 // Act
                 const { todos, updateAction } : ITodosState = todoReducer(initialState, updatedTodoAction)
-                const todo = todos[0]
+                const expectedTodos : ITodo[] = [{ ...existingTodo, title : newTodoTitle }]
         
                 // Assert
-                expect(todos).toHaveLength(1)
-                expect(todo.completed).toBeFalsy()
-                expect(todo.title).toBe(newTodoTitle)
+                expect(todos).toEqual(expectedTodos)
                 expect(updateAction).toEqual(loadedActionMetadata)
             })
     
@@ -218,10 +213,10 @@ describe("TodoReducer", () =>
     
             // Act
             const { todos, toggleAction } : ITodosState = todoReducer(initialState, toggledTodoAction)
+            const expectedTodos : ITodo[] = [{ ...existingTodo, completed : true }]
             
             // Assert
-            expect(todos).toHaveLength(1)
-            expect(todos[0].completed).toBeTruthy()
+            expect(todos).toEqual(expectedTodos)
             expect(toggleAction).toEqual(loadedActionMetadata)
         })
 
@@ -238,7 +233,7 @@ describe("TodoReducer", () =>
             })
     
             // Act
-            const { todos, toggleAction } : ITodosState = todoReducer(initialState, toggleTodoFailedAction)
+            const { toggleAction } : ITodosState = todoReducer(initialState, toggleTodoFailedAction)
             
             // Assert
             expect(toggleAction).toEqual(failedActionMetadataByErrorMessage(expectedErrorMessage))

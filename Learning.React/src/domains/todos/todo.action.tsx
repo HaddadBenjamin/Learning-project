@@ -21,6 +21,7 @@ export enum TodoActions
     UPDATE_TODO_FILTERS = "todo/update/filters",
     UPDATE_TODO_FILTERS_STARTED = "todo/update/filters_STARTED"
 }
+
 export interface IGetTodosAction { }
 export interface IGotTodosAction { todos : ITodo[] }
 export interface IGetTodosFailedAction { errorMessage : string }
