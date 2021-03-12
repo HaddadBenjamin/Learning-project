@@ -27,17 +27,16 @@ describe("TodoTableFilters", () =>
         const checkboxLabel : HTMLLabelElement = querySelectorWithThrow(divs[2], 'label')
 
         const firstDivStyle : CSSStyleDeclaration = window.getComputedStyle(divs[1])
+        const actualDivClassNames : string[] = Array.from(divs).map(div => div.className)
+        const expectedDivClassNames : string[] = ['', 'form-group', 'form-check']
         
         // Assert
-        expect(divs).toHaveLength(3)
-
-        expect(divs[1].className).toBe('form-group')
+        expect(actualDivClassNames).toEqual(expectedDivClassNames)
         expect(firstDivStyle.marginTop).toBe('-7.5px')
 
         expect(inputSearchInput.placeholder).toBe("Search...")
         expect(inputSearchInput.className).toBe("form-control")
 
-        expect(divs[2].className).toBe('form-check')
         expect(checkboxInput.className).toBe('form-check-label')
         expect(checkboxLabel.className).toBe('form-check-label ml-1')
         expect(checkboxLabel.textContent).toBe('Only uncompleted')

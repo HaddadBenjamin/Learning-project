@@ -9,7 +9,7 @@ interface Props
 
 const Counter = ({initialValue = 0, step = 3} : Props) =>
 {
-    const [value, increment, decrement] = useCounter(initialValue, step)
+    const { value, increment, decrement } = useCounter(initialValue, step)
 
     return (
         <>
