@@ -2,7 +2,7 @@ import TodoTable from './TodoTable'
 import TodoTableFilters from './TodoTableFilters'
 import TodoAddForm from './TodoAddForm'
 import { useDispatch } from 'react-redux'
-import { getTodos } from './todo.action'
+import { getTodos } from '../../domains/todos/todo.action'
 import React, { useEffect } from 'react'
 
 const FilterableAndSearchableTodoTable = () =>
