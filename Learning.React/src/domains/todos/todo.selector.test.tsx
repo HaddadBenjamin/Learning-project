@@ -4,66 +4,60 @@ import { IGlobalState, initialGlobalState } from '../../rootReducer'
 import { initialTodoState } from './todo.reducer'
 import { newGuid } from '../../shared/helpers/stringHelpers'
 
-describe("TodoSelector", () =>
+describe("selectFilteredAndSortedTodos", () =>
 {
-    describe("selectFilteredAndSortedTodos", () =>
+    it("Todos should be sorted by completed status", () =>
     {
-        it("Todos should be sorted by completed status", () =>
-        {
-            // Arrange
-            const completedTodo : ITodo = { id : "2", title : "courrir 20 minutes", completed : true }
-            const uncompletedTodo : ITodo = { id : "1", title : "faire la vaiselle", completed : false }
-            const otherTodo : ITodo = { id : "3", title : "Rire plus fort", completed : true }
-            const todos : ITodo[] = [ uncompletedTodo, completedTodo, otherTodo ]
-            const globalState : IGlobalState = { todos : { ...initialTodoState, todos : todos, filters : { terms : '', onlyUncompleted : false } } }
-            const expectedTodos : ITodo[] = [uncompletedTodo, completedTodo, otherTodo]
+        // Arrange
+        const completedTodo : ITodo = { id : "2", title : "courrir 20 minutes", completed : true }
+        const uncompletedTodo : ITodo = { id : "1", title : "faire la vaiselle", completed : false }
+        const otherTodo : ITodo = { id : "3", title : "Rire plus fort", completed : true }
+        const todos : ITodo[] = [ uncompletedTodo, completedTodo, otherTodo ]
+        const globalState : IGlobalState = { todos : { ...initialTodoState, todos : todos, filters : { terms : '', onlyUncompleted : false } } }
+        const expectedTodos : ITodo[] = [uncompletedTodo, completedTodo, otherTodo]
 
-            // Act
-            const filteredAndSortedTodos : ITodo[] = selectFilteredAndSortedTodos(globalState)
+        // Act
+        const filteredAndSortedTodos : ITodo[] = selectFilteredAndSortedTodos(globalState)
 
-            // Assert
-            expect(filteredAndSortedTodos).toEqual(expectedTodos)
-        }),
+        // Assert
+        expect(filteredAndSortedTodos).toEqual(expectedTodos)
+    }),
 
-      it("Todos should be filtered by completed status", () =>
-      {
-            // Arrange
-            const completedTodo : ITodo = { id : "2", title : "courrir 20 minutes", completed : true }
-            const uncompletedTodo : ITodo = { id : "1", title : "faire la vaiselle", completed : false }
-            const otherTodo : ITodo = { id : "3", title : "Rire plus fort", completed : true }
-            const todos : ITodo[] = [ uncompletedTodo, completedTodo, otherTodo ]
-            const globalState : IGlobalState = { todos : { ...initialTodoState, todos : todos, filters : { terms : '', onlyUncompleted : true } } }
-            const expectedTodos : ITodo[] = [uncompletedTodo]
-
-            // Act
-            const filteredAndSortedTodos : ITodo[] = selectFilteredAndSortedTodos(globalState)
-
-            // Assert
-            expect(filteredAndSortedTodos).toEqual(expectedTodos)
-        }),
-
-        it("Todos should be filtered by terms", () =>
-        {
-            // Arrange
-            const completedTodo : ITodo = { id : "2", title : "courrir 20 minutes", completed : true }
-            const uncompletedTodo : ITodo = { id : "1", title : "faire la vaiselle", completed : false }
-            const otherTodo : ITodo = { id : "3", title : "Sauter 5 minutes", completed : true }
-            const todos : ITodo[] = [ uncompletedTodo, completedTodo, otherTodo ]
-            const globalState : IGlobalState = { todos : { ...initialTodoState, todos : todos, filters : { terms : 'minutes', onlyUncompleted : false } } }
-            const expectedTodos : ITodo[] = [completedTodo, otherTodo]
-
-            // Act
-            const filteredAndSortedTodos : ITodo[] = selectFilteredAndSortedTodos(globalState)
-
-            // Assert
-            expect(filteredAndSortedTodos).toEqual(expectedTodos)
-        })
-    })
-
-    describe("selectTodoByIdOrThrow", () =>
+    it("Todos should be filtered by completed status", () =>
     {
-        it("should throw when todo do not exists", () =>
-            // Act & Assert
-            expect(() => selectTodoByIdOrThrow(initialGlobalState, newGuid())).toThrow())
+        // Arrange
+        const completedTodo : ITodo = { id : "2", title : "courrir 20 minutes", completed : true }
+        const uncompletedTodo : ITodo = { id : "1", title : "faire la vaiselle", completed : false }
+        const otherTodo : ITodo = { id : "3", title : "Rire plus fort", completed : true }
+        const todos : ITodo[] = [ uncompletedTodo, completedTodo, otherTodo ]
+        const globalState : IGlobalState = { todos : { ...initialTodoState, todos : todos, filters : { terms : '', onlyUncompleted : true } } }
+        const expectedTodos : ITodo[] = [uncompletedTodo]
+
+        // Act
+        const filteredAndSortedTodos : ITodo[] = selectFilteredAndSortedTodos(globalState)
+
+        // Assert
+        expect(filteredAndSortedTodos).toEqual(expectedTodos)
+    }),
+
+    it("Todos should be filtered by terms", () =>
+    {
+        // Arrange
+        const completedTodo : ITodo = { id : "2", title : "courrir 20 minutes", completed : true }
+        const uncompletedTodo : ITodo = { id : "1", title : "faire la vaiselle", completed : false }
+        const otherTodo : ITodo = { id : "3", title : "Sauter 5 minutes", completed : true }
+        const todos : ITodo[] = [ uncompletedTodo, completedTodo, otherTodo ]
+        const globalState : IGlobalState = { todos : { ...initialTodoState, todos : todos, filters : { terms : 'minutes', onlyUncompleted : false } } }
+        const expectedTodos : ITodo[] = [completedTodo, otherTodo]
+
+        // Act
+        const filteredAndSortedTodos : ITodo[] = selectFilteredAndSortedTodos(globalState)
+
+        // Assert
+        expect(filteredAndSortedTodos).toEqual(expectedTodos)
     })
 })
+
+it("selectTodoByIdOrThrow should throw when todo do not exists", () =>
+    // Act & Assert
+    expect(() => selectTodoByIdOrThrow(initialGlobalState, newGuid())).toThrow())
