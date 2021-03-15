@@ -1,0 +1,387 @@
+body {background-color : black;}
+button, input[type="submit"], input[type="reset"] {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+* { font-display: swap;}
+
+.container
+{
+    width : 75%;
+    height: 94vh;
+    background-color : #151B2B;
+    margin: auto;
+    margin-top : 40px;
+}
+
+#page-1
+{
+    color : white;
+    font-family: 'HKGroteskRegular';
+}
+
+#page-1 .flexbox-container
+{
+    display : flex;
+    justify-content : space-around;
+    align-items : center;
+}
+#page-1 .flexbox-container .left
+{
+    width : 487px;
+}
+
+#page-1 .flexbox-container .left .logo img
+{
+    margin-top : 10px !important;
+}
+
+#page-1 .flexbox-container .left .logo h2
+{
+    position: absolute;
+    color: #A8A8C1;
+    display : inline;
+    margin-left : 12px;
+    font-size : 30px;
+    top : 25px;
+}
+
+#page-1 .flexbox-container .left .title h1
+{
+    font-style: normal;
+    font-weight: 800;
+    font-size: 46px;
+    margin-top : 100px;
+}
+
+#page-1 .flexbox-container .left .title .github-star-button
+{
+    /* Ces 3 lignes sont dégueulasses */
+    position : absolute;
+    margin-top : -75px;
+    margin-left : 315px; 
+
+    padding : 6px 10px;
+    border-radius : 2px;
+    font-size : 12px;
+    font-weight : 700;
+    background-color : white;
+    color : black;
+}
+
+#page-1 .flexbox-container .left .title .github-star-button-count
+{ 
+    /* Ces 3 lignes sont dégueulasses */
+    position : absolute;
+    margin-top : -75px;
+    margin-left : 370px; 
+
+    padding : 6px 10px;
+    border-radius : 0px;
+    font-size : 12px;
+    font-weight : 700;
+    background-color : white;
+    color : black;
+    border-left : solid grey 1px;
+}
+
+#page-1 .flexbox-container .left  h3
+{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 23px;
+    line-height: 140%;
+    letter-spacing: 1px;
+    margin-top : -10px;
+}
+
+#page-1 .flexbox-container .left p
+{
+    font-family: "SF UI Text";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 150%;  
+    color: #8686B3;
+    margin-left : 10px;
+    margin-bottom : 45px;
+}
+
+#page-1 .flexbox-container .left button
+{
+    color : white;
+    font-family: "SF UI Text";
+    font-size : 14px;
+    padding : 10px 15px;
+    border-radius : 3px;
+}
+
+#page-1 .flexbox-container .left button i
+{
+    margin-right : 5px;
+}
+
+#page-1 .flexbox-container .left .github-button
+{
+    background-color : #454658;
+    margin-right : 15px;
+}
+
+#page-1 .flexbox-container .left .discord-button
+{
+    background-color : #6578C0;;
+}
+
+#page-1 .flexbox-container .right
+{
+    width : 700px;
+    margin-left : -350px;
+}
+
+#page-1 .flexbox-container .right .square
+{
+    background-color : rgba(36, 44, 66, 0.4);
+    width : 340px;
+    height : 340px;
+    transform: rotateX(55deg) rotate(45deg);
+}
+
+#page-1 .flexbox-container .right .square .middle-square
+{
+    background-color : rgba(136, 140, 255, 0.678);
+    width : 280px;
+    height : 280px;
+    margin : 30px;
+    position: absolute;
+}
+
+#page-1 .flexbox-container .right .square .middle-square img
+{
+    position: absolute;
+    margin :100px;
+    transform: rotate(-45deg) rotateY(55deg) scale(3);
+    
+}
+
+#page-1 .flexbox-container .right .square .small-square
+{
+    background-color :rgb(37, 68, 131);
+    position: absolute;
+    width : 130px;
+    height : 130px;
+    margin : 30px;
+}
+
+#page-1 .flexbox-container .right .square .small-square.top-right { margin-left : 180px; }
+#page-1 .flexbox-container .right .square .small-square.bottom-left { margin-top : 180px; }
+#page-1 .flexbox-container .right .square .small-square.bottom-right { margin-top : 180px; margin-left : 180px; }
+#page-1 .flexbox-container .right .square .small-square img { transform: rotate(-45deg) rotateY(55deg);                                                                                                }
+
+#page-1 .flexbox-container .right .square .small-square img.kubernetes
+{ 
+    width : 46px;
+    height : 46px;
+    margin :39px;
+
+ }
+
+#page-1 .flexbox-container .right .square.cloud .small-square.top-left { background-color :rgb(31, 55, 81); }
+#page-1 .flexbox-container .right .square.cloud .small-square.top-right { background-color :rgb(23, 43, 81); }
+#page-1 .flexbox-container .right .square.cloud .small-square.bottom-left { background-color :rgb(61, 28, 68); }
+#page-1 .flexbox-container .right .square.cloud .small-square.bottom-right { background-color :rgb(61, 51, 43); }
+
+#page-1 .flexbox-container .right .square.cloud .small-square img.azure
+{
+    position: absolute;
+    width : 120px;
+    height : auto;
+    margin-top : 45px;
+}
+
+#page-1 .flexbox-container .right .square.cloud .small-square img.digital-ocean 
+{
+    position: absolute;
+    width : 90px;
+    height : auto;
+    margin-top : 15px;
+    margin-left : 15px;
+}
+
+#page-1 .flexbox-container .right .square.cloud .small-square img.google-cloud 
+{
+    position: absolute;
+    width : 180px;
+    height : auto;
+    margin-left : -28px;
+    margin-top : 10px;
+}
+
+#page-1 .flexbox-container .right .square.cloud .small-square img.aws
+{
+    position: absolute;
+    width : 60px;
+    height : auto;
+    margin-top : 50px;
+    margin-left : 35px;
+}
+
+#page-1 .flexbox-container .right .square { position : absolute; margin-top :-40px; margin-left : 190px; }
+#page-1 .flexbox-container .right .square:nth-child(1) { z-index : 6; -webkit-animation: hamburger-top 3.5s forwards; animation: hamburger-top 3.5s forwards; }
+#page-1 .flexbox-container .right .square:nth-child(2) { z-index : 5; }
+#page-1 .flexbox-container .right .square:nth-child(3) { z-index : 4;  -webkit-animation: hamburger-bottom 3.5s forwards;  animation: hamburger-bottom 3.5s forwards; }
+
+@-webkit-keyframes hamburger-top
+{
+    from { opacity : 0; margin-top :-40px;  }
+    to {opacity : 1; margin-top :-235px; }
+}
+
+@keyframes hamburger-top
+{
+    from { opacity : 0; margin-top :-40px;  }
+    to {opacity : 1; margin-top :-235px; }
+}
+
+@-webkit-keyframes hamburger-bottom
+{
+    from { opacity : 0; margin-top :-40px;  }
+    to {opacity : 1; margin-top :175px; }
+}
+
+@keyframes hamburger-bottom
+{
+    from { opacity : 0; margin-top :-40px;  }
+    to {opacity : 1; margin-top :175px; }
+}
+
+#page-1 .flexbox-container .right .square .square-button
+{
+    position : absolute;
+    transform: rotate(-45deg) rotateY(55deg) scale(1.6);
+    padding : 0px 8px;
+    border-radius : 3px;
+    font-family: 'HKGroteskRegular';
+    font-weight: 500;
+    font-size : 16px;
+    color : white;
+}
+
+#page-1 .flexbox-container .right .square .quovery-button { background-color : rgb(113, 115, 215); right : 20px; top : -65px; }
+#page-1 .flexbox-container .right .square .kubernetes-button { background-color : rgb(50, 109, 230); right : 0px; top : -80px; }
+#page-1 .flexbox-container .right .square .cloud-button { background-color : rgb(255, 153, 0); right : -10px; top : -85px; }
+
+#page-1 .flexbox-container .right .square hr
+{ 
+    position : relative;
+    border: 0 none;
+    background: none;
+    margin-bottom : -5px;
+    width : 45px;
+    transform : rotate(-20deg);
+    z-index : -1;
+    
+    top : -15px;
+}
+
+#page-1 .flexbox-container .right .square hr.quovery-hr { border-top: 1px dashed rgb(113, 115, 215); right : 38px; }
+#page-1 .flexbox-container .right .square hr.kubernetes-hr { border-top: 1px dashed rgb(50, 109, 230); right : 59px; }
+#page-1 .flexbox-container .right .square hr.cloud-hr { border-top: 1px dashed rgb(255, 153, 0); right : 66px; }
+
+#page-1 .flexbox-container .right .line-1, #page-1 .flexbox-container .right .line-2, #page-1 .flexbox-container .right .line-3
+{
+    position : relative;
+    border: 0 none;
+    border-top: .5px dashed rgb(113, 115, 215, 0.5); right : 38px;
+    width : 304px;
+    left : 100px;
+    top: 140px;
+    transform : rotate(90deg);
+    opacity : 0;
+    -webkit-animation: 3.5s fade-line 2.25s forwards;
+            animation: 3.5s fade-line 2.25s forwards;
+}
+
+#page-1 .flexbox-container .right .line-2 { left : 208px; }
+#page-1 .flexbox-container .right .line-3 { left : 314px; }
+
+@-webkit-keyframes fade-line
+{
+    from { opacity : 0; }
+    to {opacity : 1; }
+}
+
+@keyframes fade-line
+{
+    from { opacity : 0; }
+    to {opacity : 1; }
+}
+
+@media (max-width: 1700px)
+{
+    #page-1 .flexbox-container .right { margin-left : -280px; width : 650px; }
+}
+@media (max-width: 1540px)
+{
+    #page-1 .flexbox-container {  flex-direction : column; }
+    #page-1 .flexbox-container .right { margin-left : -130px; margin-top : 290px; }
+    .container { height: 154vh; }
+}
+
+@media (max-width: 805px)
+{
+    #page-1 .flexbox-container .left  { width : 460px; }
+    #page-1 .flexbox-container .left .title h1  { font-size: 35px; }
+    #page-1 .flexbox-container .left p   { font-size: 13px; }
+    #page-1 .flexbox-container .left button  { font-size : 12px; }
+    #page-1 .flexbox-container .left .title h1 { margin-top : 50px; }
+    .container { height: 154vh; }
+}
+@media (max-width: 805px)
+{
+    .container { height: 124vh; }
+    .container { width : 90%;}
+    #page-1 .flexbox-container .left .title .github-star-button-count, #page-1 .flexbox-container .left .title .github-star-button { margin-top : -58px; }
+    #page-1 .flexbox-container .left .title .github-star-button { margin-left : 260px; }
+    #page-1 .flexbox-container .left .title .github-star-button-count { margin-left : 315px; }
+  
+}
+
+@media (max-width: 647px)
+{
+    .container { height: 144vh; }
+    #page-1 .flexbox-container .left {  width : 387px; }
+    #page-1 .flexbox-container .right { transform : scale(0.8); margin-left : -100px;  margin-top : 230px;}
+}
+
+@media (max-width: 530px) {  .container { height: 139vh; }}
+
+@media (max-width: 500px)
+{
+   
+    #page-1 .flexbox-container .left {  width : 325px; }
+    .container { width : 100%;}
+    #page-1 .flexbox-container .left .title .github-star-button { margin-left : 230px; }
+    #page-1 .flexbox-container .left .title .github-star-button-count { margin-left : 285px; }
+    #page-1 .flexbox-container .right { transform : scale(0.7);  margin-top : 220px;}
+}
+@media (max-width: 420px)
+{
+    .container { height: 129vh; width : 100%; }
+    #page-1 .flexbox-container .right { transform : scale(0.6);  margin-top : 190px; margin-left : -80px;}
+
+}
+@media (max-width: 380px)
+{ 
+    .container { height: 142vh; }
+
+}
+@media (max-width: 370px)
+{ 
+    .container { height: 198vh; }
+
+}
