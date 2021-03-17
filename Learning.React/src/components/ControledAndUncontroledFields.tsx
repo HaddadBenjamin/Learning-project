@@ -9,21 +9,19 @@ const ControledAndUncontroledFields = () =>
     const handleOnChange = (event : React.ChangeEvent<HTMLInputElement>) => setControledField(event.target.value)
     const handleOnSubmit = () => setUncontroledField(uncontroledInputRef.current.value)
     
-    return (
-        <>
-            <br/><br/>
-            <h2>Les champs contrôlés et incontrôlés</h2>
-            <label>{controledField}</label>
-            <br></br>
-            <input type="text" value={controledField} onChange={handleOnChange}></input>
+    return <>
+        <br/><br/>
+        <h2>Les champs contrôlés et incontrôlés</h2>
+        <label>{controledField}</label>
+        <br></br>
+        <input type="text" value={controledField} onChange={handleOnChange}></input>
 
-            <br/><br/>
-            <label>{uncontroledField}</label>
-            <br></br>
-            <input type="text" ref={uncontroledInputRef} />
-            <button onClick={handleOnSubmit}>Mettre à jour votre champs incontrolé</button>
-        </>
-    )
+        <br/><br/>
+        <label>{uncontroledField}</label>
+        <br></br>
+        <input type="text" ref={uncontroledInputRef} />
+        <button onClick={handleOnSubmit}>Mettre à jour votre champs incontrolé</button>
+    </>
 }
 
 export default ControledAndUncontroledFields

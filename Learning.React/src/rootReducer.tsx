@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import todoReducer, { initialTodoState, ITodosState } from './domains/Todos/todo.reducer'
+import todoReducer, { initialTodoState, ITodosState } from './domains/todos/todo.reducer'
 
 export interface IGlobalState
 {
