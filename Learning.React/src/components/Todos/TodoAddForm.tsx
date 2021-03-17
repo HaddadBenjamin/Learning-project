@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import TextInput from '../../shared/components/TextInput'
 import Button, { ButtonColor } from '../../shared/components/Button'
-import { createTodo } from './todo.action'
+import { createTodo } from '../../domains/todos/todo.action'
 import { useDispatch } from 'react-redux'
 
 const TodoAddForm = () =>

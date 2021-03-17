@@ -19,3 +19,13 @@ export const selectDraftTodoByIdOrThrow = (draft : Draft<ITodosState>, id : stri
 
     return todo
 }
+
+export const selectTodoByIdOrThrow = (state : IGlobalState, id : string) : ITodo =>
+{
+    const todo = state.todos.todos.find(todo => todo.id === id)
+
+    if (!todo)
+        throw new Error(`Todo ${id} do not exists`)
+
+    return todo
+}

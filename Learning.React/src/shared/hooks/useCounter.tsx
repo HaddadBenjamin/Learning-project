@@ -7,7 +7,7 @@ const useCounter = (initialValue : number = 0, step : number = 1) =>
     const increment = () => setValue(value + step)
     const decrement = () => setValue(value - step)
 
-    return [value, increment, decrement] as const
+    return { value, increment, decrement } as const
 }
 
 export default useCounter

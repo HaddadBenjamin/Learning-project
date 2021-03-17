@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import Checkbox from '../../shared/components/Checkbox'
 import TextInput from '../../shared/components/TextInput'
 import Button, { ButtonColor } from '../../shared/components/Button'
-import { deleteTodo, toggleTodo, updateTodo } from './todo.action'
+import { deleteTodo, toggleTodo, updateTodo } from '../../domains/todos/todo.action'
 import { useDispatch } from 'react-redux'
-import { ITodo } from './todo.model'
+import { ITodo } from '../../domains/todos/todo.model'
 
 interface Props
 {

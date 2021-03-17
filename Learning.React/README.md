@@ -14,10 +14,15 @@ Je me suis entrainé à :
 - Typer mon code grâce à Typescript.
 
 
+Todos :
+- Formik form
+- epic test
+- supertest ?
+
 Technologies:
 - React, Typescript.
 - Gestion de l'état et de l'immutabilité : Redux, Redux-observable, redux-devtools-extension, Immer, typescript-fsa, react-redux.
-- Tests : Jest, React testing library, react-mock-store, json-server.
+- Tests : Jest, React testing library, react-mock-store, json-server, @testing-library/react-hooks.
 - Autres : axios, concurrently.
 
 

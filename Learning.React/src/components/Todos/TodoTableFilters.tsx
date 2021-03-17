@@ -1,9 +1,9 @@
 import React from 'react'
-import { updateTodoFilters } from './todo.action'
+import { updateTodoFilters } from '../../domains/todos/todo.action'
 import TextInput from '../../shared/components/TextInput'
 import Checkbox from '../../shared/components/Checkbox'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectFilters } from './todo.selector'
+import { selectFilters } from '../../domains/todos/todo.selector'
 
 const TodoTableFilters = () =>
 {
