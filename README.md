@@ -4,7 +4,7 @@
 Projet d'apprentissage que j'utilise pour appréhender et tester de nouvelles notions.
 
 CSS :
-Refaire à la main l'intégration HTML & CSS de Netflix en gérant également le responsive https://haddadflix.netlify.app/
+</br>Refaire à la main l'intégration HTML & CSS de Netflix en gérant également le responsive https://haddadflix.netlify.app/
 ![Image of Yaktocat](https://imgur.com/dvHJHsH.png)
 
 Refaire une partie de l'interface du site Quovery https://qovery.netlify.app/
@@ -18,7 +18,7 @@ React :
 ![Image of Yaktocat](https://imgur.com/DC65wj1.png)
 
 .NET Core :
-Réalisation d'un petit chat "en temps réel" avec la gestion des messages vu par tous, privés et par salle https://recordit.co/TuKHJ9lty0
+</br>Réalisation d'un petit chat "en temps réel" avec la gestion des messages vu par tous, privés et par salle https://recordit.co/TuKHJ9lty0
 ![Image of Yaktocat](https://imgur.com/Dwu2Z6U.png)
 
 Création et utilisation d'un 'access token' et d'un 'refresh token'.
