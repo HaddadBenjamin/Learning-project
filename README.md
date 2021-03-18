@@ -15,7 +15,7 @@ Refaire une partie de l'interface Youtube en utilisant les Flexbox de CSS et la 
 
 ## React
 ![Image of Yaktocat](https://imgur.com/TmR6VM6.png)
-![Image of Yaktocat](https://imgur.com/DC65wj1.png)
+![Image of Yaktocat](https://imgur.com/87Gh56k.png)
 
 ## .NET Core
 Réalisation d'un petit chat "en temps réel" avec la gestion des messages vu par tous, privés et par salle https://recordit.co/TuKHJ9lty0

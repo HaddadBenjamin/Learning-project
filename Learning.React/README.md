@@ -26,4 +26,4 @@ Technologies:
 - Autres : axios, concurrently.
 
 
-![Image of Yaktocat](https://imgur.com/DC65wj1.png)
+![Image of Yaktocat](https://imgur.com/87Gh56k.png)

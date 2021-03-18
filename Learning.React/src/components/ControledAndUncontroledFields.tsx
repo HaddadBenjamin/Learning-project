@@ -2,8 +2,8 @@ import React, { useRef, useState } from 'react'
 
 const ControledAndUncontroledFields = () =>
 {
-    const [controledField, setControledField] = useState<string>('champs contrôlé')
-    const [uncontroledField, setUncontroledField] = useState<string>('champs incontrôlé')
+    const [controledField, setControledField] = useState<string>('Champ contrôlé')
+    const [uncontroledField, setUncontroledField] = useState<string>('Champ incontrôlé')
     const uncontroledInputRef : any = useRef(null)
 
     const handleOnChange = (event : React.ChangeEvent<HTMLInputElement>) => setControledField(event.target.value)
@@ -20,7 +20,7 @@ const ControledAndUncontroledFields = () =>
         <label>{uncontroledField}</label>
         <br></br>
         <input type="text" ref={uncontroledInputRef} />
-        <button onClick={handleOnSubmit} className="ml-2">Mettre à jour votre champs incontrolé</button>
+        <button onClick={handleOnSubmit} className="ml-2">Mettre à jour votre le champ incontrolé</button>
     </>
 }
 
