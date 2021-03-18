@@ -20,7 +20,7 @@ const ControledAndUncontroledFields = () =>
         <label>{uncontroledField}</label>
         <br></br>
         <input type="text" ref={uncontroledInputRef} />
-        <button onClick={handleOnSubmit}>Mettre à jour votre champs incontrolé</button>
+        <button onClick={handleOnSubmit} className="ml-2">Mettre à jour votre champs incontrolé</button>
     </>
 }
 
