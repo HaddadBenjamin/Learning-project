@@ -21,4 +21,3 @@ const Counter = ({initialValue = 0, step = 3} : Props) =>
 }
 
 export default Counter
-

@@ -53,4 +53,3 @@ const FormWithFormikAndYup = withFormik<Props, FormValues>(
 })(FormWithFormik);
 
 export default FormWithFormikAndYup
-
