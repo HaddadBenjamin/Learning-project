@@ -6,6 +6,7 @@ import Counter from './components/Counter'
 import ControledAndUncontroledFields from './components/ControledAndUncontroledFields'
 import MyContextConsumer, {initialUserState, UserContext} from './components/PlayWithContext'
 import FilterableAndSearchableTodoTable from './components/Todos/FilterableAndSearchableTodoTable'
+import FormWithFormikAndYup from './components/FormWithFormikAndYup'
 import 'bootstrap/dist/css/bootstrap.css'
 import { Provider } from 'react-redux'
 import store from './store'
@@ -19,6 +20,7 @@ ReactDOM.render(
                     <Counter initialValue={1}/>
                     <ControledAndUncontroledFields />
                     <MyContextConsumer/>
+                    <FormWithFormikAndYup/>
                 </div>
             </UserContext.Provider>
         </Provider>
