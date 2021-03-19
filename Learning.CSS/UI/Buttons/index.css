@@ -9,6 +9,7 @@
 body
 {
     margin : 25px;
+    background: rgba(0,0,0,.85);
 }
 
 .button
