@@ -24,16 +24,19 @@ body
 
     background-color : white;
     
-    border: 2px solid;
-
     cursor : pointer;
     transition : ease-in-out 0.15s;
+    
+    border: 2px solid;
+    outline : none;
 }
 
 .blue-button
 {
     padding : 7px 20px;
     color: var(--blue);
+
+    border-color: var(--blue);
     border-radius: 27px;
 }
 
@@ -42,7 +45,9 @@ body
     background-image:
         linear-gradient(hsla(0, 0%, 100%, 0), hsla(0, 0%, 100%, 0)),
         linear-gradient(70deg, #575df2, #32a8ff);
+
     color : white;
+
     border-color: var(--primary);
 }
 
