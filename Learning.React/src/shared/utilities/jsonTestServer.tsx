@@ -4,25 +4,27 @@ import fs from 'fs'
 import { ITodo } from '../../domains/todos/todo.model'
 import { execAsync } from '../helpers/jsHelpers'
 
-export interface IJsonTestServer
+export interface ISingleRequestJsonTestServer
 {
-    readonly port : number
-    readonly server : Application
-
     init() : void
-    request(callback : () => void) : void
     clean() : Promise<string>
 }
 
-export default class JsonTestServer implements IJsonTestServer
+export default class SingleRequestJsonTestServer implements ISingleRequestJsonTestServer
 {
-    readonly port : number
-    readonly server : Application
+    port : number = 18921
+    server : Application | null = null
 
-    constructor (port : number = 18921)
+    constructor (port : number = 18921, callback : (server : Application) => void)
     {
-        this.port = port
-        this.server = jsonServer.create()  
+        this.clean().then((value) =>
+        {
+            this.port = port
+            this.server = jsonServer.create()
+
+            this.init()
+            this.server.listen(this.port, () => callback(this.server as Application))
+        })
     }
 
     init() : void
@@ -37,18 +39,8 @@ export default class JsonTestServer implements IJsonTestServer
         const middlewareOptions : MiddlewaresOptions = { noCors : true }
         const middlewares = jsonServer.defaults(middlewareOptions)
 
-        this.server.use(middlewares)
-        this.server.use(router)
-    }
-
-    request(callback : () => void) : void
-    {
-        this.clean().then((value) =>
-        {
-            this.init()
-            this.server.listen(this.port, () => callback())
-        })
-        
+        this.server?.use(middlewares)
+        this.server?.use(router)
     }
 
     clean() : Promise<string> { return execAsync(`npx kill-port ${this.port}`) }
