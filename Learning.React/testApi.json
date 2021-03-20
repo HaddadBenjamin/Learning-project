@@ -1,1 +1,3 @@
-{"todos":[{"id":"1","title":"Première todo dinitialisation","completed":false}]}
+{
+  "todos": []
+}

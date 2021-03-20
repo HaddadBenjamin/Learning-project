@@ -1,4 +1,4 @@
-![Image of Yaktocat](https://imgur.com/TmR6VM6.png)
+![Image of Yaktocat](https://imgur.com/eFOEUeD.png)
 
 Ce petit projet me permet de m'entrainer à développer mes compétences sur React.
 

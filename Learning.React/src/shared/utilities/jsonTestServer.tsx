@@ -18,7 +18,8 @@ export default class SingleRequestJsonTestServer implements ISingleRequestJsonTe
     constructor (port : number = 18921, callback : (server : Application) => void)
     {
         this.port = port
-        
+
+        // Cette ligne prend 3 secondes pour chaque tests, c'est sale.
         this.clean().then((value) =>
         {
             this.server = jsonServer.create()
