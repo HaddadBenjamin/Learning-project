@@ -8,6 +8,5 @@ export interface ITodoRepository
 
 export default class todoRepository implements ITodoRepository
 {
-    create(title : string) : ITodo {
-        return { id : newGuid(), title : title, completed : false } }
+    create(title : string) : ITodo { return { id : newGuid(), title : title, completed : false } }
 }
