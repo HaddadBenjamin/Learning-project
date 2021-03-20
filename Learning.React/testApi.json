@@ -1,14 +1,1 @@
-{
-  "todos": [
-    {
-      "id": "1",
-      "title": "Première todo dinitialisation",
-      "completed": false
-    },
-    {
-      "id": "2",
-      "title": "Faire les courses",
-      "completed": false
-    }
-  ]
-}
+{"todos":[{"id":"1","title":"Première todo dinitialisation","completed":false}]}

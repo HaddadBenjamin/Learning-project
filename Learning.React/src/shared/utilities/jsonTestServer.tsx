@@ -9,7 +9,7 @@ export interface IJsonTestServer
     readonly port : number
     readonly server : Application
     
-    clean() : void
+    clean() : Promise<any>
 }
 
 export default class JsonTestServer implements IJsonTestServer
@@ -38,8 +38,8 @@ export default class JsonTestServer implements IJsonTestServer
         this.server.listen(port, () => {})
     }
 
-    clean() : void
+    async clean() : Promise<any>
     {
-        exec(`npx kill-port ${this.port}`) 
+        await exec(`npx kill-port ${this.port}`) 
     }
 }

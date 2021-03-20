@@ -7,24 +7,24 @@ let jsonTestServer : IJsonTestServer
 
 describe("todo.api", () =>
 {
-    beforeAll(() => jsonTestServer = new JsonTestServer(5556))
-    afterAll(() => jsonTestServer.clean())
+    beforeEach(() => jsonTestServer = new JsonTestServer(5560))
+    afterEach(async () => await jsonTestServer.clean())
 
     it("GET /todos should respond with a http status 200 and return all the todos", done =>
-            request(jsonTestServer.server)
-                // Act
-                .get('/todos')
-                .set('Content-Type', 'application/json')
-                .set('Accept', 'application/json')
-                // Assert
-                .expect(200)
-                .end(function (err, res)
-                {
-                    expect(err).toBeNull()
-                    expect(res.body.length).not.toBeLessThan(1)
+        request(jsonTestServer.server)
+            // Act
+            .get('/todos')
+            .set('Content-Type', 'application/json')
+            .set('Accept', 'application/json')
+            // Assert
+            .expect(200)
+            .end(function (err, res)
+            {
+                expect(err).toBeNull()
+                expect(res.body.length).not.toBeLessThan(1)
 
-                    done()
-             }))
+                done()
+            }))
 
     it("POST /todos should respond with a http status 201 and return the todo", done =>
     {
@@ -34,9 +34,9 @@ describe("todo.api", () =>
         request(jsonTestServer.server)
             // Act
             .post('/todos')
-            .send(expectedTodo)
             .set('Content-Type', 'application/json')
             .set('Accept', 'application/json')
+            .send(JSON.stringify(expectedTodo))
             // Assert
             .expect(201)
             .end(function (err, res)
