@@ -26,8 +26,7 @@ it("POST /todos should respond with a http status 201 and return the todo", done
     new SingleRequestJsonTestServer(5569, (server) => request(server)
         // Act
         .post('/todos')
-        .set('Content-Type', 'application/json')
-        .send(JSON.stringify(expectedTodo))
+        .send(expectedTodo)
         // Assert
         .expect(201)
         .end(function (error, response)
