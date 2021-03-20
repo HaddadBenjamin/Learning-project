@@ -17,4 +17,4 @@ const epicDependencies : IEpicDependencies =
 
 export const rootEpic = combineEpics(todoEpic)
 
-export default createEpicMiddleware({ dependencies : epicDependencies });
+export default createEpicMiddleware({ dependencies : epicDependencies })

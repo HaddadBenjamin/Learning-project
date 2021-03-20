@@ -3,7 +3,12 @@
     {
       "id": "1",
       "title": "Première todo dinitialisation",
-      "completed": true
+      "completed": false
+    },
+    {
+      "id": "2",
+      "title": "Faire les courses",
+      "completed": false
     }
   ]
 }

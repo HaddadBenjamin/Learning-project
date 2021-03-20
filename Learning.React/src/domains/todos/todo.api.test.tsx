@@ -44,7 +44,6 @@ it("PATCH /todos title by id should respond with a http status 200 and update th
     const expectedTodo : ITodo = { id : '1', title : 'Faire des frites et du fromage', completed : false }
 
     new SingleRequestJsonTestServer(5570, (server) => request(server)
-
         // Act
         .patch('/todos/1')
         .send({ title : expectedTodo.title })
