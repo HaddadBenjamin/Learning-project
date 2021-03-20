@@ -2,7 +2,7 @@ import jsonServer, { MiddlewaresOptions } from 'json-server'
 import { exec } from 'child_process'
 import { Application } from 'express'
 import fs from 'fs'
-import todoRepository from '../../domains/todos/todo.repository'
+import { ITodo } from '../../domains/todos/todo.model'
 
 export interface IJsonTestServer
 {
@@ -21,10 +21,12 @@ export default class JsonTestServer implements IJsonTestServer
     {
         this.port = port
         this.server = jsonServer.create()
+        
+        const todo : ITodo = { id : '1', title : 'Première todo dinitialisation', completed : false }
 
         fs.writeFileSync(
             './testApi.json',
-            JSON.stringify({ todos : [new todoRepository().create('Première todo dinititialisation')] })) 
+            JSON.stringify({ todos : [todo] })) 
 
         const router = jsonServer.router('testApi.json')
         const middlewareOptions : MiddlewaresOptions = { noCors : true }
