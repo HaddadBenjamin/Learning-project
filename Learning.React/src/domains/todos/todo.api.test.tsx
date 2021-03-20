@@ -10,10 +10,10 @@ it("GET /todos should respond with a http status 200 and return all the todos", 
         .get('/todos')
         // Assert
         .expect(200)
-        .end(function (err, res)
+        .end(function (error, response)
         {
-            expect(err).toBeNull()
-            expect(res.body.length).not.toBeLessThan(1)
+            expect(error).toBeNull()
+            expect(response.body.length).not.toBeLessThan(1)
 
             done()
         })))
@@ -30,10 +30,10 @@ it("POST /todos should respond with a http status 201 and return the todo", done
         .send(JSON.stringify(expectedTodo))
         // Assert
         .expect(201)
-        .end(function (err, res)
+        .end(function (error, response)
         {
-            expect(err).toBeNull()
-            expect(res.body).toEqual(expectedTodo)
+            expect(error).toBeNull()
+            expect(response.body).toEqual(expectedTodo)
 
             done()
         }))
@@ -51,10 +51,10 @@ it("PATCH /todos title by id should respond with a http status 200 and update th
         .send({ title : expectedTodo.title })
         // Assert
         .expect(200)
-        .end(function (err, res)
+        .end(function (error, response)
         {
-            expect(err).toBeNull()
-            expect(res.body).toEqual(expectedTodo)
+            expect(error).toBeNull()
+            expect(response.body).toEqual(expectedTodo)
 
             done()
         }))
@@ -68,10 +68,10 @@ it("PATCH /todos completed by id should respond with a http status 200 and updat
         .send({ completed : true })
         // Assert
         .expect(200)
-        .end(function (err, res)
+        .end(function (error, response)
         {
-            expect(err).toBeNull()
-            expect(res.body).toEqual({ id : '1', title : res.body.title, completed : true })
+            expect(error).toBeNull()
+            expect(response.body).toEqual({ id : '1', title : response.body.title, completed : true })
 
             done()
         })))
@@ -84,8 +84,8 @@ it("DELETE /todos by id should respond with a http status 200", done =>
         .send({ completed : true })
         // Assert
         .expect(200)
-        .end(function (err, res)
+        .end(function (error, response)
         {
-            expect(err).toBeNull()
+            expect(error).toBeNull()
             done()
         })))
