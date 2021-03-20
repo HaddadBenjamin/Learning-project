@@ -1,15 +1,17 @@
 import jsonServer, { MiddlewaresOptions } from 'json-server'
-import { exec } from 'child_process'
 import { Application } from 'express'
 import fs from 'fs'
 import { ITodo } from '../../domains/todos/todo.model'
+import { execAsync } from '../helpers/jsHelpers'
 
 export interface IJsonTestServer
 {
     readonly port : number
     readonly server : Application
-    
-    clean() : Promise<any>
+
+    init() : void
+    request(callback : () => void) : void
+    clean() : Promise<string>
 }
 
 export default class JsonTestServer implements IJsonTestServer
@@ -20,8 +22,11 @@ export default class JsonTestServer implements IJsonTestServer
     constructor (port : number = 18921)
     {
         this.port = port
-        this.server = jsonServer.create()
-        
+        this.server = jsonServer.create()  
+    }
+
+    init() : void
+    {
         const todo : ITodo = { id : '1', title : 'Première todo dinitialisation', completed : false }
 
         fs.writeFileSync(
@@ -34,12 +39,17 @@ export default class JsonTestServer implements IJsonTestServer
 
         this.server.use(middlewares)
         this.server.use(router)
-        
-        this.server.listen(port, () => {})
     }
 
-    async clean() : Promise<any>
+    request(callback : () => void) : void
     {
-        await exec(`npx kill-port ${this.port}`) 
+        this.clean().then((value) =>
+        {
+            this.init()
+            this.server.listen(this.port, () => callback())
+        })
+        
     }
+
+    clean() : Promise<string> { return execAsync(`npx kill-port ${this.port}`) }
 }
