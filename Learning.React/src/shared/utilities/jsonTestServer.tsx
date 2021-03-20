@@ -33,9 +33,7 @@ export default class SingleRequestJsonTestServer implements ISingleRequestJsonTe
     {
         const todo : ITodo = { id : '1', title : 'Première todo dinitialisation', completed : false }
 
-        fs.writeFileSync(
-            './testApi.json',
-            JSON.stringify({ todos : [todo] })) 
+        fs.writeFileSync('./testApi.json', JSON.stringify({ todos : [todo] })) 
 
         const router = jsonServer.router('testApi.json')
         const middlewareOptions : MiddlewaresOptions = { noCors : true }
