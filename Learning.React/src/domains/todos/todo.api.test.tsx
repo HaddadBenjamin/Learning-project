@@ -27,7 +27,6 @@ it("POST /todos should respond with a http status 201 and return the todo", done
         // Act
         .post('/todos')
         .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
         .send(JSON.stringify(expectedTodo))
         // Assert
         .expect(201)
@@ -50,8 +49,6 @@ it("PATCH /todos title by id should respond with a http status 200 and update th
         // Act
         .patch('/todos/1')
         .send({ title : expectedTodo.title })
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
         // Assert
         .expect(200)
         .end(function (err, res)
@@ -69,8 +66,6 @@ it("PATCH /todos completed by id should respond with a http status 200 and updat
         // Act
         .patch('/todos/1')
         .send({ completed : true })
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
         // Assert
         .expect(200)
         .end(function (err, res)
@@ -87,8 +82,6 @@ it("DELETE /todos by id should respond with a http status 200", done =>
         // Act
         .delete('/todos/1')
         .send({ completed : true })
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
         // Assert
         .expect(200)
         .end(function (err, res)
