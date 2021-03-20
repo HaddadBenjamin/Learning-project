@@ -5,11 +5,9 @@ import SingleRequestJsonTestServer, { ISingleRequestJsonTestServer } from '../..
 
 it("GET /todos should respond with a http status 200 and return all the todos", done =>
     // Arrange
-    new SingleRequestJsonTestServer(5568, (server) => request(server)
+    new SingleRequestJsonTestServer(5567, (server) => request(server)
         // Act
         .get('/todos')
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
         // Assert
         .expect(200)
         .end(function (err, res)
