@@ -6,7 +6,7 @@ import { execAsync } from '../helpers/jsHelpers'
 
 export interface ISingleRequestJsonTestServer
 {
-    init() : void
+    initialize() : void
     clean() : Promise<string>
 }
 
@@ -24,12 +24,12 @@ export default class SingleRequestJsonTestServer implements ISingleRequestJsonTe
         {
             this.server = jsonServer.create()
 
-            this.init()
+            this.initialize()
             this.server.listen(this.port, () => callback(this.server as Application))
         })
     }
 
-    init() : void
+    initialize() : void
     {
         const todo : ITodo = { id : '1', title : 'Première todo dinitialisation', completed : false }
 
