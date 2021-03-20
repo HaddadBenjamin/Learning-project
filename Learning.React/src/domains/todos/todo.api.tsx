@@ -1,19 +1,33 @@
 import { ITodo } from './todo.model'
 import axios, { AxiosPromise, AxiosRequestConfig } from 'axios'
 
-// should be stored in a config file + change depending the environment
-const api = 'http://localhost:3001/todos'
+export interface ITodoApi
+{
+    readonly api : string
+    readonly configuration : AxiosRequestConfig
+    
+    getTodos() : AxiosPromise<ITodo[]> 
+    createTodo(todo : ITodo) : AxiosPromise<ITodo>
+    patchTodoTitle(id : string, title : string) : AxiosPromise<ITodo>
+    patchTodoCompleted(id : string, completed : boolean) : AxiosPromise<ITodo>
+    deleteTodo(id : string) : AxiosPromise
+}
 
-const configuration : AxiosRequestConfig = { headers : { 'Content-Type' : 'application/json' } }
+export default class TodoApi implements ITodoApi
+{
+    // should be stored in a config file + change depending the environment
+    readonly api : string = 'http://localhost:3001/todos'
+    readonly configuration : AxiosRequestConfig = { headers : { 'Content-Type' : 'application/json' } }
+    
+    getTodos = () : AxiosPromise<ITodo[]> => axios.get(this.api, this.configuration)
 
-export const getTodos = () : AxiosPromise<ITodo[]> => axios.get(api, configuration)
+    createTodo = (todo : ITodo) : AxiosPromise<ITodo> => axios.post(this.api, todo, this.configuration)
 
-export const createTodo = (todo : ITodo) : AxiosPromise<ITodo> => axios.post(api, todo, configuration)
+    patchTodoTitle = (id : string, title : string) : AxiosPromise<ITodo> => 
+        axios.patch(`${this.api}/${id}`, { title : title }, this.configuration)
 
-export const patchTodoTitle = (id : string, title : string) : AxiosPromise<ITodo> => 
-    axios.patch(`${api}/${id}`, { title : title }, configuration)
+    patchTodoCompleted = (id : string, completed : boolean) : AxiosPromise<ITodo> => 
+        axios.patch(`${this.api}/${id}`, { completed : completed }, this.configuration)
 
-export const patchTodoCompleted = (id : string, completed : boolean) : AxiosPromise<ITodo> => 
-    axios.patch(`${api}/${id}`, { completed : completed }, configuration)
-
-export const deleteTodo = (id : string)  : AxiosPromise => axios.delete(`${api}/${id}`, configuration)
+    deleteTodo = (id : string)  : AxiosPromise => axios.delete(`${this.api}/${id}`, this.configuration)
+}

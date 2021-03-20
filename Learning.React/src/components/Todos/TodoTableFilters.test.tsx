@@ -1,7 +1,7 @@
 import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
 import TodoTableFilters from './TodoTableFilters'
-import { IGlobalState, initialGlobalState } from '../../rootReducer'
+import { IGlobalState, initialGlobalState } from '../../root.reducer'
 import configureStore from 'redux-mock-store'
 import { Provider } from 'react-redux'
 import { initialTodoState } from '../../domains/todos/todo.reducer'

@@ -1,6 +1,6 @@
 import { filterTodos } from './filterTodos'
 import { sortTodos } from './sortTodos'
-import { IGlobalState } from '../../rootReducer'
+import { IGlobalState } from '../../root.reducer'
 import { ITodoFilters, ITodo } from './todo.model'
 import { ITodosState } from './todo.reducer'
 import { Draft } from 'immer'

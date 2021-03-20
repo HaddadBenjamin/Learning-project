@@ -1,6 +1,6 @@
 import { ITodo } from './todo.model'
 import { selectFilteredAndSortedTodos, selectTodoByIdOrThrow } from './todo.selector'
-import { IGlobalState, initialGlobalState } from '../../rootReducer'
+import { IGlobalState, initialGlobalState } from '../../root.reducer'
 import { initialTodoState } from './todo.reducer'
 import { newGuid } from '../../shared/helpers/stringHelpers'
 
