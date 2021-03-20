@@ -1,87 +1,12 @@
 {
   "todos": [
     {
-      "id": "778313b3-a379-4e79-9145-01dd2fbd5003",
-      "title": "Faire le lit",
+      "id": "9c527bbd-8456-4780-b826-ba8793405a14",
+      "title": "Première todo dinititialisation",
       "completed": false
     },
     {
-      "id": "b9c7249c-d1dc-49fc-b584-3939db295173",
-      "title": "Faire les courses",
-      "completed": false
-    },
-    {
-      "id": "d5d8ce7b-6304-40aa-a4f2-2c207872ac8a",
-      "title": "Faire les courses",
-      "completed": false
-    },
-    {
-      "id": "892ae1f9-6f1b-4b44-bea4-9157d7aecb6f",
-      "title": "Faire les courses",
-      "completed": false
-    },
-    {
-      "id": "4e9e1aae-9f66-4dbf-bc8a-95601892fce9",
-      "title": "Faire les courses",
-      "completed": false
-    },
-    {
-      "id": "db109bdd-4f48-4c75-9bef-a9c7f18dc9e4",
-      "title": "Faire les courses",
-      "completed": false
-    },
-    {
-      "id": "6877b06d-719e-448e-94de-e8f04ba3d063",
-      "title": "Faire les courses",
-      "completed": false
-    },
-    {
-      "id": "4c10e4ff-5445-4380-b979-3f9294d9fde9",
-      "title": "Faire les courses",
-      "completed": false
-    },
-    {
-      "id": "e7146067-691b-4888-a234-7dbd222c2a77",
-      "title": "Faire les courses",
-      "completed": false
-    },
-    {
-      "id": "6a8de63a-13ac-4d84-8643-828a2ee61085",
-      "title": "Faire les courses",
-      "completed": false
-    },
-    {
-      "id": "3b0d855e-8ad9-429a-8fad-76ea0874fa29",
-      "title": "Faire les courses",
-      "completed": false
-    },
-    {
-      "id": "92c1cc1c-ef5a-41e1-a37a-8889c147b789",
-      "title": "Faire les courses",
-      "completed": false
-    },
-    {
-      "id": "bdaafd2e-9bcb-4201-80e1-1d2e1a8018fc",
-      "title": "Faire les courses",
-      "completed": false
-    },
-    {
-      "id": "a41ca248-df39-4563-8ee4-831280b516cf",
-      "title": "Faire les courses",
-      "completed": false
-    },
-    {
-      "id": "a22f6ca9-8f9d-4213-bae7-a13c021f60a0",
-      "title": "Faire les courses",
-      "completed": false
-    },
-    {
-      "id": "5fb26e06-2b39-46cc-8609-2911c35f4d81",
-      "title": "Faire les courses",
-      "completed": false
-    },
-    {
-      "id": "836e20df-7f78-48a5-82ef-6cff09f519ee",
+      "id": "0a441bf8-5005-4ccc-826e-b0acd7de037a",
       "title": "Faire les courses",
       "completed": false
     }
