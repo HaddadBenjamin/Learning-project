@@ -7,7 +7,7 @@ let jsonTestServer : IJsonTestServer
 
 describe("todo.api", () =>
 {
-    beforeAll(() => jsonTestServer = new JsonTestServer(5555))
+    beforeAll(() => jsonTestServer = new JsonTestServer(5556))
     afterAll(() => jsonTestServer.clean())
 
     it("GET /todos should respond with a http status 200 and return all the todos", done =>
@@ -29,7 +29,7 @@ describe("todo.api", () =>
     it("POST /todos should respond with a http status 201 and return the todo", done =>
     {
         // Arrange
-        const expectedTodo : ITodo = new todoRepository().create('Faire les courses')
+        const expectedTodo : ITodo = { ...new todoRepository().create('Faire les courses'), id : '2' }
 
         request(jsonTestServer.server)
             // Act
@@ -50,13 +50,13 @@ describe("todo.api", () =>
 
     it("PATCH /todos title by id should respond with a http status 200 and update the title", done =>
     {
-        const expectedTodoTitle : string = 'Faire cuire les frites'
-
         // Arrange
+        const expectedTodo : ITodo = { id : '1', title : 'Faire des frites et du fromage', completed : false }
+     
         request(jsonTestServer.server)
             // Act
             .patch('/todos/1')
-            .send({ titlte : expectedTodoTitle })
+            .send({ title : expectedTodo.title })
             .set('Content-Type', 'application/json')
             .set('Accept', 'application/json')
             // Assert
@@ -64,14 +64,13 @@ describe("todo.api", () =>
             .end(function (err, res)
             {
                 expect(err).toBeNull()
-                expect(res.body).toEqual({ id : 1, title : expectedTodoTitle, completed : false })
+                expect(res.body).toEqual(expectedTodo)
 
                 done()
             })
     })
 
     it("PATCH /todos completed by id should respond with a http status 200 and update the completed status", done =>
-        // Arrange
         request(jsonTestServer.server)
             // Act
             .patch('/todos/1')
@@ -83,13 +82,12 @@ describe("todo.api", () =>
             .end(function (err, res)
             {
                 expect(err).toBeNull()
-                expect(res.body).toEqual({ id : 1, title : res.body.title, completed : true })
+                expect(res.body).toEqual({ id : '1', title : res.body.title, completed : true })
 
                 done()
             }))
 
     it("DELETE /todos by id should respond with a http status 200", done =>
-        // Arrange
         request(jsonTestServer.server)
             // Act
             .delete('/todos/1')
