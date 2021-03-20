@@ -2,10 +2,10 @@ import todoApi, { ITodoApi } from './domains/todos/todo.api'
 
 export interface IRootApi
 {
-    readonly todos : ITodoApi
+    readonly todo : ITodoApi
 }
 
 export default class RootApi implements IRootApi
 {
-    todos : ITodoApi = new todoApi()
+    todo : ITodoApi = new todoApi()
 }
