@@ -1,8 +1,8 @@
-Ce projet est un modèle de projet pour réaliser une API avec les options suivantes :
-- CQRS : Mediator / AggregateRoot / Session / Repository / Unit Of Work.
-- Audit : commandes, les queries, évènements, les changements effectués sur votre base de données, les performances de vos endpoints.
+<ins>**Ce projet est un modèle de projet pour réaliser une API avec les options suivantes :**</ins>
+- <ins>**CQRS :**</ins> Mediator / AggregateRoot / Session / Repository / Unit Of Work.
+- <ins>**Audit :**</ins> commandes, les queries, évènements, les changements effectués sur votre base de données, les performances de vos endpoints.
 
-Pour réutiliser ce projet il vous faut :
+<ins>**Pour réutiliser ce projet il vous faut :**</ins>
 - Choisir les options que votre aggregate root doit supporter, à savoir avec ou sans audit, suppression logique, event sourcing.
 - Modifier l'appsettings.json de sorte à définir le type d'audit que vous souhaitez supporter.
 - Supprimer les répertoires Learning.AggregateRoot.Domain.ExampleToDelete et Learning.AggregateRoot.Infrastructure.ExampleToDelete.
