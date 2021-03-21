@@ -1,7 +1,7 @@
 import { ITodo } from './todo.model'
 import supertest from 'supertest'
 import todoRepository from './todo.repository'
-import singleRequestJsonTestServer from '../../shared/utilities/jsonTestServer'
+import singleRequestJsonTestServer from '../../shared/utilities/singleRequestJsonTestServer'
 
 it("GET /todos should respond with a http status 200 and return all the todos", done =>
     // Arrange

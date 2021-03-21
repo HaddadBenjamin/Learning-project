@@ -10,7 +10,7 @@ export interface ISingleRequestJsonTestServer
     clean() : Promise<string>
 }
 
-export default class SingleRequestJsonTestServer implements ISingleRequestJsonTestServer
+export default class singleRequestJsonTestServer implements ISingleRequestJsonTestServer
 {
     port : number = 18921
     server : Application | null = null
