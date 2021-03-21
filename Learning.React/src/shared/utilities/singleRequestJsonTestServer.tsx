@@ -36,8 +36,8 @@ export default class singleRequestJsonTestServer implements ISingleRequestJsonTe
         fs.writeFileSync('./testApi.json', JSON.stringify({ todos : [todo] })) 
 
         const router = jsonServer.router('testApi.json')
-        const middlewareOptions : MiddlewaresOptions = { noCors : true }
-        const middlewares = jsonServer.defaults(middlewareOptions)
+        const middlewaresOptions : MiddlewaresOptions = { noCors : true }
+        const middlewares = jsonServer.defaults(middlewaresOptions)
 
         this.server?.use(middlewares)
         this.server?.use(router)
