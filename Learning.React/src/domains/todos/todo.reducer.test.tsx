@@ -218,7 +218,7 @@ describe("TOGGLE_TODO", () =>
         expect(toggleAction).toEqual(loadedActionMetadata)
     })
 
-    describe("Failed toggle action should set toggle action status to failed and error message", () =>
+    it("Failed toggle action should set toggle action status to failed and error message", () =>
     {
         // Arrange
         const expectedErrorMessage : string = 'HTTP Error 500 (Internal Server)'

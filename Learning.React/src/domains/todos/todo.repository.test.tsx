@@ -1,5 +1,5 @@
 import { ITodo } from './todo.model'
-import { createTodo } from './todo.repository'
+import todoRepository from './todo.repository'
 
 it("create todo should generate a new to do with a random guid, completed to false and generate guid", () =>
 {
@@ -7,7 +7,7 @@ it("create todo should generate a new to do with a random guid, completed to fal
     const expectedTodoTitle : string = 'Faire les courses'
 
     // Act
-    const todo : ITodo = createTodo(expectedTodoTitle)
+    const todo : ITodo = new todoRepository().create(expectedTodoTitle)
     const expectedTodo : ITodo = { ...todo, title : expectedTodoTitle, completed : false }
 
     // Assert

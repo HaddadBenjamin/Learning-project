@@ -4,7 +4,7 @@ import React from 'react'
 import TodoTable from './TodoTable'
 import configureStore from 'redux-mock-store'
 import { Provider } from 'react-redux'
-import { IGlobalState, initialGlobalState } from '../../rootReducer'
+import { IGlobalState, initialGlobalState } from '../../root.reducer'
 import { querySelectorWithThrow } from '../../shared/helpers/reactTestingLibaryHelpers'
 import { initialTodoState } from '../../domains/Todos/todo.reducer'
 

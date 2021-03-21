@@ -1,29 +1,27 @@
-![Image of Yaktocat](https://imgur.com/TmR6VM6.png)
+![Image of Yaktocat](https://imgur.com/eFOEUeD.png)
 
 Ce petit projet me permet de m'entrainer à développer mes compétences sur React.
 
-Je me suis entrainé à :
-- Gérer l'état centralisé avec Redux-Observable et configurer des actions, un reduceur, des epics et un store.
-- Pousser l'utilisation de Redux en utilisant typescript-fsa pour générer mes actions et Immer pour gérer l'immutabilité.
-- Créer des tests unitaires avec jest & react testing library & redux-mock-store.
+<ins>**Je me suis entrainé à :**</ins>
+- Gérer l'état centralisé avec Redux Observable et configurer des actions, un reduceur, des epics et un store.
+- Pousser l'utilisation de Redux en utilisant Typescript fsa pour générer mes actions et Immer pour gérer l'immutabilité.
+- Créer des tests unitaires avec Jest & React testing & Redux mock store & Supertest.
 - Créer des tests simulant les intéractions d'un utilisateur sur mon IHM.
-- Générer une fausse API et base de données grâce à json-server et la consommer par des appels HTTP en utilisant axios.
+- Générer une fausse API et base de données grâce à Json server, la consommer par des appels HTTP en utilisant Axios et la tester avec Supertest.
 - Créer une structure de projet et de code cohérente.
-- Créer et utiliser des hooks, un contexte, des champs contrôlés et non contrôlés.
+- Créer et utiliser des hooks, un contexte, des champs contrôlés et non contrôlés, un formulaire avec Formik dont le schéma a été validé par Yup.
 - Créer une classe utilitaires et un semblant d'une librairie de composants UI partagés.
 - Typer mon code grâce à Typescript.
 
 
-Todos :
-- Formik form
-- epic test
-- supertest ?
+<ins>**Todo :**</ins>
+- Tester la couche des epics.
 
-Technologies:
-- React, Typescript.
-- Gestion de l'état et de l'immutabilité : Redux, Redux-observable, redux-devtools-extension, Immer, typescript-fsa, react-redux.
-- Tests : Jest, React testing library, react-mock-store, json-server, @testing-library/react-hooks.
-- Autres : axios, concurrently.
+<ins>**Stack technique :**</ins>
+- <ins>**Technologies :**</ins> React, Typescript.
+- <ins>**Gestion de l'état et de l'immutabilité :**</ins> Redux, Redux-observable, Redux devtools extension, Immer, typescript-fsa, React redux.
+- <ins>**Tests :**</ins> Jest, React testing, Supertest, React mock store, Json server, React hooks.
+- <ins>**Librairies :**</ins> Axios, Concurrently, Formik, Yup.
 
 
 ![Image of Yaktocat](https://imgur.com/87Gh56k.png)
