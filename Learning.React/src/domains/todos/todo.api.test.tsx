@@ -1,11 +1,11 @@
 import { ITodo } from './todo.model'
-import request from 'supertest'
+import supertest from 'supertest'
 import todoRepository from './todo.repository'
-import singleRequestJsonTestServer, { ISingleRequestJsonTestServer } from '../../shared/utilities/jsonTestServer'
+import singleRequestJsonTestServer from '../../shared/utilities/jsonTestServer'
 
 it("GET /todos should respond with a http status 200 and return all the todos", done =>
     // Arrange
-    new singleRequestJsonTestServer(5567, (server) => request(server)
+    new singleRequestJsonTestServer(5567, (server) => supertest(server)
         // Act
         .get('/todos')
         // Assert
@@ -23,7 +23,7 @@ it("POST /todos should respond with a http status 201 and return the todo", done
     // Arrange
     const expectedTodo : ITodo = { ...new todoRepository().create('Faire les courses'), id : '2' }
 
-    new singleRequestJsonTestServer(5569, (server) => request(server)
+    new singleRequestJsonTestServer(5569, (server) => supertest(server)
         // Act
         .post('/todos')
         .send(expectedTodo)
@@ -43,7 +43,7 @@ it("PATCH /todos title by id should respond with a http status 200 and update th
     // Arrange
     const expectedTodo : ITodo = { id : '1', title : 'Faire des frites et du fromage', completed : false }
 
-    new singleRequestJsonTestServer(5570, (server) => request(server)
+    new singleRequestJsonTestServer(5570, (server) => supertest(server)
         // Act
         .patch('/todos/1')
         .send({ title : expectedTodo.title })
@@ -60,7 +60,7 @@ it("PATCH /todos title by id should respond with a http status 200 and update th
 
 it("PATCH /todos completed by id should respond with a http status 200 and update the completed status", done =>
     // Arrange
-    new singleRequestJsonTestServer(5571, (server) => request(server)
+    new singleRequestJsonTestServer(5571, (server) => supertest(server)
         // Act
         .patch('/todos/1')
         .send({ completed : true })
@@ -76,7 +76,7 @@ it("PATCH /todos completed by id should respond with a http status 200 and updat
 
 it("DELETE /todos by id should respond with a http status 200", done =>
     // Arrange
-    new singleRequestJsonTestServer(5572, (server) => request(server)
+    new singleRequestJsonTestServer(5572, (server) => supertest(server)
         // Act
         .delete('/todos/1')
         .send({ completed : true })
