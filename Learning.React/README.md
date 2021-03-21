@@ -1,21 +1,20 @@
 ![Image of Yaktocat](https://imgur.com/eFOEUeD.png)
 
-Ce petit projet me permet de m'entrainer à développer mes compétences sur React.
+Ce petit projet me permet de m'entraîner à développer mes compétences sur React.
 
 <ins>**Je me suis entrainé à :**</ins>
 - Gérer l'état centralisé avec Redux Observable et configurer des actions, un reduceur, des epics et un store.
 - Pousser l'utilisation de Redux en utilisant Typescript fsa pour générer mes actions et Immer pour gérer l'immutabilité.
 - Créer des tests unitaires avec Jest & React testing & Redux mock store & Supertest.
-- Créer des tests simulant les intéractions d'un utilisateur sur mon IHM.
+- Créer des tests simulant les intéractions d'un utilisateur sur mon IHM, une API consommée par des appels HTTP.
 - Générer une fausse API et base de données grâce à Json server, la consommer par des appels HTTP en utilisant Axios et la tester avec Supertest.
-- Créer une structure de projet et de code cohérente.
 - Créer et utiliser des hooks, un contexte, des champs contrôlés et non contrôlés, un formulaire avec Formik dont le schéma a été validé par Yup.
-- Créer une classe utilitaires et un semblant d'une librairie de composants UI partagés.
-- Typer mon code grâce à Typescript.
+- Développer une structure de projet cohérente dont le code est typé grâce à Typescript, des classes utilitaires et un semblant d'une librairie de composants UI partagés.
 
 
 <ins>**Todo :**</ins>
 - Tester la couche des epics.
+
 
 <ins>**Stack technique :**</ins>
 - <ins>**Technologies :**</ins> React, Typescript.
