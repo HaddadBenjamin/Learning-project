@@ -5,7 +5,7 @@ export interface IRootApi
     readonly todo : ITodoApi
 }
 
-export default class RootApi implements IRootApi
+export default class rootApi implements IRootApi
 {
     todo : ITodoApi = new todoApi()
 }

@@ -6,9 +6,9 @@ export const execAsync = (command : string) => new Promise<string>((resolve, rej
 {
     exec(command, (error, stdout, stderr) =>
     {
-        if (error)
-            console.warn(error)
+        if (error || stderr)
+            reject(error ? error : stderr)
         
-        resolve(stdout ? stdout : stderr)
+        resolve(stdout)
     })
 })
