@@ -1,3 +1,5 @@
+**Année de développement :** 2020.</br>
+
 <ins>**Ce projet est un modèle de projet pour réaliser une API avec les options suivantes :**</ins>
 - <ins>**CQRS :**</ins> Mediator / AggregateRoot / Session / Repository / Unit Of Work.
 - <ins>**Audit :**</ins> commandes, les queries, évènements, les changements effectués sur votre base de données, les performances de vos endpoints.
