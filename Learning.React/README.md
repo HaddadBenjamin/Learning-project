@@ -1,5 +1,6 @@
 ![Image of Yaktocat](https://imgur.com/eFOEUeD.png)
 
+**Année de développement :** 2021.</br>
 Ce petit projet me permet de m'entraîner à développer mes compétences sur React.
 
 <ins>**Je me suis entrainé à :**</ins>
