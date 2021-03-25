@@ -1,16 +1,16 @@
 import { ITodo } from './todo.model'
-import axios, { AxiosPromise, AxiosRequestConfig } from 'axios'
+import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
 
 export interface ITodoApi
 {
     readonly url : string
     readonly configuration : AxiosRequestConfig
     
-    getAll() : AxiosPromise<ITodo[]> 
-    create(todo : ITodo) : AxiosPromise<ITodo>
-    patchTitle(id : string, title : string) : AxiosPromise<ITodo>
-    patchCompleted(id : string, completed : boolean) : AxiosPromise<ITodo>
-    delete(id : string) : AxiosPromise
+    getAll() : Promise<AxiosResponse<ITodo[]>> 
+    create(todo : ITodo) : Promise<AxiosResponse<ITodo>>
+    patchTitle(id : string, title : string) : Promise<AxiosResponse<ITodo>>
+    patchCompleted(id : string, completed : boolean) : Promise<AxiosResponse<ITodo>>
+    delete(id : string) : Promise<AxiosResponse<ITodo>>
 }
 
 export default class TodoApi implements ITodoApi
@@ -19,15 +19,15 @@ export default class TodoApi implements ITodoApi
     readonly url : string = 'http://localhost:3001/todos'
     readonly configuration : AxiosRequestConfig = { headers : { 'Content-Type' : 'application/json' } }
     
-    getAll = () : AxiosPromise<ITodo[]> => axios.get(this.url, this.configuration)
+    getAll = () : Promise<AxiosResponse<ITodo[]>> => axios.get(this.url, this.configuration)
 
-    create = (todo : ITodo) : AxiosPromise<ITodo> => axios.post(this.url, todo, this.configuration)
+    create = (todo : ITodo) : Promise<AxiosResponse<ITodo>> => axios.post(this.url, todo, this.configuration)
 
-    patchTitle = (id : string, title : string) : AxiosPromise<ITodo> => 
+    patchTitle = (id : string, title : string) : Promise<AxiosResponse<ITodo>> => 
         axios.patch(`${this.url}/${id}`, { title : title }, this.configuration)
 
-    patchCompleted = (id : string, completed : boolean) : AxiosPromise<ITodo> => 
+    patchCompleted = (id : string, completed : boolean) : Promise<AxiosResponse<ITodo>> => 
         axios.patch(`${this.url}/${id}`, { completed : completed }, this.configuration)
 
-    delete = (id : string)  : AxiosPromise => axios.delete(`${this.url}/${id}`, this.configuration)
+    delete = (id : string) : Promise<AxiosResponse<ITodo>> => axios.delete(`${this.url}/${id}`, this.configuration)
 }
