@@ -4,40 +4,53 @@ import { createTodoEpic } from './todo.epic'
 import { mockDeep, MockProxy } from 'jest-mock-extended';
 import { ITodo } from './todo.model'
 import { AxiosResponse } from 'axios'
+import { createTodo, TodoActions } from './todo.action';
 
 it("create todo", done =>
 {
-    const todo : ITodo = { id : '2', title : 'Faire les courses', completed : false }
-    const mockEpicDependencies : MockProxy<IEpicDependencies> & IEpicDependencies = mockDeep<IEpicDependencies>()
-    mockEpicDependencies.repositories.todo.create.mockReturnValue(todo)
-
-    const axiosReponseMock : MockProxy<AxiosResponse<ITodo>> & AxiosResponse<ITodo> = mockDeep<AxiosResponse<ITodo>>()
-    axiosReponseMock.data = todo
-    const responseMock : Promise<AxiosResponse<ITodo>> = new Promise<AxiosResponse<ITodo>>(resolve => resolve(axiosReponseMock))
-
-    mockEpicDependencies.apis.todo.create.mockReturnValue(responseMock)
-    const testScheduler : TestScheduler = new TestScheduler((actual, expected) => {});
-
+    // Arrange
+    const testScheduler = new TestScheduler((actual, expected) => {  });
     testScheduler.run(({ hot, cold, expectObservable }) =>
     {
-        // TODO -> j'y suis là.
-        const action$ = hot('-a', { a: { type: 'FETCH_USER', id: '123' } });
+        const todo : ITodo = { id : '2', title : 'Faire les courses', completed : false }
+        const mockEpicDependencies : MockProxy<IEpicDependencies> & IEpicDependencies = mockDeep<IEpicDependencies>()
+        mockEpicDependencies.repositories.todo.create.mockReturnValue(todo)
+    
+        const axiosReponseMock : MockProxy<AxiosResponse<ITodo>> & AxiosResponse<ITodo> = mockDeep<AxiosResponse<ITodo>>()
+        axiosReponseMock.data = todo
+        const responseMock : Promise<AxiosResponse<ITodo>> = new Promise<AxiosResponse<ITodo>>(resolve => resolve(axiosReponseMock))
+    
+        mockEpicDependencies.apis.todo.create.mockReturnValue(responseMock)
+
+        const actionPayload = { title : todo.title }
+        const action$ = hot('-a', { a : createTodo.started(actionPayload) });
         const state$ = null;
-        const dependencies = {
-            getJSON: url => cold('--a', {
-            a: { url }
-            })
-    };
-
-    const output$ = createTodoEpic(action$, state$, mockEpicDependencies);
-
-    expectObservable(output$).toBe('---a', {
-        a: {
-        type: 'FETCH_USER_FULFILLED',
-        response: {
-            url: 'https://api.github.com/users/123'
+        const epicDependencies =
+        {
+            ...mockEpicDependencies,
+            apis :
+            {
+                todo :
+                {
+                    ...mockEpicDependencies.apis.todo,
+                    create : title => cold('--a', { a : { responseMock } })
+                }
+            }
         }
-        }
-    });
+
+        // Act
+        const output$ = createTodoEpic(action$, state$, epicDependencies as any);
+
+        // Assert
+        expectObservable(output$).toBe('---a',
+        {
+            a :
+            {
+                type: TodoActions.CREATE_TODO_STARTED,
+                response : { params : actionPayload, result : { todos : [todo] } } 
+            }
+        })
+
+        done()
     });
 })
