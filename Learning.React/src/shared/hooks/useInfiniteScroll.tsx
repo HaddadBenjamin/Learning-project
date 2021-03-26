@@ -29,6 +29,7 @@ const useInfiniteScroll = (getItems : any, updateDelay : number = 250) =>
   
     function computeIsFetching()
     {
+        // Il faudrait plutôt que l'utilisateur se trouve en bas des éléments à scroller.
         if (window.innerHeight + document.documentElement.scrollTop <
             document.documentElement.offsetHeight || isFetching)
             return

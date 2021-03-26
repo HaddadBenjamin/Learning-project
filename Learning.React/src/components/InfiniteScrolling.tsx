@@ -5,18 +5,18 @@ import useInfiniteScroll from '../shared/hooks/useInfiniteScroll'
 // C'est une alternative à la pagination.
 const InfiniteScrolling = () =>
 {
+    const pageSize : number = 1
+    const lastPage : number = 100
+  
     const getItems = () : Promise<any>=>
     {
         if (!hasNextPage) return Promise.resolve()
-
-        const pageSize : number = 1
         
         return axios
             .get(`https://jsonplaceholder.typicode.com/photos?_page=${page}&_limit=${pageSize}`)
             .then(response =>
             {
                 // Votre API doit renvoyer l'information qu'il y a ou non une prochaine page.
-                const lastPage : number = 100
                 const newPage : number = page + 1
 
                 setItems([...items, ...response.data])
@@ -36,7 +36,7 @@ const InfiniteScrolling = () =>
         <h2>Infinite scrolling</h2>
         
         <div className="container">
-            <div>{items.map(item => <img key={item.id} src={item.url} height="100px" width="200px" />)}</div>
+            {items.map(item => <img key={item.id} src={item.url} height="100px" width="200px" />)}
             {isFetching && <span>Loading...</span> }
         </div>
     </>

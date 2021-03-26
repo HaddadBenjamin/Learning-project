@@ -6,6 +6,7 @@ import { ITodo } from './todo.model'
 import { AxiosResponse } from 'axios'
 import { createTodo, TodoActions } from './todo.action';
 
+// Work in progress : on est encore loin d'un code réutilisable et selon moi acceptable.
 it("create todo", done =>
 {
     // Arrange
