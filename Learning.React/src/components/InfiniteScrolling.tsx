@@ -16,7 +16,7 @@ const InfiniteScrolling = () =>
             .get(`https://jsonplaceholder.typicode.com/photos?_page=${page}&_limit=${pageSize}`)
             .then(response =>
             {
-                // Votre API doit renvoyer l'information qu'il y a ou non une prochaine page.
+                // Votre API doit renvoyer l'information qu'il éxiste ou non une prochaine page.
                 const newPage : number = page + 1
 
                 setItems([...items, ...response.data])
