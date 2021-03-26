@@ -5,8 +5,9 @@ import useInfiniteScroll from '../shared/hooks/useInfiniteScroll'
 // C'est une alternative à la pagination.
 const InfiniteScrolling = () =>
 {
-    const pageSize : number = 1
+    // Votre API doit renvoyer l'information qu'il éxiste ou non une prochaine page.
     const lastPage : number = 100
+    const pageSize : number = 1
   
     const getItems = () : Promise<any> =>
     {
@@ -16,7 +17,6 @@ const InfiniteScrolling = () =>
             .get(`https://jsonplaceholder.typicode.com/photos?_page=${page}&_limit=${pageSize}`)
             .then(response =>
             {
-                // Votre API doit renvoyer l'information qu'il éxiste ou non une prochaine page.
                 const newPage : number = page + 1
 
                 setItems([...items, ...response.data])
