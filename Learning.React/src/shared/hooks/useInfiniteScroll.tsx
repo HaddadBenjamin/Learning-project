@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useInfiniteScroll = (getItems : any, updateDelay : number = 250) =>
+const useInfiniteScroll = (getItems : any, containerId : string = '', updateDelay : number = 250) =>
 {
     const [isFetching, setIsFetching] = useState<boolean>(false)
 
@@ -29,10 +29,21 @@ const useInfiniteScroll = (getItems : any, updateDelay : number = 250) =>
   
     function computeIsFetching()
     {
-        // Il faudrait plutôt que l'utilisateur se trouve en bas des éléments à scroller.
-        if (window.innerHeight + document.documentElement.scrollTop <
-            document.documentElement.offsetHeight || isFetching)
-            return
+        const userVerticalPosition : number = window.innerHeight + document.documentElement.scrollTop
+        const pageHeight : number = document.documentElement.offsetHeight
+        
+        if (isFetching) return
+        if (containerId !== '')
+        {
+            const itemElements : HTMLCollection = (document.getElementById(containerId) as HTMLElement).children
+            const lastItemElement : Element = itemElements[itemElements.length - 1] as Element
+            const lastItemElementRect : DOMRect = lastItemElement.getBoundingClientRect()
+            const bodyRect : DOMRect = document.body.getBoundingClientRect()
+            const lastElementVerticalPosition : number = lastItemElementRect.bottom - bodyRect.top;
+            
+            if (userVerticalPosition < lastElementVerticalPosition) return
+        }
+        else if (userVerticalPosition < pageHeight) return
         
         setIsFetching(true)
     }

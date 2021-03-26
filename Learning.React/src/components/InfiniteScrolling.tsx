@@ -28,14 +28,14 @@ const InfiniteScrolling = () =>
     }
 
     const [items, setItems] = useState<any[]>([])
-    const [isFetching] = useInfiniteScroll(getItems)
+    const [isFetching] = useInfiniteScroll(getItems, 'infiniteScrollContainerId')
     const [page, setPage] = useState<number>(1)
     const [hasNextPage, setHasNextPage] = useState<boolean>(true)
 
     return <>
         <h2>Infinite scrolling</h2>
         
-        <div>
+        <div id='infiniteScrollContainerId'>
             {items.map(item => <img key={item.id} src={item.url} height="100px" width="200px" />)}
             {isFetching && <span>Loading...</span> }
         </div>
