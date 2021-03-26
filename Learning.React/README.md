@@ -12,10 +12,7 @@ Ce petit projet me permet de m'entraîner à développer mes compétences sur Re
 - Générer une fausse API et base de données grâce à Json server, la consommer par des appels HTTP en utilisant Axios et la tester avec Supertest.
 - Créer et utiliser des hooks, un contexte, des champs contrôlés et non contrôlés, un formulaire avec Formik dont le schéma a été validé par Yup.
 - Développer une structure de projet cohérente dont le code est typé grâce à Typescript, des classes utilitaires et un semblant d'une librairie de composants UI partagés.
-
-
-<ins>**Todo :**</ins>
-- Tester la couche des epics.
+- Réalisation d'un "infinite scrolling" pour charger seulement les éléments nécessaires et visible par l'utilisateur et limiter la charge d'une API.
 
 
 <ins>**Stack technique :**</ins>

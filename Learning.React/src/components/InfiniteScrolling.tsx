@@ -8,7 +8,7 @@ const InfiniteScrolling = () =>
     const pageSize : number = 1
     const lastPage : number = 100
   
-    const getItems = () : Promise<any>=>
+    const getItems = () : Promise<any> =>
     {
         if (!hasNextPage) return Promise.resolve()
         
@@ -35,7 +35,7 @@ const InfiniteScrolling = () =>
     return <>
         <h2>Infinite scrolling</h2>
         
-        <div className="container">
+        <div>
             {items.map(item => <img key={item.id} src={item.url} height="100px" width="200px" />)}
             {isFetching && <span>Loading...</span> }
         </div>
