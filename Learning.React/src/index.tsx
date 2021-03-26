@@ -6,6 +6,7 @@ import Counter from './components/Counter'
 import ControledAndUncontroledFields from './components/ControledAndUncontroledFields'
 import MyContextConsumer, {initialUserState, UserContext} from './components/PlayWithContext'
 import FilterableAndSearchableTodoTable from './components/Todos/FilterableAndSearchableTodoTable'
+import InfiniteScrolling from './components/InfiniteScrolling'
 import FormWithFormikAndYup from './components/FormWithFormikAndYup'
 import 'bootstrap/dist/css/bootstrap.css'
 import { Provider } from 'react-redux'
@@ -21,6 +22,7 @@ ReactDOM.render(
                     <ControledAndUncontroledFields />
                     <MyContextConsumer/>
                     <FormWithFormikAndYup/>
+                    <InfiniteScrolling/>
                 </div>
             </UserContext.Provider>
         </Provider>
