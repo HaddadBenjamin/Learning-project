@@ -39,7 +39,7 @@ const useInfiniteScroll = (getItems : () => Promise<any>, containerId : string =
             const lastItemElement : Element = itemElements[itemElements.length - 1] as Element
             const lastItemElementRect : DOMRect = lastItemElement.getBoundingClientRect()
             const bodyRect : DOMRect = document.body.getBoundingClientRect()
-            const lastElementVerticalPosition : number = lastItemElementRect.bottom - bodyRect.top;
+            const lastElementVerticalPosition : number = lastItemElementRect.bottom - bodyRect.top
             
             if (userVerticalPosition < lastElementVerticalPosition) return
         }

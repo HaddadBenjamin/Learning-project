@@ -1,0 +1,129 @@
+@font-face
+{
+    font-family: "Diablo";
+    src: url("fonts/Diablo.woff2") format("woff2");
+}
+/* TODO : remove unused fonts */
+/* @font-face
+{
+    font-family: "Alegreya";
+    src: url("fonts/AlegreyaSans-Medium.woff") format("woff");
+}
+/* @font-face
+{
+    font-family: "Alegreya";
+    src: url("fonts/AlegreyaSans-Medium.woff") format("woff");
+}
+@font-face
+{
+    font-family: "KindOfArial";
+    src: url("fonts/KindOfArial.ttf") format("wtf");
+}
+@font-face
+{
+    font-family: "KindOfArial2";
+    src: url("fonts/KindOfArial/woff2") format("woff2");
+} */
+   
+*, *::before, *::after
+{
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    margin : 0;
+    padding : 0;
+
+    color : #a58546;
+
+    font-family: "Diablo";
+    text-decoration: none;
+    user-select: none;
+}
+
+.diablo-logo
+{
+    width : 66px;
+    height : 70px;
+
+    margin-top : -1px;
+}
+.diablo-logo:hover { filter: brightness(125%); }
+
+header
+{
+    display : flex;
+    justify-content: space-between;
+    padding-left : 41px;
+    padding-top : -1px;
+
+    height : 70px;
+    line-height: 70px;
+
+    background : url("images/header-background.jpg");
+}
+
+.nav-bar { display : flex; }
+
+.nav-link-container
+{
+    display : flex;
+    text-align: center;
+    margin-left : -1px;
+}
+
+.nav-link-item, .nav-link-item-forum-text 
+{
+    text-align: center;
+    font-size : 18px;
+
+    margin-top : 1px;
+    cursor: pointer; 
+}
+.nav-link-item::before
+{
+    content: '';
+    pointer-events: none;
+    
+    border-left: 1px solid rgba(0, 0, 0, 0.4);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+
+    padding: 16px 0;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+.nav-link-item:hover { color : #e9c964; }
+
+.nav-link-item-forum { display : flex; margin-top : 0.5px; }
+
+.nav-link-item-goto-image
+{
+    width : 24px;
+    height : 24px;
+        
+    margin-top : 24.5px;
+    margin-left : 3.5px;
+
+    fill : #a58546;
+}
+
+.sign-up-button
+{
+    background : url('images/sign-up-button.jpg');
+    
+    margin-top : 7px;
+    margin-right : 40px;
+    
+    width: 400px;
+    height : 56px;
+}
+
+.sign-up-button-text
+{
+    margin-top : -7px;
+    
+    font-size : 32px;
+    text-align : center;
+    color : #bd9b4e;
+   
+    cursor: pointer; 
+}
+/* Fonts + background + color + hover + button subscribe */
