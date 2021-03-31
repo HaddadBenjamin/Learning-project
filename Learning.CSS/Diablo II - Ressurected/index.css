@@ -4,27 +4,11 @@
     font-family: "Diablo";
     src: url("fonts/Diablo.woff2") format("woff2");
 }
-/* TODO : remove unused fonts, shadow button, assombrir le header, */
-/* @font-face
-{
-    font-family: "Alegreya";
-    src: url("fonts/AlegreyaSans-Medium.woff") format("woff");
-}
-/* @font-face
-{
-    font-family: "Alegreya";
-    src: url("fonts/AlegreyaSans-Medium.woff") format("woff");
-}
 @font-face
 {
-    font-family: "KindOfArial";
-    src: url("fonts/KindOfArial.ttf") format("wtf");
+    font-family: "AlegreyaSans";
+    src: url("fonts/AlegreyaSans-Medium.woff") format("woff");
 }
-@font-face
-{
-    font-family: "KindOfArial2";
-    src: url("fonts/KindOfArial/woff2") format("woff2");
-} */
    
 *, *::before, *::after
 {
@@ -38,6 +22,15 @@
     color : #a58546;
     
     user-select: none;
+}
+
+.button-text
+{
+    font-size : 32px;
+    color : #bd9b4e;
+    text-align: center;
+    text-shadow: 0px 2px 4px rgb(0 0 0 / 86%);
+    cursor: pointer; 
 }
 
 
@@ -126,17 +119,7 @@ header
     box-shadow: 0 0 33px 0 rgb(0 0 0 / 70%);
 }
 
-.sign-up-button-text
-{
-    margin-top : -7px;
-    
-    font-size : 32px;
-    text-align : center;
-    color : #bd9b4e;
-    text-shadow: 0px 2px 4px rgb(0 0 0 / 86%);
-
-    cursor: pointer; 
-}
+.sign-up-button-text { line-height : 56px; }
 
 .page-separator
 {
@@ -153,13 +136,15 @@ header
 .main-page
 {
     background : black;
-    height: clamp(960px, calc(100vh + 310px), 1280px + 70px);
+    height: clamp(960px, calc(100vh + 310px), 1280px);
+    padding-top : 70px;
 }
 
 .main-page-container
 {
     width: 60%;
     margin : auto;
+    z-index : 10;
 }
 
 .main-page-video
@@ -169,9 +154,57 @@ header
    right: 0;
    top : 70px;
    margin: auto;
-   padding-left : 2px;
+   padding-left : -3px;
 
    height: clamp(960px, calc(100vh - 70px), 1280px);
    overflow:hidden;
+
+   filter : brightness(105%);
 }
+
+.main-page-sign-up-button
+{
+    background : url('images/alpha-sign-up-button.jpg');
+    
+    margin : auto;
+    margin-top : 665px;
+    
+    width: 560px;
+    height : 92px;
+
+    position : relative;
+    z-index : 2;
+}
+
+.main-page-sign-up-button-text { line-height : 92px; }
+
+.main-page-text, .main-page-text-second-line
+{
+    position : relative;
+    z-index : 2;
+    margin : auto;
+    margin-top : 15px;
+    
+    width : 475px;
+
+    color: #5a5a5a;
+    font-family : 'AlegreyaSans';
+    font-size : 18px;
+    text-align : center;
+    line-height: 1em;
+}
+.main-page-text-second-line
+{
+    width : 665px !important;
+    text-align : center;
+}
+
+.main-page-text-link
+{
+    color : rgb(179, 4, 3);
+    text-decoration: underline;
+    font-family : 'AlegreyaSans';
+    font-size : 18px;
+}
+.main-page-text-link:hover { filter : brightness(120%); }
 /* Fonts + background + color + hover + button subscribe */

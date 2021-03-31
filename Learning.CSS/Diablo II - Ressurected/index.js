@@ -12,15 +12,13 @@ $('.nav-link-item-forum').hover(
     }
 )
 
-$('.sign-up-button').hover(
+$('.button').hover(
     function ()
     {
         $(this).css('filter', 'brightness(125%)')
-        $(this).find('.sign-up-button').css('color', '#e9c964')
     },
     function ()
     {
         $(this).css('filter', 'brightness(100%)')
-        $(this).find('.sign-up-button').css('color', '#bd9b4e')
     }
 )
