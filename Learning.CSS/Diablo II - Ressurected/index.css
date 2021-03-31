@@ -3,7 +3,7 @@
     font-family: "Diablo";
     src: url("fonts/Diablo.woff2") format("woff2");
 }
-/* TODO : remove unused fonts */
+/* TODO : remove unused fonts, shadow button, */
 /* @font-face
 {
     font-family: "Alegreya";
@@ -125,5 +125,36 @@ header
     color : #bd9b4e;
    
     cursor: pointer; 
+}
+
+
+/* Main page */
+.main-page
+{
+    background : black;
+    
+    height: calc(100vh - 70px);
+    min-height: 960px;
+    max-height: 1280px;
+}
+
+.main-page-container
+{
+    width: 60%;
+    margin : auto;
+}
+
+.main-page-video
+{
+   /* Clamp */
+   position: absolute;
+   left: 0;
+   right: 0;
+   top : 73px;
+   margin: auto;
+
+   height: calc(100vh - 70px);
+   min-height: 960px;
+   max-height: 1280px;
 }
 /* Fonts + background + color + hover + button subscribe */
