@@ -213,7 +213,7 @@ header
     width : 322px;
 } }
 @media(max-width: 610px) { .main-page-sign-up-button { margin-top : 265px; } }
-@media(max-width: 550px) { .main-page-sign-up-button { margin-top : 165px; } }
+@media(max-width: 550px) { .main-page-sign-up-button { margin-top : 180px; } }
     
 .main-page-sign-up-button-text { line-height : 92px; }
 @media(max-width: 1400px) { .main-page-sign-up-button-text { line-height : 69px; } }
