@@ -152,7 +152,7 @@ header
 @media(max-width: 975px) { .main-page { height : 750px; } }
 @media(max-width: 750px) { .main-page { height : 650px; } }
 @media(max-width: 610px) { .main-page { height : 540px; } }
-@media(max-width: 550px) { .main-page { height : 490px; } }
+@media(max-width: 550px) { .main-page { height : 440px; } }
 
 .main-page-container
 {
@@ -213,7 +213,7 @@ header
     width : 322px;
 } }
 @media(max-width: 610px) { .main-page-sign-up-button { margin-top : 265px; } }
-@media(max-width: 550px) { .main-page-sign-up-button { margin-top : 215px; } }
+@media(max-width: 550px) { .main-page-sign-up-button { margin-top : 165px; } }
     
 .main-page-sign-up-button-text { line-height : 92px; }
 @media(max-width: 1400px) { .main-page-sign-up-button-text { line-height : 69px; } }
