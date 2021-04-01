@@ -7,7 +7,7 @@ Projet d'apprentissage que j'utilise pour appréhender et tester de nouvelles no
 Refaire à la main l'intégration HTML & CSS de Netflix en gérant également le responsive https://haddadflix.netlify.app/
 > ![Image of Yaktocat](https://imgur.com/dvHJHsH.png)
 
-Refaire l'intégration CSS de la page de garde de Diablo II - Ressurected en gérant également le responsive https://haddadflix.netlify.app/
+Refaire l'intégration CSS de la page de garde de Diablo II - Ressurected en gérant également le responsive https://diablo-2-ressurected.netlify.app/
 > ![Image of Yaktocat](https://imgur.com/iXUhd05.png)
 
 Refaire une partie de l'interface du site Quovery https://qovery.netlify.app/
