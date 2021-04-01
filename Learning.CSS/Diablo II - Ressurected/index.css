@@ -34,6 +34,7 @@
     cursor: pointer; 
 }
 @media(max-width: 1400px) { .button-text { font-size : 24px; } }
+@media(max-width: 720px) { .button-text { font-size : 20px; } }
 
 
 /* Header */
@@ -54,6 +55,7 @@ header
 
     background : linear-gradient(180deg, transparent 0, rgba(0, 0, 0, 0.42) 50%, transparent), url("images/header-background.png");
 }
+@media(max-width: 975px) { header { display : none; } }
 
 .diablo-logo
 {
@@ -137,6 +139,7 @@ header
     top : 70px;
     z-index : 100;
 }
+@media(max-width: 975px) { .page-separator { display : none; } }
 
 /* Main page */
 .main-page
@@ -146,11 +149,13 @@ header
     padding-top : 70px;
 }
 @media(max-width: 1400px) { .main-page { height: clamp(calc(960px * 0.8), calc(calc(100vh + 350px) * 0.8), calc(1280px * 0.8));} }
-
+@media(max-width: 975px) { .main-page { height : 750px; } }
+@media(max-width: 750px) { .main-page { height : 650px; } }
+@media(max-width: 610px) { .main-page { height : 540px; } }
 
 .main-page-container
 {
-    width: 60%;
+    width: 100%;
     margin : auto;
     z-index : 10;
 }
@@ -171,6 +176,9 @@ header
    
 }
 @media(max-width: 1400px) { .main-page-video { height: clamp(calc(960px * 0.8), calc(calc(100vh - 70px) * 0.8), calc(1280px * 0.8));} }
+@media(max-width: 975px) { .main-page-video { top : 0px; } }
+@media(max-width: 750px) { .main-page-video { height: clamp(calc(960px * 0.65), calc(calc(100vh - 70px) * 0.65), calc(1280px * 0.65));} }
+@media(max-width: 610px) { .main-page-video { height: clamp(calc(960px * 0.5), calc(calc(100vh - 70px) * 0.5), calc(1280px * 0.5));} }
 
 .main-page-sign-up-button
 {
@@ -193,10 +201,20 @@ header
 
     margin-top : 535px;
 } }
-
-
+@media(max-width: 975px) { .main-page-sign-up-button { margin-top : calc(535px - 70px); } }
+@media(max-width: 750px) { .main-page-sign-up-button { margin-top : 365px; } }
+@media(max-width: 720px) { .main-page-sign-up-button
+{
+    background : url('images/alpha-sign-up-button-sm.jpg');
+    
+    height : 55.5px;
+    width : 322px;
+} }
+@media(max-width: 610px) { .main-page-sign-up-button { margin-top : 265px; } }
+    
 .main-page-sign-up-button-text { line-height : 92px; }
 @media(max-width: 1400px) { .main-page-sign-up-button-text { line-height : 69px; } }
+@media(max-width: 720px) { .main-page-sign-up-button-text { line-height : 55.5px; } }
 
 .main-page-text, .main-page-text-second-line
 {
@@ -215,7 +233,7 @@ header
 
 .main-page-text-second-line
 {
-    width : 665px !important;
+    width : 100%;
     text-align : center;
 }
 
@@ -229,6 +247,8 @@ header
     cursor: pointer; 
 }
 .main-page-text-link:hover { filter : brightness(120%); }
+@media(max-width: 975px) { .main-page-text, .main-page-text-second-line, .main-page-text-link { font-size : 16px;} }
+@media(max-width: 720px) { .main-page-text, .main-page-text-second-line, .main-page-text-link { font-size : 14px;} }
 
 .page-divider
 {
