@@ -225,7 +225,7 @@ header
     margin : auto;
     margin-top : 15px;
     
-    width : 100%;
+    width : 475px;
 
     color: #5a5a5a;
     font-family : 'AlegreyaSans';
@@ -252,6 +252,7 @@ header
 .main-page-text-link:hover { filter : brightness(120%); }
 @media(max-width: 975px) { .main-page-text, .main-page-text-second-line, .main-page-text-link { font-size : 16px;} }
 @media(max-width: 720px) { .main-page-text, .main-page-text-second-line, .main-page-text-link { font-size : 14px;} }
+@media(max-width: 550px) { .main-page-text, .main-page-text-second-line { width : 100%;} }
 
 .page-divider
 {
