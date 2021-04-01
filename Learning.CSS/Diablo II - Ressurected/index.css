@@ -124,7 +124,7 @@ header
 
     box-shadow: 0 0 33px 0 rgb(0 0 0 / 70%);
 }
-@media(max-width: 1400px) { .sign-up-button {  background : url('images/sign-up-button-1400.jpg'); width: 300px; } }
+@media(max-width: 1400px) { .sign-up-button {  background : url('images/sign-up-button-md.jpg'); width: 300px; } }
 @media(max-width: 1300px) { .sign-up-button { display : none; } }
 
 .sign-up-button-text { line-height : 56px; }
@@ -160,7 +160,7 @@ header
     z-index : 10;
 }
 
-.main-page-video, .main-page-video-1400
+.main-page-video
 {
    position: absolute;
    left: 0;
@@ -194,7 +194,7 @@ header
 }
 @media(max-width: 1400px) { .main-page-sign-up-button
 {
-    background : url('images/alpha-sign-up-button-1400.jpg');
+    background : url('images/alpha-sign-up-button-md.jpg');
  
     height : 69px;
     width : 421px;
