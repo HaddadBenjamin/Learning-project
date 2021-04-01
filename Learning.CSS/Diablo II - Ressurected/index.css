@@ -179,6 +179,7 @@ header
 @media(max-width: 975px) { .main-page-video { top : 0px; } }
 @media(max-width: 750px) { .main-page-video { height: clamp(calc(960px * 0.65), calc(calc(100vh - 70px) * 0.65), calc(1280px * 0.65));} }
 @media(max-width: 610px) { .main-page-video { height: clamp(calc(960px * 0.5), calc(calc(100vh - 70px) * 0.5), calc(1280px * 0.5));} }
+@media(max-width: 550px) { .main-page-video { height: clamp(calc(960px * 0.4), calc(calc(100vh - 70px) * 0.4), calc(1280px * 0.4));} }
 
 .main-page-sign-up-button
 {
