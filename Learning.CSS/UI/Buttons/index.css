@@ -1,4 +1,10 @@
+/* Shared */
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@600&display=swap');
+@font-face
+{
+    font-family: "Diablo";
+    src: url("../fonts/Diablo.woff2") format("woff2");
+}
 
 :root
 {
@@ -33,6 +39,50 @@ body
     outline : none;
 }
 
+
+/* Buttons */
+/* Diablo */
+.diablo-button-text
+{
+    color : #bd9b4e;
+    font-family: "Diablo";
+    font-size : 32px;
+    text-align: center;
+    text-shadow: 0px 2px 4px rgb(0 0 0 / 86%);
+    line-height : 92px;
+
+    cursor: pointer; 
+}
+@media(max-width: 1400px) { .diablo-button-text { font-size : 24px; line-height : 69px; } }
+@media(max-width: 720px) { .diablo-button-text { font-size : 20px; line-height : 55.5px; } }
+
+.diablo-button
+{
+    background : url('../images/diablo-button.jpg');
+    
+    
+    width: 560px;
+    height : 92px;
+
+    position : relative;
+}
+@media(max-width: 1400px) { .diablo-button
+{
+    background : url('../images/diablo-button-md.jpg');
+ 
+    height : 69px;
+    width : 421px;
+} }
+@media(max-width: 720px) { .diablo-button
+{
+    background : url('../images/diablo-button-sm.jpg');
+    
+    height : 55.5px;
+    width : 322px;
+} }
+
+
+/* Other buttons */
 .blue-button
 {
     padding : 7px 20px;
