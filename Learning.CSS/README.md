@@ -13,4 +13,4 @@ Refaire une partie de l'interface Youtube en utilisant les Flexbox de CSS et la 
 > ![Image of Yaktocat](https://imgur.com/T8GEX9e.png)
 
 Création de petits composants UI<br/>
-> ![Image of Yaktocat](https://imgur.com/XwvRsdj.png)
+> ![Image of Yaktocat](https://imgur.com/vsotPEB.png)
