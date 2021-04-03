@@ -3,7 +3,7 @@
 @font-face
 {
     font-family: "Diablo";
-    src: url("../fonts/Diablo.woff2") format("woff2");
+    src: url("fonts/Diablo.woff2") format("woff2");
 }
 
 :root
@@ -58,7 +58,7 @@ body
 
 .diablo-button
 {
-    background : url('../images/diablo-button.jpg');
+    background : url('images/diablo-button.jpg');
     
     
     width: 560px;
@@ -68,14 +68,14 @@ body
 }
 @media(max-width: 1400px) { .diablo-button
 {
-    background : url('../images/diablo-button-md.jpg');
+    background : url('images/diablo-button-md.jpg');
  
     height : 69px;
     width : 421px;
 } }
 @media(max-width: 720px) { .diablo-button
 {
-    background : url('../images/diablo-button-sm.jpg');
+    background : url('images/diablo-button-sm.jpg');
     
     height : 55.5px;
     width : 322px;

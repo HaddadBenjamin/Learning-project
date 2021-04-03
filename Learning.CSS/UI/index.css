@@ -1,0 +1,31 @@
+@font-face
+{
+    font-family: "Diablo";
+    src: url("../fonts/Diablo.woff2") format("woff2");
+}
+
+.title
+{
+    font-family : "Diablo";
+    font-size : 30px;
+    color : white;
+}
+
+.content
+{
+    margin-left : 50px;
+    margin-bottom : 50px;
+
+    display : flex;
+    flex-wrap : wrap;
+}
+
+.page-separator-content
+{
+    flex-direction: column;
+}
+
+.page-separator-item
+{
+    margin-bottom : 10px;
+}
