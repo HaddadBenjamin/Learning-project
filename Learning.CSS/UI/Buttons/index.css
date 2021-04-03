@@ -1,4 +1,15 @@
+/* Shared */
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@600&display=swap');
+@font-face
+{
+    font-family: "Diablo";
+    src: url("fonts/Diablo.woff2") format("woff2");
+}
+@font-face
+{
+    font-family: "Netflix Sans";
+    src: url("fonts/Netflix.ttf") format("ttf");
+}
 
 :root
 {
@@ -13,7 +24,71 @@ body
     background: rgba(0,0,0,.85);
 }
 
-.button
+/* Buttons */
+/* Diablo */
+.diablo-button-text
+{
+    color : #bd9b4e;
+    font-family: "Diablo";
+    font-size : 32px;
+    text-align: center;
+    text-shadow: 0px 2px 4px rgb(0 0 0 / 86%);
+    line-height : 92px;
+
+    cursor: pointer; 
+}
+@media(max-width: 1400px) { .diablo-button-text { font-size : 24px; line-height : 69px; } }
+@media(max-width: 720px) { .diablo-button-text { font-size : 20px; line-height : 55.5px; } }
+
+.diablo-button
+{
+    background : url('images/diablo-button.jpg');
+    
+    
+    width: 560px;
+    height : 92px;
+
+    position : relative;
+}
+@media(max-width: 1400px) { .diablo-button
+{
+    background : url('images/diablo-button-md.jpg');
+ 
+    height : 69px;
+    width : 421px;
+} }
+@media(max-width: 720px) { .diablo-button
+{
+    background : url('images/diablo-button-sm.jpg');
+    
+    height : 55.5px;
+    width : 322px;
+} }
+
+
+/* Netflix */
+.netflix-button
+{
+    height : 20px;
+    width : 82px;
+
+    color : white;
+    font-family: "Netflix Sans";
+    font-weight: 400;
+    font-size: 1.04rem;
+    line-height : 20px;
+
+    margin : auto;
+    padding: 8.5px 17.5px;
+
+    background : #e50914;
+    border-radius: 3px;
+}
+.netflix-button:hover { cursor: pointer; filter: brightness(107.5%); }
+
+
+/* Other buttons */
+.other-button
 {
     font-family : "Work Sans", sans-seri;
     font-size: 15px;

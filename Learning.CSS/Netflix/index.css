@@ -2,8 +2,7 @@
 @font-face
 {
     font-family: "Netflix Sans";
-    src: url("/Fonts/Netflix.ttf")
-         format("ttf");
+    src: url("/Fonts/Netflix.ttf") format("ttf");
 }
    
 *

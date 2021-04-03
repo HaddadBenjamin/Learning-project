@@ -171,7 +171,6 @@ header
    padding-left : -3px;
 
    height: clamp(960px, calc(100vh - 70px), 1280px);
-   overflow:hidden;
 
    filter : brightness(105%);
    

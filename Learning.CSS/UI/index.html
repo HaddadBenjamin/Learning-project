@@ -5,13 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    <link href="index.css" rel="stylesheet">
     <link href="Buttons/index.css" rel="stylesheet">
-    <title>Buttons</title>
+    <link href="PageSeparators/index.css" rel="stylesheet">
+    <link rel="icon" href="images/favicon.png">
+    <title>Petits composants UI</title>
 </head>
 <body>
-    <button class="button blue-button">Download App</button>
+    <div class="title">Les boutons</div>
     </br>
+
+    <div class="content">
+        <div class="diablo-button">
+            <div class="button-text diablo-button-text">Inscription à l'alpha*</div>
+        </div>
+
+        <div class="netflix-button">Commencer</div>
+
+        <button class="other-button blue-button">Download App</button>
+
+        <button class="other-button green-button">Discover more</button>
+    </div>
+
+    <div class="title">Les séparateurs de pages</div>
     </br>
-    <button class="button green-button">Discover more</button>
+
+    <div class="content page-separator-content">
+        <div class="netflix-page-separator page-separator-item"></div>
+        <div class="diablo-page-separator page-separator-item"></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="Buttons/index.js"></script>
 </body>
 </html>
