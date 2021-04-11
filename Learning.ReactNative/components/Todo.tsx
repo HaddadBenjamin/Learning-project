@@ -6,19 +6,24 @@ import ITodo from './todo.model'
 import Checkbox from 'nachos-ui'
 import style from '../style'
 
-export default function Todo({title, completed, bookmarked, id, subTasks, note} : ITodo)
+interface Props { todo : ITodo }
+export default function Todo({ todo : {title, completed, bookmarked, id, subTasks, note} }: Props)
 {
-  const [toggled, setToggled] = useState<boolean>(completed)
+  const [toggled, setToggled] = useState(completed)
+  {/* Doit dispatcher un évènement redux qui met à jour l'état completed de l'id de cette todo */}
 
-  return <View style={styles.todoContainer}>
-    <Checkbox
-          style={style.todoCheckbox}
-          kind='circle'
-          checked={toggled}
-          onValueChange={() => setToggled(!toggled)}/>
+  
+  return <View style={style.todoBackground}>
+    <View style={styles.todoContainer}>
+      {/* <Checkbox
+            style={style.todoCheckbox}
+            kind='circle'
+            checked={toggled}
+            onValueChange={(isToggled : boolean) => setToggled(!isToggled)}/> */}
 
-    <Text>{title}</Text>
+      <Text>{title}</Text>
 
-    <Image source={require('../images/star.png')}/>
+      <Image source={require('../images/star.png')} style={style.todoBookmark}/>
+    </View>
   </View>
 }

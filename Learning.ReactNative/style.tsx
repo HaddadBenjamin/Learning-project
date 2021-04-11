@@ -14,7 +14,7 @@ const style = StyleSheet.create(
       marginLeft : 15
     },
 
-    todoContainer :
+    todoBackground :
     {
       borderRadius : 5,
 
@@ -22,14 +22,26 @@ const style = StyleSheet.create(
       width : '100%',
 
       marginBottom : 1.5,
+
       backgroundColor : 'rgb(240,240,240)',
-      
+    },
+
+    todoContainer :
+    {
+      padding : 5,
+
+      height : 55,
+      width : '100%',
+
       display : 'flex',
-      justifyContent : 'center',
+      flexDirection : 'row',
+      justifyContent : 'space-between',
       alignItems : 'center',
     },
 
-    todoCheckbox : { margin : 15 }
+    todoCheckbox : { margin : 15 },
+
+    todoBookmark : { height : 22, width : 22}
 });
 
 export default style

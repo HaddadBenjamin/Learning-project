@@ -20,8 +20,9 @@ export default function TodoList()
 
   return <View style={styles.container}>
     <Text style={styles.mainTitle}>Tâches</Text>
-    {doneTodos.map(todo => <Todo {...todo} key={todo.id}/>)}
+    {doneTodos.map(todo => <Todo todo={todo} key={todo.id}/>)}
+
     <Text>Terminés</Text>
-    {undoneTodos.map(todo => <Todo {...todo} key={todo.id}/>)} 
+    {undoneTodos.map(todo => <Todo todo={todo} key={todo.id}/>)} 
   </View>
 }
