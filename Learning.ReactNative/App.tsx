@@ -1,20 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View, StatusBar } from 'react-native';
+import styles from './style.js'
 
-export default function App() {
-  return (
+export default function App()
+{
+  return <View style={styles.background}>
+    <StatusBar hidden />
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <Text>Update</Text>
+      <Text style={styles.mainTitle}>Tâches</Text>
     </View>
-  );
+  </View>
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
