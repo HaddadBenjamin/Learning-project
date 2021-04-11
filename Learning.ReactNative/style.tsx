@@ -17,7 +17,7 @@ const style = StyleSheet.create(
     todoContainer :
     {
       borderRadius : 5,
-      
+
       height : 55,
       width : '100%',
 
@@ -27,7 +27,9 @@ const style = StyleSheet.create(
       display : 'flex',
       justifyContent : 'center',
       alignItems : 'center',
-    }
+    },
+
+    todoCheckbox : { margin : 15 }
 });
 
 export default style
