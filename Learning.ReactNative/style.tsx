@@ -11,7 +11,16 @@ const style = StyleSheet.create(
       fontSize : 33,
       fontWeight : 'bold',
       color : '#fff',
-      marginLeft : 15
+      marginLeft : 10
+    },
+
+    completedTitle :
+    {
+      color : '#fff',
+      fontSize : 15,
+      
+      margin : 5,
+      marginLeft : 10
     },
 
     todoBackground :
@@ -28,7 +37,7 @@ const style = StyleSheet.create(
 
     todoContainer :
     {
-      padding : 5,
+      padding : 10,
 
       height : 55,
       width : '100%',
@@ -41,7 +50,7 @@ const style = StyleSheet.create(
 
     todoCheckbox : { margin : 15 },
 
-    todoBookmark : { height : 22, width : 22}
+    todoBookmark : { height : 18, width : 18}
 });
 
 export default style

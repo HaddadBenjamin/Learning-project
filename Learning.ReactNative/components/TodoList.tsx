@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
+import style from '../style';
 import styles from '../style'
 import Todo from './Todo'
 import ITodo from './todo.model'
@@ -20,9 +21,9 @@ export default function TodoList()
 
   return <View style={styles.container}>
     <Text style={styles.mainTitle}>Tâches</Text>
-    {doneTodos.map(todo => <Todo todo={todo} key={todo.id}/>)}
-
-    <Text>Terminés</Text>
     {undoneTodos.map(todo => <Todo todo={todo} key={todo.id}/>)} 
+
+    <Text style={style.completedTitle}>Terminés</Text>
+    {doneTodos.map(todo => <Todo todo={todo} key={todo.id}/>)}
   </View>
 }
