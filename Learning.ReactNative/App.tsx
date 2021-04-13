@@ -1,17 +1,24 @@
 import React from 'react';
-import {StatusBar } from 'react-native';
-import styles from './style'
+import {StatusBar, View } from 'react-native';
+import style from './style'
 import TodoList from './components/TodoList'
+import Todo from './components/Todo'
+import EditTodo from './components/EditTodo'
 import { LinearGradient } from 'expo-linear-gradient'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
 
 export default function App()
 {
-  return <LinearGradient
-        colors={['#420285', '#346fef']}
-        start={[0.0, 1.0]}
-        end={[1.0, 1.0]}
-        style={styles.background}>
-    <StatusBar hidden />
-    <TodoList/>
-    </LinearGradient>
+  const Stack = createStackNavigator();
+
+  return <View style={style.background}>
+      <StatusBar hidden />
+      <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Liste de tâches" component={TodoList} />
+        <Stack.Screen name="Éditer une tâche" component={EditTodo} />
+      </Stack.Navigator>
+      </NavigationContainer>
+  </View>
 }

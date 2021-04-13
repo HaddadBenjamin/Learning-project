@@ -182,8 +182,8 @@ const style = StyleSheet.create(
       width : Dimensions.get('window').width - 20,
     
       textShadowColor: '#000',
-      textShadowOffset: {width: 1.25, height: 1.25},
-      textShadowRadius: 1.25
+      textShadowOffset: {width: .5, height: 0.5},
+      textShadowRadius: .5
     }
 });
 
