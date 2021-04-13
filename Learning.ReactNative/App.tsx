@@ -9,7 +9,7 @@ export default function App()
   return <LinearGradient
         colors={['#420285', '#346fef']}
         start={[0.0, 1.0]}
-        end={[0.0, 1.0]}
+        end={[1.0, 1.0]}
         style={styles.background}>
     <StatusBar hidden />
     <TodoList/>

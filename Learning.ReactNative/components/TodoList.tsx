@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import style from '../style';
 import Todo from './Todo'
+import AddTodo from './AddTodo'
 import ITodo from './todo.model'
+import { LinearGradient } from 'expo-linear-gradient'
 
 const initialTodos : ITodo[] = [
   { title : 'Faire les courses', completed : false, bookmarked : false, id : '1', subTasks : [], note : '' },
@@ -24,5 +26,12 @@ export default function TodoList()
 
     <Text style={style.completedTitle}>Terminées</Text>
     {doneTodos.map(todo => <Todo todo={todo} key={todo.id}/>)}
+    
+    <LinearGradient
+        colors={['#240b36', '#420285','#346fef', '#420285', '#240b36']}
+        start={[1.0, 1.0]}
+        end={[1.0, 0.0]}
+        style={style.addTodoMainContainer}></LinearGradient>
+    <AddTodo/>
   </View>
 }

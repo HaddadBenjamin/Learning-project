@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
+import {Dimensions} from 'react-native';
 
 const style = StyleSheet.create(
 {
-    background: { flex: 1},
+    background: { flex: 1,},
     
-    container : { margin : 5, marginTop : 100 },
+    container : {flex : 1, margin : 5, marginTop : 100 },
 
     todoLeftContainer :  {flex : 1, flexDirection : 'row' },
 
@@ -68,7 +69,42 @@ const style = StyleSheet.create(
       alignItems : 'center',
     },
 
-    todoTitle : { marginLeft : 12.5 }
+    todoTitle : { marginLeft : 12.5 },
+
+    addTodoMainContainer :
+    {
+      width: Dimensions.get('window').width,
+      height: 110,
+
+      backgroundColor : '#240b36',
+
+      position: 'absolute',
+      left : -5,
+      bottom: -5, // -5
+    },
+
+    addTodoContainer : 
+    {
+      margin : 5,
+      marginTop : 10,
+      marginLeft : 10,
+      padding : 10,
+
+      backgroundColor : 'rgba(256,256,256,0.2)',
+     
+      width : Dimensions.get('window').width - 20,
+      height : 50,
+
+      display : 'flex',
+      flexDirection : 'row',
+      alignItems : 'center',
+
+ 
+      borderRadius : 5,
+    },
+
+    addTodoIcon : { height : 16, width : 16, marginLeft : 5 },
+    addTodoText : { marginLeft : 10, color : '#fff', width : Dimensions.get('window').width - 20,  }
 });
 
 export default style
