@@ -14,9 +14,10 @@ export default function Todo({ todo : {title, completed, bookmarked, id, subTask
   
   return <View style={style.todoBackground}>
     <View style={style.todoContainer}>
-      <Toggle isChecked={completed} onToggle={onToggle}/>
-
-      <Text>{title}</Text>
+      <View style={{flex : 1, flexDirection : 'row'}}>
+        <Toggle isChecked={completed} onToggle={onToggle}/>
+        <Text style={{marginLeft : 10}}>{title}</Text>
+      </View>
 
       <Bookmark isBookmarked={bookmarked} onBookmark={onBookmark}/>
     </View>

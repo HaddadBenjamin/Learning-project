@@ -15,8 +15,8 @@ export default function TodoList()
 {
   const [todos, setTodos] = useState<ITodo[]>(initialTodos)
 
-  const doneTodos : ITodo[] = todos.filter(todo => todo.completed);
-  const undoneTodos : ITodo[] = todos.filter(todo => !todo.completed)
+  const doneTodos : ITodo[] = todos.filter(todo => todo.completed).sort((a, b) => (a === b) ? 0 : a.bookmarked ? -1 : 1)
+  const undoneTodos : ITodo[] = todos.filter(todo => !todo.completed).sort((a, b) => (a === b) ? 0 : a.bookmarked ? -1 : 1)
 
   return <View style={style.container}>
     <Text style={style.mainTitle}>Tâches</Text>
