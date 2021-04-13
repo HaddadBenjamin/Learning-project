@@ -18,7 +18,7 @@ export default function Toggle({ isChecked, onToggle } : Props)
   return <View style={toggledStyle}>
     <TouchableWithoutFeedback style={style.toggle} onPress={onPress}>
       <View style={style.toggleContent}>
-        {checked ? <Image source={require('../images/toggled.png')} style={style.toggleContent}/>: <View></View>}
+        {checked ? <Image source={require('../images/toggled.png')} style={style.toggledImage}/>: <View></View>}
       </View>
     </TouchableWithoutFeedback>
   </View>

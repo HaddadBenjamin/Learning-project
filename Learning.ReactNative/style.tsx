@@ -6,6 +6,8 @@ const style = StyleSheet.create(
     
     container : { margin : 5, marginTop : 100 },
 
+    todoLeftContainer :  {flex : 1, flexDirection : 'row' },
+
     toggle :
     {
       width : 18,
@@ -14,14 +16,15 @@ const style = StyleSheet.create(
       borderColor : '#346fef',
       backgroundColor : 'white',
       borderRadius : 100,
-      cursor: 'pointer'
     },
 
     toggled : { backgroundColor : '#346fef' },
 
-    toggleContent : { width : 10, height : 10, margin : 'auto', marginTop : 2.2 },
+    toggleContent : { flex : 1, justifyContent: 'center', alignItems: 'center' },
 
-    bookmark : { height : 18, width : 18, cursor: 'pointer' },
+    toggledImage : { width : 10, height : 10, marginTop : 2.5 },
+
+    bookmark : { height : 18, width : 18, },
     
     mainTitle :
     {
@@ -65,6 +68,7 @@ const style = StyleSheet.create(
       alignItems : 'center',
     },
 
+    todoTitle : { marginLeft : 12.5 }
 });
 
 export default style
