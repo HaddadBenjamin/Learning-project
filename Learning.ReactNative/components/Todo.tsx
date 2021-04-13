@@ -1,29 +1,24 @@
 import React, { useState } from 'react';
 import { View, Text, Image } from 'react-native';
-import styles from '../style'
 import ITodo from './todo.model'
-// @ts-ignore
-import Checkbox from 'nachos-ui'
 import style from '../style'
+import Toggle from '../shared/Toggle'
+import Bookmark from '../shared/Bookmark'
 
 interface Props { todo : ITodo }
 export default function Todo({ todo : {title, completed, bookmarked, id, subTasks, note} }: Props)
 {
-  const [toggled, setToggled] = useState(completed)
+  const onToggle = (toggled : boolean) => void { }
+  const onBookmark = (toggled : boolean) => void { }
   {/* Doit dispatcher un évènement redux qui met à jour l'état completed de l'id de cette todo */}
-
   
   return <View style={style.todoBackground}>
-    <View style={styles.todoContainer}>
-      {/* <Checkbox
-            style={style.todoCheckbox}
-            kind='circle'
-            checked={toggled}
-            onValueChange={(isToggled : boolean) => setToggled(!isToggled)}/> */}
+    <View style={style.todoContainer}>
+      <Toggle isChecked={completed} onToggle={onToggle}/>
 
       <Text>{title}</Text>
 
-      <Image source={require('../images/star.png')} style={style.todoBookmark}/>
+      <Bookmark isBookmarked={bookmarked} onBookmark={onBookmark}/>
     </View>
   </View>
 }

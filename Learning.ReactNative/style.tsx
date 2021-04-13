@@ -2,9 +2,26 @@ import { StyleSheet } from 'react-native';
 
 const style = StyleSheet.create(
 {
-    background: { flex: 1, backgroundColor: 'rgb(83,111,219)' },
+    background: { flex: 1},
     
     container : { margin : 5, marginTop : 100 },
+
+    toggle :
+    {
+      width : 18,
+      height : 18,
+      borderWidth : 1,
+      borderColor : '#346fef',
+      backgroundColor : 'white',
+      borderRadius : 100,
+      cursor: 'pointer'
+    },
+
+    toggled : { backgroundColor : '#346fef' },
+
+    toggleContent : { width : 10, height : 10, margin : 'auto', marginTop : 2.2 },
+
+    bookmark : { height : 18, width : 18, cursor: 'pointer' },
     
     mainTitle :
     {
@@ -48,9 +65,6 @@ const style = StyleSheet.create(
       alignItems : 'center',
     },
 
-    todoCheckbox : { margin : 15 },
-
-    todoBookmark : { height : 18, width : 18}
 });
 
 export default style
