@@ -16,14 +16,17 @@ export default function EditTodo()
   const [subTask, setSubTask] = useState<string>('Ajouter une sous-tâche')
   const [subTasks, setSubTasks] = useState<string[]>(todo.subTasks)
 
-  const goBack = () => { navigation.goBack() }
+  const goBackAndUpdateTodo = () =>
+  {
+    navigation.goBack()
+  }
 
   return <LinearGradient
             colors={['#420285', '#346fef']}
             start={[0.0, 1.0]}
             end={[1.0, 1.0]}
             style={style.background}>
-    <TouchableOpacity style={style.goBackContainer} onPress={goBack}>
+    <TouchableOpacity style={style.goBackContainer} onPress={goBackAndUpdateTodo}>
       <Image source={require('../images/left-arrow.png')} style={style.goBackImage}/>
       <Text style={style.goBackText}>Liste de tâches</Text>
     </TouchableOpacity>
@@ -55,6 +58,10 @@ export default function EditTodo()
             <TextInput
                 style={style.editSubTaskText}
                 value={_}/>
+
+          <TouchableOpacity style={style.removeTaskIcon}>
+              <Image source={require('../images/close.png')} style={style.removeTaskIcon}/>
+          </TouchableOpacity>
         </View>)
       }
 
