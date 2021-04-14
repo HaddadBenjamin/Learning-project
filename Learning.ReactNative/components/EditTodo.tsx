@@ -4,9 +4,12 @@ import ITodo from './todo.model'
 import style from '../style'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useNavigation, useRoute } from '@react-navigation/native'
+import { useDispatch } from 'react-redux'
+import { updateTodo } from './todo.action'
 
 export default function EditTodo()
 {
+  const dispatch = useDispatch()
   const navigation = useNavigation()
   const route = useRoute()
   const todo : ITodo = route.params as ITodo
@@ -18,6 +21,9 @@ export default function EditTodo()
 
   const goBackAndUpdateTodo = () =>
   {
+    const updatedTodo : ITodo = { ...todo, title : title, description : description, subTasks : subTasks }
+
+    dispatch(updateTodo(updatedTodo))
     navigation.goBack()
   }
 
@@ -77,7 +83,7 @@ export default function EditTodo()
       }
 
       <View style={style.editTodoContainer}>
-        <TouchableOpacity style={style.editTodoTitleIconContainer} onPress={addSubTask}>
+        <TouchableOpacity onPress={addSubTask}>
           <Image source={require('../images/blue-plus.png')} style={style.editTodoTitleIcon}/>
           </TouchableOpacity>
         <TextInput

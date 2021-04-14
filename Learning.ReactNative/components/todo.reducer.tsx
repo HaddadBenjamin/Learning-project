@@ -21,15 +21,15 @@ export default function todoReducer(state : ITodosState = initialTodoState, acti
         case TodoActions.CREATE_TODO :
             return {
                 ...state,
-                todos : [ ...state.todos, { title : action.payload.title, completed : false, bookmarked : false, id : newGuid(), subTasks : [], note : '' } ]
+                todos : [ ...state.todos, { title : action.payload.title, completed : false, bookmarked : false, id : newGuid(), subTasks : [], note : '', description : '' } ]
             }
 
-        // case TodoActionTypes.UPDATE_TODO :
-        //     return { 
-        //         ...state,
-        //         todos : state.todos.map(todo => todo.id === action.payload.id ?
-        //                             { ...todo, title : action.payload.newTitle } : todo)
-        //     }
+        case TodoActions.UPDATE_TODO :
+            return { 
+                ...state,
+                todos : state.todos.map(todo => todo.id === action.payload.todo.id ?
+                                        action.payload.todo : todo)
+            }
 
         case TodoActions.TOGGLE_TODO :
             return { 
