@@ -21,6 +21,17 @@ export default function EditTodo()
     navigation.goBack()
   }
 
+  const addSubTask = () => { setSubTasks([...subTasks, subTask]); setSubTask('Ajouter une sous-tâche') }
+  
+  const removeSubTask = (index : number) =>
+  { 
+    const array = [...subTasks]
+    
+    array.splice(index - 1, 1)
+
+    setSubTasks(array)
+  }
+
   return <LinearGradient
             colors={['#420285', '#346fef']}
             start={[0.0, 1.0]}
@@ -52,25 +63,27 @@ export default function EditTodo()
 
       <Text style={style.completedTitle}>Les étapes</Text>
 
-      {subTasks.map(_ =>
+      {subTasks.map((_ : string, index : number) =>
         <View style={style.editTodoContainer}>
             <Image source={require('../images/edit.png')} style={style.editTodoTitleIcon}/>
             <TextInput
                 style={style.editSubTaskText}
                 value={_}/>
 
-          <TouchableOpacity style={style.removeTaskIcon}>
+          <TouchableOpacity style={style.removeTaskIcon} onPress={() => removeSubTask(index)}>
               <Image source={require('../images/close.png')} style={style.removeTaskIcon}/>
           </TouchableOpacity>
         </View>)
       }
 
       <View style={style.editTodoContainer}>
+        <TouchableOpacity style={style.editTodoTitleIconContainer} onPress={addSubTask}>
           <Image source={require('../images/blue-plus.png')} style={style.editTodoTitleIcon}/>
-          <TextInput
-              style={style.editSubTaskText}
-              onChangeText={setSubTask}
-              value={subTask}/>
+          </TouchableOpacity>
+        <TextInput
+            style={style.editSubTaskText}
+            onChangeText={setSubTask}
+            value={subTask}/>
       </View>
     </View>
 
