@@ -20,7 +20,7 @@ export default function TodoList()
 
   const displayTodo = (todo : ITodo) =>
   {
-    animationDelay += 400
+    animationDelay += 250
 
     return <FadeInView delay={animationDelay}>
       <Todo todo={todo} key={todo.id}/>
@@ -35,11 +35,11 @@ export default function TodoList()
             end={[1.0, 1.0]}
             style={style.background}>
     <View style={style.container}>
-      <FadeInView delay={animationDelay + 800}>
+      <FadeInView delay={animationDelay + 500}>
         <Text style={style.mainTitle}>Tâches</Text>
       </FadeInView>
       {undoneTodos.map(displayTodo)}
-      {incrementAnimationDelay(400)}
+      {incrementAnimationDelay(250)}
       <FadeInView delay={animationDelay}>
         <Text style={style.completedTitle}>Terminées</Text>
       </FadeInView>
@@ -51,7 +51,7 @@ export default function TodoList()
           end={[1.0, 0.0]}
           style={style.addTodoMainContainer}></LinearGradient>
           
-      <AddTodo animationDelay={animationDelay + 800}/>
+      <AddTodo animationDelay={animationDelay + 500}/>
     </View>
   </LinearGradient>
 }

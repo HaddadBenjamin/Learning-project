@@ -50,7 +50,7 @@ export default function EditTodo()
 
   const displaySubTask = (_ : string, index : number) =>
   {
-    animationDelay += 400
+    animationDelay += 250
 
     return <FadeInView delay={animationDelay}>
       <View style={style.editTodoContainer}>
@@ -85,7 +85,7 @@ export default function EditTodo()
     </FadeInView>
 
     <View style={[style.container, { marginTop : 30}]}>
-      <FadeInView delay={animationDelay + 400}>
+      <FadeInView delay={animationDelay + 250}>
         <View style={style.editTodoContainer}>
             <Image source={require('../images/edit.png')} style={style.editTodoTitleIcon}/>
             <Text style={style.editLabel}>Titre</Text>
@@ -96,7 +96,7 @@ export default function EditTodo()
         </View>
       </FadeInView>
 
-      <FadeInView delay={animationDelay + 800}>
+      <FadeInView delay={animationDelay + 500}>
         <View style={style.editTodoContainer}>
             <Image source={require('../images/edit.png')} style={style.editTodoTitleIcon}/>
             <Text style={style.editLabel}>Description</Text>
@@ -107,14 +107,14 @@ export default function EditTodo()
         </View>
       </FadeInView>
 
-      <FadeInView delay={animationDelay + 1200}>
+      <FadeInView delay={animationDelay + 750}>
         <Text style={style.completedTitle}>Les étapes</Text>
       </FadeInView>
 
       {incrementAnimationDelay(1600)}
       {subTasks.map(displaySubTask)}
 
-      <FadeInView delay={animationDelay + 400}>
+      <FadeInView delay={animationDelay + 250}>
         <View style={style.editTodoContainer}>
           <TouchableOpacity onPress={addSubTask}>
             <Image source={require('../images/blue-plus.png')} style={style.editTodoTitleIcon}/>
