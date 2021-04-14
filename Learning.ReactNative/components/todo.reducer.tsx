@@ -7,10 +7,10 @@ export interface ITodosState { todos : ITodo[] }
 export const initialTodoState : ITodosState =
 {
     todos : [
-        { title : 'Préparer la démo de demain', completed : false, bookmarked : false, id : '1', subTasks : [], note : '' },
-        { title : 'Partager les rendus UI à mes collègues', completed : false, bookmarked : true, id : '2', subTasks : [], note : '' },
-        { title : 'Ranger mon bureau', completed : false, bookmarked : false, id : '3', subTasks : [], note : '' },
-        { title : 'Préparer le café', completed : true, bookmarked : false, id : '4', subTasks : [], note : '' },
+        { title : 'Préparer la démo de demain', completed : false, bookmarked : false, id : '1', subTasks : ['Créer une build', 'Tester sur autre machine'], note : '', description : '' },
+        { title : 'Partager les rendus UI à mes collègues', completed : false, bookmarked : true, id : '2', subTasks : [], note : '', description : '' },
+        { title : 'Ranger mon bureau', completed : false, bookmarked : false, id : '3', subTasks : [], note : '', description : '' },
+        { title : 'Préparer le café', completed : true, bookmarked : false, id : '4', subTasks : [], note : '', description : '' },
     ]
 }
     

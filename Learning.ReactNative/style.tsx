@@ -192,7 +192,69 @@ const style = StyleSheet.create(
       textShadowColor: '#000',
       textShadowOffset: {width: 1.5, height: 1.5},
       textShadowRadius: 1
-    }
+    },
+
+    editTodoTitleIcon :
+    {
+      height : 18,
+      width : 18,
+
+      marginLeft : 12.5,
+    },
+
+    editTodoContainer : 
+    {
+      display : 'flex',
+      flexDirection : 'row',
+      alignItems : 'center',
+
+      borderRadius : 5,
+
+      height : 55,
+      width : '100%',
+
+      marginBottom : 1.5,
+
+      backgroundColor : 'rgb(240,240,240)',
+
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 3,
+      },
+      shadowOpacity: 0.27,
+      shadowRadius: 4.65,
+      
+      elevation: 6,
+    },
+
+    editLabel :
+    {
+      marginLeft : 10,
+
+      color : '#346FEF',
+      fontWeight : 'bold',
+
+      width : 100
+    },
+
+    editTodoText :
+    {
+      marginLeft : -5,
+
+      color : 'rgb(20, 70, 70)',
+
+      width : Dimensions.get('window').width - 20,
+    },
+
+    editSubTaskText :
+    {
+      marginLeft : 10,
+
+      color : 'rgb(20, 70, 70)',
+
+      width : Dimensions.get('window').width - 20,
+    },
 });
 
 export default style
