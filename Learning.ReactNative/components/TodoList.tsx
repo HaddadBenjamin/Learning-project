@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Text, View } from 'react-native'
 import style from '../style'
 import Todo from './Todo'

@@ -18,7 +18,7 @@ export default function App()
       <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Liste de tâches" component={TodoList} options={{headerShown: false}} />
-        <Stack.Screen name="Éditer une tâche" component={EditTodo} />
+        <Stack.Screen name="Éditer une tâche" component={EditTodo} options={{headerShown: false}} />
       </Stack.Navigator>
       </NavigationContainer>
     </View>

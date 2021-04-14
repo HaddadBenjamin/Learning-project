@@ -1,5 +1,5 @@
 import React, { useState} from 'react';
-import { View, TextInput, Image, TouchableWithoutFeedback } from 'react-native';
+import { View, TextInput, Image, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 import style from '../style'
 import { createTodo } from './todo.action';
@@ -12,9 +12,9 @@ export default function AddTodo()
     
     return <View style={style.addTodoMainContainer}>
     <View style={style.addTodoContainer}>
-        <TouchableWithoutFeedback style={style.toggle} onPress={onPress}>
+        <TouchableOpacity onPress={onPress}>
             <Image source={require('../images/plus.png')} style={style.addTodoIcon}/>
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
         
         <TextInput
             style={style.addTodoText}

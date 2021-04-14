@@ -9,18 +9,17 @@ const style = StyleSheet.create(
 
     todoLeftContainer :  {flex : 1, flexDirection : 'row' },
 
+    toggleContainer : { width : 18, height : 18 },
+
     toggle :
     {
       width : 18,
       height : 18,
+
+      backgroundColor : 'rgba(0,0,0,0)',
       borderWidth : 1,
       borderColor : '#346fef',
-      backgroundColor : 'white',
       borderRadius : 100,
-
-      shadowColor: '#202020',
-      shadowOffset: {width: 1, height: 1},
-      shadowRadius: .5,
     },
 
     toggled :
@@ -34,25 +33,14 @@ const style = StyleSheet.create(
 
     toggleContent : { flex : 1, justifyContent: 'center', alignItems: 'center' },
 
-    toggledImage : { width : 10, height : 10, marginTop : 2.5 },
+    toggledImage : { width : 10, height : 10, marginLeft : -2},
 
     bookmark :
     {
       height : 18,
       width : 18,
-    
-      shadowColor: '#202020',
-      shadowOffset: {width: 1, height: 1},
-      shadowRadius: .05,
     },
 
-    bookmarked :
-    {
-      shadowColor: '#202020',
-      shadowOffset: {width: 1, height: 1},
-      shadowRadius: .5,
-    },
-    
     mainTitle :
     {
       fontSize : 33,
@@ -148,15 +136,11 @@ const style = StyleSheet.create(
       display : 'flex',
       flexDirection : 'row',
       alignItems : 'center',
-
  
       borderRadius : 5,
 
       shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 3,
-      },
+      shadowOffset: { width: 0, height: 3 },
       shadowOpacity: 0.27,
       shadowRadius: 4.65,
       elevation: 6,
@@ -166,13 +150,9 @@ const style = StyleSheet.create(
     {
       height : 16,
       width : 16,
-
-      marginLeft : 5,
-    
-      shadowColor: 'black',
-      shadowOffset: {width: 1, height: 1},
-      shadowRadius: 1,
+      marginLeft : 7.5,
     },
+
     addTodoText :
     {
       marginLeft : 10,
