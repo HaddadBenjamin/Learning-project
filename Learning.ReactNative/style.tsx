@@ -160,10 +160,38 @@ const style = StyleSheet.create(
       color : '#fff',
 
       width : Dimensions.get('window').width - 20,
-    
+
       textShadowColor: '#000',
-      textShadowOffset: {width: .5, height: 0.5},
-      textShadowRadius: .5
+      textShadowOffset: {width: .75, height: .75},
+      textShadowRadius: .75
+    },
+
+    goBackContainer :
+    {
+      display : 'flex',
+      alignContent : 'center',
+      flexDirection : 'row',
+     
+      marginTop : 50,
+      marginLeft : 20
+    },
+    goBackImage :
+    {
+      width : 14,
+      height : 14,
+    },
+
+    goBackText :
+    {
+      marginLeft : 7.5,
+      marginTop : -5,
+
+      color : '#fff',
+      fontSize : 18,
+
+      textShadowColor: '#000',
+      textShadowOffset: {width: 1.5, height: 1.5},
+      textShadowRadius: 1
     }
 });
 
