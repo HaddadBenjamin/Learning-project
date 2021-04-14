@@ -38,6 +38,15 @@ export default function EditTodo()
     setSubTasks(array)
   }
 
+  const editSubTask = (subTask : string, index : number) =>
+  {
+    const array = [...subTasks]
+    
+    array.splice(index, 1, subTask)
+
+    setSubTasks(array)
+  }
+
   return <LinearGradient
             colors={['#420285', '#346fef']}
             start={[0.0, 1.0]}
@@ -74,6 +83,7 @@ export default function EditTodo()
             <Image source={require('../images/edit.png')} style={style.editTodoTitleIcon}/>
             <TextInput
                 style={style.editSubTaskText}
+                onChangeText={(editedSubTask) => editSubTask(editedSubTask, index)}
                 value={_}/>
 
           <TouchableOpacity style={style.removeTaskIcon} onPress={() => removeSubTask(index)}>

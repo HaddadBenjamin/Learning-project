@@ -61,6 +61,7 @@ const style = StyleSheet.create(
       
       margin : 5,
       marginLeft : 10,
+      marginTop : 10,
 
       textShadowColor: '#000',
       textShadowOffset: {width: 1, height: 1},
@@ -243,6 +244,7 @@ const style = StyleSheet.create(
       marginLeft : -5,
 
       color : 'rgb(20, 70, 70)',
+      width : '100%'
     },
 
     editSubTaskText :
