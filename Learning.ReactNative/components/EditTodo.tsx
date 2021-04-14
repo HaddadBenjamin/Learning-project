@@ -6,9 +6,10 @@ import Toggle from '../shared/Toggle'
 import Bookmark from '../shared/Bookmark'
 
 interface Props { todo : ITodo }
-export default function EditTodo({ todo : {title}, }: Props)
+export default function EditTodo(todo : Props)
 {
+  console.log(todo)
   return <View>
-      <Text>test</Text>
+      <Text>{JSON.stringify(todo)}</Text>
   </View>
 }

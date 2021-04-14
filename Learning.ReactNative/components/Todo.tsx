@@ -4,18 +4,20 @@ import ITodo from './todo.model'
 import style from '../style'
 import Toggle from '../shared/Toggle'
 import Bookmark from '../shared/Bookmark'
+import { useNavigation } from '@react-navigation/native';
 
 interface Props { todo : ITodo }
 export default function Todo({ todo } : Props)
 {
   const {title, completed, bookmarked} = todo
+  const navigation = useNavigation()
 
   const onToggle = (toggled : boolean) => void { }
   const onBookmark = (toggled : boolean) => void { }
   {/* Doit dispatcher un évènement redux qui met à jour l'état completed de l'id de cette todo */}
   
-  const onTitleClick = () => { /* navigation.navigate('Éditer une tâche', { todo : todo}) */}
-  
+  const onTitleClick = () => { navigation.navigate('Éditer une tâche', todo) }
+
   return <View style={style.todoBackground}>
     <View style={style.todoContainer}>
       <View style={style.todoLeftContainer}>
