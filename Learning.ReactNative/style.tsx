@@ -244,7 +244,7 @@ const style = StyleSheet.create(
       marginLeft : -5,
 
       color : 'rgb(20, 70, 70)',
-      width : '100%'
+      width : '130%'
     },
 
     editSubTaskText :
@@ -255,7 +255,7 @@ const style = StyleSheet.create(
       width : Dimensions.get('window').width - 85,
     },
 
-    removeTaskIcon : { width : 16, height : 16 }
+    removeTaskIcon : { width : 15, height : 14, marginLeft : 2 }
 });
 
 export default style
