@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, View } from 'react-native'
 import style from '../style'
 import Todo from './Todo'
@@ -16,13 +16,16 @@ export default function TodoList()
   const doneTodos : ITodo[] = todos.filter(todo => todo.completed).sort((a, b) => (a === b) ? 0 : a.bookmarked ? -1 : 1)
   const undoneTodos : ITodo[] = todos.filter(todo => !todo.completed).sort((a, b) => (a === b) ? 0 : a.bookmarked ? -1 : 1)
 
+  const [firstRender, setFirstRender] = useState<boolean>(true)
+  useEffect(() => setFirstRender(false), [todos])
+
   let animationDelay : number = 0
 
   const displayTodo = (todo : ITodo) =>
   {
     animationDelay += 250
 
-    return <FadeInView delay={animationDelay}>
+    return <FadeInView delay={firstRender ? animationDelay : 250}>
       <Todo todo={todo} key={todo.id}/>
     </FadeInView>
   }

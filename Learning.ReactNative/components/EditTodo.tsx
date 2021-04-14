@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Image, Text, View, TouchableOpacity, TextInput } from 'react-native'
 import ITodo from './todo.model'
 import style from '../style'
@@ -19,6 +19,9 @@ export default function EditTodo()
   const [description, setDescription] = useState<string>(todo.description || 'Ajouter une description')
   const [subTask, setSubTask] = useState<string>('Ajouter une sous-tâche')
   const [subTasks, setSubTasks] = useState<string[]>(todo.subTasks)
+
+  const [firstRender, setFirstRender] = useState<boolean>(true)
+  useEffect(() => setFirstRender(false))
 
   const goBackAndUpdateTodo = () =>
   {
@@ -52,7 +55,7 @@ export default function EditTodo()
   {
     animationDelay += 250
 
-    return <FadeInView delay={animationDelay}>
+    return <FadeInView delay={firstRender ? animationDelay : 250}>
       <View style={style.editTodoContainer}>
         <Image source={require('../images/edit.png')} style={style.editTodoTitleIcon}/>
           <TextInput
@@ -111,7 +114,7 @@ export default function EditTodo()
         <Text style={style.completedTitle}>Les étapes</Text>
       </FadeInView>
 
-      {incrementAnimationDelay(1600)}
+      {incrementAnimationDelay(1000)}
       {subTasks.map(displaySubTask)}
 
       <FadeInView delay={animationDelay + 250}>
