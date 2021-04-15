@@ -22,7 +22,7 @@ ReactDOM.render(
                     <ControledAndUncontroledFields />
                     <MyContextConsumer/>
                     <FormWithFormikAndYup/>
-                    <InfiniteScrolling/>
+                    {/* <InfiniteScrolling/> */}
                 </div>
             </UserContext.Provider>
         </Provider>
