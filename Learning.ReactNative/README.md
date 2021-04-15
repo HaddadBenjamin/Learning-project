@@ -4,4 +4,4 @@ Réalisation d'une application de type todo list inspirée par "Microsoft To do"
 > ![Image of Yaktocat](https://imgur.com/3otPbmY.png)
 > ![Image of Yaktocat](https://imgur.com/OOCtBvN.png)
 
-Je n'ai cherché à réaliser du clean code pour ce projet, l'objectif était surtout de se taper tous les murs rapidement afin d'apprendre à utiliser cette techonologie, néanmoins si le clean code vous intéresse, vous pouvez regarder ce projet https://github.com/HaddadBenjamin/Learning/tree/master/Learning.React
+Je n'ai pas cherché à réaliser du clean code pour ce projet, l'objectif était surtout de se taper tous les murs rapidement afin d'apprendre à utiliser cette techonologie, néanmoins si le clean code vous intéresse, vous pouvez regarder ce projet https://github.com/HaddadBenjamin/Learning/tree/master/Learning.React
