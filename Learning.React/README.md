@@ -21,5 +21,9 @@ Ce petit projet me permet de m'entraîner à développer mes compétences sur Re
 - <ins>**Tests :**</ins> Jest, React testing, Supertest, React mock store, Json server, React hooks.
 - <ins>**Librairies :**</ins> Axios, Concurrently, Formik, Yup.
 
+<ins>**Allez plus loin :**</ins>
+- Passer à l’architecture Atomic Design & particles pour éviter les doublons et pousser la réutilisabilité de vos composants.
+- Utiliser la librairie styled-components et la syntaxe BEM pour gérer le CSS de mes composants, les thèmes, les médias queries.
+- Utiliser la libraire story book pour rapidement tester le rendu de vos composants et le comparer avec vos maquettes.
 
 ![Image of Yaktocat](https://imgur.com/87Gh56k.png)
