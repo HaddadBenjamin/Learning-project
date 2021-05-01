@@ -23,12 +23,11 @@ export default function AddTodo({ animationDelay} : Props)
         }
     }, [])
 
+    const keyboardWillShow = (event : any) => { setKeyboardShow(true) }
+    const keyboardWillHide = (event: any) => { setKeyboardShow(false) }
+
     const dispatch = useDispatch()
    
-    const keyboardWillShow = (event : any) => { setKeyboardShow(true) }
-    
-    const keyboardWillHide = (event: any) => { setKeyboardShow(false) }
-    
     const onPress = () => { dispatch(createTodo(text)); setText('Ajouter une tâche') }
    
     return <View style={style.addTodoMainContainer}>

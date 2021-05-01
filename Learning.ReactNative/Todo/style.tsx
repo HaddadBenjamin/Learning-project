@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 
 const style = StyleSheet.create(
 {
@@ -29,17 +29,13 @@ const style = StyleSheet.create(
       shadowColor: '#202020',
       shadowOffset: {width: 1, height: 1},
       shadowRadius: 1,
-  },
+    },
 
     toggleContent : { flex : 1, justifyContent: 'center', alignItems: 'center' },
 
     toggledImage : { width : 10, height : 10, marginLeft : -2},
 
-    bookmark :
-    {
-      height : 18,
-      width : 18,
-    },
+    bookmark : { height : 18, width : 18 },
 
     mainTitle :
     {

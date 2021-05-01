@@ -19,14 +19,13 @@ Refaire une partie de l'interface Youtube en utilisant les Flexbox de CSS et la 
 Création de petits composants UI<br/>
 > ![Image of Yaktocat](https://imgur.com/vsotPEB.png)
 
+## React Native
+Réalisation d'une application de type todo list inspirée par "Microsoft To do" https://www.youtube.com/watch?v=ATKug3CPKEI
+> ![Image of Yaktocat](https://imgur.com/EP8DPJ0.png)
+
 ## React
 > ![Image of Yaktocat](https://imgur.com/eFOEUeD.png)
 > ![Image of Yaktocat](https://imgur.com/87Gh56k.png)
-
-## React Native
-Réalisation d'une application de type todo list inspirée par "Microsoft To do" https://www.youtube.com/watch?v=ATKug3CPKEI
-> ![Image of Yaktocat](https://imgur.com/3otPbmY.png)
-> ![Image of Yaktocat](https://imgur.com/OOCtBvN.png)
 
 ## .NET Core
 Réalisation d'un petit chat "en temps réel" avec la gestion des messages vu par tous, privés et par salle https://recordit.co/TuKHJ9lty0
