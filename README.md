@@ -13,12 +13,6 @@ Refaire l'intégration CSS de la page de garde de Diablo II - Ressurected en gé
 Refaire une partie de l'interface du site Quovery https://qovery.netlify.app/
 > ![Image of Yaktocat](https://imgur.com/MpqP7md.png)
 
-Refaire une partie de l'interface Youtube en utilisant les Flexbox de CSS et la notation BEM https://recordit.co/zHkKh4YIv2
-> ![Image of Yaktocat](https://imgur.com/T8GEX9e.png)
-
-Création de petits composants UI<br/>
-> ![Image of Yaktocat](https://imgur.com/vsotPEB.png)
-
 ## React Native
 Réalisation d'une application de type todo list inspirée par "Microsoft To do" https://www.youtube.com/watch?v=ATKug3CPKEI
 > ![Image of Yaktocat](https://imgur.com/EP8DPJ0.png)
