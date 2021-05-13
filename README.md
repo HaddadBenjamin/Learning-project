@@ -19,7 +19,7 @@ Réalisation d'une application de type todo list inspirée par "Microsoft To do"
 
 ## React
 > ![Image of Yaktocat](https://imgur.com/eFOEUeD.png)
-> ![Image of Yaktocat](https://imgur.com/87Gh56k.png)
+> ![Image of Yaktocat](https://imgur.com/LzmaDEu.png)
 
 ## .NET Core
 Réalisation d'un petit chat "en temps réel" avec la gestion des messages vu par tous, privés et par salle https://recordit.co/TuKHJ9lty0

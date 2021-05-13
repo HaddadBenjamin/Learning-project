@@ -24,7 +24,7 @@ ReactDOM.render(
                     <MyContextConsumer/>
                     <FormWithReactHookForm/>
                     <FormWithFormikAndYup/>
-                    {/* <InfiniteScrolling/> */}
+                    <InfiniteScrolling/>
                 </div>
             </UserContext.Provider>
         </Provider>

@@ -12,6 +12,7 @@ export default function MyContextConsumer()
 
     return (
         <>
+            <br></br><br></br>
             <h2>Les contextes</h2>
             <p>Welcome {firstName} {lastName}!</p>
         </>

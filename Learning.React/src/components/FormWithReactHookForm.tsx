@@ -24,6 +24,7 @@ const validationSchema = yup.object().shape({
   country : yup.string().required('La ville est requise').oneOf(['France', 'Angleterre', 'Allemagne'], 'Sélectionner un pays')
 })
 let numberOfRender = 0
+
 const FormWithReactHookForm = () =>
 {
   const { register, handleSubmit, reset, formState : { errors } } = useForm<FormValues>({
@@ -33,7 +34,7 @@ const FormWithReactHookForm = () =>
   
   return <>
     <h2>Formulaire avec React Hook Form et Yup</h2>
-    <div>Nombre de rendu : {++numberOfRender}</div>
+    {/* <div>Nombre de rendu : {++numberOfRender}</div> */}
     {Object.entries(errors).map(error => <div key={error[0]}>{`- ${error[0]} : ${error[1]?.message}`}</div>)}
     <form onSubmit={handleSubmit(formValues => { alert(JSON.stringify(formValues)); /* reset(); */ } )}>
       Nom : <input {...register("name")}/>
@@ -59,7 +60,7 @@ const FormWithReactHookForm = () =>
       {errors.country?.message}<br></br>
   
       <button>Envoyer</button>
-    </form>
+    </form><br></br>
   </>
 }
 
