@@ -35,29 +35,29 @@ const FormWithReactHookForm = () =>
   return <>
     <h2>Formulaire avec React Hook Form et Yup</h2>
     {/* <div>Nombre de rendu : {++numberOfRender}</div> */}
-    {Object.entries(errors).map(error => <div key={error[0]}>{`- ${error[0]} : ${error[1]?.message}`}</div>)}
+    {Object.entries(errors).map(error => <div style={{'color' : 'red'}} key={error[0]}>{`- ${error[0]} : ${error[1]?.message}`}</div>)}
     <form onSubmit={handleSubmit(formValues => { alert(JSON.stringify(formValues)); /* reset(); */ } )}>
       Nom : <input {...register("name")}/>
-      {errors.name?.message}
+      <span style={{'color' : 'red'}}>{errors.name?.message}</span>
       Email : <input {...register("email")}/>
-      {errors.email?.message}
+      <span style={{'color' : 'red'}}>{errors.email?.message}</span>
       Téléphone : <input {...register("phone")}/>
-      {errors.phone?.message}
+      <span style={{'color' : 'red'}}>{errors.phone?.message}</span>
       
       Actif : <input type="checkbox" {...register("enable")}/>
-      {errors.enable?.message}<br></br>
+      <span style={{'color' : 'red'}}>{errors.enable?.message}</span><br></br>
 
       Age : <input {...register("age", { valueAsNumber : true })}/>
-      {errors.age?.message}
+      <span style={{'color' : 'red'}}>{errors.age?.message}</span>
       Date de début : <input type="date" {...register("startDate", { valueAsDate : true })}/>
-      {errors.startDate?.message}
+      <span style={{'color' : 'red'}}>{errors.startDate?.message}</span>
 
       Ville : <select {...register("country")}>
         <option value="France">France</option>
         <option value="Angleterre">Angleterre</option>
         <option value="Allemagne">Allemagne</option>
       </select>
-      {errors.country?.message}<br></br>
+      <span style={{'color' : 'red'}}>{errors.country?.message}</span><br></br>
   
       <button>Envoyer</button>
     </form><br></br>
