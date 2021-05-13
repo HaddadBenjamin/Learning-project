@@ -34,8 +34,6 @@ _.pull(['a', 'b', 'c', 'a', 'b', 'c'], 'a', 'c') // M  ['b', 'b'] supprime tous 
 _.pullAllBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 3 }, { 'x': 1 }], [{ 'x': 1 }, { 'x': 3 }], 'x') // M [{ 'x': 2 }]
 _.pullAt(['a', 'b', 'c', 'd'], [1, 3]) // M array : [1, 3], return value  : ['b', 'd']
 
-// Calcul d'un entier :
-
 // Calcul d'une string :
 _.join(['a', 'b', 'c'], '~') // 'a~b~c' converti un tableau de chaînes en une chaîne
 
@@ -55,10 +53,4 @@ _.reverse([1, 2, 3]) // M [3, 2, 1]
 
 // Calcul d'un tableaux à double dimension :
 _.chunk(['a', 'b', 'c', 'd'], 2) // U [['a', 'b'], ['c', 'd']] découpe un tableaux en plusieurs tableaux de la taille précisé
-
-
-// Les collections :
-// Predicate 
-
 debugger 
-// Muté ou ne mute pas ?
