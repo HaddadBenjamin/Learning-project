@@ -37,6 +37,7 @@ const useInfiniteScroll = (getItems : () => Promise<any>, containerId : string =
         {
             const itemElements : HTMLCollection = (document.getElementById(containerId) as HTMLElement).children
             const lastItemElement : Element = itemElements[itemElements.length - 1] as Element
+            if (lastItemElement !== undefined)
             {
                 const lastItemElementRect : DOMRect = lastItemElement.getBoundingClientRect()
                 const bodyRect : DOMRect = document.body.getBoundingClientRect()
