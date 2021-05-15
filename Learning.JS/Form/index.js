@@ -97,7 +97,11 @@ const enableHandler = (event) => values.enable = event.checked
 const dateHandler = (event) => values.date = event.target.value
 const countryHandler = (event) => values.country = event.target.value
 
-const submitHandler = () => alert(JSON.stringify(values))
+const submitHandler = (event) => 
+{
+    event.preventDefault()
+    alert(JSON.stringify(values))
+}
 
 elements.name.addEventListener('input', nameHandler)
 elements.email.addEventListener('input', emailHandler)
