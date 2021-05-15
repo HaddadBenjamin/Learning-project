@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <h2>Un formulaire JS sans utilisation de librairies</h2>
+    <form>
+        <div class="error-summary"></div>
+        Nom : <input type="text" class="name"/>
+        <span class="error-message"></span>
+        Email : <input type="email" class="email"/>
+        <span class="error-message"></span>
+        Téléphone : <input type="text" class="phone"/>
+        <span class="error-message"></span>
+        
+        Actif : <input type="checkbox" class="enable"/>
+        <span class="error-message"></span>
+  
+        Age : <input type="number" class="age"/>
+        <span class="error-message"></span>
+        Date de début : <input type="date" class="date"/>
+        <span class="error-message"></span>
+  
+        Ville : <select class="country">
+          <option value="France">France</option>
+          <option value="Angleterre">Angleterre</option>
+          <option value="Allemagne">Allemagne</option>
+        </select>
+        <span class="error-message"></span>
+    
+        <button class="submit">Envoyer</button>
+      </form>
+
+      <script type="text/javascript" src="index.js"></script>
+</body>
+</html>
