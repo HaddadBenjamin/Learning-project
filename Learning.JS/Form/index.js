@@ -63,8 +63,8 @@ const emailHandler = (event) =>
     const value = values.email = event.target.value
 
     elements.emailError.innerText = errors.email = 
-        !value || value.length === 0 ? "Email requis" : null ||
-         emailRegex.test(value) ? null : 'Email est invalide'
+        !value || value.length === 0 ? "Email requis" :
+        !emailRegex.test(value) ? 'Email est invalide' : null
 
     refreshErrorSummary()
 }
@@ -75,8 +75,8 @@ const phoneHandler = (event) =>
     const value = values.phone = event.target.value
 
     elements.phoneError.innerText = errors.phone = 
-        !value || value.length === 0 ? "Numéro de téléphone requis" : null ||
-        phoneRegex.test(value) ? null : 'Le numéro de téléphone est invalide'
+        !value || value.length === 0 ? "Numéro de téléphone requis" :
+        !phoneRegex.test(value) ? 'Le numéro de téléphone est invalide' : null
 
     refreshErrorSummary()
 }
@@ -86,8 +86,8 @@ const ageHandler = (event) =>
     const value = values.age = event.target.value
 
     elements.ageError.innerText = errors.age = 
-        !value || value.length === 0 ? "Sélectionner votre âge" : null ||
-        value < 18 ? "Interdit au mineur" : null ||
+        !value || value.length === 0 ? "Sélectionner votre âge" :
+        value < 18 ? "Interdit au mineur" :
         value > 60 ? "Interdit au sénior" : null
 
     refreshErrorSummary()
