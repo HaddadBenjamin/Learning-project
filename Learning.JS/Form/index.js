@@ -13,6 +13,8 @@ const validateField = (validateCallback) =>
     refreshErrorSummary()
 }
 
+const setField = (setFieldCallback) => setFieldCallback()
+
 let elements =
 {
     name : document.querySelector('.name'),
@@ -46,7 +48,7 @@ let values =
     enable : null,
     phone : null,
     age : null,
-    country : elements.country.value
+    country : null
 }
 
 const validate =
@@ -84,19 +86,19 @@ const validate =
 
     all : () =>
     {
-        handlers.name(values.name)
-        handlers.email(values.email)
-        handlers.phone(values.phone)
-        handlers.age(values.age)
-        handlers.enable(values.enable)
-        handlers.date(values.date)
-        handlers.country(values.country)
+        validate.name(values.name)
+        validate.email(values.email)
+        validate.phone(values.phone)
+        validate.age(values.age)
+        validate.enable(values.enable)
+        validate.date(values.date)
+        validate.country(values.country)
     }
 }
 
 const handlers =
 {
-    name : (event) => validateField(() => validate.name(values.name = getFieldValue(event))),
+    name : (event) => validateField(() => validate.name((values.name = getFieldValue(event)))),
     email : (event) => validateField(() => validate.email(values.email = getFieldValue(event))),
     phone : (event) => validateField(() => validate.phone(values.phone = getFieldValue(event))),
     age : (event) => validateField(() => validate.age(values.age = getFieldValue(event))),
@@ -110,8 +112,8 @@ const handlers =
 
         validateField(() => validate.all())
 
-        alert(`Errors :\n ${getAllErrors()}`)
-        alert(`Values :\n ${JSON.stringify(values)}`)
+        alert(`Errors :\n${getAllErrors()}`)
+        alert(`Values :\n${JSON.stringify(values)}`)
     }
 }
 
