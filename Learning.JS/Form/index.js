@@ -1,3 +1,18 @@
+const getFieldValue = (event) => event?.target?.value ?? event?.checked
+
+const getAllErrors = () => Object.entries(errors)
+    .map(error => error[1] ? `- ${error[1]}` : '')
+    .filter(error => error !== '')
+    .join('\n')
+
+const refreshErrorSummary = () => elements.errorSummary.innerText = getAllErrors()
+
+const validateField = (validateCallback) =>
+{
+    validateCallback()
+    refreshErrorSummary()
+}
+
 let elements =
 {
     name : document.querySelector('.name'),
@@ -7,14 +22,6 @@ let elements =
     phone : document.querySelector('.phone'),
     age : document.querySelector('.age'),
     country : document.querySelector('.country'),
-
-    nameError : document.querySelector('.name').nextElementSibling,
-    emailError : document.querySelector('.email').nextElementSibling,
-    dateError : document.querySelector('.date').nextElementSibling,
-    enableError : document.querySelector('.date').nextElementSibling,
-    phoneError : document.querySelector('.phone').nextElementSibling,
-    ageError : document.querySelector('.age').nextElementSibling,
-    countryError : document.querySelector('.country').nextElementSibling,
 
     errorSummary : document.querySelector('.error-summary'),
     submit : document.querySelector('.submit'),
@@ -42,77 +49,87 @@ let values =
     country : elements.country.value
 }
 
-const refreshErrorSummary = () =>
-    elements.errorSummary.innerText = Object.entries(errors)
-        .map(error => error[1] ? `- ${error[1]}` : '')
-        .filter(error => error !== '')
-        .join('\n')
-
-const nameHandler = (event) =>
+const validate =
 {
-    const value = values.name = event.target.value
+    name : (value) => elements.name.nextElementSibling.innerText = errors.name = !value || value.length === 0 ? "Le nom est requis" : null,
+   
+    email : (value) =>
+    {
+        const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        
+        elements.email.nextElementSibling.innerText = errors.email = 
+            !value || value.length === 0 ? "Email requis" :
+            !emailRegex.test(value) ? 'Email est invalide' : null
+    },
+   
+    phone : (value) =>
+    {
+        const phoneRegex = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+        
+        elements.phone.nextElementSibling.innerText = errors.phone = 
+            !value || value.length === 0 ? "Numéro de téléphone requis" :
+            !phoneRegex.test(value) ? 'Le numéro de téléphone est invalide' : null
+    },
 
-    elements.nameError.innerText = errors.name = !value || value.length === 0 ? "Le nom est requis" : null
-
-    refreshErrorSummary()
-}
-
-const emailHandler = (event) =>
-{
-    const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    const value = values.email = event.target.value
-
-    elements.emailError.innerText = errors.email = 
-        !value || value.length === 0 ? "Email requis" :
-        !emailRegex.test(value) ? 'Email est invalide' : null
-
-    refreshErrorSummary()
-}
-
-const phoneHandler = (event) =>
-{
-    const phoneRegex = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
-    const value = values.phone = event.target.value
-
-    elements.phoneError.innerText = errors.phone = 
-        !value || value.length === 0 ? "Numéro de téléphone requis" :
-        !phoneRegex.test(value) ? 'Le numéro de téléphone est invalide' : null
-
-    refreshErrorSummary()
-}
-
-const ageHandler = (event) =>
-{
-    const value = values.age = event.target.value
-
-    elements.ageError.innerText = errors.age = 
+    age : (value) => elements.age.nextElementSibling.innerText = errors.age = 
         !value || value.length === 0 ? "Sélectionner votre âge" :
         value < 18 ? "Interdit au mineur" :
-        value > 60 ? "Interdit au sénior" : null
+        value > 60 ? "Interdit au sénior" : null,
+  
+    enable : (value) => elements.enable.nextElementSibling.innerText = errors.enable = value === null ? 'Veuillez cocher la case' : null,
+    
+    date : (value) => elements.date.nextElementSibling.innerText = errors.date = value === null ? 'Veuillez sélectionner une date' : null,
+   
+    country : (value) => elements.country.nextElementSibling.innerText = errors.country = value === null ? 'Veuillez sélectionner une date' : null,
 
-    refreshErrorSummary()
+    all : () =>
+    {
+        handlers.name(values.name)
+        handlers.email(values.email)
+        handlers.phone(values.phone)
+        handlers.age(values.age)
+        handlers.enable(values.enable)
+        handlers.date(values.date)
+        handlers.country(values.country)
+    }
 }
 
-const enableHandler = (event) => values.enable = event.checked
-const dateHandler = (event) => values.date = event.target.value
-const countryHandler = (event) => values.country = event.target.value
-
-const submitHandler = (event) => 
+const handlers =
 {
-    event.preventDefault()
-    alert(JSON.stringify(values))
+    name : (event) => validateField(() => validate.name(values.name = getFieldValue(event))),
+    email : (event) => validateField(() => validate.email(values.email = getFieldValue(event))),
+    phone : (event) => validateField(() => validate.phone(values.phone = getFieldValue(event))),
+    age : (event) => validateField(() => validate.age(values.age = getFieldValue(event))),
+    enable : (event) => validateField(() => validate.enable(values.enable = getFieldValue(event))),
+    date : (event) => validateField(() => validate.date(values.date = getFieldValue(event))),
+    country : (event) => validateField(() => validate.country(values.country = getFieldValue(event))),
+
+    submit : (event) =>
+    {
+        event.preventDefault()
+
+        validateField(() => validate.all())
+
+        alert(`Errors :\n ${getAllErrors()}`)
+        alert(`Values :\n ${JSON.stringify(values)}`)
+    }
 }
 
-elements.name.addEventListener('input', nameHandler)
-elements.email.addEventListener('input', emailHandler)
-elements.phone.addEventListener('input', phoneHandler)
-elements.age.addEventListener('input', ageHandler)
-elements.date.addEventListener('change', dateHandler)
-elements.enable.addEventListener('change', enableHandler)
-elements.country.addEventListener('change', countryHandler)
-elements.submit.addEventListener('click', submitHandler)
-// input[text|password|number|date] = event.target.value, event 'input'
-// input['checkbox'] = event.checked, event 'change'
-// select (dropdown) = event.target.value, event 'change'
+elements.name.addEventListener('input', handlers.name)
+elements.email.addEventListener('input', handlers.email)
+elements.phone.addEventListener('input', handlers.phone)
+elements.age.addEventListener('input', handlers.age)
+elements.date.addEventListener('change', handlers.date)
+elements.enable.addEventListener('change', handlers.enable)
+elements.country.addEventListener('change', handlers.country)
 
-// Mettre les values dans un objet et les afficher au submit
+elements.submit.addEventListener('click', handlers.submit)
+
+// Revoir l'afficahge
+// Afficher une image de validation bon pas bon
+// Rajouter sur le portfolio
+// Encapsuler mes champs dans un form-field
+// - form-field-input
+// - form-field-error-message
+// - form-field-validation-image
+// - error-summary
