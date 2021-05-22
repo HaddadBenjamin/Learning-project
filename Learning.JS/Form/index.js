@@ -1,34 +1,31 @@
-const getFieldValue = (event) => event?.target?.value ?? event?.checked
-
 const getAllErrors = () => Object.entries(errors)
-    .map(error => error[1] ? `- ${error[1]}` : '')
-    .filter(error => error !== '')
+    .map(error => error[1])
+    .filter(error => error !== null)
+    .map(error => `- ${error}`)
     .join('\n')
 
 const refreshErrorSummary = () => elements.errorSummary.innerText = getAllErrors()
 
-const validateField = (validateCallback) =>
-{
-    validateCallback()
-    refreshErrorSummary()
-}
+const validateField = (validateFieldCallback) => { validateFieldCallback(); refreshErrorSummary() }
 
+const getFieldValue = (event) => event?.target?.value ?? event?.checked
+
+let values = { name : null, email : null, date : null, enable : null, phone : null, age : null, country : null }
+let errors = { name : null, email : null, date : null, enable : null, phone : null, age : null, country : null }
 let elements =
 {
-    name : document.querySelector('.name'),
-    email : document.querySelector('.email'),
-    date : document.querySelector('.date'),
-    enable : document.querySelector('.date'),
-    phone : document.querySelector('.phone'),
-    age : document.querySelector('.age'),
-    country : document.querySelector('.country'),
+    errorSummary : document.querySelector('.form-error-summary'),
+  
+    name : document.querySelector('.form-input-name'),
+    email : document.querySelector('.form-input-email'),
+    date : document.querySelector('.form-input-date'),
+    enable : document.querySelector('.form-input-enable'),
+    phone : document.querySelector('.form-input-phone'),
+    age : document.querySelector('.form-input-age'),
+    country : document.querySelector('.form-input-country'),
 
-    errorSummary : document.querySelector('.error-summary'),
-    submit : document.querySelector('.submit'),
+    submit : document.querySelector('.form-submit-button'),
 }
-
-let errors = { name : null, email : null, date : null, enable : null, phone : null, age : null, country : null }
-let values = { name : null, email : null, date : null, enable : null, phone : null, age : null, country : null }
 
 const validate =
 {
@@ -77,7 +74,7 @@ const validate =
 
 const handlers =
 {
-    name : (event) => validateField(() => validate.name((values.name = getFieldValue(event)))),
+    name : (event) => validateField(() => validate.name(values.name = getFieldValue(event))),
     email : (event) => validateField(() => validate.email(values.email = getFieldValue(event))),
     phone : (event) => validateField(() => validate.phone(values.phone = getFieldValue(event))),
     age : (event) => validateField(() => validate.age(values.age = getFieldValue(event))),
@@ -91,8 +88,7 @@ const handlers =
 
         validateField(() => validate.all())
 
-        alert(`Errors :\n${getAllErrors()}`)
-        alert(`Values :\n${JSON.stringify(values)}`)
+        alert(`Errors :\n${getAllErrors()}\n\nValues :\n${JSON.stringify(values)}`)
     }
 }
 
@@ -105,12 +101,3 @@ elements.enable.addEventListener('change', handlers.enable)
 elements.country.addEventListener('change', handlers.country)
 
 elements.submit.addEventListener('click', handlers.submit)
-
-// Revoir l'afficahge
-// Afficher une image de validation bon pas bon
-// Rajouter sur le portfolio
-// Encapsuler mes champs dans un form-field
-// - form-field-input
-// - form-field-error-message
-// - form-field-validation-image
-// - error-summary
