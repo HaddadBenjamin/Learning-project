@@ -13,8 +13,6 @@ const validateField = (validateCallback) =>
     refreshErrorSummary()
 }
 
-const setField = (setFieldCallback) => setFieldCallback()
-
 let elements =
 {
     name : document.querySelector('.name'),
@@ -29,27 +27,8 @@ let elements =
     submit : document.querySelector('.submit'),
 }
 
-let errors =
-{
-    name : null,
-    email : null,
-    date : null,
-    enable : null,
-    phone : null,
-    age : null,
-    country : null
-}
-
-let values =
-{
-    name : null,
-    email : null,
-    date : null,
-    enable : null,
-    phone : null,
-    age : null,
-    country : null
-}
+let errors = { name : null, email : null, date : null, enable : null, phone : null, age : null, country : null }
+let values = { name : null, email : null, date : null, enable : null, phone : null, age : null, country : null }
 
 const validate =
 {
