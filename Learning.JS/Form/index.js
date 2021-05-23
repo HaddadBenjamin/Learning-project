@@ -144,3 +144,4 @@ elements.submit.addEventListener('click', handlers.submit)
 // Share linkedin & fb : dispo pour être indépendant à la mi-juin
 // copy pastenote
 // Update github description (main, js, ce projet)
+// Portfolios & malt & other
