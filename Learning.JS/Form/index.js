@@ -1,118 +1,146 @@
+const getAllErrors = () => Object.entries(errors)
+    .map(error => error[1])
+    .filter(error => error !== null)
+    .map(error => `- ${error}`)
+    .join('\n')
+
+const refreshErrorSummaryText = () => elements.errorSummary.innerText = getAllErrors()
+
+const refreshErrorSummary = (validateFieldCallback) => { validateFieldCallback(); refreshErrorSummaryText() }
+
+const getFieldValue = (event) => event?.target?.value ?? event?.checked
+
+const refreshInputStyle = (element, error) => 
+{
+    element.style.borderColor = error ? 'red' : 'rgba(248, 240, 240, 0.281)'
+
+    element.nextElementSibling.nextElementSibling.src = error ? "images/invalid.png" : ""//images/valid.png"
+}
+
+let values = { name : null, email : null, date : null, enable : null, phone : null, age : null, country : null }
+let errors = { name : null, email : null, date : null, enable : null, phone : null, age : null, country : null }
 let elements =
 {
-    name : document.querySelector('.name'),
-    email : document.querySelector('.email'),
-    date : document.querySelector('.date'),
-    enable : document.querySelector('.date'),
-    phone : document.querySelector('.phone'),
-    age : document.querySelector('.age'),
-    country : document.querySelector('.country'),
+    errorSummary : document.querySelector('.form-error-summary'),
+  
+    name : document.querySelector('.form-input-name'),
+    email : document.querySelector('.form-input-email'),
+    date : document.querySelector('.form-input-date'),
+    enable : document.querySelector('.form-input-enable'),
+    phone : document.querySelector('.form-input-phone'),
+    age : document.querySelector('.form-input-age'),
+    country : document.querySelector('.form-input-country'),
 
-    nameError : document.querySelector('.name').nextElementSibling,
-    emailError : document.querySelector('.email').nextElementSibling,
-    dateError : document.querySelector('.date').nextElementSibling,
-    enableError : document.querySelector('.date').nextElementSibling,
-    phoneError : document.querySelector('.phone').nextElementSibling,
-    ageError : document.querySelector('.age').nextElementSibling,
-    countryError : document.querySelector('.country').nextElementSibling,
-
-    errorSummary : document.querySelector('.error-summary'),
-    submit : document.querySelector('.submit'),
+    submit : document.querySelector('.form-submit-button'),
 }
 
-let errors =
+const validate =
 {
-    name : null,
-    email : null,
-    date : null,
-    enable : null,
-    phone : null,
-    age : null,
-    country : null
+    name : (value) => 
+    {
+        elements.name.nextElementSibling.innerText = errors.name = !value || value.length === 0 ? "Name is required" : null
+
+        refreshInputStyle(elements.name, errors.name)
+    },
+   
+    email : (value) =>
+    {
+        const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        
+        elements.email.nextElementSibling.innerText = errors.email = 
+            !value || value.length === 0 ? "Email is required" :
+            !emailRegex.test(value) ? 'Email is invalid' : null
+
+        refreshInputStyle(elements.email, errors.email)
+    },
+   
+    phone : (value) =>
+    {
+        const phoneRegex = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+        
+        elements.phone.nextElementSibling.innerText = errors.phone = 
+            !value || value.length === 0 ? "Phone is required" :
+            !phoneRegex.test(value) ? 'Phone is invalid' : null
+        
+        refreshInputStyle(elements.phone, errors.phone)
+    },
+
+    age : (value) =>
+    {
+        elements.age.nextElementSibling.innerText = errors.age = 
+            !value || value.length === 0 ? "Select your age" :
+            value < 18 ? "Prohibited minors" :
+            value > 60 ? "Prohibited seniors" : null
+
+        refreshInputStyle(elements.age, errors.age)
+    },
+
+    enable : (value) =>
+    {
+        elements.enable.nextElementSibling.innerText = errors.enable = value === null ? 'Please tick the box' : null,
+       
+        refreshInputStyle(elements.enable, errors.enable)
+    },
+    
+    date : (value) =>
+    {
+        elements.date.nextElementSibling.innerText = errors.date = value === null ? 'Select a date' : null
+
+        refreshInputStyle(elements.date, errors.date)
+    }, 
+   
+    country : (value) =>
+    {
+        elements.country.nextElementSibling.innerText = errors.country = value === null ? 'Select a country' : null
+        
+        refreshInputStyle(elements.country, errors.country)
+    }, 
+
+    all : () =>
+    {
+        validate.name(values.name)
+        validate.email(values.email)
+        validate.phone(values.phone)
+        validate.age(values.age)
+        validate.enable(values.enable)
+        validate.date(values.date)
+        validate.country(values.country)
+    }
 }
 
-let values =
+const handlers =
 {
-    name : null,
-    email : null,
-    date : null,
-    enable : null,
-    phone : null,
-    age : null,
-    country : elements.country.value
+    name : (event) => refreshErrorSummary(() => validate.name(values.name = getFieldValue(event))),
+    email : (event) => refreshErrorSummary(() => validate.email(values.email = getFieldValue(event))),
+    phone : (event) => refreshErrorSummary(() => validate.phone(values.phone = getFieldValue(event))),
+    age : (event) => refreshErrorSummary(() => validate.age(values.age = getFieldValue(event))),
+    enable : (event) => refreshErrorSummary(() => validate.enable(values.enable = getFieldValue(event))),
+    date : (event) => refreshErrorSummary(() => validate.date(values.date = getFieldValue(event))),
+    country : (event) => refreshErrorSummary(() => validate.country(values.country = getFieldValue(event))),
+
+    submit : (event) =>
+    {
+        event.preventDefault()
+
+        refreshErrorSummary(() => validate.all())
+
+        alert(`Errors :\n${getAllErrors()}\n\nValues :\n${JSON.stringify(values)}`)
+    }
 }
 
-const refreshErrorSummary = () =>
-    elements.errorSummary.innerText = Object.entries(errors)
-        .map(error => error[1] ? `- ${error[1]}` : '')
-        .filter(error => error !== '')
-        .join('\n')
+elements.name.addEventListener('input', handlers.name)
+elements.email.addEventListener('input', handlers.email)
+elements.phone.addEventListener('input', handlers.phone)
+elements.age.addEventListener('input', handlers.age)
+elements.date.addEventListener('change', handlers.date)
+elements.enable.addEventListener('change', handlers.enable)
+elements.country.addEventListener('change', handlers.country)
 
-const nameHandler = (event) =>
-{
-    const value = values.name = event.target.value
+elements.submit.addEventListener('click', handlers.submit)
 
-    elements.nameError.innerText = errors.name = !value || value.length === 0 ? "Le nom est requis" : null
-
-    refreshErrorSummary()
-}
-
-const emailHandler = (event) =>
-{
-    const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    const value = values.email = event.target.value
-
-    elements.emailError.innerText = errors.email = 
-        !value || value.length === 0 ? "Email requis" :
-        !emailRegex.test(value) ? 'Email est invalide' : null
-
-    refreshErrorSummary()
-}
-
-const phoneHandler = (event) =>
-{
-    const phoneRegex = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
-    const value = values.phone = event.target.value
-
-    elements.phoneError.innerText = errors.phone = 
-        !value || value.length === 0 ? "Numéro de téléphone requis" :
-        !phoneRegex.test(value) ? 'Le numéro de téléphone est invalide' : null
-
-    refreshErrorSummary()
-}
-
-const ageHandler = (event) =>
-{
-    const value = values.age = event.target.value
-
-    elements.ageError.innerText = errors.age = 
-        !value || value.length === 0 ? "Sélectionner votre âge" :
-        value < 18 ? "Interdit au mineur" :
-        value > 60 ? "Interdit au sénior" : null
-
-    refreshErrorSummary()
-}
-
-const enableHandler = (event) => values.enable = event.checked
-const dateHandler = (event) => values.date = event.target.value
-const countryHandler = (event) => values.country = event.target.value
-
-const submitHandler = (event) => 
-{
-    event.preventDefault()
-    alert(JSON.stringify(values))
-}
-
-elements.name.addEventListener('input', nameHandler)
-elements.email.addEventListener('input', emailHandler)
-elements.phone.addEventListener('input', phoneHandler)
-elements.age.addEventListener('input', ageHandler)
-elements.date.addEventListener('change', dateHandler)
-elements.enable.addEventListener('change', enableHandler)
-elements.country.addEventListener('change', countryHandler)
-elements.submit.addEventListener('click', submitHandler)
-// input[text|password|number|date] = event.target.value, event 'input'
-// input['checkbox'] = event.checked, event 'change'
-// select (dropdown) = event.target.value, event 'change'
-
-// Mettre les values dans un objet et les afficher au submit
+// Update github description (main, js, ce projet)
+// Portfolios & malt & other
+// Netlify
+// Vidéo
+// Share linkedin & fb : dispo pour être indépendant à la mi-juin
+// copy pastenote
