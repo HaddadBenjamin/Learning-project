@@ -102,6 +102,7 @@ elements.country.addEventListener('change', handlers.country)
 
 elements.submit.addEventListener('click', handlers.submit)
 
+// Selection du mail dans la liste déroulante fait du caca
 // Ombres
 // Ligne rouge en cas d'erreur
 // Icon date
