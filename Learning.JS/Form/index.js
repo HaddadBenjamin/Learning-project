@@ -29,15 +29,15 @@ let elements =
 
 const validate =
 {
-    name : (value) => elements.name.nextElementSibling.innerText = errors.name = !value || value.length === 0 ? "Le nom est requis" : null,
+    name : (value) => elements.name.nextElementSibling.innerText = errors.name = !value || value.length === 0 ? "Name is required" : null,
    
     email : (value) =>
     {
         const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         
         elements.email.nextElementSibling.innerText = errors.email = 
-            !value || value.length === 0 ? "Email requis" :
-            !emailRegex.test(value) ? 'Email est invalide' : null
+            !value || value.length === 0 ? "Email is required" :
+            !emailRegex.test(value) ? 'Email is invalid' : null
     },
    
     phone : (value) =>
@@ -45,20 +45,20 @@ const validate =
         const phoneRegex = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
         
         elements.phone.nextElementSibling.innerText = errors.phone = 
-            !value || value.length === 0 ? "Numéro de téléphone requis" :
-            !phoneRegex.test(value) ? 'Le numéro de téléphone est invalide' : null
+            !value || value.length === 0 ? "Phone is required" :
+            !phoneRegex.test(value) ? 'Phone is invalid' : null
     },
 
     age : (value) => elements.age.nextElementSibling.innerText = errors.age = 
-        !value || value.length === 0 ? "Sélectionner votre âge" :
-        value < 18 ? "Interdit au mineur" :
-        value > 60 ? "Interdit au sénior" : null,
+        !value || value.length === 0 ? "Select your age" :
+        value < 18 ? "Prohibited minors" :
+        value > 60 ? "Prohibited seniors" : null,
   
-    enable : (value) => elements.enable.nextElementSibling.innerText = errors.enable = value === null ? 'Veuillez cocher la case' : null,
+    enable : (value) => elements.enable.nextElementSibling.innerText = errors.enable = value === null ? 'Please tick the box' : null,
     
-    date : (value) => elements.date.nextElementSibling.innerText = errors.date = value === null ? 'Veuillez sélectionner une date' : null,
+    date : (value) => elements.date.nextElementSibling.innerText = errors.date = value === null ? 'Select a date' : null,
    
-    country : (value) => elements.country.nextElementSibling.innerText = errors.country = value === null ? 'Veuillez sélectionner une date' : null,
+    country : (value) => elements.country.nextElementSibling.innerText = errors.country = value === null ? 'Select a country' : null,
 
     all : () =>
     {
@@ -101,3 +101,14 @@ elements.enable.addEventListener('change', handlers.enable)
 elements.country.addEventListener('change', handlers.country)
 
 elements.submit.addEventListener('click', handlers.submit)
+
+// Ombres
+// Ligne rouge en cas d'erreur
+// Icon date
+// Icon invalid / valid
+// Responsive
+// Netlify
+// Vidéo
+// Share linkedin & fb : dispo pour être indépendant à la mi-juin
+// copy pastenote
+// Update github description (main, js, ce projet)

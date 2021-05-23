@@ -21,9 +21,12 @@ body
     justify-content: center;
 }
 
+select:invalid, .form-label { color : #757575 !important }
+button, select, input { cursor : pointer; }
+
 .form-container
 {
-    width : 700px;
+    width : 1000px;
     height: 533px;
 
     background-color: aliceblue;
@@ -33,7 +36,7 @@ body
     border-color : #000000;
 
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 35% 65%;
 }
 
 .form-left-panel
@@ -50,26 +53,78 @@ body
     background : black;
     padding : 50px;
 
-    display : flex;
-    flex-direction: column;
-    gap : 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap : 0px 50px;
 }
 
 .form-title
 {
+    color : #ffffffe8;
     font-weight: 400;
     font-size : 22px;
-    color : #ffffffe8;
+
+    grid-column: 1 / span 2;
 }
 
-.form-error-message, .form-error-summary { color : red; }
-.form-error-summary { width : 100%; }
-
-.form-field input 
+.form-input
 {
-    background-color: black;
-    border: none;
-    font-size: 16px;
+    background-color : black;
+
+    border : none;
+    border-bottom : 1px solid rgba(248, 240, 240, 0.281);
+
+    font-size : 16px;
     font-weight: 600;
-    color: rgb(238, 225, 225);
+    color : rgb(248, 240, 240);
+
+    padding-bottom: 6px;
+
+    width : 250px;
+
+    outline-style: none;
+}
+
+.form-input-enable
+{
+    width : auto;
+    margin-left : 23px;
+}
+
+
+.form-submit-button
+{
+    height : 35px;
+    width : 115px;
+
+    background-color : rgb(54, 218, 82);
+
+    border : none;
+    border-radius : 20px;
+
+    font-size : 17px;
+    font-weight: 500;
+
+    transform : scale(1.1);
+}
+
+.form-input-country { margin-left : -3px; }
+
+
+.form-error-message, .form-error-summary
+{
+    color : red;
+    font-size: 14px;
+
+    margin-top : 5px;
+}
+
+.form-error-summary
+{ 
+    width : 100%;
+
+    margin-top : -5px;
+    margin-bottom : 10px;
+    grid-column: 1 / span 2;
+    display : none;
 }
