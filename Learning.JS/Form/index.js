@@ -133,7 +133,6 @@ elements.country.addEventListener('change', handlers.country)
 
 elements.submit.addEventListener('click', handlers.submit)
 
-// Ligne rouge en cas d'erreur
 // Icon date
 // Icon invalid / valid
 // Responsive
