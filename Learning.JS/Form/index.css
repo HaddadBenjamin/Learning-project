@@ -1,9 +1,66 @@
-form
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
+
+*
 {
+    box-sizing: border-box;
+
+    margin : 0;
+    padding : 0;
+
+    color : white;
+    font-family: "Open Sans";
+} 
+
+body
+{
+    background: linear-gradient(#A18CD1, #FBC2EB);
+    height : 100vh;
+
     display : flex;
-    flex-wrap: wrap;
-    gap : 15px;
+    align-items: center;
+    justify-content: center;
 }
 
-.error-message, .error-summary { color : red; }
-.error-summary { width : 100%; }
+.form-container
+{
+    width : 700px;
+    height: 533px;
+
+    background-color: aliceblue;
+    overflow: hidden;
+
+    border-radius: 10px;
+    border-color : #000000;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.form-left-panel
+{
+    background-image : url('images/form-left-panel-image.png');
+    background-size: cover;
+
+    border : 1px solid grey;
+    border-radius: 10px 0px 0px 10px;
+}
+
+.form-right-panel
+{
+    background : black;
+    padding : 50px;
+
+    display : flex;
+    flex-direction: column;
+    gap : 20px;
+}
+
+.form-title
+{
+    font-weight: 400;
+    font-size : 22px;
+    color : #ffffffe8;
+}
+
+.form-error-message, .form-error-summary { color : red; }
+.form-error-summary { width : 100%; }

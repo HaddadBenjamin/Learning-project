@@ -4,9 +4,9 @@ const getAllErrors = () => Object.entries(errors)
     .map(error => `- ${error}`)
     .join('\n')
 
-const refreshErrorSummary = () => elements.errorSummary.innerText = getAllErrors()
+const refreshErrorSummaryText = () => elements.errorSummary.innerText = getAllErrors()
 
-const validateField = (validateFieldCallback) => { validateFieldCallback(); refreshErrorSummary() }
+const refreshErrorSummary = (validateFieldCallback) => { validateFieldCallback(); refreshErrorSummaryText() }
 
 const getFieldValue = (event) => event?.target?.value ?? event?.checked
 
@@ -74,19 +74,19 @@ const validate =
 
 const handlers =
 {
-    name : (event) => validateField(() => validate.name(values.name = getFieldValue(event))),
-    email : (event) => validateField(() => validate.email(values.email = getFieldValue(event))),
-    phone : (event) => validateField(() => validate.phone(values.phone = getFieldValue(event))),
-    age : (event) => validateField(() => validate.age(values.age = getFieldValue(event))),
-    enable : (event) => validateField(() => validate.enable(values.enable = getFieldValue(event))),
-    date : (event) => validateField(() => validate.date(values.date = getFieldValue(event))),
-    country : (event) => validateField(() => validate.country(values.country = getFieldValue(event))),
+    name : (event) => refreshErrorSummary(() => validate.name(values.name = getFieldValue(event))),
+    email : (event) => refreshErrorSummary(() => validate.email(values.email = getFieldValue(event))),
+    phone : (event) => refreshErrorSummary(() => validate.phone(values.phone = getFieldValue(event))),
+    age : (event) => refreshErrorSummary(() => validate.age(values.age = getFieldValue(event))),
+    enable : (event) => refreshErrorSummary(() => validate.enable(values.enable = getFieldValue(event))),
+    date : (event) => refreshErrorSummary(() => validate.date(values.date = getFieldValue(event))),
+    country : (event) => refreshErrorSummary(() => validate.country(values.country = getFieldValue(event))),
 
     submit : (event) =>
     {
         event.preventDefault()
 
-        validateField(() => validate.all())
+        refreshErrorSummary(() => validate.all())
 
         alert(`Errors :\n${getAllErrors()}\n\nValues :\n${JSON.stringify(values)}`)
     }
