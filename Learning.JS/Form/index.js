@@ -137,8 +137,3 @@ elements.enable.addEventListener('change', handlers.enable)
 elements.country.addEventListener('change', handlers.country)
 
 elements.submit.addEventListener('click', handlers.submit)
-
-// Portfolios & malt & other
-// Vidéo
-// Share linkedin : dispo pour être indépendant à la mi-juin
-// copy pastenote

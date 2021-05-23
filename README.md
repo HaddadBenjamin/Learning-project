@@ -15,7 +15,7 @@ Refaire une partie de l'interface du site Quovery https://qovery.netlify.app/
 
 ## JavaScript
 Développement d'un formulaire responsive et de sa validation https://haddad-form.netlify.app/
-> ![Image of Yaktocat](https://imgur.com/ntWrITF.png)
+> ![Image of Yaktocat](https://imgur.com/J832tzS.png)
 
 ## React Native
 Réalisation d'une application de type todo list inspirée par "Microsoft To do" https://www.youtube.com/watch?v=ATKug3CPKEI
