@@ -1,24 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
 
-
-select:invalid, .form-label { color : #757575 !important }
-button, select, input { cursor : pointer; }
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus
-{
-  -webkit-text-fill-color : rgb(248, 240, 240) !important;
-  -webkit-box-shadow: 0 0 0px 1000px #000 inset;
-  transition: background-color 5000s ease-in-out 0s;
-}
-
 *
 {
     box-sizing: border-box;
@@ -39,6 +20,55 @@ body
     align-items: center;
     justify-content: center;
 }
+
+select:invalid, .form-label { color : #757575 !important }
+button, select, input { cursor : pointer; }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus
+{
+    -webkit-text-fill-color : rgb(248, 240, 240) !important;
+    -webkit-box-shadow: 0 0 0px 1000px #000 inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+select /* for iPhone appeareance */
+{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+input[type="date"]
+{
+    display: block;
+    -webkit-appearance:none;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator
+{
+    color: rgba(0, 0, 0, 0);
+
+    opacity: 1;
+
+    display: block;
+
+    background: url('images/calendar.png') no-repeat;
+    
+    border-width: thin;
+    
+    min-height: 1.2em;
+    width: 20px;
+    height: 20px;
+}
+@media(max-width: 500px) { .form-input-enable { color: white; }}
 
 .form-container
 {
@@ -163,24 +193,5 @@ body
     width : 20px;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator
-{
-    color: rgba(0, 0, 0, 0);
-
-    opacity: 1;
-
-    display: block;
-
-    background: url('images/calendar.png') no-repeat;
-    
-    border-width: thin;
-    
-    min-height: 1.2em;
-    width: 20px;
-    height: 20px;
-
-    -webkit-appearance: textfield;
-    -moz-appearance: textfield;
-}
 
 .hidden { display : none; }

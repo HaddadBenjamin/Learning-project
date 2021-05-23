@@ -137,3 +137,9 @@ elements.enable.addEventListener('change', handlers.enable)
 elements.country.addEventListener('change', handlers.country)
 
 elements.submit.addEventListener('click', handlers.submit)
+
+window.onload = () => 
+{
+    if (window.screen.width <= 550)
+        elements.date.type = 'date';
+} 
