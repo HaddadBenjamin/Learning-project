@@ -64,3 +64,12 @@ body
 
 .form-error-message, .form-error-summary { color : red; }
 .form-error-summary { width : 100%; }
+
+.form-field input 
+{
+    background-color: black;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(238, 225, 225);
+}
