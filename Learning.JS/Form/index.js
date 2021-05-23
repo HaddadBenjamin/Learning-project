@@ -10,7 +10,12 @@ const refreshErrorSummary = (validateFieldCallback) => { validateFieldCallback()
 
 const getFieldValue = (event) => event?.target?.value ?? event?.checked
 
-const refreshInputBorderColor = (element, error) => element.style.borderColor = error ? 'red' : 'rgba(248, 240, 240, 0.281)'
+const refreshInputStyle = (element, error) => 
+{
+    element.style.borderColor = error ? 'red' : 'rgba(248, 240, 240, 0.281)'
+
+    element.nextElementSibling.nextElementSibling.src = error ? "images/invalid.png" : ""//images/valid.png"
+}
 
 let values = { name : null, email : null, date : null, enable : null, phone : null, age : null, country : null }
 let errors = { name : null, email : null, date : null, enable : null, phone : null, age : null, country : null }
@@ -35,7 +40,7 @@ const validate =
     {
         elements.name.nextElementSibling.innerText = errors.name = !value || value.length === 0 ? "Name is required" : null
 
-        refreshInputBorderColor(elements.name, errors.name)
+        refreshInputStyle(elements.name, errors.name)
     },
    
     email : (value) =>
@@ -46,7 +51,7 @@ const validate =
             !value || value.length === 0 ? "Email is required" :
             !emailRegex.test(value) ? 'Email is invalid' : null
 
-        refreshInputBorderColor(elements.email, errors.email)
+        refreshInputStyle(elements.email, errors.email)
     },
    
     phone : (value) =>
@@ -57,7 +62,7 @@ const validate =
             !value || value.length === 0 ? "Phone is required" :
             !phoneRegex.test(value) ? 'Phone is invalid' : null
         
-        refreshInputBorderColor(elements.phone, errors.phone)
+        refreshInputStyle(elements.phone, errors.phone)
     },
 
     age : (value) =>
@@ -67,28 +72,28 @@ const validate =
             value < 18 ? "Prohibited minors" :
             value > 60 ? "Prohibited seniors" : null
 
-        refreshInputBorderColor(elements.age, errors.age)
+        refreshInputStyle(elements.age, errors.age)
     },
 
     enable : (value) =>
     {
         elements.enable.nextElementSibling.innerText = errors.enable = value === null ? 'Please tick the box' : null,
        
-        refreshInputBorderColor(elements.enable, errors.enable)
+        refreshInputStyle(elements.enable, errors.enable)
     },
     
     date : (value) =>
     {
         elements.date.nextElementSibling.innerText = errors.date = value === null ? 'Select a date' : null
 
-        refreshInputBorderColor(elements.date, errors.date)
+        refreshInputStyle(elements.date, errors.date)
     }, 
    
     country : (value) =>
     {
         elements.country.nextElementSibling.innerText = errors.country = value === null ? 'Select a country' : null
         
-        refreshInputBorderColor(elements.country, errors.country)
+        refreshInputStyle(elements.country, errors.country)
     }, 
 
     all : () =>
@@ -133,8 +138,6 @@ elements.country.addEventListener('change', handlers.country)
 
 elements.submit.addEventListener('click', handlers.submit)
 
-// Icon date
-// Icon invalid / valid
 // Responsive
 // Netlify
 // Vidéo
