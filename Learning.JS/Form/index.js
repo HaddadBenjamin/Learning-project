@@ -138,9 +138,7 @@ elements.country.addEventListener('change', handlers.country)
 
 elements.submit.addEventListener('click', handlers.submit)
 
-// Update github description (main, js, ce projet)
 // Portfolios & malt & other
-// Netlify
 // Vidéo
-// Share linkedin & fb : dispo pour être indépendant à la mi-juin
+// Share linkedin : dispo pour être indépendant à la mi-juin
 // copy pastenote
