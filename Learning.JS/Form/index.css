@@ -113,6 +113,7 @@ body
 }
 
 .form-input-enable { width : auto;  margin-left : 23px; }
+@media(max-width: 500px) { .form-input-enable { margin-left : 5px; }}
 
 .form-submit-button
 {
@@ -174,8 +175,12 @@ input[type="date"]::-webkit-calendar-picker-indicator
     
     border-width: thin;
     
+    min-height: 1.2em;
     width: 20px;
     height: 20px;
+
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
 }
 
 .hidden { display : none; }
