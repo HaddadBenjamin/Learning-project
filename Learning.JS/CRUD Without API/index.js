@@ -5,7 +5,7 @@ let todoToggles = document.querySelectorAll('.todo-toggle, .todo-toggle-checked'
 
 const toggleTodoEventHandler = (event) =>
 {
-    let toggle = event.target.parentNode
+    let toggle = event.target.parentElement.classList.contains('todo') ? event.target : event.target.parentElement
     let todo = toggle.parentElement
     
     toggle.classList.toggle('todo-toggle')
