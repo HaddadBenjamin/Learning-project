@@ -1,0 +1,7 @@
+{
+    "todos" : [
+        { "id" : 1, "content" : "Faire la bouffe", "completed" : false },
+        { "id" : 2, "content" : "Aller au ski", "completed" : false },
+        { "id" : 3, "content" : "Préparer la réunion", "completed" : true }
+    ]
+}
