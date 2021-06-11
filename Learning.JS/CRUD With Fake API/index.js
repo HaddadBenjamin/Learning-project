@@ -34,18 +34,19 @@
 
         toggle = (id) => this.todos = this.todos.map(todo => todo.id === id ? { ...todo, completed : !todo.completed } : todo)
 
-        delete = (id) => this.todos = this.todos.filter(todo => todo.id === id )
+        delete = (id) => this.todos = this.todos.filter(todo => todo.id === id)
 
         generateId = () => Math.max(this.todos.map(todo => todo.id)) + 1
     }
 
     class TodoDom
     {
+        doneTodoList = document.querySelector('.done-todo-list')
+        undoneTodoList = document.querySelector('.undone-todo-list')
         add = ({ id, content, completed }, resetInput = false) =>
         {
             let newTodo = document.createElement('div')
             let toggleClass = completed ? 'todo-toggle-checked' : 'todo-toggle'
-            let todoList = completed ? doneTodoList : undoneTodoList
 
             newTodo.innerHTML = `
                 <li class="todo" data-todo-id="${id}">
@@ -56,7 +57,7 @@
                     <div class="todo-remove"></div>
                 </li>`
 
-            todoList.appendChild(newTodo)  
+            this.getTodoList(completed).appendChild(newTodo)  
 
             newTodo.querySelector('.todo-remove').addEventListener('click', todoEventHandlers.remove)
             newTodo.querySelector('.todo-toggle, .todo-toggle-checked').addEventListener('click', todoEventHandlers.toggle)
@@ -74,16 +75,14 @@
             toggle.classList.toggle('todo-toggle')
             toggle.classList.toggle('todo-toggle-checked')
 
-            const todoList = completed ? doneTodoList : undoneTodoList
-            
-            todoList.appendChild(todo)
+            this.getTodoList(completed).appendChild(todo)
         }
 
         expandOrCollapse = () =>
         {
             let doneTodoListImage = document.querySelector('.arrow-down-image') 
       
-            doneTodoList.classList.toggle('hidden')
+            this.doneTodoList.classList.toggle('hidden')
     
             doneTodoListImage.classList.toggle('arrow-down-image')
             doneTodoListImage.classList.toggle('arrow-right-image')
@@ -95,6 +94,7 @@
         isTodo = (element) => element.classList.contains('todo')
 
         getAddContentInput = () => document.querySelector('.add-todo-content')
+        getTodoList = (completed) => completed ? this.doneTodoList : this.undoneTodoList
     }
 
     class TodoEventHandlers
@@ -138,12 +138,13 @@
         expandOrCollapseCompletedTodos = () => todoDom.expandOrCollapse()
     }
 
+
     let todoApi = new TodoApi()
     let todoState = new TodoState()
     let todoDom = new TodoDom()
     let todoEventHandlers = new TodoEventHandlers()
-    let doneTodoList = document.querySelector('.done-todo-list')
-    let undoneTodoList = document.querySelector('.undone-todo-list')
+
+
 
     // Expand & collapse done todo list
     let doneTodoListTitle = document.querySelector('.done-todo-list-title') 
@@ -153,13 +154,11 @@
     let addTodoImage = document.querySelector('.add-todo-image')
     addTodoImage.addEventListener('click', todoEventHandlers.add)
 
+    
     // Generate to do list
-    const generateTodoList = async () =>
+    await (generateTodoList = async () =>
     {
         todoState.set(await todoApi.getAll())
         todoState.todos.forEach(todo => todoDom.add(todo))
-    }
-
-    await generateTodoList()
+    })()
 })()
-
