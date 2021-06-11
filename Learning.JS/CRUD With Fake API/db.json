@@ -1,0 +1,11 @@
+{
+    "todos" : [
+        { "id" : 1, "content" : "Faire la bouffe", "completed" : false },
+        { "id" : 2, "content" : "Commander un tournevis", "completed" : false },
+        { "id" : 3, "content" : "Aller au ski", "completed" : false },
+        { "id" : 4, "content" : "Appeler mon frère", "completed" : false },
+        { "id" : 5, "content" : "Préparer la réunion", "completed" : true },
+        { "id" : 6, "content" : "Appeler Bertrand", "completed" : true },
+        { "id" : 7, "content" : "Coder ce projet", "completed" : true }
+    ]
+}
