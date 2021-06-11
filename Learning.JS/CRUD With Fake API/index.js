@@ -2,48 +2,48 @@
 {
     class TodoApi
     {
-        apiUrl = "http://localhost:3004/todos"
+        apiUrl = "http://localhost:3888/todos"
         headers = { "Content-Type" : "application/json" }
 
         getAll = async () => await (await fetch(this.apiUrl)).json()
 
-        create = async(todo) => await (await fetch(this.apiUrl,
+        create = todo => fetch(this.apiUrl,
         { 
             method : 'POST',
             headers : this.headers,
             body : JSON.stringify(todo)
-        }))
+        })
 
-        patchCompleted = async (id, completed) =>  await (await fetch(`${this.apiUrl}/${id}`,
+        patchCompleted = (id, completed) => fetch(`${this.apiUrl}/${id}`,
         {
             method : 'PATCH',
             headers : this.headers,
             body : JSON.stringify({ completed : !completed }),
-        }))
+        })
 
-        patchContent= async (id, content) =>  await (await fetch(`${this.apiUrl}/${id}`,
+        patchContent = (id, content) => fetch(`${this.apiUrl}/${id}`,
         {
             method : 'PATCH',
             headers : this.headers,
             body : JSON.stringify({ content : content }),
-        }))
+        })
 
-        delete = async (id) => await (await fetch(`${this.apiUrl}/${id}`, { method : 'DELETE' }))
+        delete = id => fetch(`${this.apiUrl}/${id}`, { method : 'DELETE' })
     }
 
     class TodoState
     {
         todos = []
 
-        set = (todos) => this.todos = todos
+        set = todos => this.todos = todos
 
-        add = (todo) => this.todos.push(todo)
+        add = todo => this.todos.push(todo)
 
-        toggle = (id) => this.todos = this.todos.map(todo => todo.id === id ? { ...todo, completed : !todo.completed } : todo)
+        toggle = id => this.todos = this.todos.map(todo => todo.id === id ? { ...todo, completed : !todo.completed } : todo)
 
         patchContent = (id, content) =>this.todos.map(todo => todo.id === id ? { ...todo, content : content } : todo)
 
-        delete = (id) => this.todos = this.todos.filter(todo => todo.id === id)
+        delete = id => this.todos = this.todos.filter(todo => todo.id === id)
 
         generateId = () => Math.max(this.todos.map(todo => todo.id)) + 1
     }
@@ -86,7 +86,7 @@
             toggle.classList.toggle('todo-toggle')
             toggle.classList.toggle('todo-toggle-checked')
 
-            this.getTodoList(completed).appendChild(todo)
+            this.getTodoList(!completed).appendChild(todo)
         }
 
         expandOrCollapse = () =>
@@ -99,10 +99,10 @@
             doneTodoListImage.classList.toggle('arrow-right-image')
         }
 
-        delete = (todo) => todo.parentElement.removeChild(todo)
+        delete = todo => todo.parentElement.removeChild(todo)
 
-        isCompleted = (toggle) => toggle.classList.contains('todo-toggle-checked')
-        isTodo = (element) => element.classList.contains('todo')
+        isCompleted = toggle => toggle.classList.contains('todo-toggle-checked')
+        isTodo = element => element.classList.contains('todo')
 
         getAddContentInput = () => document.querySelector('.add-todo-content')
         getTodoList = (completed) => completed ? this.doneTodoList : this.undoneTodoList
@@ -110,7 +110,7 @@
 
     class TodoEventHandlers
     {
-        add = async () =>
+        add = () =>
         {
             let content = todoDom.getAddContentInput().value
 
@@ -121,10 +121,10 @@
 
             todoDom.add(todo, true)
             todoState.add(todo)
-            await todoApi.create(todo)
+            todoApi.create(todo)
         }
 
-        toggle = async (event) =>
+        toggle = event =>
         {
             const toggle = todoDom.isTodo(event.target.parentElement) ? event.target : event.target.parentElement
             const completed = todoDom.isCompleted(toggle)
@@ -133,10 +133,10 @@
             
             todoDom.toggle(toggle, completed, todo)
             todoState.toggle(id)
-            await todoApi.patchCompleted(id, completed)
+            todoApi.patchCompleted(id, completed)
         }
 
-        patchContent = async (event) =>
+        patchContent = event =>
         {
             const contentElement = todoDom.isTodo(event.target.parentElement) ? event.target : event.target.parentElement
             const todo = contentElement.parentElement
@@ -147,14 +147,14 @@
             todoState.patchContent(id, content)
         }
 
-        remove = async (event) => 
+        remove = event => 
         {
             const todo = event.target.parentElement
             const id = todo.dataset.todoId
             
             todoDom.delete(todo)
             todoState.delete(id)
-            await todoApi.delete(id)
+            todoApi.delete(id)
         }
 
         expandOrCollapseCompletedTodos = () => todoDom.expandOrCollapse()
@@ -166,17 +166,9 @@
     let todoDom = new TodoDom()
     let todoEventHandlers = new TodoEventHandlers()
 
+    document.querySelector('.done-todo-list-title').addEventListener('click', todoEventHandlers.expandOrCollapseCompletedTodos)
+    document.querySelector('.add-todo-image').addEventListener('click', todoEventHandlers.add)
 
-    // Expand & collapse done todo list
-    let doneTodoListTitle = document.querySelector('.done-todo-list-title') 
-    doneTodoListTitle.addEventListener('click', todoEventHandlers.expandOrCollapseCompletedTodos)
-
-    // Add todo
-    let addTodoImage = document.querySelector('.add-todo-image')
-    addTodoImage.addEventListener('click', todoEventHandlers.add)
-
-    
-    // Generate to do list
     await (generateTodoList = async () =>
     {
         todoState.set(await todoApi.getAll())

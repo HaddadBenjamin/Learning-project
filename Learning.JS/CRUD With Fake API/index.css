@@ -69,7 +69,7 @@ input
     background-size: cover;
 }
 
-.todo-content { margin-right : auto; }
+.todo-content { margin-right : auto; flex : 3; }
 
 .todo-remove
 { 
