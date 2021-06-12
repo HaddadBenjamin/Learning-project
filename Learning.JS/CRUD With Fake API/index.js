@@ -2,61 +2,63 @@
 {
     class TodoApi
     {
-        apiUrl = "http://localhost:3888/todos"
-        headers = { "Content-Type" : "application/json" }
+        #apiUrl = "http://localhost:3888/todos"
+        #headers = { "Content-Type" : "application/json" }
 
-        getAll = async () => await (await fetch(this.apiUrl)).json()
+        getAll = async () => await (await fetch(this.#apiUrl)).json()
 
-        create = todo => fetch(this.apiUrl,
+        create = todo => fetch(this.#apiUrl,
         { 
             method : 'POST',
-            headers : this.headers,
+            headers : this.#headers,
             body : JSON.stringify(todo)
         })
 
-        patchCompleted = (id, completed) => fetch(`${this.apiUrl}/${id}`,
+        patchCompleted = (id, completed) => fetch(`${this.#apiUrl}/${id}`,
         {
             method : 'PATCH',
-            headers : this.headers,
+            headers : this.#headers,
             body : JSON.stringify({ completed : !completed }),
         })
 
-        patchContent = (id, content) => fetch(`${this.apiUrl}/${id}`,
+        patchContent = (id, content) => fetch(`${this.#apiUrl}/${id}`,
         {
             method : 'PATCH',
-            headers : this.headers,
+            headers : this.#headers,
             body : JSON.stringify({ content : content }),
         })
 
-        delete = id => fetch(`${this.apiUrl}/${id}`, { method : 'DELETE' })
+        delete = id => fetch(`${this.#apiUrl}/${id}`, { method : 'DELETE' })
     }
 
     class TodoState
     {
-        todos = []
+        #todos = []
 
-        set = todos => this.todos = todos
+        get = () => [...this.#todos]
 
-        add = todo => this.todos.push(todo)
+        set = todos => this.#todos = todos
 
-        toggle = id => this.todos = this.todos.map(todo => todo.id === id ? { ...todo, completed : !todo.completed } : todo)
+        add = todo => this.#todos.push(todo)
 
-        patchContent = (id, content) =>this.todos.map(todo => todo.id === id ? { ...todo, content : content } : todo)
+        toggle = id => this.#todos = this.#todos.map(todo => todo.id === id ? { ...todo, completed : !todo.completed } : todo)
 
-        delete = id => this.todos = this.todos.filter(todo => todo.id === id)
+        patchContent = (id, content) => this.#todos.map(todo => todo.id === id ? { ...todo, content : content } : todo)
 
-        generateId = () => Math.max(this.todos.map(todo => todo.id)) + 1
+        delete = id => this.#todos = this.#todos.filter(todo => todo.id === id)
+
+        generateId = () => (Math.max(this.#todos.map(todo => todo.id)) + 1).toString()
     }
 
     class TodoDom
     {
-        doneTodoList = document.querySelector('.done-todo-list')
-        undoneTodoList = document.querySelector('.undone-todo-list')
+        #doneTodoList = document.querySelector('.done-todo-list')
+        #undoneTodoList = document.querySelector('.undone-todo-list')
 
         add = ({ id, content, completed }, resetInput = false) =>
         {
-            let newTodo = document.createElement('div')
-            let toggleClass = completed ? 'todo-toggle-checked' : 'todo-toggle'
+            const newTodo = document.createElement('div')
+            const toggleClass = completed ? 'todo-toggle-checked' : 'todo-toggle'
 
             newTodo.innerHTML = `
                 <li class="todo" data-todo-id="${id}">
@@ -67,7 +69,7 @@
                     <div class="todo-remove"></div>
                 </li>`
 
-            this.getTodoList(completed).appendChild(newTodo)  
+            this.#getTodoList(completed).appendChild(newTodo)  
 
             newTodo.querySelector('.todo-remove').addEventListener('click', todoEventHandlers.remove)
             newTodo.querySelector('.todo-toggle, .todo-toggle-checked').addEventListener('click', todoEventHandlers.toggle)
@@ -86,14 +88,14 @@
             toggle.classList.toggle('todo-toggle')
             toggle.classList.toggle('todo-toggle-checked')
 
-            this.getTodoList(!completed).appendChild(todo)
+            this.#getTodoList(!completed).appendChild(todo)
         }
 
         expandOrCollapse = () =>
         {
-            let doneTodoListImage = document.querySelector('.arrow-down-image') 
+            const doneTodoListImage = document.querySelector('.arrow-down-image') 
       
-            this.doneTodoList.classList.toggle('hidden')
+            this.#doneTodoList.classList.toggle('hidden')
     
             doneTodoListImage.classList.toggle('arrow-down-image')
             doneTodoListImage.classList.toggle('arrow-right-image')
@@ -105,19 +107,19 @@
         isTodo = element => element.classList.contains('todo')
 
         getAddContentInput = () => document.querySelector('.add-todo-content')
-        getTodoList = (completed) => completed ? this.doneTodoList : this.undoneTodoList
+        #getTodoList = (completed) => completed ? this.#doneTodoList : this.#undoneTodoList
     }
 
     class TodoEventHandlers
     {
         add = () =>
         {
-            let content = todoDom.getAddContentInput().value
+            const content = todoDom.getAddContentInput().value
 
             if (content === '') return
 
-            let id = todoState.generateId()
-            let todo = { id, content, completed : false }
+            const id = todoState.generateId()
+            const todo = { id, content, completed : false }
 
             todoDom.add(todo, true)
             todoState.add(todo)
@@ -151,7 +153,7 @@
         {
             const todo = event.target.parentElement
             const id = todo.dataset.todoId
-            
+
             todoDom.delete(todo)
             todoState.delete(id)
             todoApi.delete(id)
@@ -161,10 +163,10 @@
     }
 
 
-    let todoApi = new TodoApi()
-    let todoState = new TodoState()
-    let todoDom = new TodoDom()
-    let todoEventHandlers = new TodoEventHandlers()
+    const todoApi = new TodoApi()
+    const todoState = new TodoState()
+    const todoDom = new TodoDom()
+    const todoEventHandlers = new TodoEventHandlers()
 
     document.querySelector('.done-todo-list-title').addEventListener('click', todoEventHandlers.expandOrCollapseCompletedTodos)
     document.querySelector('.add-todo-image').addEventListener('click', todoEventHandlers.add)
@@ -172,6 +174,6 @@
     await (generateTodoList = async () =>
     {
         todoState.set(await todoApi.getAll())
-        todoState.todos.forEach(todo => todoDom.add(todo))
+        todoState.get().forEach(todo => todoDom.add(todo))
     })()
 })()
