@@ -2,33 +2,33 @@
 {
     class TodoApi
     {
-        #apiUrl = "http://localhost:3888/todos"
-        #headers = { "Content-Type" : "application/json" }
+        static #apiUrl = "http://localhost:3888/todos"
+        static #headers = { "Content-Type" : "application/json" }
 
-        getAll = async () => await (await fetch(this.#apiUrl)).json()
+        getAll = async () => await (await fetch(TodoApi.#apiUrl)).json()
 
-        create = todo => fetch(this.#apiUrl,
+        create = todo => fetch(TodoApi.#apiUrl,
         { 
             method : 'POST',
-            headers : this.#headers,
+            headers : TodoApi.#headers,
             body : JSON.stringify(todo)
         })
 
-        patchCompleted = (id, completed) => fetch(`${this.#apiUrl}/${id}`,
+        patchCompleted = (id, completed) => fetch(`${TodoApi.#apiUrl}/${id}`,
         {
             method : 'PATCH',
-            headers : this.#headers,
+            headers : TodoApi.#headers,
             body : JSON.stringify({ completed : !completed }),
         })
 
-        patchContent = (id, content) => fetch(`${this.#apiUrl}/${id}`,
+        patchContent = (id, content) => fetch(`${TodoApi.#apiUrl}/${id}`,
         {
             method : 'PATCH',
-            headers : this.#headers,
+            headers : TodoApi.#headers,
             body : JSON.stringify({ content : content }),
         })
 
-        delete = id => fetch(`${this.#apiUrl}/${id}`, { method : 'DELETE' })
+        delete = id => fetch(`${TodoApi.#apiUrl}/${id}`, { method : 'DELETE' })
     }
 
     class TodoState
@@ -52,8 +52,8 @@
 
     class TodoDom
     {
-        #doneTodoList = document.querySelector('.done-todo-list')
-        #undoneTodoList = document.querySelector('.undone-todo-list')
+        static #doneTodoList = document.querySelector('.done-todo-list')
+        static #undoneTodoList = document.querySelector('.undone-todo-list')
 
         add = ({ id, content, completed }, resetInput = false) =>
         {
@@ -69,7 +69,7 @@
                     <div class="todo-remove"></div>
                 </li>`
 
-            this.#getTodoList(completed).appendChild(newTodo)  
+            TodoDom.#getTodoList(completed).appendChild(newTodo)  
 
             newTodo.querySelector('.todo-remove').addEventListener('click', todoEventHandlers.remove)
             newTodo.querySelector('.todo-toggle, .todo-toggle-checked').addEventListener('click', todoEventHandlers.toggle)
@@ -88,14 +88,14 @@
             toggle.classList.toggle('todo-toggle')
             toggle.classList.toggle('todo-toggle-checked')
 
-            this.#getTodoList(!completed).appendChild(todo)
+            TodoDom.#getTodoList(!completed).appendChild(todo)
         }
 
         expandOrCollapse = () =>
         {
             const doneTodoListImage = document.querySelector('.arrow-down-image') 
       
-            this.#doneTodoList.classList.toggle('hidden')
+            TodoDom.#doneTodoList.classList.toggle('hidden')
     
             doneTodoListImage.classList.toggle('arrow-down-image')
             doneTodoListImage.classList.toggle('arrow-right-image')
@@ -107,7 +107,7 @@
         isTodo = element => element.classList.contains('todo')
 
         getAddContentInput = () => document.querySelector('.add-todo-content')
-        #getTodoList = (completed) => completed ? this.#doneTodoList : this.#undoneTodoList
+        static #getTodoList = (completed) => completed ? TodoDom.#doneTodoList : TodoDom.#undoneTodoList
     }
 
     class TodoEventHandlers
