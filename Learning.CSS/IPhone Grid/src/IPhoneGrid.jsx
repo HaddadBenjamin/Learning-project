@@ -19,17 +19,40 @@ import { ReactComponent as Camera } from "./assets/svg/camera.svg";
 
 const IPhoneGrid = () =>
   <div className="grid-container">
-    <div className="grid-item big-grid-item"></div>
-    <div className="grid-item big-grid-item"></div>
-    <div className="grid-item"></div>
-    <div className="grid-item"></div>
-    <div className="grid-item tall-grid-item"></div>
-    <div className="grid-item tall-grid-item"></div>
-    <div className="grid-item large-grid-item"></div>
-    <div className="grid-item"></div>
-    <div className="grid-item"></div>
-    <div className="grid-item"></div>
-    <div className="grid-item"></div>
+    <div className="grid-item big-grid-item">
+      <div className="wifi-element "><Airplane /></div>
+      <div className="wifi-element green-wifi-element"><Cellular /></div>
+      <div className="wifi-element blue-wifi-element"><Wifi /></div>
+      <div className="wifi-element blue-wifi-element"><Bluetooth /></div>
+    </div>
+
+    <div className="grid-item big-grid-item music-container">
+      <div className="music-title">Music</div>
+      <Rewind/>
+      <Play/>
+      <FastForward/>
+    </div>
+
+    <div className="grid-item"><Orientation/></div>
+    <div className="grid-item"><NightMode/></div>
+
+    <div className="grid-item tall-grid-item brightness-container">
+      <Brightness className="brightness"/>
+    </div>
+
+    <div className="grid-item tall-grid-item volume-container">
+      <Volume className="volume"/>
+    </div>
+
+    <div className="grid-item large-grid-item screen-container">
+      <Screen />
+      <div>Screen<p>mirroring</p></div>
+    </div>
+
+    <div className="grid-item"><Flashlight/></div>
+    <div className="grid-item"><Timer/></div>
+    <div className="grid-item"><Calculator/></div>
+    <div className="grid-item"><Camera/></div>
   </div>
 
 export default IPhoneGrid
