@@ -13,8 +13,8 @@ Refaire l'intégration CSS de la page de garde de Diablo II - Ressurected en gé
 Refaire une partie de l'interface du site Quovery https://qovery.netlify.app/
 > ![Image of Yaktocat](https://imgur.com/MpqP7md.png)
 
-Refaire le menu de l'Iphone avec le système de grille en CSS https://iphone-grid.netlify.app/
-> ![Image of Yaktocat](https://imgur.com/p3GDYh9.png)
+Refaire le menu de configuration l'Iphone avec le système de grille en CSS https://iphone-grid.netlify.app/
+> ![Image of Yaktocat](https://imgur.com/PFVKVAs.png)
 
 ## JavaScript
 Développement d'un formulaire responsive et de sa validation https://haddad-form.netlify.app/
