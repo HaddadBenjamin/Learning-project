@@ -46,7 +46,7 @@ const IPhoneGrid = () =>
 
     <div className="grid-item large-grid-item screen-container">
       <Screen />
-      <div>Screen<p>mirroring</p></div>
+      <p>Screen<p>mirroring</p></p>
     </div>
 
     <div className="grid-item"><Flashlight/></div>
