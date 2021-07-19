@@ -27,7 +27,7 @@ const IPhoneGrid = () =>
     </div>
 
     <div className="grid-item big-grid-item music-container">
-      <div className="music-title">Music</div>
+      <p className="music-title">Music</p>
       <Rewind/>
       <Play/>
       <FastForward/>

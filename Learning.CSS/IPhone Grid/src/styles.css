@@ -1,5 +1,5 @@
 body { font-family: Arial, Helvetica, sans-serif; }
-* { color : white; }
+p { color : white; margin : 0; }
 
 .grid-container
 {
@@ -83,7 +83,6 @@ body { font-family: Arial, Helvetica, sans-serif; }
 
 .music-title
 {
-    color : white;
     font-weight: 700;
 
     grid-column: span 3;
@@ -114,4 +113,3 @@ body { font-family: Arial, Helvetica, sans-serif; }
     align-items: center;
     justify-items: center;
 }
-.screen-container p { margin : 0;}
